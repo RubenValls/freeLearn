@@ -8,7 +8,7 @@ import { MatButtonToggleChange } from '@angular/material/button-toggle';
 })
 export class LoginPageComponent {
   
-  private isLogIn = false;
+  isLogIn = true;
 
   onChange(event: MatButtonToggleChange) {
     if(event.value === 'login'){

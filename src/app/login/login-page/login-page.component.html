@@ -4,8 +4,10 @@
         <div class="col-md-6 m-auto" id="login-form-container">
             <mat-button-toggle-group name="loginType" aria-label="Login Type" (change)="onChange($event)">
                 <mat-button-toggle value="login" checked>Log In</mat-button-toggle>
-                <mat-button-toggle value="signup">Sign Up</mat-button-toggle>
+                <mat-button-toggle value="signin">Sign In</mat-button-toggle>
             </mat-button-toggle-group>
+            <app-signup-form *ngIf="!isLogIn"></app-signup-form>
+            <app-login-form *ngIf="isLogIn"></app-login-form>
         </div>
     </div>
 </div>
