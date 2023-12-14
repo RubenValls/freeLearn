@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { LoginRoutingModule } from './login-routing.module';
-
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 
 @NgModule({
@@ -11,6 +11,7 @@ import { LoginRoutingModule } from './login-routing.module';
   ],
   imports: [
     CommonModule,
+    MatButtonToggleModule,
     LoginRoutingModule
   ]
 })

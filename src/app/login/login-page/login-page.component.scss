@@ -4,7 +4,7 @@
     background-image: url('https://pixabay.com/get/gf08e84de12840994363e7114e6e06fe7d054b78bcabdb951ec5c1127fee7a046d74d289a752cbb56660f78c4aa5e5736.jpg');
     background-size: cover;
 
-    @media (width < 768px) { // Este es el breakpoint md en Bootstrap 5
+    @media (width < 768px) {
         height: 50%;
     }
 }
@@ -16,7 +16,7 @@
     margin: auto;
     height: 100%;
 
-    @media (width < 768px) { // Este es el breakpoint md en Bootstrap 5
+    @media (width < 768px) {
         height: 50%;
     }
 }

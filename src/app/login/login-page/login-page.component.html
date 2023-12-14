@@ -2,7 +2,10 @@
     <div class="row justify-content-md-center h-100">
         <div class="col-md-6" id="login-img-banner"></div>
         <div class="col-md-6 m-auto" id="login-form-container">
-          Variable width content
+            <mat-button-toggle-group name="loginType" aria-label="Login Type" (change)="onChange($event)">
+                <mat-button-toggle value="login" checked>Log In</mat-button-toggle>
+                <mat-button-toggle value="signup">Sign Up</mat-button-toggle>
+            </mat-button-toggle-group>
         </div>
     </div>
 </div>
