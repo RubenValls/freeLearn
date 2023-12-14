@@ -16,6 +16,7 @@ export class LoginFormComponent {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
+      rememberMe: new FormControl(true),
     });
   }
 
@@ -28,6 +29,8 @@ export class LoginFormComponent {
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           console.log("User signed in:", userCredential.user);
+          this.loginForm.reset();
+          this.loginForm.markAsUntouched();
         })
         .catch((error) => {
           // User failed to sign in

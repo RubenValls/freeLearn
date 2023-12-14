@@ -46,13 +46,15 @@ export class SignupFormComponent {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           console.log(userCredential.user);
-          this.signupForm.reset()
         })
         .catch((error) => {
           console.log(error)
           const errorCode = error.code;
           const errorMessage = error.message;       
-        });
+        })
+        .finally(() => {
+          this.signupForm.reset();
+        })
     }
   }
 
@@ -63,6 +65,7 @@ export class SignupFormComponent {
       .then((result) => {
         console.log(result.user);
         this.signupForm.reset();
+        this.signupForm.markAsUntouched();
       })
       .catch((error) => {
         console.log(error);
