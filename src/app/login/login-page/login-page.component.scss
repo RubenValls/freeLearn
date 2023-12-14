@@ -1,0 +1,22 @@
+#login-img-banner{
+    height: 100%;
+    background-repeat: no-repeat;
+    background-image: url('https://pixabay.com/get/gf08e84de12840994363e7114e6e06fe7d054b78bcabdb951ec5c1127fee7a046d74d289a752cbb56660f78c4aa5e5736.jpg');
+    background-size: cover;
+
+    @media (width < 768px) { // Este es el breakpoint md en Bootstrap 5
+        height: 50%;
+    }
+}
+
+#login-form-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    height: 100%;
+
+    @media (width < 768px) { // Este es el breakpoint md en Bootstrap 5
+        height: 50%;
+    }
+}
