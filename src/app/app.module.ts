@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 import { SharedModule } from './shared/shared.module';
-import { userReducer } from './login/state/user.selectors';
+import { userReducer } from './login/store/user.reducer';
 
 @NgModule({
   declarations: [

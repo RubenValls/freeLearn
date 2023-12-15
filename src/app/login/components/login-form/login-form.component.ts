@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { GoogleAuthProvider, getAuth, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { UserActions } from '../../store/user.actions';
+import { LoginFormType } from '../../types/formTypes';
+import { LoginService } from '../../login-service/login.service';
 
 @Component({
   selector: 'app-login-form',
@@ -12,8 +16,8 @@ export class LoginFormComponent {
   hidePassword = true;
   hideConfirmPassword = true;
 
-  constructor(){
-    this.loginForm = new FormGroup({
+  constructor(private store: Store, private loginService: LoginService){
+    this.loginForm = new FormGroup<LoginFormType>({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
       rememberMe: new FormControl(true),
@@ -23,44 +27,11 @@ export class LoginFormComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       console.log(this.loginForm.value);
-      const auth = getAuth();
-      const email = this.loginForm.value.email;
-      const password = this.loginForm.value.password;
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          console.log("User signed in:", userCredential.user);
-          this.loginForm.reset();
-          this.loginForm.markAsUntouched();
-        })
-        .catch((error) => {
-          // User failed to sign in
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          // Check error code
-          if (errorCode === "auth/user-not-found") {
-            // User does not exist
-            console.log("User not found");
-          } else if (errorCode === "auth/wrong-password") {
-            // Password is incorrect
-            console.log("Wrong password");
-          } else {
-            // Other errors
-            console.log(errorMessage);
-          }
-        });
+      this.loginService.loginInWithEmail(this.loginForm)
     }
   }
 
   onGoogleSubmit() {
-    const provider = new GoogleAuthProvider();
-    const auth = getAuth();
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        console.log(result.user);
-        this.loginForm.reset();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    this.loginService.signInWithGoogle(this.loginForm)
   }
 }

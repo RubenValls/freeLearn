@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { UserActions } from '../../state/user.actions';
+import { UserActions } from '../../store/user.actions';
+import { LoginService } from '../../login-service/login.service';
+import { SigninFormType } from '../../types/formTypes';
 
 @Component({
   selector: 'app-signup-form',
@@ -15,8 +17,8 @@ export class SignupFormComponent {
   hidePassword = true;
   hideConfirmPassword = true;
 
-  constructor(private store: Store){
-    this.signupForm = new FormGroup({
+  constructor(private store: Store, private loginService: LoginService){
+    this.signupForm = new FormGroup<SigninFormType>({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
       confirmPassword: new FormControl('', [Validators.required, this.passwordMatchValidator()]),
@@ -41,37 +43,11 @@ export class SignupFormComponent {
 
   onSubmit() {
     if (this.signupForm.valid) {
-      const auth = getAuth();
-      const email = this.signupForm.value.email;
-      const password = this.signupForm.value.password;
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          console.log(userCredential.user);
-          const userInfo = {userUid: userCredential.user.uid, ...userCredential.user.providerData[0]}
-          this.store.dispatch(UserActions.addUser({user: userInfo}))
-        })
-        .catch((error) => {
-          console.log(error)
-          const errorCode = error.code;
-          const errorMessage = error.message;       
-        })
-        .finally(() => {
-          this.signupForm.reset();
-        })
+      this.loginService.signInWithEmail(this.signupForm)
     }
   }
 
   onGoogleSubmit() {
-    const provider = new GoogleAuthProvider();
-    const auth = getAuth();
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        console.log(result.user);
-        this.signupForm.reset();
-        this.signupForm.markAsUntouched();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    this.loginService.signInWithGoogle(this.signupForm)
   }
 }
