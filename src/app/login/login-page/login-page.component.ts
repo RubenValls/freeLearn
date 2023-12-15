@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatButtonToggleChange } from '@angular/material/button-toggle';
 
 @Component({
   selector: 'app-login-page',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent {
+  
+  isLogIn = true;
 
+  onChange(event: MatButtonToggleChange) {
+    if(event.value === 'login'){
+      this.isLogIn = true;
+    }else{
+      this.isLogIn = false;
+    }
+}
 }

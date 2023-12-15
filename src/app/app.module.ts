@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 import { SharedModule } from './shared/shared.module';
+import { userReducer } from './login/store/user.reducer';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,9 @@ import { SharedModule } from './shared/shared.module';
     BrowserModule,
     BrowserAnimationsModule,
     NgbModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({
+      user: userReducer
+    }),
     SharedModule, 
     AppRoutingModule,
   ],

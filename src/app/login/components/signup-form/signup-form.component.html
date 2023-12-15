@@ -1,0 +1,33 @@
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email">
+      <mat-error *ngIf="signupForm.controls['email'].invalid && signupForm.controls['email'].touched">
+        Please, use a valid email.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'">
+      <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-error *ngIf="signupForm.controls['password'].errors?.['required'] && signupForm.controls['password'].touched">
+        Password is required.
+      </mat-error>
+      <mat-error *ngIf="signupForm.controls['password'].errors?.['minlength'] && signupForm.controls['password'].touched">
+        Must be more than 6 characters.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Confirm Password</mat-label>
+      <input matInput formControlName="confirmPassword" [type]="hideConfirmPassword ? 'password' : 'text'">
+      <mat-icon matSuffix (click)="hideConfirmPassword = !hideConfirmPassword">{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-error *ngIf="signupForm.controls['confirmPassword'].invalid && signupForm.controls['confirmPassword'].touched">
+        Password should be the same.
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="!signupForm.valid">Sign In</button>
+    <button type="button" class="login-with-google-btn" (click)="onGoogleSubmit()">Sign in with Google</button>
+</form>

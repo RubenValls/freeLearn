@@ -1,0 +1,23 @@
+#login-img-banner{
+    height: 100%;
+    background-repeat: no-repeat;
+    background-image: url('https://assets-global.website-files.com/6537c0eb07241dba6c47cb97/6537c0eb07241dba6c47d6c0_image-from-rawpixel-id-5928246-jpeg.jpg');
+    background-size: cover;
+
+    @media (width < 768px) {
+        height: 25%;
+    }
+}
+
+#login-form-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    height: 100%;
+
+    @media (width < 768px) {
+        height: 75%;
+    }
+}
