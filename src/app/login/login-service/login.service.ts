@@ -56,9 +56,7 @@ export class LoginService {
             rememberMe: formValue.value.rememberMe,
             role: 'student',
           }
-          this.store.dispatch(UserActions.addUser({user: userInfo}))
-          const usersRef = collection(this.firestore, 'users')
-          addDoc(usersRef, userInfo)
+          this.store.dispatch(UserActions.addUser({user: userInfo}))       
         })
         .catch((error) => {
           // User failed to log in
