@@ -4,13 +4,15 @@ import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, signInWith
 import { LoginFormType, SigninFormType } from '../types/formTypes';
 import { UserActions } from '../store/user.actions';
 import { FormGroup } from '@angular/forms';
+import { Firestore } from '@angular/fire/firestore';
+import { addDoc, collection } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor(private store: Store) { }
+  constructor(private store: Store, private firestore:Firestore) { }
 
   signInWithEmail(formValue: FormGroup<SigninFormType>) {
     const auth = getAuth();
@@ -27,6 +29,8 @@ export class LoginService {
             role: 'student',
           }
           this.store.dispatch(UserActions.addUser({user: userInfo}))
+          const usersRef = collection(this.firestore, 'users')
+          addDoc(usersRef, userInfo)
         })
         .catch((error) => {
           // User failed to sign in
@@ -53,6 +57,8 @@ export class LoginService {
             role: 'student',
           }
           this.store.dispatch(UserActions.addUser({user: userInfo}))
+          const usersRef = collection(this.firestore, 'users')
+          addDoc(usersRef, userInfo)
         })
         .catch((error) => {
           // User failed to log in
@@ -77,6 +83,8 @@ export class LoginService {
           role: 'student',
         }
         this.store.dispatch(UserActions.addUser({user: userInfo}))
+        const usersRef = collection(this.firestore, 'users')
+        addDoc(usersRef, userInfo)
         formValue.reset();
       })
       .catch((error) => {

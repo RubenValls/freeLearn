@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Firestore, addDoc, collection } from 'firebase/firestore';
+import { Firestore } from '@angular/fire/firestore';
+import { addDoc, collection } from 'firebase/firestore';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +12,6 @@ export class UsersService {
 
   addUser(user: any){
     const usersRef = collection(this.firestore, 'users')
-    addDoc(usersRef, user)
+    addDoc(usersRef, user).then((data) => { console.log("creado", data)}).catch((error) => {console.log("error", error)})
   }
 }
