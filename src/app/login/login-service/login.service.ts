@@ -24,6 +24,7 @@ export class LoginService {
             userUid: userCredential.user.uid, 
             ...userCredential.user.providerData[0],
             rememberMe: false,
+            role: 'student',
           }
           this.store.dispatch(UserActions.addUser({user: userInfo}))
         })
@@ -49,6 +50,7 @@ export class LoginService {
             userUid: userCredential.user.uid, 
             ...userCredential.user.providerData[0],
             rememberMe: formValue.value.rememberMe,
+            role: 'student',
           }
           this.store.dispatch(UserActions.addUser({user: userInfo}))
         })
@@ -72,6 +74,7 @@ export class LoginService {
           userUid: result.user.uid, 
           ...result.user.providerData[0],
           rememberMe: formValue.value?.rememberMe ? formValue.value.rememberMe : false,
+          role: 'student',
         }
         this.store.dispatch(UserActions.addUser({user: userInfo}))
         formValue.reset();
