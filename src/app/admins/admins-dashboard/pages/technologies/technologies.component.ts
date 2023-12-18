@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./technologies.component.scss']
 })
 export class TechnologiesComponent {
+  isFormVisible = false
 
+  onToggleForm(){
+    this.isFormVisible = !this.isFormVisible
+  }
 }
