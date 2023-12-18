@@ -8,6 +8,7 @@ import { InstructorsComponent } from './admins-dashboard/pages/instructors/instr
 
 const routes: Routes = [
     { path: '', component: AdminsDashboardComponent, children: [
+      { path: '', redirectTo: 'users', pathMatch: 'full' },
       { path: 'users', component: UsersComponent },
       { path: 'technologies', component: TechnologiesComponent },
       { path: 'courses', component: CoursesComponent },
