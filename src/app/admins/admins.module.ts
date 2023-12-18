@@ -9,6 +9,7 @@ import { UsersComponent } from './admins-dashboard/pages/users/users.component';
 import { TechnologiesComponent } from './admins-dashboard/pages/technologies/technologies.component';
 import { CoursesComponent } from './admins-dashboard/pages/courses/courses.component';
 import { InstructorsComponent } from './admins-dashboard/pages/instructors/instructors.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -26,6 +27,7 @@ import { InstructorsComponent } from './admins-dashboard/pages/instructors/instr
     AdminsRoutingModule,
     MatButtonModule,
     MatMenuModule,
+    ReactiveFormsModule
   ]
 })
 export class AdminsModule { }
