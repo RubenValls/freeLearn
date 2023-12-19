@@ -14,7 +14,6 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { NewTechFormComponent } from './admins-dashboard/pages/technologies/components/new-tech-form/new-tech-form.component';
 
@@ -27,7 +26,9 @@ import { NewTechFormComponent } from './admins-dashboard/pages/technologies/comp
     UsersComponent,
     TechnologiesComponent,
     CoursesComponent,
-    InstructorsComponent
+    InstructorsComponent,
+    AddCourseFormComponent,
+    NewTechFormComponent,
   ],
   imports: [
     CommonModule,
@@ -35,6 +36,11 @@ import { NewTechFormComponent } from './admins-dashboard/pages/technologies/comp
     ReactiveFormsModule,
     MatButtonModule,
     MatMenuModule,
+    MatSelectModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatIconModule,
+
   ]
 })
 export class AdminsModule { }

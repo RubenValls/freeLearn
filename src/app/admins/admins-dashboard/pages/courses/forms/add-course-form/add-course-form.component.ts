@@ -32,19 +32,6 @@ export class AddCourseFormComponent implements OnInit {
   addCourse() {
     if(this.courseForm.invalid) return;
     this.coursesService.addCourse(this.courseForm.value)
-      .then((response) => { alert('Course added successfully') })
-      .catch((error) => { console.error(error) });
-  }
-
-  getCourses() {
-   const c = this.coursesService.getCourses().subscribe((response) => {
-     console.log(response);
-      this.coursesService.getCourseById(response[4].id!).then(console.log) 
-     
-    })
- 
-     
-   
   }
 
 }
