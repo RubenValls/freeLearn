@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, setDoc, updateDoc } from 'firebase/firestore';
 
 
 @Injectable({
@@ -10,8 +10,30 @@ export class TechService {
 
   constructor(private firestore: Firestore) { }
 
-  addTechnology(technology: any){
-    const usersRef = collection(this.firestore, 'technologies')
-    addDoc(usersRef, technology).then((data) => { console.log("creado", data)}).catch((error) => {console.log("error", error)})
+  async addTechnology(technology: any){
+    const newTech = await setDoc(doc(this.firestore, 'technologies', technology.name), technology);
+    return newTech;
+  }
+
+  async getAllTechnologies(){
+    const querySnapshot = await getDocs(collection(this.firestore, 'technologies'));
+    return querySnapshot;
+  }
+
+  async isTechnologyInDatabase(technologyName: string){
+    const techRef = doc(this.firestore, 'technologies', technologyName);
+    const docSnap = await getDoc(techRef);
+    
+    return docSnap.exists()
+  }
+
+  async updateTechnology(oldTechName: string, technology: any){
+    const techRef = doc(this.firestore, 'technologies', oldTechName);
+    const techUpdated = await updateDoc(techRef, technology)
+    return techUpdated
+  }
+
+  async deleteTechDoc(techName: string){
+    await deleteDoc(doc(this.firestore, "technologies", techName));
   }
 }
