@@ -16,6 +16,7 @@ import { addDoc, collection } from 'firebase/firestore';
 import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 import { User } from '../types/user';
 import { UsersService } from 'src/app/shared/services/users/users.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +26,8 @@ export class LoginService {
     private store: Store,
     private firestore: Firestore,
     private alertsService: AlertsService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private router: Router,
   ) {}
 
   signInWithEmail(formValue: FormGroup<SigninFormType>) {
@@ -102,6 +104,7 @@ export class LoginService {
         this.usersService.updateUser(user?.id ? user?.id : '', userInfo)
       })
     }
-    formValue.reset();
+    this.usersService.saveUserInStorage(userInfo.rememberMe, userInfo)
+    this.router.navigate(['/students'])
   }
 }

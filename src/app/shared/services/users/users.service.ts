@@ -22,6 +22,19 @@ export class UsersService {
     return collectionData(techRef, {idField: 'id'}) as Observable<User[]>;
   }
 
+  saveUserInStorage(rememberMe: boolean, user: User){
+    if(rememberMe){
+      localStorage.setItem('userInfo', JSON.stringify(user))
+    }else{
+      sessionStorage.setItem('userInfo', JSON.stringify(user))
+    }
+  }
+
+  getUserFromStorage(){
+    const userInfo = localStorage.getItem('userInfo') || sessionStorage.getItem('userInfo');
+    return userInfo ? JSON.parse(userInfo) : null;
+  }
+
   async updateUser(userId: string, user: User){
     const techRef = doc(this.firestore, 'users', userId);
     await updateDoc(techRef, {...user})

@@ -5,9 +5,10 @@ import { UsersComponent } from './admins-dashboard/pages/users/users.component';
 import { TechnologiesComponent } from './admins-dashboard/pages/technologies/technologies.component';
 import { CoursesComponent } from './admins-dashboard/pages/courses/courses.component';
 import { InstructorsComponent } from './admins-dashboard/pages/instructors/instructors.component';
+import { RoleGuard } from '../shared/guards/role.guard';
 
 const routes: Routes = [
-    { path: '', component: AdminsDashboardComponent, children: [
+    { path: '', component: AdminsDashboardComponent, canActivate:[RoleGuard], data: {expectedRole: 'admin'}, children: [
       { path: '', redirectTo: 'users', pathMatch: 'full' },
       { path: 'users', component: UsersComponent },
       { path: 'technologies', component: TechnologiesComponent },
