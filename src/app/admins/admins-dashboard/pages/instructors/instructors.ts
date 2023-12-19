@@ -1,4 +1,5 @@
 export interface Instructor {
+    id?: string;
     name: string;
     socialMedia: {
         web: string | null,

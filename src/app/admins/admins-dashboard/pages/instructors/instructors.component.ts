@@ -20,7 +20,13 @@ export class InstructorsComponent {
   getInstructors() {
     const c = this.instructorsService.getInstructors().subscribe((response) => {
       console.log(response);
+      this.instructorsService.getInstructorById(response[1].id!).then(console.log) 
+
      })
   }
+
+  
+
+
 
 }

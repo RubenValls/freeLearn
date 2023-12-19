@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collectionData } from '@angular/fire/firestore';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc } from 'firebase/firestore';
 import { Instructor } from '../instructors';
 import { Observable } from 'rxjs';
 
@@ -21,5 +21,9 @@ export class InstructorsService {
     return collectionData(instructorsRef, { idField: 'id' }) as Observable<Instructor[]>;
   };
 
+  async getInstructorById(id: string) {  
+    const instructorsRef = doc(this.firestore, "instructors",id);    
+    return   (await getDoc(instructorsRef)).data() as Instructor;
+  };    
 
 }
