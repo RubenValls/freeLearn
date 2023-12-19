@@ -11,7 +11,7 @@ import { CoursesComponent } from './admins-dashboard/pages/courses/courses.compo
 import { InstructorsComponent } from './admins-dashboard/pages/instructors/instructors.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { CreateInstructorsFormComponent } from './admins-dashboard/pages/instructors/create-instructors-form/create-instructors-form.component';
 import { MatIconModule } from '@angular/material/icon';
 
