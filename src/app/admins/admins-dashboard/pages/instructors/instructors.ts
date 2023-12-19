@@ -7,5 +7,5 @@ export interface Instructor {
         twitter: string | null,
         linkedin: string | null,
     };
-    courses:[];
+    courses:any[];
 }
