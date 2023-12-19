@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Instructor } from '../instructors';
 @Component({
-  selector: 'app-instructors-form',
-  templateUrl: './instructors-form.component.html',
-  styleUrls: ['./instructors-form.component.scss']
+  selector: 'app-create-instructors-form',
+  templateUrl: './create-instructors-form.component.html',
+  styleUrls: ['./create-instructors-form.component.scss']
 })
-export class InstructorsFormComponent {
+export class CreateInstructorsFormComponent {
 
   instructorForm: FormGroup;
 

@@ -12,7 +12,7 @@ import { InstructorsComponent } from './admins-dashboard/pages/instructors/instr
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
-import { InstructorsFormComponent } from './admins-dashboard/pages/instructors/instructors-form/instructors-form.component';
+import { CreateInstructorsFormComponent } from './admins-dashboard/pages/instructors/create-instructors-form/create-instructors-form.component';
 import { MatIconModule } from '@angular/material/icon';
 
 
@@ -25,7 +25,7 @@ import { MatIconModule } from '@angular/material/icon';
     TechnologiesComponent,
     CoursesComponent,
     InstructorsComponent,
-    InstructorsFormComponent
+    CreateInstructorsFormComponent
   ],
   imports: [
     CommonModule,
