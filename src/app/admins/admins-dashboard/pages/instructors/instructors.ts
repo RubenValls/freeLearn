@@ -1,4 +1,5 @@
 export interface Instructor {
+    id?: string;
     name: string;
     socialMedia: {
         web: string | null,
@@ -6,5 +7,5 @@ export interface Instructor {
         twitter: string | null,
         linkedin: string | null,
     };
-    courses:[];
+    courses:any[];
 }
