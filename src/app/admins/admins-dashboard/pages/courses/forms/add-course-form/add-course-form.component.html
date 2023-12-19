@@ -1,0 +1,52 @@
+<form [formGroup]="courseForm" (ngSubmit)="addCourse()" class="formCourse">
+    <mat-form-field>
+        <mat-label>Course name</mat-label>
+        <input matInput formControlName="name" type="text">
+        <mat-error *ngIf="courseForm.controls['name'].invalid && courseForm.controls['name'].touched">
+            Please, assign a name to the course.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Course description</mat-label>
+        <input matInput formControlName="description" type="text">
+        <mat-error *ngIf="courseForm.controls['description'].invalid && courseForm.controls['description'].touched">
+            Please, write a description.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Course instructor name</mat-label>
+        <input matInput formControlName="name" type="text">
+        <mat-error *ngIf="courseForm.controls['instructor'].invalid && courseForm.controls['instructor'].touched">
+            Please, assign instructor name
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>image path</mat-label>
+        <input matInput formControlName="imageUrl" type="text">
+        <mat-error *ngIf="courseForm.controls['imageUrl'].invalid && courseForm.controls['imageUrl'].touched">
+            Please, add a image
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label >Select technologies</mat-label>
+        <!-- mañana lo modifico para acceder a las techs -->
+        <mat-select placeholder="Techs" multiple (selectionChange)="onTechsSelectionChange($event)" formControlName="techs" >
+          <mat-option value="angular">Angular</mat-option>
+          <mat-option value="typeScript">TypeScript</mat-option>
+          <mat-option value="react">React</mat-option>
+          <mat-option value="javascript">Javascript</mat-option>
+          <mat-option value="angularmaterial">Angular Material</mat-option>
+        </mat-select>
+        <mat-error *ngIf="courseForm.controls['techs'].invalid && courseForm.controls['techs'].touched">
+            Please, select at least one technology
+        </mat-error>
+      </mat-form-field>
+   
+    <button mat-raised-button color="primary" type="submit">Crear curso</button>
+    <button (click)="getCourses()">Get courses</button>
+
+</form>

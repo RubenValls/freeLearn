@@ -1,1 +1,10 @@
-<p>courses works!</p>
+<div class="courses-container">
+    <button (click)="addCourse()" mat-raised-button color="primary">
+
+        Add course
+    </button>
+    <ng-container *ngIf="watchForm">
+        <app-add-course-form></app-add-course-form>
+    </ng-container>
+
+</div>
