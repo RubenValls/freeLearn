@@ -1,5 +1,5 @@
     <form [formGroup]="instructorForm" (ngSubmit)="onSubmit()">
-        <mat-form-field>
+        <mat-form-field class="input-name">
             <mat-label>Name</mat-label>
             <input matInput formControlName="name" type="string">
             <mat-error *ngIf="instructorForm.get('name')?.hasError('required')">
