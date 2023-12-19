@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Firestore } from '@angular/fire/firestore';
+import { Firestore, collectionData } from '@angular/fire/firestore';
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import { TechnologyType } from '../types/technologies';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -17,9 +18,14 @@ export class TechService {
     return newTech;
   }
 
-  async getAllTechnologies(){
-    const querySnapshot = await getDocs(collection(this.firestore, 'technologies'));
-    return querySnapshot;
+  getTechnologies(){
+    const techRef =  collection(this.firestore, 'technologies');
+    return collectionData(techRef, {idField: 'id'}) as Observable<TechnologyType[]>;
+  }
+
+  async getTechnologyById(technologyId: string){
+    const techRef =  doc(this.firestore, 'technologies', technologyId);
+    return (await getDoc(techRef)).data() as TechnologyType;
   }
 
   async isTechnologyInDatabase(technologyId: string){
@@ -35,7 +41,17 @@ export class TechService {
     return techUpdated
   }
 
+  async updateTechnologyCourses(technologyId: string, courseId: string){
+    const techRef = doc(this.firestore, 'technologies', technologyId);
+    const techData = (await getDoc(techRef)).data() as TechnologyType;
+    const techUpdated = await updateDoc(techRef, {
+      courses: techData.courses.push(courseId)
+    });
+    return techUpdated;
+  }
+
   async deleteTechDoc(technologyId: string){
-    await deleteDoc(doc(this.firestore, "technologies", technologyId));
+    const techRef = doc(this.firestore, 'technologies', technologyId);
+    await deleteDoc(techRef);
   }
 }
