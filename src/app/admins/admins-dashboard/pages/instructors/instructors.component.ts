@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./instructors.component.scss']
 })
 export class InstructorsComponent {
+  showForm: boolean = false;
+
+
+  toggleForm() {
+    this.showForm = !this.showForm;
+  }
 
 }

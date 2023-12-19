@@ -10,6 +10,10 @@ import { TechnologiesComponent } from './admins-dashboard/pages/technologies/tec
 import { CoursesComponent } from './admins-dashboard/pages/courses/courses.component';
 import { InstructorsComponent } from './admins-dashboard/pages/instructors/instructors.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { InstructorsFormComponent } from './admins-dashboard/pages/instructors/instructors-form/instructors-form.component';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -20,14 +24,18 @@ import { ReactiveFormsModule } from '@angular/forms';
     UsersComponent,
     TechnologiesComponent,
     CoursesComponent,
-    InstructorsComponent
+    InstructorsComponent,
+    InstructorsFormComponent
   ],
   imports: [
     CommonModule,
     AdminsRoutingModule,
     MatButtonModule,
     MatMenuModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatIconModule
   ]
 })
 export class AdminsModule { }

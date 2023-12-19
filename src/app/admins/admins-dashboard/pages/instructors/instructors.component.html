@@ -1,1 +1,15 @@
-<p>instructors works!</p>
+<div class="main">
+  <div class="flex-container">
+    <button
+      mat-raised-button
+      color="primary"
+      class="button-with-icon"
+      (click)="toggleForm()"
+    >
+      Add instructor
+      <mat-icon iconPositionEnd>add</mat-icon>
+    </button>
+  </div>
+
+  <app-instructors-form *ngIf="showForm"></app-instructors-form>
+</div>

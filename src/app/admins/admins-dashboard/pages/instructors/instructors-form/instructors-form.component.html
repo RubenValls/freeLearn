@@ -1,0 +1,33 @@
+    <form [formGroup]="instructorForm" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" type="string">
+            <mat-error *ngIf="instructorForm.get('name')?.hasError('required')">
+                Name is required
+            </mat-error>
+        </mat-form-field>
+    
+        <div class="social" formGroupName="socialMedia">
+            <mat-form-field>
+                <mat-label>Web</mat-label>
+                <input matInput formControlName="web" type="string">
+            </mat-form-field>
+        
+            <mat-form-field>
+                <mat-label>LinkedIn</mat-label>
+                <input matInput formControlName="linkedin" type="string">
+            </mat-form-field>
+        
+            <mat-form-field>
+                <mat-label>Youtube</mat-label>
+                <input matInput formControlName="youtube" type="string">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Twitter</mat-label>
+                <input matInput formControlName="twitter" type="string">
+            </mat-form-field>
+        </div>
+        <div class="btn-container">
+            <button mat-raised-button color="primary" type="submit" [disabled]="!instructorForm.valid" >Enviar</button>
+        </div>
+    </form>
