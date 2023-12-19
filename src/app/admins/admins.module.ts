@@ -16,11 +16,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { NewTechFormComponent } from './admins-dashboard/pages/technologies/components/new-tech-form/new-tech-form.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { CreateInstructorsFormComponent } from './admins-dashboard/pages/instructors/create-instructors-form/create-instructors-form.component';
-import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -31,7 +27,11 @@ import { MatIconModule } from '@angular/material/icon';
     UsersComponent,
     TechnologiesComponent,
     CoursesComponent,
-    InstructorsComponent
+    InstructorsComponent,
+    AddCourseFormComponent,
+    NewTechFormComponent,
+    CreateInstructorsFormComponent,
+
   ],
   imports: [
     CommonModule,
@@ -39,6 +39,11 @@ import { MatIconModule } from '@angular/material/icon';
     ReactiveFormsModule,
     MatButtonModule,
     MatMenuModule,
+    MatSelectModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatIconModule,
+
   ]
 })
 export class AdminsModule { }
