@@ -1,15 +1,15 @@
 .error-snackbar {
-    --mdc-snackbar-container-color: red;
-    --mat-snack-bar-button-color: white;
-    --mdc-snackbar-supporting-text-color: white;
+    --mdc-snackbar-container-color: var(--error);
+    --mat-snack-bar-button-color: var(--white);
+    --mdc-snackbar-supporting-text-color: var(--white);
 }
 .success-snackbar {
-    --mdc-snackbar-container-color: green;
-    --mat-snack-bar-button-color: white;
-    --mdc-snackbar-supporting-text-color: white;
+    --mdc-snackbar-container-color: var(--succes);
+    --mat-snack-bar-button-color: var(--white);
+    --mdc-snackbar-supporting-text-color: var(--white);
   }
 .warning-snackbar {
-    --mdc-snackbar-container-color: yellow;
-    --mat-snack-bar-button-color: black;
-    --mdc-snackbar-supporting-text-color: black;
+    --mdc-snackbar-container-color: var(--warning);
+    --mat-snack-bar-button-color: var(--black);
+    --mdc-snackbar-supporting-text-color: var(--black);
 }
