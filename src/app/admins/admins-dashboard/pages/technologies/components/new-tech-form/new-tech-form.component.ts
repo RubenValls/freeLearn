@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TechService } from '../../service/tech.service';
+import { TechnologyType } from '../../types/technologies';
 
 @Component({
   selector: 'app-new-tech-form',
@@ -19,6 +20,16 @@ export class NewTechFormComponent {
   });
 
   onSubmit() {
-    this.techService.addTechnology(this.newTechForm.value);
+    if (this.newTechForm.valid) {
+      const newTech: TechnologyType = {
+        name: this.newTechForm.value.name || '',
+        imagePath: this.newTechForm.value.imagePath || '',
+        description: this.newTechForm.value.description || '',
+        courses: this.newTechForm.value.courses || []
+      };
+      this.techService.addTechnology(newTech);
+    } else {
+      console.error('Formulario no válido');
+    }
   }
 }
