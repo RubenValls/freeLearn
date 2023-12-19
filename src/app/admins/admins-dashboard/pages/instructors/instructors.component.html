@@ -11,5 +11,17 @@
     </button>
   </div>
 
+  <div class="main">
+    <div class="flex-container">
+      <button
+        mat-raised-button
+        color="secondary"
+        class="button-with-icon"
+        (click)="getInstructors()"
+      >
+        Get Instructors
+      </button>
+    </div>
+
   <app-create-instructors-form *ngIf="showForm"></app-create-instructors-form>
 </div>

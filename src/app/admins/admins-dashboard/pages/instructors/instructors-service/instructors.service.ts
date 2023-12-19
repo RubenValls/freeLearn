@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Firestore } from '@angular/fire/firestore';
+import { Firestore, collectionData } from '@angular/fire/firestore';
 import { addDoc, collection } from 'firebase/firestore';
 import { Instructor } from '../instructors';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,4 +15,11 @@ export class InstructorsService {
     const docRef = await addDoc(instructorsRef, instructor);
     return docRef;
   }
+
+  getInstructors() {
+    const instructorsRef = collection(this.firestore, 'instructors')
+    return collectionData(instructorsRef, { idField: 'id' }) as Observable<Instructor[]>;
+  };
+
+
 }
