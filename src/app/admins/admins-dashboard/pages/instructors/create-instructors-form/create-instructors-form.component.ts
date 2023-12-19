@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Instructor } from '../instructors';
 import { InstructorsService } from '../instructors-service/instructors.service';
+import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 @Component({
   selector: 'app-create-instructors-form',
   templateUrl: './create-instructors-form.component.html',
@@ -12,7 +13,8 @@ export class CreateInstructorsFormComponent {
 
   constructor(
     private fb: FormBuilder,
-    private instructorsService: InstructorsService
+    private instructorsService: InstructorsService,
+    private alertMessages: AlertsService
   ) {
     this.instructorForm = this.fb.group({
       name: ['', Validators.required],
@@ -24,7 +26,6 @@ export class CreateInstructorsFormComponent {
       }),
       courses: [[]],
     });
-    console.log(this.instructorForm);
   }
 
   onSubmit() {
@@ -36,7 +37,7 @@ export class CreateInstructorsFormComponent {
       this.instructorsService
         .addInstructor(this.instructorForm.value)
         .then((response) => {
-          alert('Instructor added successfully');
+          this.alertMessages.successMessage("Instructor created successfully")
         })
         .catch((error) => {
           console.error(error);
