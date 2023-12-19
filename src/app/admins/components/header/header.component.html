@@ -1,10 +1,18 @@
-<button mat-button routerLink="users" routerLinkActive="active">Users</button>
-
-
-<button mat-button routerLink="technologies" routerLinkActive="active">Technologies</button>
-
-
-<button mat-button routerLink="courses" routerLinkActive="active">Courses</button>
-
-
-<button mat-button routerLink="instructors" routerLinkActive="active">Instructors</button>
+<div class="container-fluid" id="admin-navbar">
+    <button mat-button routerLink="users" routerLinkActive="active">
+        <mat-icon [ngClass]="{'large-icon': isSmallScreen}">supervisor_account</mat-icon>
+        <span *ngIf="!isSmallScreen">Users</span>
+    </button>
+    <button mat-button routerLink="technologies" routerLinkActive="active">
+        <mat-icon [ngClass]="{'large-icon': isSmallScreen}">device_hub</mat-icon>
+        <span *ngIf="!isSmallScreen">Technologies</span>
+    </button>
+    <button mat-button routerLink="courses" routerLinkActive="active">
+        <mat-icon [ngClass]="{'large-icon': isSmallScreen}"> local_library</mat-icon>
+        <span *ngIf="!isSmallScreen">Courses</span>
+    </button>
+    <button mat-button routerLink="instructors" routerLinkActive="active">
+        <mat-icon [ngClass]="{'large-icon': isSmallScreen}">school</mat-icon>
+        <span *ngIf="!isSmallScreen">Instructors</span>
+    </button>
+</div>
