@@ -20,6 +20,7 @@ export class AddCourseFormComponent implements OnInit {
   courseForm: FormGroup = this.builder.group({   
     name: ["", [Validators.required]],
     description: ["", [Validators.required]],
+    instructor: ["", [Validators.required]],
     imageUrl: ["", [Validators.required]],
     techs: [[],[Validators.required]],
   });
