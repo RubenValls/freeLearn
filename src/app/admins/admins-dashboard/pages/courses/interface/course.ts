@@ -1,12 +1,12 @@
 export interface Course {
-    uid: string;
+    id?: string;
     name: string;
     description: string;   
     imageUrl: string;
     techs: [];
     lessons: [
         {
-            id: string;
+            id?: string;
             name: string;       
             videoUrl: string;                   
         }

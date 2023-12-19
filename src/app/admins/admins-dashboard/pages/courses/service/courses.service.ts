@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collectionData } from '@angular/fire/firestore';
 import { Course } from '../interface/course';
-import { addDoc, collection, deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDoc, updateDoc } from  '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -16,23 +16,23 @@ export class CoursesService {
     const coursesRef = collection(this.firestore, 'courses')
     return addDoc(coursesRef, course)
   };
-  getCourses(): Observable<Course[]> {
+  getCourses() {
     const coursesRef = collection(this.firestore, 'courses')
-    return collectionData(coursesRef) as Observable<Course[]>
+    return collectionData(coursesRef, { idField: 'id' }) as Observable<Course[]>;
   };
 
-  getCourseById(id: Course) {
-    const coursesRef = doc(this.firestore, `course/${id}`);
-    return getDoc(coursesRef)
-  };
+   async getCourseById(id: string) {  
+    const coursesRef = doc(this.firestore, "courses",id);    
+    return   (await getDoc(coursesRef)).data() as Course;
+  };    
 
   updateCourse(id: string, course: Course) {
-    const coursesRef = doc(this.firestore, `course/${id}`);
+    const coursesRef = doc(this.firestore,"courses",id);
     return updateDoc(coursesRef, { course })
   };
 
   deleteCourse(id: string) {
-    const coursesRef = doc(this.firestore, `tasks/${id}`);
+    const coursesRef = doc(this.firestore, "courses",id);
     return deleteDoc(coursesRef);
   };
 

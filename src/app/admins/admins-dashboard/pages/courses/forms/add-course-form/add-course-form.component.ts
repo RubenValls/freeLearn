@@ -35,4 +35,15 @@ export class AddCourseFormComponent implements OnInit {
       .catch((error) => { console.error(error) });
   }
 
+  getCourses() {
+   const c = this.coursesService.getCourses().subscribe((response) => {
+     console.log(response);
+      this.coursesService.getCourseById(response[4].id!).then(console.log) 
+     
+    })
+ 
+     
+   
+  }
+
 }
