@@ -8,7 +8,6 @@ import { Component } from '@angular/core';
 export class InstructorsComponent {
   showForm: boolean = false;
 
-
   toggleForm() {
     this.showForm = !this.showForm;
   }

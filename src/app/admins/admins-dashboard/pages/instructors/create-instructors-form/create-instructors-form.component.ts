@@ -28,15 +28,20 @@ export class CreateInstructorsFormComponent {
   }
 
   onSubmit() {
-    this.addInstructor()
+    this.addInstructor();
   }
 
   addInstructor() {
-    if(this.instructorForm.valid){
-      this.instructorsService.addInstructor(this.instructorForm.value)
-      .then((response) => { alert('Instructor added successfully') })
-      .catch((error) => { console.error(error) });
+    if (this.instructorForm.valid) {
+      this.instructorsService
+        .addInstructor(this.instructorForm.value)
+        .then((response) => {
+          alert('Instructor added successfully');
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
-    
   }
+  
 }
