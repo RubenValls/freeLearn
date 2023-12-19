@@ -3,7 +3,7 @@
         <mat-label>Course name</mat-label>
         <input matInput formControlName="name" type="text">
         <mat-error *ngIf="courseForm.controls['name'].invalid && courseForm.controls['name'].touched">
-            Please, write the course name.
+            Please, assign a name to the course.
         </mat-error>
     </mat-form-field>
 
@@ -16,7 +16,7 @@
     </mat-form-field>
 
     <mat-form-field>
-        <mat-label>imageUrl</mat-label>
+        <mat-label>image path</mat-label>
         <input matInput formControlName="imageUrl" type="text">
         <mat-error *ngIf="courseForm.controls['imageUrl'].invalid && courseForm.controls['imageUrl'].touched">
             Please, add a image
@@ -24,35 +24,20 @@
     </mat-form-field>
 
     <mat-form-field>
-        <mat-label>Select a tech</mat-label>
+        <mat-label >Select technologies</mat-label>
         <!-- mañana lo modifico para acceder a las techs -->
-        <mat-select placeholder="Techs" multiple (selectionChange)="onTechsSelectionChange($event)">
+        <mat-select placeholder="Techs" multiple (selectionChange)="onTechsSelectionChange($event)" formControlName="techs" >
           <mat-option value="angular">Angular</mat-option>
           <mat-option value="typeScript">TypeScript</mat-option>
           <mat-option value="react">React</mat-option>
           <mat-option value="javascript">Javascript</mat-option>
           <mat-option value="angularmaterial">Angular Material</mat-option>
         </mat-select>
+        <mat-error *ngIf="courseForm.controls['techs'].invalid && courseForm.controls['techs'].touched">
+            Please, select at least one technology
+        </mat-error>
       </mat-form-field>
-    <!-- 
-    <form [formGroup]="lessonForm">
-        <mat-form-field>
-            <mat-label>Lesson name</mat-label>
-            <input matInput formControlName="name" type="text">
-            <mat-error *ngIf="lessonForm.controls['name'].invalid && lessonForm.controls['name'].touched">
-            Please, write the lesson name.
-            </mat-error>
-        </mat-form-field>   
-    
-        <mat-form-field>
-            <mat-label>Lesson videoUrl</mat-label>
-            <input matInput formControlName="videoUrl" type="text">
-            <mat-error *ngIf="lessonForm.controls['videoUrl'].invalid && lessonForm.controls['videoUrl'].touched">
-                Please, add a video
-            </mat-error>
-        </mat-form-field>   
-    </form> -->
-
+   
     <button mat-raised-button color="primary" type="submit">Crear curso</button>
 
 </form>

@@ -21,7 +21,7 @@ export class AddCourseFormComponent implements OnInit {
     name: ["", [Validators.required]],
     description: ["", [Validators.required]],
     imageUrl: ["", [Validators.required]],
-    techs: [[]],
+    techs: [[],[Validators.required]],
   });
   onTechsSelectionChange(event: any) {
     const selectedTechs = event.value as string[];
@@ -29,11 +29,10 @@ export class AddCourseFormComponent implements OnInit {
   }
 
   addCourse() {
+    if(this.courseForm.invalid) return;
     this.coursesService.addCourse(this.courseForm.value)
       .then((response) => { alert('Course added successfully') })
       .catch((error) => { console.error(error) });
   }
-
-
 
 }
