@@ -4,7 +4,9 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { MainPageRoutingModule } from './main-page-routing.module';
 import { MainPageHeaderComponent } from './components/main-page-header/main-page-header.component';
 
-
+import {MatIconModule} from '@angular/material/icon';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -13,7 +15,11 @@ import { MainPageHeaderComponent } from './components/main-page-header/main-page
   ],
   imports: [
     CommonModule,
-    MainPageRoutingModule
+    MainPageRoutingModule,
+    MatIconModule,
+    MatDividerModule,
+    MatButtonModule
+    
   ]
 })
 export class MainPageModule { }
