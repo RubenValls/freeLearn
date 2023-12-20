@@ -15,6 +15,10 @@ import { environment } from 'src/environments/environment';
 import { coursesReducer } from './store/courses/courses.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { CoursesEffects } from './store/courses/courses.effects';
+import { technologiesReducer } from './store/technologies/technologies.reducer';
+import { TechnologiesEffects } from './store/technologies/technologies.effects';
+import { instructorsReducer } from './store/instructors/instructors.reducer';
+import { InstructorsEffects } from './store/instructors/instructors.effects';
  
 @NgModule({
   declarations: [
@@ -27,8 +31,10 @@ import { CoursesEffects } from './store/courses/courses.effects';
     StoreModule.forRoot({
       user: userReducer,
       courses: coursesReducer,
+      technologies: technologiesReducer,
+      instructors: instructorsReducer,
     }),
-    EffectsModule.forRoot(CoursesEffects),
+    EffectsModule.forRoot(CoursesEffects, TechnologiesEffects, InstructorsEffects),
     SharedModule,
     AppRoutingModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
