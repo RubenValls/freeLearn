@@ -5,12 +5,16 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
+import { WorkingInProgressComponent } from './components/default-pages/working-in-progress/working-in-progress.component';
+import { ErrorPageComponent } from './components/default-pages/error-page/error-page.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [ 
+    WorkingInProgressComponent,
+    ErrorPageComponent
+  ],
   imports: [
     CommonModule,
     MatFormFieldModule,
@@ -18,6 +22,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatInputModule,
     MatButtonModule,
     MatSnackBarModule
+  ],
+  exports: [   
+    WorkingInProgressComponent,
+    ErrorPageComponent
   ]
 })
 export class SharedModule { }
