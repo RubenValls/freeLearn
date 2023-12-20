@@ -17,6 +17,7 @@ import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 import { User } from '../types/user';
 import { UsersService } from 'src/app/shared/services/users/users.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -79,33 +80,33 @@ export class LoginService {
   ) {
     if (!isLogin) {
       const userInfo = this.getUserInfoData(isLogin, formValue, userCredential)
-      this.usersService.getUsers().subscribe((users) => {
+      const usersSubscription = this.usersService.getUsers().subscribe((users) => {
         const user = users.find(user => user.email === userInfo.email)
         if(!user){
           const usersRef = collection(this.firestore, 'users');
           addDoc(usersRef, userInfo);
         }
-        this.saveUserDataAndNavigate(userInfo)
+        this.saveUserDataAndNavigate(userInfo, usersSubscription)
       })
-      
     } else {
       const userInfo = this.getUserInfoData(isLogin, formValue, userCredential)
-      this.usersService.getUsers().subscribe((users) => {
+      const usersSubscription = this.usersService.getUsers().subscribe((users) => {
         let user = users.find(user => user.email === userInfo.email)
         this.usersService.updateUser(user?.id ? user?.id : '', userInfo).then(() => {
           user = users.find(user => user.email === userInfo.email)
           if(user){
-            this.saveUserDataAndNavigate(user)
+            this.saveUserDataAndNavigate(user, usersSubscription)
           }
         })
       })
     }
   }
 
-  saveUserDataAndNavigate(userInfo: User){
+  saveUserDataAndNavigate(userInfo: User, usersSubscription: Subscription){
     this.store.dispatch(UserActions.addUser({ user: userInfo }));
-    this.usersService.saveUserInStorage(userInfo.rememberMe, userInfo)
-    this.router.navigate(['/students'])
+    this.usersService.saveUserInStorage(userInfo.rememberMe, userInfo);
+    usersSubscription.unsubscribe();
+    this.router.navigate(['/students']);
   }
 
   getUserInfoData(isLogin: boolean, formValue: FormGroup, userCredential: UserCredential,){
