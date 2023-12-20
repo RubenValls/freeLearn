@@ -5,14 +5,19 @@ import { UsersComponent } from './admins-dashboard/pages/users/users.component';
 import { TechnologiesComponent } from './admins-dashboard/pages/technologies/technologies.component';
 import { CoursesComponent } from './admins-dashboard/pages/courses/courses.component';
 import { InstructorsComponent } from './admins-dashboard/pages/instructors/instructors.component';
+import { ErrorPageComponent } from '../shared/components/default-pages/error-page/error-page.component';
+import { WorkingInProgressComponent } from '../shared/components/default-pages/working-in-progress/working-in-progress.component';
 
 const routes: Routes = [
     { path: '', component: AdminsDashboardComponent, children: [
       { path: '', redirectTo: 'users', pathMatch: 'full' },
-      { path: 'users', component: UsersComponent },
+      // { path: 'users', component: UsersComponent },
+      { path: 'users', component: WorkingInProgressComponent },
       { path: 'technologies', component: TechnologiesComponent },
       { path: 'courses', component: CoursesComponent },
       { path: 'instructors', component: InstructorsComponent },
+      { path: '**', component: ErrorPageComponent},
+
     ] },
 ];
 
