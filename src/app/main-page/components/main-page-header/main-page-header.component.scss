@@ -1,0 +1,23 @@
+.main-header{
+    display: flex;
+   
+    justify-content: center;
+    
+    .header-container{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 80%;
+        margin: 1rem 3rem;
+    }
+
+    .logo{
+        font-weight: 700;
+        font-size: 30px;
+        img{
+            width: 210px;
+        }
+    }
+
+    
+}

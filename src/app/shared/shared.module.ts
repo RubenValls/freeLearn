@@ -7,13 +7,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { WorkingInProgressComponent } from './components/default-pages/working-in-progress/working-in-progress.component';
 import { ErrorPageComponent } from './components/default-pages/error-page/error-page.component';
+import { BtnGradientComponent } from './components/btn-gradient/btn-gradient.component';
+import { BtnBlackComponent } from './components/btn-black/btn-black.component';
+
 
 
 
 @NgModule({
   declarations: [ 
     WorkingInProgressComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    BtnGradientComponent,
+    BtnBlackComponent,
   ],
   imports: [
     CommonModule,
@@ -21,11 +26,13 @@ import { ErrorPageComponent } from './components/default-pages/error-page/error-
     FormsModule,
     MatInputModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   exports: [   
     WorkingInProgressComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    BtnGradientComponent,
+    BtnBlackComponent,
   ]
 })
 export class SharedModule { }
