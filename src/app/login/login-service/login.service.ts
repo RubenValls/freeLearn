@@ -92,13 +92,7 @@ export class LoginService {
       const userInfo = this.getUserInfoData(isLogin, formValue, userCredential)
       this.usersService.getUsers().subscribe((users) => {
         let user = users.find(user => user.email === userInfo.email)
-        this.usersService.updateUser(user?.id ? user?.id : '', {
-          authUid: userCredential.user.uid,
-          rememberMe: formValue.value?.rememberMe
-            ? formValue.value.rememberMe
-            : false,
-          ...userCredential.user.providerData[0],
-        }).then(() => {
+        this.usersService.updateUser(user?.id ? user?.id : '', userInfo).then(() => {
           user = users.find(user => user.email === userInfo.email)
           if(user){
             this.saveUserDataAndNavigate(user)
