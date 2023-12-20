@@ -73,7 +73,6 @@ export class LoginService {
     const auth = getAuth();
     signInWithPopup(auth, provider)
       .then((result) => {
-        console.log(result.user);
         this.handleUserInfo(formValue, result, isLogin);
       })
       .catch((error) => {
@@ -86,7 +85,7 @@ export class LoginService {
     userCredential: UserCredential,
     isLogin: boolean
   ) {
-    const userInfo = {
+    let userInfo: User = {
       authUid: userCredential.user.uid,
       ...userCredential.user.providerData[0],
       rememberMe: formValue.value?.rememberMe
@@ -94,17 +93,31 @@ export class LoginService {
         : false,
       role: 'student',
     };
-    this.store.dispatch(UserActions.addUser({ user: userInfo }));
     if (!isLogin) {
       const usersRef = collection(this.firestore, 'users');
       addDoc(usersRef, userInfo);
+      this.store.dispatch(UserActions.addUser({ user: userInfo }));
+      this.usersService.saveUserInStorage(userInfo.rememberMe, userInfo)
+      this.router.navigate(['/students'])
     } else {
       this.usersService.getUsers().subscribe((users) => {
-        const user = users.find(user => user.email === userInfo.email)
-        this.usersService.updateUser(user?.id ? user?.id : '', userInfo)
+        let user = users.find(user => user.email === userInfo.email)
+        this.usersService.updateUser(user?.id ? user?.id : '', {
+          authUid: userCredential.user.uid,
+          rememberMe: formValue.value?.rememberMe
+            ? formValue.value.rememberMe
+            : false,
+          ...userCredential.user.providerData[0],
+        }).then(() => {
+          user = users.find(user => user.email === userInfo.email)
+          if(user){
+            userInfo = user
+            this.store.dispatch(UserActions.addUser({ user: userInfo }));
+            this.usersService.saveUserInStorage(userInfo.rememberMe, userInfo)
+            this.router.navigate(['/students'])
+          }
+        })
       })
     }
-    this.usersService.saveUserInStorage(userInfo.rememberMe, userInfo)
-    this.router.navigate(['/students'])
   }
 }

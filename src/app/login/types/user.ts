@@ -6,7 +6,7 @@ export interface User {
     photoURL: string | null,
     providerId: string | null,
     rememberMe: boolean,
-    role: string,
+    role?: string,
     uid: string | null,
     authUid: string,
 }
