@@ -40,11 +40,7 @@ export class LoginService {
           this.handleUserInfo(formValue, userCredential, false);
         })
         .catch((error) => {
-          // User failed to sign in
-          // Handle sign in error
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorMessage);
+          this.alertsService.errorMessage(error.message)
         });
     }
   }
@@ -59,11 +55,7 @@ export class LoginService {
           this.handleUserInfo(formValue, userCredential, true);
         })
         .catch((error) => {
-          // User failed to log in
-          // Handle log in error
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorMessage);
+          this.alertsService.errorMessage(error.message)
         });
     }
   }
@@ -76,7 +68,7 @@ export class LoginService {
         this.handleUserInfo(formValue, result, isLogin);
       })
       .catch((error) => {
-        console.log(error);
+        this.alertsService.errorMessage(error.message)
       });
   }
 
@@ -85,21 +77,19 @@ export class LoginService {
     userCredential: UserCredential,
     isLogin: boolean
   ) {
-    let userInfo: User = {
-      authUid: userCredential.user.uid,
-      ...userCredential.user.providerData[0],
-      rememberMe: formValue.value?.rememberMe
-        ? formValue.value.rememberMe
-        : false,
-      role: 'student',
-    };
     if (!isLogin) {
-      const usersRef = collection(this.firestore, 'users');
-      addDoc(usersRef, userInfo);
-      this.store.dispatch(UserActions.addUser({ user: userInfo }));
-      this.usersService.saveUserInStorage(userInfo.rememberMe, userInfo)
-      this.router.navigate(['/students'])
+      const userInfo = this.getUserInfoData(isLogin, formValue, userCredential)
+      this.usersService.getUsers().subscribe((users) => {
+        const user = users.find(user => user.email === userInfo.email)
+        if(!user){
+          const usersRef = collection(this.firestore, 'users');
+          addDoc(usersRef, userInfo);
+        }
+        this.saveUserDataAndNavigate(userInfo)
+      })
+      
     } else {
+      const userInfo = this.getUserInfoData(isLogin, formValue, userCredential)
       this.usersService.getUsers().subscribe((users) => {
         let user = users.find(user => user.email === userInfo.email)
         this.usersService.updateUser(user?.id ? user?.id : '', {
@@ -111,13 +101,37 @@ export class LoginService {
         }).then(() => {
           user = users.find(user => user.email === userInfo.email)
           if(user){
-            userInfo = user
-            this.store.dispatch(UserActions.addUser({ user: userInfo }));
-            this.usersService.saveUserInStorage(userInfo.rememberMe, userInfo)
-            this.router.navigate(['/students'])
+            this.saveUserDataAndNavigate(user)
           }
         })
       })
+    }
+  }
+
+  saveUserDataAndNavigate(userInfo: User){
+    this.store.dispatch(UserActions.addUser({ user: userInfo }));
+    this.usersService.saveUserInStorage(userInfo.rememberMe, userInfo)
+    this.router.navigate(['/students'])
+  }
+
+  getUserInfoData(isLogin: boolean, formValue: FormGroup, userCredential: UserCredential,){
+    if(isLogin){
+      return {
+        authUid: userCredential.user.uid,
+        rememberMe: formValue.value?.rememberMe
+          ? formValue.value.rememberMe
+          : false,
+        ...userCredential.user.providerData[0],
+      }
+    }else{
+      return {
+        authUid: userCredential.user.uid,
+        ...userCredential.user.providerData[0],
+        rememberMe: formValue.value?.rememberMe
+          ? formValue.value.rememberMe
+          : false,
+        role: 'student',
+      }
     }
   }
 }
