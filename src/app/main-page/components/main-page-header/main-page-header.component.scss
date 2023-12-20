@@ -1,8 +1,15 @@
 .main-header{
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 1rem 3rem;
+   
+    justify-content: center;
+    
+    .header-container{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 80%;
+        margin: 1rem 3rem;
+    }
 
     .logo{
         font-weight: 700;

@@ -8,11 +8,13 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
 import { SharedModule } from '../shared/shared.module';
+import { FirstSectionMainComponent } from './components/first-section-main/first-section-main.component';
 
 @NgModule({
   declarations: [
     MainPageComponent,
     MainPageHeaderComponent,
+    FirstSectionMainComponent
     
   ],
   imports: [

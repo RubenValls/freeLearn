@@ -1,0 +1,31 @@
+.content {
+    display: flex;
+    align-items: center;
+    .left-container {
+        width: 40%;
+        display: flex;
+        justify-content: center;
+        img {
+            width: 600px;
+        }
+
+    }
+    .right-container{
+        width: 60%;
+        h1{
+            width: 60%;
+            font-size: 60px;
+            font-weight: bold;
+            span{
+                color: transparent;
+                background: var(--gradient);
+                -webkit-background-clip: text;
+            }
+            
+        }
+        p{
+            font-size: 18px;
+            width: 50%;
+        }
+    }
+}
