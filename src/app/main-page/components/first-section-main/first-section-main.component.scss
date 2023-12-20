@@ -3,7 +3,7 @@
     align-items: center;
     justify-content: center;
     .left-container {
-        width: 40%;
+        width: 50%;
         display: flex;
         justify-content: center;
         img {
@@ -13,8 +13,19 @@
     }
     .right-container{
         width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+
+        
+        div{
+            width: 100%;
+            margin-right: 35%;
+        }
+        
         h1{
-            width: 60%;
+            width: 100%;
             font-size: 60px;
             font-weight: bold;
             span{
@@ -26,7 +37,7 @@
         }
         p{
             font-size: 18px;
-            width: 50%;
+            width: 100%;
             text-align: justify;
         }
     }
