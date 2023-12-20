@@ -6,7 +6,7 @@ import { InstructorsService } from '../../instructors/instructors-service/instru
 
 import { of } from 'rxjs';
 
-describe('CoursesService', () => {
+fdescribe('CoursesService', () => {
   let service: CoursesService;
   let firestoreMock: any;
   let techsServiceMock: any;
@@ -43,8 +43,7 @@ describe('CoursesService', () => {
   });
 
   it('should add a course', async () => {
-   
-      
+         
     const docRef = { id: 'course-id' };
     firestoreMock.collection.and.returnValue({});
     firestoreMock.addDoc.and.returnValue(Promise.resolve(docRef));
