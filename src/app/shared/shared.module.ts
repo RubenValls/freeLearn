@@ -9,6 +9,7 @@ import { WorkingInProgressComponent } from './components/default-pages/working-i
 import { ErrorPageComponent } from './components/default-pages/error-page/error-page.component';
 import { BtnGradientComponent } from './components/btn-gradient/btn-gradient.component';
 import { BtnBlackComponent } from './components/btn-black/btn-black.component';
+import { ButtonComponent } from './components/button/button.component';
 
 
 
@@ -19,6 +20,7 @@ import { BtnBlackComponent } from './components/btn-black/btn-black.component';
     ErrorPageComponent,
     BtnGradientComponent,
     BtnBlackComponent,
+    ButtonComponent,
   ],
   imports: [
     CommonModule,

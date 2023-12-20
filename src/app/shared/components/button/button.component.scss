@@ -1,0 +1,51 @@
+button{
+    font-weight:600;
+    font-size: 16px;
+    letter-spacing: 1px;
+    padding: 1.4rem 1.4rem;
+    transition: background 0.2s;
+    border:none;
+    border-radius: 5px;
+
+}
+.primary{
+    background: var(--primary) !important;
+    color: var(--white) !important;    
+}
+.secondary{
+    background: var(--accent) !important;
+    color: var(--white) !important;   
+}
+.info{
+    background: var(--black) !important;
+    color: var(--white) !important;   
+}
+
+.danger{
+    background: var(--error) !important;
+    color: var(--white) !important;   
+}
+.warning{
+    background: var(--warning) !important;
+    color: var(--white) !important;   
+}
+.gradient{
+    background: linear-gradient(61deg,var(--accent) 1%,#20ded3 85%,#20ded3 90%) 0 0 /100% 100% no-repeat;    
+    color: var(--white) !important;
+}
+
+.gradient:hover{
+    background: var(--black) !important;
+}
+.large{
+    padding: 1.4rem 2.4rem;
+    font-size: 18px;
+}
+.medium{
+    padding: 1.4rem 1.4rem;
+    font-size: 16px;
+}
+.small{
+    padding: 1.4rem 1.4rem;
+    font-size: 14px;
+}
