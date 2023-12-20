@@ -12,6 +12,9 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
+import { coursesReducer } from './store/courses/courses.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { CoursesEffects } from './store/courses/courses.effects';
  
 @NgModule({
   declarations: [
@@ -21,10 +24,11 @@ import { environment } from 'src/environments/environment';
     BrowserModule,
     BrowserAnimationsModule,
     NgbModule,
- 
     StoreModule.forRoot({
-      user: userReducer
+      user: userReducer,
+      courses: coursesReducer,
     }),
+    EffectsModule.forRoot(CoursesEffects),
     SharedModule,
     AppRoutingModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
