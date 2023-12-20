@@ -1,4 +1,4 @@
-import { Component, HostListener, NgZone } from '@angular/core';
+import { Component, HostListener, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   isSmallScreen = false;
 
   constructor(private ngZone: NgZone, private router: Router) {}
@@ -14,7 +14,13 @@ export class HeaderComponent {
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.ngZone.run(() => {
-      this.isSmallScreen = window.innerWidth < 650;
+      this.isSmallScreen = window.innerWidth < 700;
+    });
+  }
+
+  ngOnInit(): void {
+    this.ngZone.run(() => {
+      this.isSmallScreen = window.innerWidth < 700;
     });
   }
 
