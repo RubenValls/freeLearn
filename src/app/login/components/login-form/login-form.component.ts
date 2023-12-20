@@ -15,6 +15,8 @@ export class LoginFormComponent {
   loginForm: FormGroup;
   hidePassword = true;
   hideConfirmPassword = true;
+  isLoading = false;
+  isGoogleLoading = false;
 
   constructor(private store: Store, private loginService: LoginService){
     this.loginForm = new FormGroup<LoginFormType>({
@@ -26,12 +28,13 @@ export class LoginFormComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      console.log(this.loginForm.value);
+      this.isLoading = true;
       this.loginService.loginInWithEmail(this.loginForm)
     }
   }
 
   onGoogleSubmit() {
-    this.loginService.signInWithGoogle(this.loginForm, true)
+    this.isGoogleLoading = true;
+    this.loginService.signInWithGoogle(this.loginForm, true);
   }
 }

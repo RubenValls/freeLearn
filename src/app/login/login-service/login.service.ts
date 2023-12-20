@@ -57,6 +57,7 @@ export class LoginService {
         })
         .catch((error) => {
           this.alertsService.errorMessage(error.message)
+          return 'Hola'
         });
     }
   }
