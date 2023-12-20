@@ -28,6 +28,12 @@
       </mat-error>
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit" [disabled]="!signupForm.valid">Sign In</button>
-    <button type="button" class="login-with-google-btn" (click)="onGoogleSubmit()">Sign in with Google</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!signupForm.valid || isLoading">
+      <mat-spinner *ngIf="isLoading; else buttonText" [diameter]="15"></mat-spinner>
+      <ng-template #buttonText>Sign In</ng-template>
+    </button>
+    <button type="button" class="login-with-google-btn" (click)="onGoogleSubmit()" [disabled]="isGoogleLoading">
+      <mat-spinner *ngIf="isGoogleLoading; else buttonTextGoogle" [diameter]="15"></mat-spinner>
+      <ng-template #buttonTextGoogle>Sign in with Google</ng-template>
+    </button>
 </form>

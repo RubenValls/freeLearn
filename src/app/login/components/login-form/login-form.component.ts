@@ -30,11 +30,17 @@ export class LoginFormComponent {
     if (this.loginForm.valid) {
       this.isLoading = true;
       this.loginService.loginInWithEmail(this.loginForm)
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 3000);
     }
   }
 
   onGoogleSubmit() {
     this.isGoogleLoading = true;
     this.loginService.signInWithGoogle(this.loginForm, true);
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 3000);
   }
 }

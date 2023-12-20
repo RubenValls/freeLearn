@@ -16,6 +16,8 @@ export class SignupFormComponent {
   signupForm: FormGroup;
   hidePassword = true;
   hideConfirmPassword = true;
+  isLoading = false;
+  isGoogleLoading = false;
 
   constructor(private store: Store, private loginService: LoginService){
     this.signupForm = new FormGroup<SigninFormType>({
@@ -43,11 +45,19 @@ export class SignupFormComponent {
 
   onSubmit() {
     if (this.signupForm.valid) {
+      this.isLoading = true;
       this.loginService.signInWithEmail(this.signupForm)
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 3000);
     }
   }
 
   onGoogleSubmit() {
+    this.isGoogleLoading = true;
     this.loginService.signInWithGoogle(this.signupForm, false)
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 3000);
   }
 }
