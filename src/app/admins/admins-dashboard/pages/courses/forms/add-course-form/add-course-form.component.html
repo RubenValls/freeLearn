@@ -7,19 +7,39 @@
         </mat-error>
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field appearance="fill">
         <mat-label>Course description</mat-label>
-        <input matInput formControlName="description" type="text">
+        <textarea matInput formControlName="description" cdkTextareaAutosize
+        cdkAutosizeMinRows="10"
+        ></textarea>
         <mat-error *ngIf="courseForm.controls['description'].invalid && courseForm.controls['description'].touched">
-            Please, write a description.
+          Description is required.
+        </mat-error>
+      </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Select a instructor</mat-label>
+        <mat-select multiple (selectionChange)="onTechsSelectionChange($event)" formControlName="instructorId">
+            <mat-option *ngFor="let instructor$ of instructors$" [value]="instructor$.id">
+                {{instructor$.name}}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="courseForm.controls['instructorId'].invalid && courseForm.controls['instructorId'].touched">
+            Please, assign instructor name
         </mat-error>
     </mat-form-field>
 
     <mat-form-field>
-        <mat-label>Course instructor name</mat-label>
-        <input matInput formControlName="name" type="text">
-        <mat-error *ngIf="courseForm.controls['instructor'].invalid && courseForm.controls['instructor'].touched">
-            Please, assign instructor name
+        <mat-label>Select technologies</mat-label>
+        <mat-select placeholder="Techs" multiple (selectionChange)="onTechsSelectionChange($event)"
+            formControlName="techs">
+            <mat-option *ngFor="let tech$ of techs$" [value]="tech$.id">
+                {{tech$.name}}
+            </mat-option>
+
+        </mat-select>
+        <mat-error *ngIf="courseForm.controls['techs'].invalid && courseForm.controls['techs'].touched">
+            Please, select at least one technology
         </mat-error>
     </mat-form-field>
 
@@ -31,21 +51,8 @@
         </mat-error>
     </mat-form-field>
 
-    <mat-form-field>
-        <mat-label >Select technologies</mat-label>
-        <!-- mañana lo modifico para acceder a las techs -->
-        <mat-select placeholder="Techs" multiple (selectionChange)="onTechsSelectionChange($event)" formControlName="techs" >
-          <mat-option value="angular">Angular</mat-option>
-          <mat-option value="typeScript">TypeScript</mat-option>
-          <mat-option value="react">React</mat-option>
-          <mat-option value="javascript">Javascript</mat-option>
-          <mat-option value="angularmaterial">Angular Material</mat-option>
-        </mat-select>
-        <mat-error *ngIf="courseForm.controls['techs'].invalid && courseForm.controls['techs'].touched">
-            Please, select at least one technology
-        </mat-error>
-      </mat-form-field>
-   
+
+
     <button mat-raised-button color="primary" type="submit">Add Course</button>
 
 </form>
