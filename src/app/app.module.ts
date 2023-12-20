@@ -17,6 +17,7 @@ import { technologiesReducer } from './store/technologies/technologies.reducer';
 import { TechnologiesEffects } from './store/technologies/technologies.effects';
 import { instructorsReducer } from './store/instructors/instructors.reducer';
 import { InstructorsEffects } from './store/instructors/instructors.effects';
+import { SharedModule } from './shared/shared.module';
 
  
 @NgModule({
@@ -27,6 +28,7 @@ import { InstructorsEffects } from './store/instructors/instructors.effects';
     BrowserModule,
     BrowserAnimationsModule,
     NgbModule,
+    SharedModule,
     StoreModule.forRoot({
       user: userReducer,
       courses: coursesReducer,
