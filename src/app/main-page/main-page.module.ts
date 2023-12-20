@@ -7,18 +7,21 @@ import { MainPageHeaderComponent } from './components/main-page-header/main-page
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
     MainPageComponent,
-    MainPageHeaderComponent
+    MainPageHeaderComponent,
+    
   ],
   imports: [
     CommonModule,
     MainPageRoutingModule,
     MatIconModule,
     MatDividerModule,
-    MatButtonModule
+    MatButtonModule,
+    SharedModule,
     
   ]
 })

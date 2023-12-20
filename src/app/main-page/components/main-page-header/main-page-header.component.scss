@@ -9,17 +9,5 @@
         font-size: 30px;
     }
 
-    .content{
-        button{
-            background: linear-gradient(61deg,var(--accent) 1%,#20ded3 85%,#20ded3 90%) 0 0 /100% 100% no-repeat;
-            color: var(--white);
-            font-weight:700;
-            font-size: 14px;
-            letter-spacing: 0.5px;
-        }
-
-        button:hover{
-            background: var(--black) !important;
-        }
-    }
+    
 }

@@ -5,12 +5,15 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BtnGradientComponent } from './components/btn-gradient/btn-gradient.component';
 
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    BtnGradientComponent
+  ],
   imports: [
     CommonModule,
     MatFormFieldModule,
@@ -18,6 +21,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatInputModule,
     MatButtonModule,
     MatSnackBarModule
+  ],
+  exports:[
+    BtnGradientComponent
   ]
 })
 export class SharedModule { }
