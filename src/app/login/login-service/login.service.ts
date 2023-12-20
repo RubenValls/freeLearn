@@ -16,6 +16,8 @@ import { addDoc, collection } from 'firebase/firestore';
 import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 import { User } from '../types/user';
 import { UsersService } from 'src/app/shared/services/users/users.service';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +27,8 @@ export class LoginService {
     private store: Store,
     private firestore: Firestore,
     private alertsService: AlertsService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private router: Router,
   ) {}
 
   signInWithEmail(formValue: FormGroup<SigninFormType>) {
@@ -38,11 +41,7 @@ export class LoginService {
           this.handleUserInfo(formValue, userCredential, false);
         })
         .catch((error) => {
-          // User failed to sign in
-          // Handle sign in error
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorMessage);
+          this.alertsService.errorMessage(error.message)
         });
     }
   }
@@ -57,11 +56,7 @@ export class LoginService {
           this.handleUserInfo(formValue, userCredential, true);
         })
         .catch((error) => {
-          // User failed to log in
-          // Handle log in error
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorMessage);
+          this.alertsService.errorMessage(error.message)
         });
     }
   }
@@ -71,11 +66,10 @@ export class LoginService {
     const auth = getAuth();
     signInWithPopup(auth, provider)
       .then((result) => {
-        console.log(result.user);
         this.handleUserInfo(formValue, result, isLogin);
       })
       .catch((error) => {
-        console.log(error);
+        this.alertsService.errorMessage(error.message)
       });
   }
 
@@ -84,24 +78,55 @@ export class LoginService {
     userCredential: UserCredential,
     isLogin: boolean
   ) {
-    const userInfo = {
-      authUid: userCredential.user.uid,
-      ...userCredential.user.providerData[0],
-      rememberMe: formValue.value?.rememberMe
-        ? formValue.value.rememberMe
-        : false,
-      role: 'student',
-    };
-    this.store.dispatch(UserActions.addUser({ user: userInfo }));
     if (!isLogin) {
-      const usersRef = collection(this.firestore, 'users');
-      addDoc(usersRef, userInfo);
-    } else {
-      this.usersService.getUsers().subscribe((users) => {
+      const userInfo = this.getUserInfoData(isLogin, formValue, userCredential)
+      const usersSubscription = this.usersService.getUsers().subscribe((users) => {
         const user = users.find(user => user.email === userInfo.email)
-        this.usersService.updateUser(user?.id ? user?.id : '', userInfo)
+        if(!user){
+          const usersRef = collection(this.firestore, 'users');
+          addDoc(usersRef, userInfo);
+        }
+        this.saveUserDataAndNavigate(userInfo, usersSubscription)
+      })
+    } else {
+      const userInfo = this.getUserInfoData(isLogin, formValue, userCredential)
+      const usersSubscription = this.usersService.getUsers().subscribe((users) => {
+        let user = users.find(user => user.email === userInfo.email)
+        this.usersService.updateUser(user?.id ? user?.id : '', userInfo).then(() => {
+          user = users.find(user => user.email === userInfo.email)
+          if(user){
+            this.saveUserDataAndNavigate(user, usersSubscription)
+          }
+        })
       })
     }
-    formValue.reset();
+  }
+
+  saveUserDataAndNavigate(userInfo: User, usersSubscription: Subscription){
+    this.store.dispatch(UserActions.addUser({ user: userInfo }));
+    this.usersService.saveUserInStorage(userInfo.rememberMe, userInfo);
+    usersSubscription.unsubscribe();
+    this.router.navigate(['/students']);
+  }
+
+  getUserInfoData(isLogin: boolean, formValue: FormGroup, userCredential: UserCredential,){
+    if(isLogin){
+      return {
+        authUid: userCredential.user.uid,
+        rememberMe: formValue.value?.rememberMe
+          ? formValue.value.rememberMe
+          : false,
+        ...userCredential.user.providerData[0],
+      }
+    }else{
+      return {
+        authUid: userCredential.user.uid,
+        ...userCredential.user.providerData[0],
+        rememberMe: formValue.value?.rememberMe
+          ? formValue.value.rememberMe
+          : false,
+        role: 'student',
+      }
+    }
   }
 }

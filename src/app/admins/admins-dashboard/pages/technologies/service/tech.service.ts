@@ -43,9 +43,10 @@ export class TechService {
 
   async updateTechnologyCourses(technologyId: string, courseId: string){
     const techRef = doc(this.firestore, 'technologies', technologyId);
-    const techData = (await getDoc(techRef)).data() as TechnologyType;
+    const techData = (await getDoc(techRef)).data() as TechnologyType;      
+    techData.courses.push(courseId)
     const techUpdated = await updateDoc(techRef, {
-      courses: techData.courses.push(courseId)
+      courses: techData.courses
     });
     return techUpdated;
   }

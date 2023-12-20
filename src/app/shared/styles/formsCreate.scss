@@ -1,0 +1,23 @@
+@mixin form-create{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin form-create-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    mat-form-field{
+        padding: 10px;
+    }
+}
+
+@mixin form-create-textarea{
+    width: 50%;
+    textarea {
+        resize: none;
+    }
+}

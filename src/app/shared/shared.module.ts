@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { WorkingInProgressComponent } from './components/default-pages/working-in-progress/working-in-progress.component';
+import { ErrorPageComponent } from './components/default-pages/error-page/error-page.component';
 import { BtnGradientComponent } from './components/btn-gradient/btn-gradient.component';
 import { BtnBlackComponent } from './components/btn-black/btn-black.component';
 
@@ -12,9 +14,11 @@ import { BtnBlackComponent } from './components/btn-black/btn-black.component';
 
 
 @NgModule({
-  declarations: [
+  declarations: [ 
+    WorkingInProgressComponent,
+    ErrorPageComponent,
     BtnGradientComponent,
-    BtnBlackComponent
+    BtnBlackComponent,
   ],
   imports: [
     CommonModule,
@@ -22,11 +26,13 @@ import { BtnBlackComponent } from './components/btn-black/btn-black.component';
     FormsModule,
     MatInputModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
-  exports:[
+  exports: [   
+    WorkingInProgressComponent,
+    ErrorPageComponent,
     BtnGradientComponent,
-    BtnBlackComponent
+    BtnBlackComponent,
   ]
 })
 export class SharedModule { }

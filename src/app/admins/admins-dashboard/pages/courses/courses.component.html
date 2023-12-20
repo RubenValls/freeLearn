@@ -1,7 +1,7 @@
-<div class="courses-container">
+<div class="flex-container">
     <button (click)="addCourse()" mat-raised-button color="primary">
-
         Add course
+        <mat-icon iconPositionEnd>add</mat-icon>
     </button>
     <ng-container *ngIf="watchForm">
         <app-add-course-form></app-add-course-form>

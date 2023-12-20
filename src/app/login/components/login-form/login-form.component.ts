@@ -32,6 +32,6 @@ export class LoginFormComponent {
   }
 
   onGoogleSubmit() {
-    this.loginService.signInWithGoogle(this.loginForm, false)
+    this.loginService.signInWithGoogle(this.loginForm, true)
   }
 }

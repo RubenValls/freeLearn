@@ -35,8 +35,9 @@ export class InstructorsService {
   async updateInstructorsCourses(technologyId: string, courseId: string){
     const instructorRef = doc(this.firestore, 'instructors', technologyId);
     const instructorData = (await getDoc(instructorRef)).data() as Instructor;
+    instructorData.courses.push(courseId)
     const instructorUpdated = await updateDoc(instructorRef, {
-      courses: instructorData.courses.push(courseId)
+      courses: instructorData.courses
     });
     return instructorUpdated;
   }
