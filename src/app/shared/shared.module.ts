@@ -6,13 +6,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BtnGradientComponent } from './components/btn-gradient/btn-gradient.component';
+import { BtnBlackComponent } from './components/btn-black/btn-black.component';
 
 
 
 
 @NgModule({
   declarations: [
-    BtnGradientComponent
+    BtnGradientComponent,
+    BtnBlackComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,8 @@ import { BtnGradientComponent } from './components/btn-gradient/btn-gradient.com
     MatSnackBarModule
   ],
   exports:[
-    BtnGradientComponent
+    BtnGradientComponent,
+    BtnBlackComponent
   ]
 })
 export class SharedModule { }
