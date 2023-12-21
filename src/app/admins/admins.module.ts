@@ -17,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { NewTechFormComponent } from './admins-dashboard/pages/technologies/components/new-tech-form/new-tech-form.component';
 import { CreateInstructorsFormComponent } from './admins-dashboard/pages/instructors/create-instructors-form/create-instructors-form.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -43,6 +44,7 @@ import { CreateInstructorsFormComponent } from './admins-dashboard/pages/instruc
     MatInputModule,
     MatFormFieldModule,
     MatIconModule,
+    SharedModule,
 
   ]
 })

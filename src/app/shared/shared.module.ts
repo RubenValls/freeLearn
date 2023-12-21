@@ -9,8 +9,8 @@ import { WorkingInProgressComponent } from './components/default-pages/working-i
 import { ErrorPageComponent } from './components/default-pages/error-page/error-page.component';
 import { BtnGradientComponent } from './components/btn-gradient/btn-gradient.component';
 import { BtnBlackComponent } from './components/btn-black/btn-black.component';
-
-
+import { ButtonComponent } from './components/button/button.component';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -19,6 +19,7 @@ import { BtnBlackComponent } from './components/btn-black/btn-black.component';
     ErrorPageComponent,
     BtnGradientComponent,
     BtnBlackComponent,
+    ButtonComponent,
   ],
   imports: [
     CommonModule,
@@ -27,12 +28,16 @@ import { BtnBlackComponent } from './components/btn-black/btn-black.component';
     MatInputModule,
     MatButtonModule,
     MatSnackBarModule,
+    MatIconModule,
+
   ],
   exports: [   
     WorkingInProgressComponent,
     ErrorPageComponent,
     BtnGradientComponent,
     BtnBlackComponent,
+    ButtonComponent,
+    
   ]
 })
 export class SharedModule { }

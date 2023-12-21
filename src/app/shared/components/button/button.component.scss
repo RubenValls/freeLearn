@@ -1,0 +1,75 @@
+button {
+   
+    font-size: 16px;
+    letter-spacing: 1px;
+    padding:10px;
+    transition: background 0.2s;
+    border: none;
+    border-radius: 5px;
+
+}
+
+.primary {
+    background: var(--primary) !important;
+    color: var(--white) !important;
+}
+
+.primary:hover {  
+    background: linear-gradient(145deg, #cacaca, #f0f0f0);
+    box-shadow:  7px 7px 14px #a4a4a4,
+                 -7px -7px 14px #ffffff;
+}
+
+ .primary:active {
+  
+    transform: translateY(10px);
+    transition: 100ms;
+  }
+
+.secondary {
+    background: var(--accent) !important;
+    color: var(--white) !important;
+}
+.success {
+    background: var(--succes) !important;
+    color: var(--white) !important;
+}
+
+.info {
+    background: var(--black) !important;
+    color: var(--white) !important;
+}
+
+.danger {
+    background: var(--error) !important;
+    color: var(--white) !important;
+}
+
+.warning {
+    background: var(--warning) !important;
+    color: var(--white) !important;
+}
+
+.gradient {
+    background: linear-gradient(61deg, var(--accent) 1%, #20ded3 85%, #20ded3 90%) 0 0 /100% 100% no-repeat;
+    color: var(--white) !important;
+}
+
+.gradient:hover {
+    background: var(--black) !important;
+}
+
+.large {
+
+    font-size: 18px;
+}
+
+.medium {
+
+    font-size: 16px;
+}
+
+.small {
+
+    font-size: 14px;
+}
