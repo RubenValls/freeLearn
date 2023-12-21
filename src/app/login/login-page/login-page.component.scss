@@ -6,6 +6,7 @@
 
     @media (width < 768px) {
         height: 25%;
+        margin-bottom: 20px;
     }
 }
 
@@ -15,7 +16,12 @@
     justify-content: center;
     align-items: center;
     margin: auto;
-    height: 100%;
+    min-height: 100%;
+
+    img{
+        width: 250px;
+        margin: 25px auto;
+    }
 
     @media (width < 768px) {
         height: 75%;
