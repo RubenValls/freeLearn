@@ -53,6 +53,9 @@
 
 
 
-    <button mat-raised-button color="primary" type="submit">Add Course</button>
+    <div class="button-container">
+        <button mat-raised-button color="primary" type="submit" disabled="!courseForm.valid">Add Course</button>
+    </div>
+    
 
 </form>

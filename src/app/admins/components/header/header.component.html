@@ -1,5 +1,5 @@
 <div class="container-fluid" id="admin-navbar">
-    <img *ngIf="!isSmallScreen" src="../../../../assets/images/logo/svg/Color logo - no background.svg" alt="freelearn-logo">
+    <img *ngIf="!isSmallScreen" src="../../../../assets/images/logo/svg/White logo - no background.svg" alt="freelearn-logo">
     <button mat-button routerLink="users" routerLinkActive="active">
         <mat-icon [ngClass]="{'large-icon': isSmallScreen}">supervisor_account</mat-icon>
         <span *ngIf="!isSmallScreen">Users</span>
@@ -16,7 +16,7 @@
         <mat-icon [ngClass]="{'large-icon': isSmallScreen}">school</mat-icon>
         <span *ngIf="!isSmallScreen">Instructors</span>
     </button>
-    <button mat-button color="warn" id="log-out-btn" (click)="handleLogOut()">
+    <button mat-button id="log-out-btn" (click)="handleLogOut()">
         <mat-icon [ngClass]="{'large-icon': isSmallScreen}">exit_to_app</mat-icon>
     </button>
 </div>

@@ -3,8 +3,15 @@ form{
     display: flex;
     flex-direction: column;
     gap: 5px;
+
   } 
   .formCourse{
     width: 50%;
     margin: 0 auto;
+
+    .button-container{
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+    }
   }

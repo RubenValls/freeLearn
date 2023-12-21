@@ -28,5 +28,7 @@
       </mat-error>
     </mat-form-field>
   
-    <button mat-raised-button color="primary" type="submit">Add technology</button>
+    <div class="button-container">
+        <button mat-raised-button color="primary" type="submit" disabled="!newTechForm.valid">Add technology</button>
+    </div>
 </form>
