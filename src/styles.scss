@@ -3,6 +3,7 @@
 @import './app/shared/services/alerts/alerts.scss';
 @import './app/shared/styles/colors.scss';
 @import './app/shared/styles/formsCreate.scss';
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 html,
 body {
@@ -11,5 +12,5 @@ body {
 
 body {
     margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
