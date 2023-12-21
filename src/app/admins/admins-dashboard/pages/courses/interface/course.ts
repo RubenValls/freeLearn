@@ -2,14 +2,14 @@ export interface Course {
     id?: string;
     name: string;
     description: string;   
-    instructorId: [];
+    instructorId: string[]; 
     imageUrl: string;
-    techs: [];
-    lessons: [
-        {
-            id?: string;
-            name: string;       
-            videoUrl: string;                   
-        }
-    ];   
-}    
+    techs: string[];
+    lessons: Lesson[];
+}
+
+interface Lesson {
+    id?: string;
+    name: string;       
+    videoUrl: string;                   
+}
