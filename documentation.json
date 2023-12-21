@@ -2373,7 +2373,7 @@
         },
         {
             "name": "ButtonComponent",
-            "id": "component-ButtonComponent-140cca7ef40ae7d78a28d8635fbcd65af3d32efe590c1f672f173115b40ceed1334ec038558eb0b3b96984ac1bb68d3271f1a46c9ae1039caab689b7882b1023",
+            "id": "component-ButtonComponent-45e08042ef2a9a0315cf537b12e6574618a752bd2b8ece8b06507af94c57792095ab160f92779a10f4dddb3ed7d215da656758ae7b29c066ecf14e93632bd292",
             "file": "src/app/shared/components/button/button.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2473,7 +2473,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, EventEmitter, Input, Output } from '@angular/core';\n\nconst getStyles = (...args: string[]) => [\"button\", ...args].filter(Boolean)\n\n\n@Component({\n  selector: 'app-button',\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.scss']\n})\nexport class ButtonComponent {\n  @Input() label!: string; \n  @Input() routerLink!: string;\n  @Input() primary = false;\n  @Input() type: 'primary' | 'secondary' |  'gradient'  |  'info' |  'danger' |  'warning'  |  'success'= 'primary';\n  @Input() size: 'small' | 'medium' | 'large' = 'large'\n  @Input() iconName?: string;\n  @Input() iconPosition: 'start' | 'end' = 'end';\n  @Output() onClick = new EventEmitter<Event>();\n\n  public get classes(): string[] {\n    return getStyles(this.type, this.size);   \n  }\n\n}\n",
+            "sourceCode": "import { Component, EventEmitter, Input, Output } from '@angular/core';\r\n\r\nconst getStyles = (...args: string[]) => [\"button\", ...args].filter(Boolean)\r\n\r\n\r\n@Component({\r\n  selector: 'app-button',\r\n  templateUrl: './button.component.html',\r\n  styleUrls: ['./button.component.scss']\r\n})\r\nexport class ButtonComponent {\r\n  @Input() label!: string; \r\n  @Input() routerLink!: string;\r\n  @Input() primary = false;\r\n  @Input() type: 'primary' | 'secondary' |  'gradient'  |  'info' |  'danger' |  'warning'  |  'success'= 'primary';\r\n  @Input() size: 'small' | 'medium' | 'large' = 'large'\r\n  @Input() iconName?: string;\r\n  @Input() iconPosition: 'start' | 'end' = 'end';\r\n  @Output() onClick = new EventEmitter<Event>();\r\n\r\n  public get classes(): string[] {\r\n    return getStyles(this.type, this.size);   \r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -2494,7 +2494,7 @@
                     }
                 }
             },
-            "templateData": "<!-- <button\n(click)=\"onClick.emit($event)\"\n [ngClass]=\"classes\"\n>\n {{label}}\n <mat-icon>add</mat-icon>\n</button> -->\n<!-- button.component.html -->\n<button [ngClass]=\"classes\"(click)=\"onClick.emit($event)\">\n    <span *ngIf=\"iconPosition === 'start'\">\n      <mat-icon *ngIf=\"iconName\" class=\"mat-icon\">{{ iconName }}</mat-icon>\n    </span>\n    <span>{{ label }}</span>\n    <span >\n      <mat-icon *ngIf=\"iconName\" iconPositionEnd class=\"mat-icon\">{{ iconName }}</mat-icon>\n    </span>\n    \n  </button>\n  "
+            "templateData": "<!-- <button\r\n(click)=\"onClick.emit($event)\"\r\n [ngClass]=\"classes\"\r\n>\r\n {{label}}\r\n <mat-icon>add</mat-icon>\r\n</button> -->\r\n<!-- button.component.html -->\r\n<button [ngClass]=\"classes\"(click)=\"onClick.emit($event)\">\r\n    <span *ngIf=\"iconPosition === 'start'\">\r\n      <mat-icon *ngIf=\"iconName\" class=\"mat-icon\">{{ iconName }}</mat-icon>\r\n    </span>\r\n    <span>{{ label }}</span>\r\n    <span >\r\n      <mat-icon *ngIf=\"iconName\" iconPositionEnd class=\"mat-icon\">{{ iconName }}</mat-icon>\r\n    </span>\r\n    \r\n  </button>\r\n  "
         },
         {
             "name": "CoursesComponent",
@@ -4261,13 +4261,13 @@
         },
         {
             "name": "SharedModule",
-            "id": "module-SharedModule-e9526bec03c632500b9964d40d9c3860b2322cc4f9d8892ea454f0cdf1ee180fb558338cbb512256898652ccb4a302caa1df0efcda5a1c90aa81dd15d01bcbde",
+            "id": "module-SharedModule-155c015c5083329b86a60b4eed3feee9b12152810dd81afdd75807084a1489751e9ad9ca2e4f62d87609ae471b505c9254659bf1393a2a830fb4d9735e16d076",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/shared/shared.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatFormFieldModule } from '@angular/material/form-field';\r\nimport { FormsModule } from '@angular/forms';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { MatSnackBarModule } from '@angular/material/snack-bar';\r\nimport { WorkingInProgressComponent } from './components/default-pages/working-in-progress/working-in-progress.component';\r\nimport { ErrorPageComponent } from './components/default-pages/error-page/error-page.component';\r\nimport { BtnGradientComponent } from './components/btn-gradient/btn-gradient.component';\r\nimport { BtnBlackComponent } from './components/btn-black/btn-black.component';\r\nimport { ButtonComponent } from './components/button/button.component';\r\nimport { MatIconModule } from '@angular/material/icon';\r\n\r\n\r\n\r\n\r\n@NgModule({\r\n  declarations: [ \r\n    WorkingInProgressComponent,\r\n    ErrorPageComponent,\r\n    BtnGradientComponent,\r\n    BtnBlackComponent,\r\n    ButtonComponent,\r\n  ],\r\n  imports: [\r\n    CommonModule,\r\n    MatFormFieldModule,\r\n    FormsModule,\r\n    MatInputModule,\r\n    MatButtonModule,\r\n    MatSnackBarModule,\r\n    MatIconModule,\r\n\r\n  ],\r\n  exports: [   \r\n    WorkingInProgressComponent,\r\n    ErrorPageComponent,\r\n    BtnGradientComponent,\r\n    BtnBlackComponent,\r\n    ButtonComponent,\r\n    \r\n  ]\r\n})\r\nexport class SharedModule { }\r\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatFormFieldModule } from '@angular/material/form-field';\r\nimport { FormsModule } from '@angular/forms';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { MatSnackBarModule } from '@angular/material/snack-bar';\r\nimport { WorkingInProgressComponent } from './components/default-pages/working-in-progress/working-in-progress.component';\r\nimport { ErrorPageComponent } from './components/default-pages/error-page/error-page.component';\r\nimport { BtnGradientComponent } from './components/btn-gradient/btn-gradient.component';\r\nimport { BtnBlackComponent } from './components/btn-black/btn-black.component';\r\nimport { ButtonComponent } from './components/button/button.component';\r\nimport { MatIconModule } from '@angular/material/icon';\r\n\r\n\r\n@NgModule({\r\n  declarations: [ \r\n    WorkingInProgressComponent,\r\n    ErrorPageComponent,\r\n    BtnGradientComponent,\r\n    BtnBlackComponent,\r\n    ButtonComponent,\r\n  ],\r\n  imports: [\r\n    CommonModule,\r\n    MatFormFieldModule,\r\n    FormsModule,\r\n    MatInputModule,\r\n    MatButtonModule,\r\n    MatSnackBarModule,\r\n    MatIconModule,\r\n\r\n  ],\r\n  exports: [   \r\n    WorkingInProgressComponent,\r\n    ErrorPageComponent,\r\n    BtnGradientComponent,\r\n    BtnBlackComponent,\r\n    ButtonComponent,\r\n    \r\n  ]\r\n})\r\nexport class SharedModule { }\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -4601,7 +4601,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Preview",
-                "defaultValue": "{\n  parameters: {\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\n    controls: {\n      matchers: {\n        color: /(background|color)$/i,\n        date: /Date$/i,\n      },\n    },\n  },\n}"
+                "defaultValue": "{\r\n  parameters: {\r\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/i,\r\n      },\r\n    },\r\n  },\r\n}"
             },
             {
                 "name": "Primary",
@@ -4721,7 +4721,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<AlertsService>",
-                "defaultValue": "(args) => ({\r\n    template: '',\r\n    providers: [AlertsService],\r\n    props: {\r\n      ...args,\r\n    },\r\n    onInit: (story: any) => {\r\n      const alertsService = story.componentRef.injector.get(AlertsService);\r\n  \r\n      // Ejemplo de uso del servicio\r\n      alertsService.errorMessage('This is an error message', 'Close', 2000);\r\n    },\r\n  })"
+                "defaultValue": "(args) => ({\r\n    template: '',\r\n    providers: [AlertsService],\r\n    props: args,\r\n    onInit: (story: any) => {\r\n      const alertsService = story.componentRef.injector.get(AlertsService);\r\n      alertsService.errorMessage('This is an error message', 'Close', 2000);\r\n    },\r\n  })"
             },
             {
                 "name": "UserActions",
@@ -4959,7 +4959,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story<AlertsService>",
-                    "defaultValue": "(args) => ({\r\n    template: '',\r\n    providers: [AlertsService],\r\n    props: {\r\n      ...args,\r\n    },\r\n    onInit: (story: any) => {\r\n      const alertsService = story.componentRef.injector.get(AlertsService);\r\n  \r\n      // Ejemplo de uso del servicio\r\n      alertsService.errorMessage('This is an error message', 'Close', 2000);\r\n    },\r\n  })"
+                    "defaultValue": "(args) => ({\r\n    template: '',\r\n    providers: [AlertsService],\r\n    props: args,\r\n    onInit: (story: any) => {\r\n      const alertsService = story.componentRef.injector.get(AlertsService);\r\n      alertsService.errorMessage('This is an error message', 'Close', 2000);\r\n    },\r\n  })"
                 }
             ],
             "src/app/shared/components/button/button.component.ts": [
@@ -5061,7 +5061,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Preview",
-                    "defaultValue": "{\n  parameters: {\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\n    controls: {\n      matchers: {\n        color: /(background|color)$/i,\n        date: /Date$/i,\n      },\n    },\n  },\n}"
+                    "defaultValue": "{\r\n  parameters: {\r\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/i,\r\n      },\r\n    },\r\n  },\r\n}"
                 }
             ],
             "src/app/shared/guards/role.guard.ts": [
