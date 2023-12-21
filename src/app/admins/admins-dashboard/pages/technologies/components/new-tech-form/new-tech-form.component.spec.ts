@@ -5,7 +5,7 @@ import { TechService } from '../../service/tech.service';
 import { AdminsModule } from 'src/app/admins/admins.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-fdescribe('NewTechFormComponent', () => {
+describe('NewTechFormComponent', () => {
   let component: NewTechFormComponent;
   let fixture: ComponentFixture<NewTechFormComponent>;
   let techService: TechService;
