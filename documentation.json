@@ -2373,7 +2373,7 @@
         },
         {
             "name": "ButtonComponent",
-            "id": "component-ButtonComponent-694861c475753436fc83d5a7d51c961d2ed9263a5a1077fb4ed76983a0f987c9671e86a926fc8f265fcebdb4bae22c518b5d83b33efe7bc0a3a98be71ec55fca",
+            "id": "component-ButtonComponent-140cca7ef40ae7d78a28d8635fbcd65af3d32efe590c1f672f173115b40ceed1334ec038558eb0b3b96984ac1bb68d3271f1a46c9ae1039caab689b7882b1023",
             "file": "src/app/shared/components/button/button.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2392,18 +2392,27 @@
             "hostDirectives": [],
             "inputsClass": [
                 {
-                    "name": "backgroundColor",
+                    "name": "iconName",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 14,
+                    "line": 17,
                     "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "iconPosition",
+                    "defaultValue": "'end'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 18,
+                    "type": "\"start\" | \"end\"",
                     "decorators": []
                 },
                 {
                     "name": "label",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 11,
+                    "line": 12,
                     "type": "string",
                     "decorators": []
                 },
@@ -2412,7 +2421,7 @@
                     "defaultValue": "false",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 13,
+                    "line": 14,
                     "type": "boolean",
                     "decorators": []
                 },
@@ -2420,21 +2429,39 @@
                     "name": "routerLink",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 12,
+                    "line": 13,
                     "type": "string",
                     "decorators": []
                 },
                 {
-                    "name": "type",
-                    "defaultValue": "'gradient'",
+                    "name": "size",
+                    "defaultValue": "'large'",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "line": 16,
-                    "type": "\"primary\" | \"secondary\" | \"gradient\"",
+                    "type": "\"small\" | \"medium\" | \"large\"",
+                    "decorators": []
+                },
+                {
+                    "name": "type",
+                    "defaultValue": "'primary'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 15,
+                    "type": "\"primary\" | \"secondary\" | \"gradient\" | \"info\" | \"danger\" | \"warning\" | \"success\"",
                     "decorators": []
                 }
             ],
-            "outputsClass": [],
+            "outputsClass": [
+                {
+                    "name": "onClick",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 19,
+                    "type": "EventEmitter"
+                }
+            ],
             "propertiesClass": [],
             "methodsClass": [],
             "deprecated": false,
@@ -2446,11 +2473,11 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\n\nconst getStyles = (...args: string[]) => [\"button\", ...args].filter(Boolean)\n\n@Component({\n  selector: 'app-button',\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.scss']\n})\nexport class ButtonComponent {\n  @Input() label!: string; \n  @Input() routerLink!: string;\n  @Input() primary = false;\n  @Input() backgroundColor?: string;\n\n  @Input() type: 'primary' | 'secondary' |  'gradient'= 'gradient';\n\n\n  public get classes(): string[] {\n    return getStyles(this.type);\n   \n  }\n}\n",
+            "sourceCode": "import { Component, EventEmitter, Input, Output } from '@angular/core';\n\nconst getStyles = (...args: string[]) => [\"button\", ...args].filter(Boolean)\n\n\n@Component({\n  selector: 'app-button',\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.scss']\n})\nexport class ButtonComponent {\n  @Input() label!: string; \n  @Input() routerLink!: string;\n  @Input() primary = false;\n  @Input() type: 'primary' | 'secondary' |  'gradient'  |  'info' |  'danger' |  'warning'  |  'success'= 'primary';\n  @Input() size: 'small' | 'medium' | 'large' = 'large'\n  @Input() iconName?: string;\n  @Input() iconPosition: 'start' | 'end' = 'end';\n  @Output() onClick = new EventEmitter<Event>();\n\n  public get classes(): string[] {\n    return getStyles(this.type, this.size);   \n  }\n\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "button{\r\n    font-weight:600;\r\n    font-size: 16px;\r\n    letter-spacing: 1px;\r\n    padding: 1.4rem 1.4rem;\r\n    transition: background 0.2s;\r\n    border:none;\r\n    border-radius: 5px;\r\n\r\n}\r\n.primary{\r\n    background: var(--primary) !important;\r\n    color: var(--white) !important;    \r\n}\r\n.secondary{\r\n    background: var(--accent) !important;\r\n    color: var(--white) !important;   \r\n}\r\n.gradient{\r\n    background: linear-gradient(61deg,var(--accent) 1%,#20ded3 85%,#20ded3 90%) 0 0 /100% 100% no-repeat;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.gradient:hover{\r\n    background: var(--black) !important;\r\n}",
+                    "data": "button {\r\n   \r\n    font-size: 16px;\r\n    letter-spacing: 1px;\r\n    padding:10px;\r\n    transition: background 0.2s;\r\n    border: none;\r\n    border-radius: 5px;\r\n\r\n}\r\n\r\n.primary {\r\n    background: var(--primary) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.primary:hover {  \r\n    background: linear-gradient(145deg, #cacaca, #f0f0f0);\r\n    box-shadow:  7px 7px 14px #a4a4a4,\r\n                 -7px -7px 14px #ffffff;\r\n}\r\n\r\n .primary:active {\r\n  \r\n    transform: translateY(10px);\r\n    transition: 100ms;\r\n  }\r\n\r\n.secondary {\r\n    background: var(--accent) !important;\r\n    color: var(--white) !important;\r\n}\r\n.success {\r\n    background: var(--succes) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.info {\r\n    background: var(--black) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.danger {\r\n    background: var(--error) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.warning {\r\n    background: var(--warning) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.gradient {\r\n    background: linear-gradient(61deg, var(--accent) 1%, #20ded3 85%, #20ded3 90%) 0 0 /100% 100% no-repeat;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.gradient:hover {\r\n    background: var(--black) !important;\r\n}\r\n\r\n.large {\r\n\r\n    font-size: 18px;\r\n}\r\n\r\n.medium {\r\n\r\n    font-size: 16px;\r\n}\r\n\r\n.small {\r\n\r\n    font-size: 14px;\r\n}",
                     "styleUrl": "./button.component.scss"
                 }
             ],
@@ -2463,11 +2490,11 @@
                         "name": "classes",
                         "type": "[]",
                         "returnType": "string[]",
-                        "line": 19
+                        "line": 21
                     }
                 }
             },
-            "templateData": "<button\n\n [ngClass]=\"classes\"\n>\n {{label}}\n</button>\n"
+            "templateData": "<!-- <button\n(click)=\"onClick.emit($event)\"\n [ngClass]=\"classes\"\n>\n {{label}}\n <mat-icon>add</mat-icon>\n</button> -->\n<!-- button.component.html -->\n<button [ngClass]=\"classes\"(click)=\"onClick.emit($event)\">\n    <span *ngIf=\"iconPosition === 'start'\">\n      <mat-icon *ngIf=\"iconName\" class=\"mat-icon\">{{ iconName }}</mat-icon>\n    </span>\n    <span>{{ label }}</span>\n    <span >\n      <mat-icon *ngIf=\"iconName\" iconPositionEnd class=\"mat-icon\">{{ iconName }}</mat-icon>\n    </span>\n    \n  </button>\n  "
         },
         {
             "name": "CoursesComponent",
@@ -2597,7 +2624,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"flex-container\">\r\n    <button (click)=\"addCourse()\" mat-raised-button color=\"primary\">\r\n        Add course\r\n        <mat-icon iconPositionEnd>add</mat-icon>\r\n    </button>\r\n    <ng-container *ngIf=\"watchForm\">\r\n        <app-add-course-form></app-add-course-form>\r\n    </ng-container>\r\n\r\n</div>"
+            "templateData": "<div class=\"flex-container\">\r\n    <app-button label=\"Add course\" [type]=\"'primary'\" [size]=\"'medium'\" (onClick)=\"addCourse()\" [iconName]=\"'add'\">          \r\n    </app-button>\r\n    <app-add-course-form *ngIf=\"watchForm\"></app-add-course-form>\r\n\r\n</div>"
         },
         {
             "name": "CreateInstructorsFormComponent",
@@ -3856,13 +3883,13 @@
     "modules": [
         {
             "name": "AdminsModule",
-            "id": "module-AdminsModule-5c48f1ed60a02c5acacb781f9145e1216422dbc7ffbfe1e4597292681ce5c57c3ca0ae6fc146f0a821d7565356b6d18dcaeb0f942b6b4f83d57bb5324e274312",
+            "id": "module-AdminsModule-f7c23653fb5dd2d7df46277d7a950b851da80ed4afd5284e2f7ac0b5d19e223e74a60fffc4ce802a420dac34e3187228058ca1cb6c24c61116d9a025ea149b30",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/admins/admins.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { AdminsDashboardComponent } from './admins-dashboard/admins-dashboard.component';\r\nimport { AdminsRoutingModule } from './admins-routing.module';\r\nimport { HeaderComponent } from './components/header/header.component';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport {MatMenuModule} from '@angular/material/menu';\r\nimport { UsersComponent } from './admins-dashboard/pages/users/users.component';\r\nimport { TechnologiesComponent } from './admins-dashboard/pages/technologies/technologies.component';\r\nimport { CoursesComponent } from './admins-dashboard/pages/courses/courses.component';\r\nimport { InstructorsComponent } from './admins-dashboard/pages/instructors/instructors.component';\r\nimport { AddCourseFormComponent } from './admins-dashboard/pages/courses/forms/add-course-form/add-course-form.component';\r\nimport {MatSelectModule} from '@angular/material/select';\r\nimport {MatInputModule} from '@angular/material/input';\r\nimport {MatFormFieldModule} from '@angular/material/form-field';\r\nimport { ReactiveFormsModule } from '@angular/forms';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { NewTechFormComponent } from './admins-dashboard/pages/technologies/components/new-tech-form/new-tech-form.component';\r\nimport { CreateInstructorsFormComponent } from './admins-dashboard/pages/instructors/create-instructors-form/create-instructors-form.component';\r\n\r\n\r\n\r\n@NgModule({\r\n  declarations: [\r\n    AdminsDashboardComponent,\r\n    HeaderComponent,\r\n    UsersComponent,\r\n    TechnologiesComponent,\r\n    CoursesComponent,\r\n    InstructorsComponent,\r\n    AddCourseFormComponent,\r\n    NewTechFormComponent,\r\n    CreateInstructorsFormComponent,\r\n\r\n  ],\r\n  imports: [\r\n    CommonModule,\r\n    AdminsRoutingModule,\r\n    ReactiveFormsModule,\r\n    MatButtonModule,\r\n    MatMenuModule,\r\n    MatSelectModule,\r\n    MatInputModule,\r\n    MatFormFieldModule,\r\n    MatIconModule,\r\n\r\n  ]\r\n})\r\nexport class AdminsModule { }\r\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { AdminsDashboardComponent } from './admins-dashboard/admins-dashboard.component';\r\nimport { AdminsRoutingModule } from './admins-routing.module';\r\nimport { HeaderComponent } from './components/header/header.component';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport {MatMenuModule} from '@angular/material/menu';\r\nimport { UsersComponent } from './admins-dashboard/pages/users/users.component';\r\nimport { TechnologiesComponent } from './admins-dashboard/pages/technologies/technologies.component';\r\nimport { CoursesComponent } from './admins-dashboard/pages/courses/courses.component';\r\nimport { InstructorsComponent } from './admins-dashboard/pages/instructors/instructors.component';\r\nimport { AddCourseFormComponent } from './admins-dashboard/pages/courses/forms/add-course-form/add-course-form.component';\r\nimport {MatSelectModule} from '@angular/material/select';\r\nimport {MatInputModule} from '@angular/material/input';\r\nimport {MatFormFieldModule} from '@angular/material/form-field';\r\nimport { ReactiveFormsModule } from '@angular/forms';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { NewTechFormComponent } from './admins-dashboard/pages/technologies/components/new-tech-form/new-tech-form.component';\r\nimport { CreateInstructorsFormComponent } from './admins-dashboard/pages/instructors/create-instructors-form/create-instructors-form.component';\r\nimport { SharedModule } from '../shared/shared.module';\r\n\r\n\r\n\r\n@NgModule({\r\n  declarations: [\r\n    AdminsDashboardComponent,\r\n    HeaderComponent,\r\n    UsersComponent,\r\n    TechnologiesComponent,\r\n    CoursesComponent,\r\n    InstructorsComponent,\r\n    AddCourseFormComponent,\r\n    NewTechFormComponent,\r\n    CreateInstructorsFormComponent,\r\n\r\n  ],\r\n  imports: [\r\n    CommonModule,\r\n    AdminsRoutingModule,\r\n    ReactiveFormsModule,\r\n    MatButtonModule,\r\n    MatMenuModule,\r\n    MatSelectModule,\r\n    MatInputModule,\r\n    MatFormFieldModule,\r\n    MatIconModule,\r\n    SharedModule,\r\n\r\n  ]\r\n})\r\nexport class AdminsModule { }\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -3905,6 +3932,9 @@
                     "elements": [
                         {
                             "name": "AdminsRoutingModule"
+                        },
+                        {
+                            "name": "SharedModule"
                         }
                     ]
                 },
@@ -4231,13 +4261,13 @@
         },
         {
             "name": "SharedModule",
-            "id": "module-SharedModule-9cf40eb377e4a6b8a0b380901fab8032cce5a5f95967fdf308d3496715653f74bad599733fb16140f218ff432e936d263b73e8f0ce9a50b26ce138dd8bb1fd67",
+            "id": "module-SharedModule-e9526bec03c632500b9964d40d9c3860b2322cc4f9d8892ea454f0cdf1ee180fb558338cbb512256898652ccb4a302caa1df0efcda5a1c90aa81dd15d01bcbde",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/shared/shared.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatFormFieldModule } from '@angular/material/form-field';\r\nimport { FormsModule } from '@angular/forms';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { MatSnackBarModule } from '@angular/material/snack-bar';\r\nimport { WorkingInProgressComponent } from './components/default-pages/working-in-progress/working-in-progress.component';\r\nimport { ErrorPageComponent } from './components/default-pages/error-page/error-page.component';\r\nimport { BtnGradientComponent } from './components/btn-gradient/btn-gradient.component';\r\nimport { BtnBlackComponent } from './components/btn-black/btn-black.component';\nimport { ButtonComponent } from './components/button/button.component';\r\n\r\n\r\n\r\n\r\n@NgModule({\r\n  declarations: [ \r\n    WorkingInProgressComponent,\r\n    ErrorPageComponent,\r\n    BtnGradientComponent,\r\n    BtnBlackComponent,\r\n    ButtonComponent,\r\n  ],\r\n  imports: [\r\n    CommonModule,\r\n    MatFormFieldModule,\r\n    FormsModule,\r\n    MatInputModule,\r\n    MatButtonModule,\r\n    MatSnackBarModule,\r\n  ],\r\n  exports: [   \r\n    WorkingInProgressComponent,\r\n    ErrorPageComponent,\r\n    BtnGradientComponent,\r\n    BtnBlackComponent,\r\n  ]\r\n})\r\nexport class SharedModule { }\r\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatFormFieldModule } from '@angular/material/form-field';\r\nimport { FormsModule } from '@angular/forms';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { MatSnackBarModule } from '@angular/material/snack-bar';\r\nimport { WorkingInProgressComponent } from './components/default-pages/working-in-progress/working-in-progress.component';\r\nimport { ErrorPageComponent } from './components/default-pages/error-page/error-page.component';\r\nimport { BtnGradientComponent } from './components/btn-gradient/btn-gradient.component';\r\nimport { BtnBlackComponent } from './components/btn-black/btn-black.component';\r\nimport { ButtonComponent } from './components/button/button.component';\r\nimport { MatIconModule } from '@angular/material/icon';\r\n\r\n\r\n\r\n\r\n@NgModule({\r\n  declarations: [ \r\n    WorkingInProgressComponent,\r\n    ErrorPageComponent,\r\n    BtnGradientComponent,\r\n    BtnBlackComponent,\r\n    ButtonComponent,\r\n  ],\r\n  imports: [\r\n    CommonModule,\r\n    MatFormFieldModule,\r\n    FormsModule,\r\n    MatInputModule,\r\n    MatButtonModule,\r\n    MatSnackBarModule,\r\n    MatIconModule,\r\n\r\n  ],\r\n  exports: [   \r\n    WorkingInProgressComponent,\r\n    ErrorPageComponent,\r\n    BtnGradientComponent,\r\n    BtnBlackComponent,\r\n    ButtonComponent,\r\n    \r\n  ]\r\n})\r\nexport class SharedModule { }\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -4275,6 +4305,9 @@
                         },
                         {
                             "name": "BtnGradientComponent"
+                        },
+                        {
+                            "name": "ButtonComponent"
                         },
                         {
                             "name": "ErrorPageComponent"
@@ -4401,6 +4434,16 @@
                 "defaultValue": "createReducer(\r\n  initialState,\r\n  on(CoursesActions.retrievedCoursesList, (_state, { courses }) => courses)\r\n)"
             },
             {
+                "name": "Danger",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/button/button.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: {\r\n        label: 'Danger',\r\n          type: 'danger',\r\n    },\r\n  }"
+            },
+            {
                 "name": "environment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -4421,6 +4464,16 @@
                 "defaultValue": "{\r\n    firebaseConfig : {\r\n        apiKey: \"AIzaSyBdXbfoYVTjpsEbpfpVxpGyEp9ZNBFfrA8\",\r\n        authDomain: \"freelearn-298ff.firebaseapp.com\",\r\n        projectId: \"freelearn-298ff\",\r\n        storageBucket: \"freelearn-298ff.appspot.com\",\r\n        messagingSenderId: \"129998216885\",\r\n        appId: \"1:129998216885:web:6cad947266cf0a79e668fc\"\r\n    }\r\n}"
             },
             {
+                "name": "ErrorMessage",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/services/alerts/alert.services.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
                 "name": "getStyles",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -4438,7 +4491,17 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\r\n  args: {\r\n      label: 'gradient',\r\n        type: 'gradient',\r\n  },\r\n}"
+                "defaultValue": "{\r\n  args: {\r\n      label: 'Gradient',\r\n        type: 'gradient',\r\n  },\r\n}"
+            },
+            {
+                "name": "Info",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/button/button.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: {\r\n        label: 'Info',\r\n          type: 'info',\r\n    },\r\n  }"
             },
             {
                 "name": "initialState",
@@ -4501,6 +4564,26 @@
                 "defaultValue": "createReducer(\r\n  initialState,\r\n  on(InstructorsActions.retrievedInstructorsList, (_state, { instructors }) => instructors)\r\n)"
             },
             {
+                "name": "Large",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/button/button.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: {     \r\n      label: 'Large',\r\n      size: 'large',\r\n    \r\n    },\r\n  }"
+            },
+            {
+                "name": "Medium",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/button/button.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: { \r\n      label: 'Medium',\r\n        size: 'medium',\r\n    },\r\n  }"
+            },
+            {
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -4508,7 +4591,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<ButtonComponent>",
-                "defaultValue": "{\r\n    title: 'Components/Button',\r\n    component: ButtonComponent,   \r\n    render: (args: ButtonComponent) => ({\r\n        props: {\r\n            backgroundColor: null,\r\n            ...args,\r\n        },\r\n    }),\r\n    \r\n}"
+                "defaultValue": "{\r\n    title: 'Components/Button',\r\n    component: ButtonComponent,  \r\n    tags: ['autodocs'], \r\n    render: (args: ButtonComponent) => ({\r\n        props: {\r\n            backgroundColor: null,\r\n            ...args,\r\n        },\r\n    }),    \r\n}"
             },
             {
                 "name": "preview",
@@ -4528,7 +4611,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\r\n    args: {\r\n        label: 'primary',\r\n        type: 'primary',\r\n    },\r\n}"
+                "defaultValue": "{\r\n    args: {\r\n        label: 'Primary',\r\n        type: 'primary',\r\n    },\r\n}"
             },
             {
                 "name": "RoleGuard",
@@ -4539,6 +4622,16 @@
                 "deprecationMessage": "",
                 "type": "CanActivateFn",
                 "defaultValue": "(route, state) => {\r\n  \r\n  const usersService = inject(UsersService)\r\n  const user = usersService.getUserFromStorage()\r\n  const role = user?.role\r\n  const expectedRole = route.data['expectedRole'];\r\n\r\n\r\n  if (role === expectedRole) {\r\n    return true;\r\n  } else {\r\n    const router = inject(Router)\r\n    if(role === 'student'){\r\n      router.navigate(['/students']);\r\n    }else if(role === 'admin'){\r\n      router.navigate(['/admin']);\r\n    }else{\r\n      router.navigate(['/login']);\r\n    }\r\n    return false;\r\n  }\r\n\r\n}"
+            },
+            {
+                "name": "Secondary",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/button/button.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: {\r\n        label: 'Secondary',\r\n        type: 'secondary',\r\n    },\r\n}"
             },
             {
                 "name": "selectCourses",
@@ -4581,6 +4674,26 @@
                 "defaultValue": "createFeatureSelector<any>('user')"
             },
             {
+                "name": "Small",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/button/button.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: { \r\n      label: 'Small',\r\n        size: 'small',\r\n    },\r\n  }"
+            },
+            {
+                "name": "Success",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/button/button.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: {\r\n        label: 'Success',\r\n          type: 'success',\r\n    },\r\n  }"
+            },
+            {
                 "name": "TechnologiesActions",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -4601,6 +4714,16 @@
                 "defaultValue": "createReducer(\r\n  initialState,\r\n  on(TechnologiesActions.retrievedTechnologiesList, (_state, { technologies }) => technologies)\r\n)"
             },
             {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/services/alerts/alert.services.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<AlertsService>",
+                "defaultValue": "(args) => ({\r\n    template: '',\r\n    providers: [AlertsService],\r\n    props: {\r\n      ...args,\r\n    },\r\n    onInit: (story: any) => {\r\n      const alertsService = story.componentRef.injector.get(AlertsService);\r\n  \r\n      // Ejemplo de uso del servicio\r\n      alertsService.errorMessage('This is an error message', 'Close', 2000);\r\n    },\r\n  })"
+            },
+            {
                 "name": "UserActions",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -4619,6 +4742,16 @@
                 "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "createReducer(\r\n    initialState,\r\n    on(UserActions.addUser, (_state, { user }) => user)\r\n)"
+            },
+            {
+                "name": "Warning",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/button/button.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: {\r\n        label: 'Warning',\r\n          type: 'warning',\r\n    },\r\n  }"
             }
         ],
         "functions": [],
@@ -4671,6 +4804,118 @@
                     "defaultValue": "[]"
                 }
             ],
+            "src/app/shared/components/button/button.components.stories.ts": [
+                {
+                    "name": "Danger",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/button/button.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: {\r\n        label: 'Danger',\r\n          type: 'danger',\r\n    },\r\n  }"
+                },
+                {
+                    "name": "Gradient",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/button/button.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n      label: 'Gradient',\r\n        type: 'gradient',\r\n  },\r\n}"
+                },
+                {
+                    "name": "Info",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/button/button.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: {\r\n        label: 'Info',\r\n          type: 'info',\r\n    },\r\n  }"
+                },
+                {
+                    "name": "Large",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/button/button.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: {     \r\n      label: 'Large',\r\n      size: 'large',\r\n    \r\n    },\r\n  }"
+                },
+                {
+                    "name": "Medium",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/button/button.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: { \r\n      label: 'Medium',\r\n        size: 'medium',\r\n    },\r\n  }"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/button/button.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<ButtonComponent>",
+                    "defaultValue": "{\r\n    title: 'Components/Button',\r\n    component: ButtonComponent,  \r\n    tags: ['autodocs'], \r\n    render: (args: ButtonComponent) => ({\r\n        props: {\r\n            backgroundColor: null,\r\n            ...args,\r\n        },\r\n    }),    \r\n}"
+                },
+                {
+                    "name": "Primary",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/button/button.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: {\r\n        label: 'Primary',\r\n        type: 'primary',\r\n    },\r\n}"
+                },
+                {
+                    "name": "Secondary",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/button/button.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: {\r\n        label: 'Secondary',\r\n        type: 'secondary',\r\n    },\r\n}"
+                },
+                {
+                    "name": "Small",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/button/button.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: { \r\n      label: 'Small',\r\n        size: 'small',\r\n    },\r\n  }"
+                },
+                {
+                    "name": "Success",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/button/button.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: {\r\n        label: 'Success',\r\n          type: 'success',\r\n    },\r\n  }"
+                },
+                {
+                    "name": "Warning",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/button/button.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: {\r\n        label: 'Warning',\r\n          type: 'warning',\r\n    },\r\n  }"
+                }
+            ],
             "src/environments/environment.development.ts": [
                 {
                     "name": "environment",
@@ -4695,6 +4940,28 @@
                     "defaultValue": "{\r\n    firebaseConfig : {\r\n        apiKey: \"AIzaSyBdXbfoYVTjpsEbpfpVxpGyEp9ZNBFfrA8\",\r\n        authDomain: \"freelearn-298ff.firebaseapp.com\",\r\n        projectId: \"freelearn-298ff\",\r\n        storageBucket: \"freelearn-298ff.appspot.com\",\r\n        messagingSenderId: \"129998216885\",\r\n        appId: \"1:129998216885:web:6cad947266cf0a79e668fc\"\r\n    }\r\n}"
                 }
             ],
+            "src/app/shared/services/alerts/alert.services.stories.ts": [
+                {
+                    "name": "ErrorMessage",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/services/alerts/alert.services.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/services/alerts/alert.services.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<AlertsService>",
+                    "defaultValue": "(args) => ({\r\n    template: '',\r\n    providers: [AlertsService],\r\n    props: {\r\n      ...args,\r\n    },\r\n    onInit: (story: any) => {\r\n      const alertsService = story.componentRef.injector.get(AlertsService);\r\n  \r\n      // Ejemplo de uso del servicio\r\n      alertsService.errorMessage('This is an error message', 'Close', 2000);\r\n    },\r\n  })"
+                }
+            ],
             "src/app/shared/components/button/button.component.ts": [
                 {
                     "name": "getStyles",
@@ -4705,38 +4972,6 @@
                     "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "(...args: string[]) => [\"button\", ...args].filter(Boolean)"
-                }
-            ],
-            "src/app/shared/components/button/button.components.stories.ts": [
-                {
-                    "name": "Gradient",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/shared/components/button/button.components.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\r\n  args: {\r\n      label: 'gradient',\r\n        type: 'gradient',\r\n  },\r\n}"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/shared/components/button/button.components.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta<ButtonComponent>",
-                    "defaultValue": "{\r\n    title: 'Components/Button',\r\n    component: ButtonComponent,   \r\n    render: (args: ButtonComponent) => ({\r\n        props: {\r\n            backgroundColor: null,\r\n            ...args,\r\n        },\r\n    }),\r\n    \r\n}"
-                },
-                {
-                    "name": "Primary",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/shared/components/button/button.components.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\r\n    args: {\r\n        label: 'primary',\r\n        type: 'primary',\r\n    },\r\n}"
                 }
             ],
             "src/app/login/store/user.reducer.ts": [
@@ -5401,7 +5636,7 @@
                 "linktype": "component",
                 "name": "ButtonComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/6",
+                "coverageCount": "0/9",
                 "status": "low"
             },
             {
@@ -5419,7 +5654,47 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
+                "name": "Danger",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/button/button.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
                 "name": "Gradient",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/button/button.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Info",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/button/button.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Large",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/button/button.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Medium",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -5440,6 +5715,46 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "Primary",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/button/button.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Secondary",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/button/button.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Small",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/button/button.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Success",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/button/button.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Warning",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -5468,6 +5783,26 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "RoleGuard",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/services/alerts/alert.services.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ErrorMessage",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/services/alerts/alert.services.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

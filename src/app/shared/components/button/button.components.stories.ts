@@ -4,14 +4,14 @@ import { ButtonComponent } from './button.component';
 
 const meta: Meta<ButtonComponent> = {
     title: 'Components/Button',
-    component: ButtonComponent,   
+    component: ButtonComponent,  
+    tags: ['autodocs'], 
     render: (args: ButtonComponent) => ({
         props: {
             backgroundColor: null,
             ...args,
         },
-    }),
-    
+    }),    
 };
 
 export default meta;
@@ -42,6 +42,13 @@ export const Info: Story = {
           type: 'info',
     },
   };
+  export const Success: Story = {
+    args: {
+        label: 'Success',
+          type: 'success',
+    },
+  };
+
 
   export const Danger: Story = {
     args: {
