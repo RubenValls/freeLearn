@@ -10,7 +10,7 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-fdescribe('CoursesService', () => {
+describe('CoursesService', () => {
   let service: CoursesService;
   let firestoreMock: any;
   let techsServiceMock: any;
