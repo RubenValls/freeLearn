@@ -1,0 +1,24 @@
+<div class="content">
+  <div class="left-container">
+    <div>
+      <h1>We offer the   <span>best technologies</span></h1>
+      <p>
+        We empower your academic and professional journey by providing
+        state-of-the-art technologies that enrich your knowledge, equipping you
+        for success in both educational pursuits and future career endeavors.
+      </p>
+    </div>
+  </div>
+  <div class="right-container">
+    <mat-icon class="icon" (click)="prev()">chevron_left</mat-icon>
+
+    <div class="tech-container" *ngIf="technologies$ | async as technologies">
+      <div *ngFor="let technology of visibleTechnologies">
+        <img src="{{ technology.imagePath }}" alt="" />
+        <p>{{ technology.name }}</p>
+      </div>
+    </div>
+
+    <mat-icon class="icon" (click)="next()">chevron_right</mat-icon>
+  </div>
+</div>
