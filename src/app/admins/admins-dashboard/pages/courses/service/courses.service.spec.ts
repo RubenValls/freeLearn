@@ -3,10 +3,14 @@ import { CoursesService } from './courses.service';
 import { Firestore } from '@angular/fire/firestore'; // Replace with the actual Firestore library import
 import { TechService } from '../../technologies/service/tech.service';
 import { InstructorsService } from '../../instructors/instructors-service/instructors.service';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getAuth, provideAuth } from '@angular/fire/auth';
 
 import { of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
-describe('CoursesService', () => {
+fdescribe('CoursesService', () => {
   let service: CoursesService;
   let firestoreMock: any;
   let techsServiceMock: any;
@@ -31,6 +35,11 @@ describe('CoursesService', () => {
     instructorsServiceMock = jasmine.createSpyObj('InstructorsService', ['updateInstructorsCourses']);
 
     TestBed.configureTestingModule({
+      imports: [
+        provideFirestore(() => getFirestore()),
+        provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+        provideAuth(() => getAuth()),
+      ],
       providers: [
         CoursesService,
         { provide: Firestore, useValue: firestoreMock },
