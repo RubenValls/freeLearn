@@ -1,0 +1,17 @@
+.mian-container{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-areas:     
+    "h"   
+    "m";
+    grid-template-rows: auto 1fr;
+}
+.app-header{
+    grid-area: h;
+}
+.app-content{
+    grid-area: m;
+    width: 100%;
+    height: 100%;
+}
