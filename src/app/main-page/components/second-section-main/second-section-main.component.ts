@@ -22,14 +22,14 @@ export class SecondSectionMainComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch({ type: 'Fetch Technologies' });
     this.technologies$.subscribe(technologies => {
-      this.visibleTechnologies = technologies.slice(this.currentIndex, this.currentIndex + 3);
+      this.visibleTechnologies = technologies.slice(this.currentIndex, this.currentIndex + 4);
     });
   }
 
   next() {
-    const maxIndex = this.visibleTechnologies.length;
+    const maxIndex = this.visibleTechnologies.length-1;
     if (this.currentIndex <= maxIndex) {
-      this.currentIndex = this.currentIndex + 3;
+      this.currentIndex = this.currentIndex + 4;
       this.updateVisibleTechnologies();
       console.log("Siguiente");
     } else {
@@ -38,8 +38,8 @@ export class SecondSectionMainComponent implements OnInit {
   }
 
   prev() {
-    if (this.currentIndex >= 3) {
-      this.currentIndex = this.currentIndex - 3;
+    if (this.currentIndex >= 4) {
+      this.currentIndex = this.currentIndex - 4;
       this.updateVisibleTechnologies();
       console.log("Prev");
     } else {
@@ -49,7 +49,7 @@ export class SecondSectionMainComponent implements OnInit {
 
   private updateVisibleTechnologies() {
     this.technologies$.pipe(
-      map(technologies => technologies.slice(this.currentIndex, this.currentIndex + 3))
+      map(technologies => technologies.slice(this.currentIndex, this.currentIndex + 4))
     ).subscribe(visibleTechnologies => {
       this.visibleTechnologies = visibleTechnologies;
     });
