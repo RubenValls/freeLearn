@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BtnGradientComponent } from './btn-gradient.component';
 
-fdescribe('BtnGradientComponent', () => {
+describe('BtnGradientComponent', () => {
   let component: BtnGradientComponent;
   let fixture: ComponentFixture<BtnGradientComponent>;
 

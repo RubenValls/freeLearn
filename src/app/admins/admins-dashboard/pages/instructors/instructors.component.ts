@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { InstructorsService } from './instructors-service/instructors.service';
 
 @Component({
   selector: 'app-instructors',
@@ -9,24 +8,12 @@ import { InstructorsService } from './instructors-service/instructors.service';
 export class InstructorsComponent {
   showForm: boolean = false;
 
-  constructor(private instructorsService: InstructorsService){
+  constructor(){
 
   }
 
   toggleForm() {
     this.showForm = !this.showForm;
   }
-
-  getInstructors() {
-    const c = this.instructorsService.getInstructors().subscribe((response) => {
-      console.log(response);
-      this.instructorsService.getInstructorById(response[1].id!).then(console.log) 
-
-     })
-  }
-
-  
-
-
 
 }

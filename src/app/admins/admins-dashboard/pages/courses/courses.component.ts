@@ -13,7 +13,6 @@ export class CoursesComponent implements OnInit {
   courses$ = this.store.select(selectCourses);
 
   constructor(
-    private coursesService: CoursesService,
     private store: Store,
   ) { } 
 
