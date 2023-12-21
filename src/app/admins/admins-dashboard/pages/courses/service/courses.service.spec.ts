@@ -6,7 +6,7 @@ import { InstructorsService } from '../../instructors/instructors-service/instru
 
 import { of } from 'rxjs';
 
-fdescribe('CoursesService', () => {
+describe('CoursesService', () => {
   let service: CoursesService;
   let firestoreMock: any;
   let techsServiceMock: any;
