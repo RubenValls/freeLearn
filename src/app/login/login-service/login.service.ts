@@ -107,6 +107,7 @@ export class LoginService {
     this.usersService.saveUserInStorage(userInfo.rememberMe, userInfo);
     usersSubscription.unsubscribe();
     this.router.navigate(['/students']);
+    this.alertsService.successMessage('Welcome to FreeLearn.')
   }
 
   getUserInfoData(isLogin: boolean, formValue: FormGroup, userCredential: UserCredential,){

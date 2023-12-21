@@ -4,6 +4,19 @@
     background-image: url('https://assets-global.website-files.com/6537c0eb07241dba6c47cb97/6537c0eb07241dba6c47d6c0_image-from-rawpixel-id-5928246-jpeg.jpg');
     background-size: cover;
 
+    button{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 10px;
+        margin-top: 10px;
+
+        mat-icon{
+            color: white;
+            margin-left: 5px;
+        }
+    }
+
     @media (width < 768px) {
         height: 25%;
         margin-bottom: 20px;
