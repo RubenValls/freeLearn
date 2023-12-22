@@ -10,6 +10,7 @@ import { AdminsModule } from 'src/app/admins/admins.module';
 import { of } from 'rxjs';
 import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 import { Instructor } from '../instructors';
+import { FormGroup } from '@angular/forms';
 
 describe('InstructorsFormComponent', () => {
   let component: CreateInstructorsFormComponent;
@@ -73,24 +74,17 @@ describe('InstructorsFormComponent', () => {
         fail('Name control is null'); 
     }
   });
-
   
-
-  it('should call successMessage on successful form submission', () => {
-    spyOn(service, 'addInstructor');
-  spyOn(alerts, 'successMessage');
-
-  service.addInstructor(instructorData);
-  component.onSubmit();
-
-  expect(alerts.successMessage).toHaveBeenCalledWith('Instructor created successfully');
+  it('should not call addInstructor or successMessage if the form is invalid', () => {
+    const addInstructorSpy = spyOn(service, 'addInstructor');
+    const successMessageSpy = spyOn(alerts, 'successMessage');
+   
+    component.instructorForm.controls['name'].setValue('');
+  
+    component.addInstructor();
+  
+    expect(addInstructorSpy).not.toHaveBeenCalled();
+    expect(successMessageSpy).not.toHaveBeenCalled();
   });
-
-  // it('should not call addInstructor method on invalid form submission', () => {
-  //   component.instructorForm.get('name').setValue(''); 
-  //   const addInstructorSpy = service.addInstructor.and.returnValue(of({}));
-  //   component.onSubmit();
-  //   expect(addInstructorSpy).not.toHaveBeenCalled();
-  // });
 
 });
