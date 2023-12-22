@@ -27,23 +27,30 @@ export class SecondSectionMainComponent implements OnInit {
   }
 
   next() {
-    const maxIndex = this.visibleTechnologies.length-1;
+    const maxIndex = this.visibleTechnologies.length;
     if (this.currentIndex <= maxIndex) {
-      this.currentIndex = this.currentIndex + 4;
+      this.currentIndex = this.currentIndex + 1;
       this.updateVisibleTechnologies();
       console.log("Siguiente");
     } else {
-      console.log("No more");
+      this.currentIndex=0
+      this.technologies$.subscribe(technologies => {
+        this.visibleTechnologies = technologies.slice(this.currentIndex, this.currentIndex + 4);
+      });
     }
   }
 
   prev() {
-    if (this.currentIndex >= 4) {
-      this.currentIndex = this.currentIndex - 4;
+    if (this.currentIndex >= 1) {
+      this.currentIndex = this.currentIndex - 1;
       this.updateVisibleTechnologies();
       console.log("Prev");
     } else {
-      console.log("No less");
+      this.technologies$.subscribe(technologies => {
+        const totalTechnologies = technologies.length;
+        this.currentIndex = Math.max(0, totalTechnologies - 4);
+        this.visibleTechnologies = technologies.slice(this.currentIndex, this.currentIndex + 4);
+      });
     }
   }
 

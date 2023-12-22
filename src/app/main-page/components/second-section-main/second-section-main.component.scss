@@ -62,11 +62,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 3rem;
         margin-right: 4rem;
 
         @media (width < 1800px) {
-            gap: 0rem;
+            gap: 2rem;
             margin-right: 2rem;
         }
 
@@ -74,6 +73,7 @@
             margin-right: 0;
             margin-top: 2rem;
             width: 100%;
+            
         }
         
 
