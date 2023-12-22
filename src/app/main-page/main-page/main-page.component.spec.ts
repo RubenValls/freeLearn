@@ -9,7 +9,7 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { provideMockStore } from '@ngrx/store/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-fdescribe('MainPageComponent', () => {
+describe('MainPageComponent', () => {
   let component: MainPageComponent;
   let fixture: ComponentFixture<MainPageComponent>;
 
