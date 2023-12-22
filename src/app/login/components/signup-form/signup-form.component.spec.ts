@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-fdescribe('SignupFormComponent', () => {
+describe('SignupFormComponent', () => {
   let component: SignupFormComponent;
   let fixture: ComponentFixture<SignupFormComponent>;
 
