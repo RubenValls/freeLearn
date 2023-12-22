@@ -6,9 +6,9 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { AdminsModule } from 'src/app/admins/admins.module';
 import { CoursesService } from '../../service/courses.service';
-import { of } from 'rxjs';
 
-fdescribe('AddCourseFormComponent', () => {
+
+describe('AddCourseFormComponent', () => {
   let component: AddCourseFormComponent;
   let fixture: ComponentFixture<AddCourseFormComponent>;
   let coursesService: jasmine.SpyObj<CoursesService>;
