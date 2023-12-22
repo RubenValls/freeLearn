@@ -7,10 +7,8 @@ import { environment } from 'src/environments/environment';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { InstructorsService } from '../instructors-service/instructors.service';
 import { AdminsModule } from 'src/app/admins/admins.module';
-import { of } from 'rxjs';
 import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 import { Instructor } from '../instructors';
-import { FormGroup } from '@angular/forms';
 
 describe('InstructorsFormComponent', () => {
   let component: CreateInstructorsFormComponent;
