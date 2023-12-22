@@ -17,7 +17,7 @@ export class AddCourseFormComponent implements OnInit {
  techs$:TechnologyType[] = [];
 
   constructor(
-    private coursesService: CoursesService,
+    public coursesService: CoursesService,
     private builder: FormBuilder,
     private techsService: TechService,
     private instructorsService: InstructorsService,
@@ -33,6 +33,7 @@ export class AddCourseFormComponent implements OnInit {
     instructorId: [[], [Validators.required]],
     imageUrl: ["", [Validators.required]],
     techs: [[],[Validators.required]],
+    lessons: [[]],
   });
  
   onTechsSelectionChange(event: any) {

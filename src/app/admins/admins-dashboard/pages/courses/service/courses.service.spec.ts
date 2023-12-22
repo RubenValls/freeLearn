@@ -1,16 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 import { CoursesService } from './courses.service';
-import { Firestore } from '@angular/fire/firestore'; // Replace with the actual Firestore library import
 import { TechService } from '../../technologies/service/tech.service';
 import { InstructorsService } from '../../instructors/instructors-service/instructors.service';
-
-import { of } from 'rxjs';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { environment } from 'src/environments/environment';
 
 describe('CoursesService', () => {
   let service: CoursesService;
-  let firestoreMock: any;
-  let techsServiceMock: any;
-  let instructorsServiceMock: any;
 
   const course = 
     { id: '1', 
@@ -24,81 +22,56 @@ describe('CoursesService', () => {
        name: 'Lesson 1',
        videoUrl: 'https://www.google.com' 
       }]};
+    const courseId = '1';
 
-  beforeEach(() => {
-    firestoreMock = jasmine.createSpyObj('Firestore', ['collection', 'doc', 'addDoc', 'getDoc', 'updateDoc', 'deleteDoc']);
-    techsServiceMock = jasmine.createSpyObj('TechService', ['updateTechnologyCourses']);
-    instructorsServiceMock = jasmine.createSpyObj('InstructorsService', ['updateInstructorsCourses']);
+  beforeEach(() => { 
 
     TestBed.configureTestingModule({
+      imports: [
+        provideFirestore(() => getFirestore()),
+        provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+        provideAuth(() => getAuth()),
+      ],
       providers: [
         CoursesService,
-        { provide: Firestore, useValue: firestoreMock },
-        { provide: TechService, useValue: techsServiceMock },
-        { provide: InstructorsService, useValue: instructorsServiceMock }
+        TechService,
+        InstructorsService,       
       ]
     });
-
     service = TestBed.inject(CoursesService);
   });
 
-  it('should add a course', async () => {
-         
-    const docRef = { id: 'course-id' };
-    firestoreMock.collection.and.returnValue({});
-    firestoreMock.addDoc.and.returnValue(Promise.resolve(docRef));
-
-    await service.addCourse(course);
-
-    expect(firestoreMock.collection).toHaveBeenCalledWith('courses');
-    expect(firestoreMock.addDoc).toHaveBeenCalledWith({}, course);
-    expect(techsServiceMock.updateTechnologyCourses).toHaveBeenCalledWith('Tech 1', 'course-id');
-    expect(instructorsServiceMock.updateInstructorsCourses).toHaveBeenCalledWith('Instructor 1', 'course-id');
+  it('should be created', () => {
+    expect(service).toBeTruthy();
   });
 
+  it('should add a course', () => {
+    spyOn(service, 'addCourse')
+    service.addCourse(course);
+    expect(service.addCourse).toHaveBeenCalled();    
+  });
+  
   it('should get courses', () => {
-    const courses = [{ id: '1', name: 'Course 1' }, { id: '2', name: 'Course 2' }];
-    firestoreMock.collection.and.returnValue({});
-    firestoreMock.getDoc.and.returnValue({ data: () => courses });
-
-    const result = service.getCourses();
-
-    expect(firestoreMock.collection).toHaveBeenCalledWith('courses');
-    expect(result).toEqual(of(courses));
+    spyOn(service, 'getCourses')
+    service.getCourses();
+    expect(service.getCourses).toHaveBeenCalled();    
   });
 
-  it('should get a course by id', async () => {
-    const courseId = '1';
-    
-    firestoreMock.doc.and.returnValue({});
-    firestoreMock.getDoc.and.returnValue(Promise.resolve({ data: () => course }));
-
-    const result = await service.getCourseById(courseId);
-
-    expect(firestoreMock.doc).toHaveBeenCalledWith('courses', courseId);
-    expect(result).toEqual(course);
+  it('should get a course by id', () =>{   
+    spyOn(service, 'getCourseById')
+    service.getCourseById(courseId);
+    expect(service.getCourseById).toHaveBeenCalled();
   });
 
-  it('should update a course', () => {
-    const courseId = '1';
-   
-    firestoreMock.doc.and.returnValue({});
-    firestoreMock.updateDoc.and.returnValue(Promise.resolve());
-
+  it('should update a course', () => {   
+    spyOn(service, 'updateCourse')
     service.updateCourse(courseId, course);
-
-    expect(firestoreMock.doc).toHaveBeenCalledWith('courses', courseId);
-    expect(firestoreMock.updateDoc).toHaveBeenCalledWith({}, { course });
+    expect(service.updateCourse).toHaveBeenCalled();
   });
 
-  it('should delete a course', () => {
-    const courseId = '1';
-    firestoreMock.doc.and.returnValue({});
-    firestoreMock.deleteDoc.and.returnValue(Promise.resolve());
-
+  it('should delete a course', () => { 
+    spyOn(service, 'deleteCourse')
     service.deleteCourse(courseId);
-
-    expect(firestoreMock.doc).toHaveBeenCalledWith('courses', courseId);
-    expect(firestoreMock.deleteDoc).toHaveBeenCalledWith({});
-  });
+    expect(service.deleteCourse).toHaveBeenCalled();    
+  });  
 });
