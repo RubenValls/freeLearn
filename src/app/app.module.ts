@@ -18,6 +18,7 @@ import { TechnologiesEffects } from './store/technologies/technologies.effects';
 import { instructorsReducer } from './store/instructors/instructors.reducer';
 import { InstructorsEffects } from './store/instructors/instructors.effects';
 import { SharedModule } from './shared/shared.module';
+import { usersReducer } from './store/users/users.reducer';
 
  
 @NgModule({
@@ -34,6 +35,7 @@ import { SharedModule } from './shared/shared.module';
       courses: coursesReducer,
       technologies: technologiesReducer,
       instructors: instructorsReducer,
+      users: usersReducer
     }),
     EffectsModule.forRoot(CoursesEffects, TechnologiesEffects, InstructorsEffects),
     AppRoutingModule,

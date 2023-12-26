@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectUser } from 'src/app/login/store/user.selectors';
+
+import { selectUsers } from 'src/app/store/users/users.selectors';
 
 @Component({
   selector: 'app-users',
@@ -8,7 +9,7 @@ import { selectUser } from 'src/app/login/store/user.selectors';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent {
-  users$ = this.store.select(selectUser);
+  users$ = this.store.select(selectUsers);
 
   tableColumns = [
     { prop: 'displayName', title: 'Instructor' },
