@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { selectTechnologies } from 'src/app/store/technologies/tecnologies.selectors';
 
 @Component({
   selector: 'app-technologies',
@@ -7,18 +9,21 @@ import { Component } from '@angular/core';
 })
 export class TechnologiesComponent {
   isFormVisible = false
+  technologies$ = this.store.select(selectTechnologies);
 
-  tableData = [
-    { name: 'John', age: 25, city: 'New York' },
-    { name: 'Jane', age: 30, city: 'Los Angeles' },
-    { name: 'Bob', age: 35, city: 'Chicago' },
-  ];
+  constructor(
+    private store: Store,
+  ) { } 
+
 
   tableColumns = [
     { prop: 'name', title: 'Name' },
-    { prop: 'age', title: 'Age' },
-    { prop: 'city', title: 'City' }
+    { prop: 'imagePath', title: 'Image' },
+    { prop: 'courses', title: 'Nº Courses' },
+    { prop: 'description', title: 'Description' }
+    
   ];
+  
   onToggleForm(){
     this.isFormVisible = !this.isFormVisible
   }
