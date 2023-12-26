@@ -1,5 +1,7 @@
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
+@import '~bootstrap-icons/font/bootstrap-icons.css';
+
 @import './app/shared/services/alerts/alerts.scss';
 @import './app/shared/styles/colors.scss';
 @import './app/shared/styles/formsCreate.scss';

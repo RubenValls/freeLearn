@@ -14,5 +14,25 @@
 }
 .courses{
     margin: 0;
-    text-align: center;
+    margin-left: 2rem;
+
+}
+.social-media{
+    display: flex ;
+    gap: 1rem;
+    
+    a{
+        color: inherit;
+        text-decoration: none;
+        font-size: 20px;
+    }
+    .youtube{
+        color: red;
+    }
+    .linkedin{
+        color: rgb(35, 78, 163);
+    }
+    .web{
+        color: rgb(75, 181, 93);
+    }
 }
