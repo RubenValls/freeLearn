@@ -23,10 +23,10 @@ export class CoursesService {
     const instructorsIds = course.instructorId.map(instructor => instructor);
       
     techsIds.forEach(techId => {
-      this.techsService.updateTechnologyCourses(techId, docRef.id);  
+      this.techsService.updateTechnologyCourses(techId.id, docRef.id);  
     });
     instructorsIds.forEach(instructorId => {
-      this.instructorsService.updateInstructorsCourses(instructorId, docRef.id);
+      this.instructorsService.updateInstructorsCourses(instructorId.id, docRef.id);
     });    
 
     return docRef;

@@ -2,9 +2,9 @@ export interface Course {
     id?: string;
     name: string;
     description: string;   
-    instructorId: string[]; 
+    instructorId: Instructor[]; 
     imageUrl: string;
-    techs: string[];
+    techs: Tech[];
     lessons: Lesson[];
     rating: Rating[];
     introductionURL: string;
@@ -19,4 +19,15 @@ interface Lesson {
 interface Rating {
     userId: string;
     rating: number;
+}
+
+export interface Tech {
+    id: string,
+    name: string,
+}
+
+
+export interface Instructor {
+    id: string,
+    name: string,
 }

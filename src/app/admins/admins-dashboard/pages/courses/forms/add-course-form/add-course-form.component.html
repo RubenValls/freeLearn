@@ -27,8 +27,8 @@
 
     <mat-form-field>
         <mat-label>Select a instructor</mat-label>
-        <mat-select multiple (selectionChange)="onTechsSelectionChange($event)" formControlName="instructorId">
-            <mat-option *ngFor="let instructor$ of instructors$" [value]="instructor$.id">
+        <mat-select multiple (selectionChange)="onInstructorSelectionChange($event)" formControlName="instructorId">
+            <mat-option *ngFor="let instructor$ of instructors$" [value]="{id: instructor$.id, name: instructor$.name}">
                 {{instructor$.name}}
             </mat-option>
         </mat-select>
@@ -41,7 +41,7 @@
         <mat-label>Select technologies</mat-label>
         <mat-select placeholder="Techs" multiple (selectionChange)="onTechsSelectionChange($event)"
             formControlName="techs">
-            <mat-option *ngFor="let tech$ of techs$" [value]="tech$.id">
+            <mat-option *ngFor="let tech$ of techs$" [value]="{id: tech$.id, name: tech$.name}">
                 {{tech$.name}}
             </mat-option>
 

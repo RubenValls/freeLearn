@@ -43,7 +43,7 @@ export class AddCourseFormComponent implements OnInit {
   });
  
   onTechsSelectionChange(event: any) {
-    const selectedTechs = event.value as string[];
+    const selectedTechs = event.value as any[];
     this.courseForm.get('techs')?.setValue(selectedTechs);
   }
 
