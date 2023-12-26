@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteModalComponent } from 'src/app/shared/components/modals/delete-modal/delete-modal.component';
+import { DetailModalComponent } from 'src/app/shared/components/modals/detail-modal/detail-modal.component';
 
 @Component({
   selector: 'app-students-dashboard',
@@ -7,4 +10,21 @@ import { Component } from '@angular/core';
 })
 export class StudentsDashboardComponent {
 
+  constructor(
+    public dialog: MatDialog,
+  ) { }
+  onClick() {
+    const onDelete = () => {
+      alert("Eliminado")
+    };
+    this.dialog.open(DetailModalComponent, {
+       data: {             
+        onDelete: onDelete,
+      },
+    })
+
+  }
+    onDelete(){
+      alert("Eliminado")
+    }
 }

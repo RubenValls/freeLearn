@@ -11,6 +11,9 @@ import { BtnGradientComponent } from './components/btn-gradient/btn-gradient.com
 import { BtnBlackComponent } from './components/btn-black/btn-black.component';
 import { ButtonComponent } from './components/button/button.component';
 import { MatIconModule } from '@angular/material/icon';
+import { UpdateModalComponent } from './components/modals/update-modal/update-modal.component';
+import { DeleteModalComponent } from './components/modals/delete-modal/delete-modal.component';
+import { DetailModalComponent } from './components/modals/detail-modal/detail-modal.component';
 
 
 @NgModule({
@@ -20,6 +23,9 @@ import { MatIconModule } from '@angular/material/icon';
     BtnGradientComponent,
     BtnBlackComponent,
     ButtonComponent,
+    UpdateModalComponent,
+    DeleteModalComponent,
+    DetailModalComponent,
   ],
   imports: [
     CommonModule,
