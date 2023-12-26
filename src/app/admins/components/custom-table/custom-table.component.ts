@@ -28,7 +28,9 @@ export class CustomTableComponent implements OnInit{
   }
 
 
-  
+  click(){
+    console.log("Hola")
+  }
 
   handleEdit(element: any) {
     
