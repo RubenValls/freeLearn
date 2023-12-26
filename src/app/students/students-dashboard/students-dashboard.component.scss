@@ -1,0 +1,9 @@
+.container-fluid{
+    display: flex;
+    background-color: var(--black);
+    height: 100%;
+
+    app-sidebar{
+        color: var(--white);
+    }
+}

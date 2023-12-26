@@ -4,12 +4,14 @@ import { StudentsDashboardComponent } from './students-dashboard/students-dashbo
 import { StudentsRoutingModule } from './students-routing.module';
 import { share } from 'rxjs';
 import { SharedModule } from '../shared/shared.module';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 
 
 @NgModule({
   declarations: [
-    StudentsDashboardComponent
+    StudentsDashboardComponent,
+    SidebarComponent
   ],
   imports: [
     CommonModule,
