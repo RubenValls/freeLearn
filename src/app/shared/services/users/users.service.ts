@@ -18,8 +18,8 @@ export class UsersService {
   }
 
   getUsers(){
-    const techRef =  collection(this.firestore, 'users');
-    return collectionData(techRef, {idField: 'id'}) as Observable<User[]>;
+    const userRef =  collection(this.firestore, 'users');
+    return collectionData(userRef, {idField: 'id'}) as Observable<User[]>;
   }
 
   saveUserInStorage(rememberMe: boolean, user: User){

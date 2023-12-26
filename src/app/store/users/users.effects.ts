@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, exhaustMap } from 'rxjs/operators';
-import { UsersService } from 'src/app/shared/services/users/users.service';
 import { UsersActions } from './users.actions';
+import { UsersService } from 'src/app/shared/services/users/users.service';
+import { User } from 'src/app/login/types/user';
 
 
 
@@ -12,15 +13,15 @@ export class UsersEffects {
     this.actions$.pipe(
       ofType('Fetch Users'),
       exhaustMap(() =>
-        this.userService
+        this.usersService
             .getUsers()
-            .pipe(map((users: any[]) => UsersActions.retrievedUsersList({ users })))
+            .pipe(map((users: User[]) => UsersActions.retrievedUsersList({ users })))
       )
     )
   );
 
   constructor(
     private actions$: Actions,
-    private userService: UsersService
+    private usersService: UsersService
   ) {}
 }
