@@ -17,8 +17,8 @@ export class CoursesComponent implements OnInit {
     { prop: 'imageUrl', title: 'Image' },
     { prop: 'instructorId', title: 'Instructor' },
     { prop: 'introductionURL', title: 'Introduction' },
-    { prop: 'lesson', title: 'NºLessons'}
-    
+    { prop: 'lessons', title: 'NºLessons'},
+    { prop: 'rating', title: 'Rating'},
   ];
 
   constructor(

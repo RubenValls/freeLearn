@@ -10,15 +10,43 @@
           column.prop === 'imagePath' ||
             column.prop === 'courses' ||
             column.prop === 'description' ||
-            column.prop === 'socialMedia';
+            column.prop === 'socialMedia' ||
+            column.prop === 'introductionURL' ||
+            column.prop === 'lessons' ||
+            column.prop === 'instructorId' ||
+            column.prop === 'rating' ||
+            column.prop === 'imageUrl';
           else defaultContent
         "
       >
         <ng-container *ngIf="column.prop === 'imagePath'">
           <img class="tech-logo" src="{{ element[column.prop] }}" alt="" />
         </ng-container>
+        <ng-container *ngIf="column.prop === 'imageUrl'">
+          <img class="tech-logo" src="{{ element[column.prop] }}" alt="" />
+        </ng-container>
         <ng-container *ngIf="column.prop === 'courses'">
           <p class="courses">{{ element[column.prop]?.length || 0 }}</p>
+        </ng-container>
+        <ng-container *ngIf="column.prop === 'lessons'">
+          <p class="courses">{{ element[column.prop]?.length || 0 }}</p>
+        </ng-container>
+        <ng-container *ngIf="column.prop === 'rating'">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star"></i>
+            <i class="bi bi-star"></i>
+        </ng-container>
+        <ng-container *ngIf="column.prop === 'instructorId'">
+          <ng-container *ngFor="let instructor of element[column.prop]">
+            {{ instructor.name }}
+          </ng-container>
+        </ng-container>
+        <ng-container *ngIf="column.prop === 'introductionURL'">
+          <a class="youtube" href="{{ element[column.prop] }}" target="_blank">
+            <i class="bi bi-youtube"></i>
+          </a>
         </ng-container>
         <ng-container *ngIf="column.prop === 'description'">
           <p class="description">
