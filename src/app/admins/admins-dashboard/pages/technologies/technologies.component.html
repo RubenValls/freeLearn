@@ -4,4 +4,4 @@
         <mat-icon iconPositionEnd>add</mat-icon>
     </button>
 </div>
-<app-new-tech-form *ngIf="isFormVisible"></app-new-tech-form>
+<app-new-tech-form *ngIf="isFormVisible" (closeForm)="onToggleForm()"></app-new-tech-form>

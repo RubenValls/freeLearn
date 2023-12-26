@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TechService } from '../../service/tech.service';
 import { TechnologyType } from '../../types/technologies';
@@ -10,6 +10,8 @@ import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
   styleUrls: ['./new-tech-form.component.scss'],
 })
 export class NewTechFormComponent {
+  @Output() closeForm = new EventEmitter<boolean>();
+
   constructor(
     private techService: TechService,
     private alertMessages: AlertsService
@@ -34,6 +36,7 @@ export class NewTechFormComponent {
       this.techService.addTechnology(newTech).then(() => {
         this.alertMessages.successMessage('Technology created successfully');
         this.newTechForm.reset();
+        this.closeForm.emit(false);
       });
     }
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CoursesService } from '../../service/courses.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TechService } from '../../../technologies/service/tech.service';
@@ -14,6 +14,7 @@ import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
   styleUrls: ['./add-course-form.component.scss']
 })
 export class AddCourseFormComponent implements OnInit {
+ @Output() closeForm = new EventEmitter<boolean>();
  instructors$: Instructor[] = [];
  techs$:TechnologyType[] = [];
 
@@ -24,6 +25,7 @@ export class AddCourseFormComponent implements OnInit {
     private instructorsService: InstructorsService,
     private alertMessages: AlertsService,
   ) { }
+
   ngOnInit(): void {
     this.techsService.getTechnologies().subscribe(techs => {this.techs$ = techs;});
     this.instructorsService.getInstructors().subscribe(instructor => {this.instructors$ = instructor;});  
@@ -55,6 +57,7 @@ export class AddCourseFormComponent implements OnInit {
     this.coursesService.addCourse(this.courseForm.value)
     this.alertMessages.successMessage("Course created successfully")
     this.courseForm.reset();
+    this.closeForm.emit(false);
   }
 
 }

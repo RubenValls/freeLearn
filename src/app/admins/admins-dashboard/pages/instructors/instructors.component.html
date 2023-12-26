@@ -8,17 +8,5 @@
       <mat-icon iconPositionEnd>add</mat-icon>
     </button>
 
-  <!-- <div class="main">
-    <div class="flex-container">
-      <button
-        mat-raised-button
-        color="secondary"
-        class="button-with-icon"
-        (click)="getInstructors()"
-      >
-        Get Instructors
-      </button>
-    </div> -->
-
-  <app-create-instructors-form *ngIf="showForm"></app-create-instructors-form>
+  <app-create-instructors-form *ngIf="showForm" (closeForm)="toggleForm()"></app-create-instructors-form>
 </div>
