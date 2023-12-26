@@ -7,10 +7,10 @@
             <img class="tech-logo" src="{{element[column.prop]}}" alt="">
           </ng-container>
           <ng-container *ngIf="column.prop === 'courses'">
-            <p class="courses">{{ element[column.prop].length }} </p>  
+            <p class="courses">{{ element[column.prop]?.length || 0 }} </p>  
           </ng-container>
           <ng-container *ngIf="column.prop === 'description'">
-            <p class="description">{{ element[column.prop].slice(0, 350) + (element[column.prop].length > 350 ? '...' : '')}} </p> 
+            <p class="description">{{ element[column.prop]?.slice(0, 350) + (element[column.prop]?.length > 350 ? '...' : '')}} </p> 
           </ng-container>
         </ng-container>
             
