@@ -19,6 +19,8 @@ import { NewTechFormComponent } from './admins-dashboard/pages/technologies/comp
 import { CreateInstructorsFormComponent } from './admins-dashboard/pages/instructors/create-instructors-form/create-instructors-form.component';
 import { SharedModule } from '../shared/shared.module';
 import { CustomTableComponent } from './components/custom-table/custom-table.component';
+import { MatTableModule } from '@angular/material/table';
+
 
 
 
@@ -47,6 +49,7 @@ import { CustomTableComponent } from './components/custom-table/custom-table.com
     MatFormFieldModule,
     MatIconModule,
     SharedModule,
+    MatTableModule
 
   ]
 })
