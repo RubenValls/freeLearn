@@ -18,6 +18,7 @@ export class CreateInstructorsFormComponent {
   ) {
     this.instructorForm = this.fb.group({
       name: ['', Validators.required],
+      imagePath: [''],
       socialMedia: this.fb.group({
         web: [''],
         youtube: [''],
@@ -38,6 +39,7 @@ export class CreateInstructorsFormComponent {
         .addInstructor(this.instructorForm.value)
         .then((response) => {
           this.alertMessages.successMessage("Instructor created successfully")
+          this.instructorForm.reset();
         })
         .catch((error) => {
           console.error(error);

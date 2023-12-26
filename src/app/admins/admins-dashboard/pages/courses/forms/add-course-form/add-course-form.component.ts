@@ -6,6 +6,7 @@ import { InstructorsService } from '../../../instructors/instructors-service/ins
 import { Course } from '../../interface/course';
 import { TechnologyType } from '../../../technologies/types/technologies';
 import { Instructor } from '../../../instructors/instructors';
+import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 
 @Component({
   selector: 'app-add-course-form',
@@ -21,6 +22,7 @@ export class AddCourseFormComponent implements OnInit {
     private builder: FormBuilder,
     private techsService: TechService,
     private instructorsService: InstructorsService,
+    private alertMessages: AlertsService,
   ) { }
   ngOnInit(): void {
     this.techsService.getTechnologies().subscribe(techs => {this.techs$ = techs;});
@@ -30,6 +32,7 @@ export class AddCourseFormComponent implements OnInit {
   courseForm: FormGroup = this.builder.group({   
     name: ["", [Validators.required]],
     description: ["", [Validators.required]],
+    introductionURL: ["", [Validators.required]],
     instructorId: [[], [Validators.required]],
     imageUrl: ["", [Validators.required]],
     techs: [[],[Validators.required]],
@@ -40,6 +43,7 @@ export class AddCourseFormComponent implements OnInit {
     const selectedTechs = event.value as string[];
     this.courseForm.get('techs')?.setValue(selectedTechs);
   }
+
   onInstructorSelectionChange(event: any) {
     const selectedInstructors = event.value as string[];
     this.courseForm.get('instructorId')?.setValue(selectedInstructors);
@@ -48,6 +52,8 @@ export class AddCourseFormComponent implements OnInit {
   addCourse() {
     if(this.courseForm.invalid) return;
     this.coursesService.addCourse(this.courseForm.value)
+    this.alertMessages.successMessage("Course created successfully")
+    this.courseForm.reset();
   }
 
 }

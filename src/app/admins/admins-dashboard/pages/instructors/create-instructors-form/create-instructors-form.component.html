@@ -2,9 +2,14 @@
         <mat-form-field class="input-name">
             <mat-label>Name</mat-label>
             <input matInput formControlName="name" type="string">
-            <mat-error *ngIf="instructorForm.get('name')?.hasError('required')">
+            <mat-error *ngIf="instructorForm.get('name')?.hasError('required') && instructorForm.touched">
                 Name is required
             </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="input-name">
+            <mat-label>Avatar image URL</mat-label>
+            <input matInput formControlName="imagePath" type="string">
         </mat-form-field>
     
         <div class="social" formGroupName="socialMedia">

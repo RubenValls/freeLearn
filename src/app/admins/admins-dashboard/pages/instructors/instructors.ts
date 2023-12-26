@@ -7,5 +7,12 @@ export interface Instructor {
         twitter: string | null,
         linkedin: string | null,
     };
-    courses:any[];
+    courses: string[];
+    imagePath: string;
+    rating: Rating[];
+}
+
+interface Rating {
+    userId: string;
+    rating: number;
 }

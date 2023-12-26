@@ -18,6 +18,14 @@
       </mat-form-field>
 
     <mat-form-field>
+        <mat-label>Introduction video URL</mat-label>
+        <input matInput formControlName="introductionURL" type="text">
+        <mat-error *ngIf="courseForm.controls['introductionURL'].invalid && courseForm.controls['introductionURL'].touched">
+            Introduction video is required.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
         <mat-label>Select a instructor</mat-label>
         <mat-select multiple (selectionChange)="onTechsSelectionChange($event)" formControlName="instructorId">
             <mat-option *ngFor="let instructor$ of instructors$" [value]="instructor$.id">
