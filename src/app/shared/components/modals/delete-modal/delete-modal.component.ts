@@ -12,8 +12,8 @@ export class DeleteModalComponent {
     public dialogRef: MatDialogRef<DeleteModalComponent>,
   ) { }
 
-  onDelete() {
-    if(this.data && this.data.onDelete) this.data.onDelete();
+  onDelete() {    
+    if(this.data && this.data.onDelete) this.data.onDelete(this.data.id);
     this.dialogRef.close(true);
   }
   close() {

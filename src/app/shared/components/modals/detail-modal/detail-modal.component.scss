@@ -1,8 +1,11 @@
 .detail-modal {
-    min-width: 100px;
-
-    min-height: 200px;
+    overflow-x: hidden;
     padding: 10px;
+    background-image: url("../../../../../assets/images/svgs/wave.svg");
+    background-repeat: no-repeat;
+    background-position: 70 30%;
+
+    border: px 1 solid var(--primary);
 
     &--content {
         .--close-icon {
@@ -16,36 +19,65 @@
             border: 2px var(--primary);
 
             display: inline-block;
-            // background-color: var(--primary-transparent);
+            background-color: var(--primary-transparent);
             padding: 10px;
 
             mat-icon {
                 color: var(--primary);
-                font-size: 24px;
+
                 display: block;
                 margin: 0 auto;
             }
         }
 
         .modal-body {
-            margin: 10px 5px;
 
-            .title {
-                font-weight: bolder;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 5px;
+
+            .edit-form {
+
+                margin: 0 auto;
+
             }
+
         }
+    }
+
+    .--form-content {
+        border: 1ox solid green;
     }
 
     .modal-buttons {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
+       
         margin-top: 20px;
 
+        .btn-right {
+            display: flex;
+            justify-content: flex-end;
+            gap: 5px;
+          
+        }
+
         button {
-            margin-left: 10px;
+
             background-color: var(--primary-transparent);
         }
 
-      
+        .btn-delete {
+            background-color: var(--error);
+            color: white;
+        }
+
+        .btn-edit {
+            background-color:var(--accent);
+            color: white;
+        }
+
+
     }
 }
