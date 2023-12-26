@@ -37,6 +37,7 @@ export class AddCourseFormComponent implements OnInit {
     imageUrl: ["", [Validators.required]],
     techs: [[],[Validators.required]],
     lessons: [[]],
+    rating: [[]],
   });
  
   onTechsSelectionChange(event: any) {
