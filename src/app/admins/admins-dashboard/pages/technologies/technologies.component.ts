@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectTechnologies } from 'src/app/store/technologies/tecnologies.selectors';
+import { TechnologyType } from './types/technologies';
+import { TechService } from './service/tech.service';
 
 @Component({
   selector: 'app-technologies',
@@ -13,8 +15,9 @@ export class TechnologiesComponent {
 
   constructor(
     private store: Store,
-  ) { } 
+    private techsService: TechService
 
+  ) { } 
 
   tableColumns = [
     { prop: 'name', title: 'Name' },
@@ -27,4 +30,19 @@ export class TechnologiesComponent {
   onToggleForm(){
     this.isFormVisible = !this.isFormVisible
   }
+
+  onEdit(){
+     
+   
+  }
+  onDelete(){
+    alert( this.technologies$.subscribe(
+      data => console.log(data[0].description)
+    ))
+
+  }
+  onDetail(){
+    this.technologies$.subscribe( data => this.techsService.getTechnologyById(data[0].id! ).then( console.log))  
+  }
+
 }
