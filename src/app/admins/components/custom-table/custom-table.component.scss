@@ -1,7 +1,20 @@
 .tech-logo{
     width: 50px;
 }
-.cell-hover:hover{
+.cell{
+    
+}
+.cell:hover{
     background-color: var(--mediumGrey);
     cursor: pointer;
+}
+.description{
+    text-align: justify;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+}
+.courses{
+    margin: 0;
+    text-align: center;
 }

@@ -19,7 +19,7 @@ export class TechnologiesComponent {
   tableColumns = [
     { prop: 'name', title: 'Name' },
     { prop: 'imagePath', title: 'Image' },
-    { prop: 'courses', title: 'Nº Courses' },
+    { prop: 'courses', title: 'NºCourses' },
     { prop: 'description', title: 'Description' }
     
   ];

@@ -2,12 +2,15 @@
     <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column.prop">
       <th mat-header-cell *matHeaderCellDef>{{ column.title }}</th>
       <td mat-cell *matCellDef="let element" (click)="click()">
-        <ng-container *ngIf="column.prop === 'imagePath' || column.prop === 'courses'; else defaultContent">
+        <ng-container *ngIf="column.prop === 'imagePath' || column.prop === 'courses' || column.prop === 'description' ; else defaultContent">
           <ng-container *ngIf="column.prop === 'imagePath'">
             <img class="tech-logo" src="{{element[column.prop]}}" alt="">
           </ng-container>
           <ng-container *ngIf="column.prop === 'courses'">
-            {{ element[column.prop].length }}  
+            <p class="courses">{{ element[column.prop].length }} </p>  
+          </ng-container>
+          <ng-container *ngIf="column.prop === 'description'">
+            <p class="description">{{ element[column.prop].slice(0, 350) + (element[column.prop].length > 350 ? '...' : '')}} </p> 
           </ng-container>
         </ng-container>
             
@@ -18,7 +21,7 @@
     </ng-container>
   
     <tr mat-header-row *matHeaderRowDef="columns"></tr>
-    <tr mat-row *matRowDef="let row; columns: columns" class="cell-hover"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns" class="cell"></tr>
   </table>
   
   
