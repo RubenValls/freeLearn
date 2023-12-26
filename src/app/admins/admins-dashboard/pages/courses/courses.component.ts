@@ -14,7 +14,9 @@ export class CoursesComponent implements OnInit {
 
   tableColumns = [
     { prop: 'name', title: 'Name' },
+   
     { prop: 'imageUrl', title: 'Image' },
+    { prop: 'techs', title: 'Technologies' },
     { prop: 'instructorId', title: 'Instructor' },
     { prop: 'introductionURL', title: 'Introduction' },
     { prop: 'lessons', title: 'NºLessons'},

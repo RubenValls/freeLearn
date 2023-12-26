@@ -15,6 +15,7 @@
             column.prop === 'lessons' ||
             column.prop === 'instructorId' ||
             column.prop === 'rating' ||
+            column.prop === 'techs' ||
             column.prop === 'imageUrl';
           else defaultContent
         "
@@ -43,8 +44,13 @@
             {{ instructor.name }}
           </ng-container>
         </ng-container>
+        <ng-container *ngIf="column.prop === 'techs'">
+          <ng-container *ngFor="let tech of element[column.prop]">
+            {{ tech.name }}
+          </ng-container>
+        </ng-container>
         <ng-container *ngIf="column.prop === 'introductionURL'">
-          <a class="youtube" href="{{ element[column.prop] }}" target="_blank">
+          <a class="youtube-intro" href="{{ element[column.prop] }}" target="_blank">
             <i class="bi bi-youtube"></i>
           </a>
         </ng-container>

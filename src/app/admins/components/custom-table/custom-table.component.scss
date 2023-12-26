@@ -20,6 +20,15 @@
 .social-media{
     display: flex ;
     gap: 1rem;
+    a{
+        color: inherit;
+        text-decoration: none;
+        font-size: 20px;
+    }
+    .youtube{
+        color: red;
+        
+    }
 
     .linkedin{
         color: rgb(35, 78, 163);
@@ -28,13 +37,11 @@
         color: rgb(75, 181, 93);
     }
 }
-a{
-    color: inherit;
-    text-decoration: none;
+
+.youtube-intro{
     font-size: 20px;
-}
-.youtube{
-    margin-left: 1.5rem;
-    color: red;
-    
+    color: inherit;
+        text-decoration: none;
+        color: red;
+        margin-left: 1.5rem;
 }
