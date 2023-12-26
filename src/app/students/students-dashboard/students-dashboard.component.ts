@@ -10,21 +10,5 @@ import { DetailModalComponent } from 'src/app/shared/components/modals/detail-mo
 })
 export class StudentsDashboardComponent {
 
-  constructor(
-    public dialog: MatDialog,
-  ) { }
-  onClick() {
-    const onDelete = () => {
-      alert("Eliminado")
-    };
-    this.dialog.open(DetailModalComponent, {
-       data: {             
-        onDelete: onDelete,
-      },
-    })
-
-  }
-    onDelete(){
-      alert("Eliminado")
-    }
+  
 }
