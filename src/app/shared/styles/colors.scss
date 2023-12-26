@@ -1,5 +1,6 @@
 :root {
     --primary: #047af1;
+    --primary-transparent: #047bf13f;
     --accent: #0BF082;
     --white: #ffffff; 
     --black: #282828;
@@ -8,7 +9,9 @@
     --mediumGrey: #eeeeee;
     
     --error: #FF0000;
+    --error-transparent-34: #ff000034;
     --succes: #53b867;
+    --succes-transparent: #53b86748;
     --warning: #ecba79;
 
     --gradient: linear-gradient(139deg,#4defa7 0,#2d71fa 100%) padding-box;

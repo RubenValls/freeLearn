@@ -4,17 +4,22 @@ import { StudentsDashboardComponent } from './students-dashboard/students-dashbo
 import { StudentsRoutingModule } from './students-routing.module';
 import { share } from 'rxjs';
 import { SharedModule } from '../shared/shared.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
 @NgModule({
   declarations: [
-    StudentsDashboardComponent
+    StudentsDashboardComponent,
   ],
   imports: [
     CommonModule,
     StudentsRoutingModule,
     SharedModule,
+    MatDialogModule,
+
+
+
   ]
 })
 export class StudentsModule { }

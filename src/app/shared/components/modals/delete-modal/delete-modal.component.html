@@ -1,0 +1,25 @@
+<div class="delete-modal">
+
+    <div class="delete-modal--content">
+        <div class="--close-icon">
+            <mat-icon (click)="close()">close</mat-icon>
+        </div>
+
+        <div class="--delete-icon">
+            <mat-icon>delete_forever</mat-icon>
+        </div>
+        <div class="modal-body">
+
+        <h5 class="title">Permanently delete file</h5>
+        <p class="text">Are you sure you want to permanently delete this file?</p>
+        <p class="text-advise">This action cannot be undone</p>
+        </div>
+
+
+        <div class="modal-buttons">
+            <button class="btn btn-light" (click)="close()">Cancel</button>
+            <button class="btn confirm-delete" (click)="onDelete()">Delete file</button>
+        </div>
+    </div>
+
+</div>
