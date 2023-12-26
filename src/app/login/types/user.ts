@@ -7,6 +7,7 @@ export interface User {
     providerId: string | null,
     rememberMe: boolean,
     role?: string,
+    favorites?: string[],
     uid: string | null,
     authUid: string,
 }

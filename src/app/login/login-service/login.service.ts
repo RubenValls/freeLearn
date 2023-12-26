@@ -127,6 +127,7 @@ export class LoginService {
           ? formValue.value.rememberMe
           : false,
         role: 'student',
+        favorites: []
       }
     }
   }
