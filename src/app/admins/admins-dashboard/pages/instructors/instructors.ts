@@ -9,7 +9,7 @@ export interface Instructor {
     };
     courses: string[];
     imagePath: string;
-    rating: Rating[]
+    rating: Rating[];
 }
 
 interface Rating {
