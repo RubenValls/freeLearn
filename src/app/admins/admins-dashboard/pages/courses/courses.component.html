@@ -1,10 +1,3 @@
-<!-- <div class="flex-container">
-    <app-button label="Add course" [type]="'primary'" [size]="'medium'" (onClick)="addCourse()" [iconName]="'add'">          
-    </app-button>
-    <app-add-course-form *ngIf="watchForm"></app-add-course-form>
-
-</div> -->
-
 <div class="flex-container">
     <button (click)="addCourse()" mat-raised-button>
         Add course
@@ -13,5 +6,6 @@
     <ng-container *ngIf="watchForm">
         <app-add-course-form></app-add-course-form>
     </ng-container>
+    <app-custom-table [data]="courses$" [displayedColumns]="tableColumns"></app-custom-table>
 
 </div>

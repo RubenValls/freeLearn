@@ -12,12 +12,21 @@ export class CoursesComponent implements OnInit {
   watchForm: boolean = false;
   courses$ = this.store.select(selectCourses);
 
+  tableColumns = [
+    { prop: 'name', title: 'Name' },
+    { prop: 'imageUrl', title: 'Image' },
+    { prop: 'instructorId', title: 'Instructor' },
+    { prop: 'introductionURL', title: 'Introduction' },
+    { prop: 'lesson', title: 'NºLessons'}
+    
+  ];
+
   constructor(
     private store: Store,
   ) { } 
 
   ngOnInit(): void {
-    this.store.dispatch({ type: 'Fetch Courses' });
+    
   }
   addCourse() {
     this.watchForm = !this.watchForm;

@@ -16,6 +16,8 @@ export class AdminsDashboardComponent {
   ngOnInit(): void {
     this.store.dispatch({ type: 'Fetch Technologies' });
     this.store.dispatch({ type: 'Fetch Instructors' });
+    this.store.dispatch({ type: 'Fetch Courses' });
+    this.store.dispatch({ type: 'Fetch Users' });
   }
 
 }
