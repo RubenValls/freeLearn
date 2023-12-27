@@ -11,6 +11,7 @@ import { CoursesComponent } from './students-dashboard/pages/courses/courses.com
 import { TrainersComponent } from './students-dashboard/pages/trainers/trainers.component';
 import { TechnologiesComponent } from './students-dashboard/pages/technologies/technologies.component';
 import { SettingsComponent } from './students-dashboard/pages/settings/settings.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 
@@ -30,9 +31,7 @@ import { SettingsComponent } from './students-dashboard/pages/settings/settings.
     SharedModule,
     MatDialogModule,
     MatIconModule,
-
-
-
+    MatTooltipModule
   ]
 })
 export class StudentsModule { }
