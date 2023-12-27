@@ -13,7 +13,7 @@
         align-items: flex-end;
 
         img{
-            max-width: 80%;
+            max-width: 70%;
         }
     }
 
@@ -26,6 +26,34 @@
         margin-top: 50px;
         margin-bottom: 50px;
         
+        .navigation-links{
+            height: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center; 
+
+            .container{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                mat-icon{
+                    margin-left: 20px;
+                    font-size: 30px;
+                    height: 30px;
+                    width: 30px;
+                    color: var(--grey);
+    
+                    &:hover{
+                        cursor: pointer;
+                        color: var(--white);
+                    }
+                }
+            }
+        }
+
         .logout-icons{
             display: flex;
             margin-left: 20px;
@@ -36,10 +64,11 @@
                 font-size: 30px;
                 height: 30px;
                 width: 30px;
+                color: var(--grey);
 
                 &:hover{
                     cursor: pointer;
-                    color: var(--grey);
+                    color: var(--white);
                 }
             }
         }
