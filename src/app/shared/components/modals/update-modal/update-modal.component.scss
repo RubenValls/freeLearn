@@ -60,11 +60,11 @@
             }
 
             .confirm-update {
-                background-color: var(--succes);
+                background-color: var(--primary);
                 color: var(--white);
 
                 &:hover {
-                    background-color: var(--succes-transparent);
+                    background-color: var(--primary-transparent);
                 }
             }
         }

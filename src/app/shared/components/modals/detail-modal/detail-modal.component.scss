@@ -1,9 +1,10 @@
 .detail-modal {
     overflow-x: hidden;
     padding: 10px;
-    background-image: url("../../../../../assets/images/svgs/wave.svg");
-    background-repeat: no-repeat;
-    background-position: 70 ;
+    background-image: url("../../../../../assets/images/svgs/waveGreenUp.svg");
+    background-repeat: no-repeat;  
+    background-size: contain;
+
 
     &--content {
         .--close-icon {
