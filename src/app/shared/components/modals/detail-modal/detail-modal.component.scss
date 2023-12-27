@@ -1,11 +1,11 @@
 .detail-modal {
     overflow-x: hidden;
+    max-width: 1034px;
     padding: 10px;
-    background-image: url("../../../../../assets/images/svgs/wave.svg");
+    background-image: url("../../../../../assets/images/svgs/waveGreenUp.svg");
     background-repeat: no-repeat;
-    background-position: 70 30%;
+    background-size: contain;
 
-    border: px 1 solid var(--primary);
 
     &--content {
         .--close-icon {
@@ -24,7 +24,6 @@
 
             mat-icon {
                 color: var(--primary);
-
                 display: block;
                 margin: 0 auto;
             }
@@ -34,33 +33,21 @@
 
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-top: 5px;
-
-            .edit-form {
-
-                margin: 0 auto;
-
-            }
+            gap: 5px;
 
         }
-    }
-
-    .--form-content {
-        border: 1ox solid green;
     }
 
     .modal-buttons {
         display: flex;
         justify-content: space-between;
-       
-        margin-top: 20px;
+
 
         .btn-right {
             display: flex;
             justify-content: flex-end;
             gap: 5px;
-          
+
         }
 
         button {
@@ -73,11 +60,26 @@
             color: white;
         }
 
+        .btn-delete:hover {
+            background-color: var(--error-hover);
+
+        }
+
         .btn-edit {
-            background-color:var(--accent);
+            background-color: var(--succes);
             color: white;
+        }
+
+        .btn-edit:hover {
+            background-color: var(--succes-hover);
+
         }
 
 
     }
 }
+
+// .mat-mdc-dialog-container  {
+
+//     height:auto !important;
+// }

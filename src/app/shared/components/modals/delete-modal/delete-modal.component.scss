@@ -3,6 +3,10 @@
     max-width: 500px;
     min-height: 200px;
     padding: 10px;
+    background-image: url("../../../../../assets/images/svgs/waveRedDown2.svg");
+    background-repeat: no-repeat;
+    background-size: content;
+    background-position: bottom;
 
     &--content {
         .--close-icon {
@@ -14,9 +18,8 @@
         .--delete-icon {
             border-radius: 50%;
             border: 2px var(--error);
-
             display: inline-block;
-            background-color: var(--error-transparent-34);
+            background-color: var(--error-transparent);
             padding: 10px;
 
             mat-icon {
@@ -32,17 +35,13 @@
 
             .title {
                 font-weight: bolder;
-
-
             }
 
             .text-advise {
                 color: var(--error);
-
             }
 
         }
-
 
         .modal-buttons {
             display: flex;
@@ -51,8 +50,6 @@
 
             button {
                 margin-left: 10px;
-
-
             }
 
             .confirm-delete {
@@ -60,7 +57,7 @@
                 color: var(--white);
 
                 &:hover {
-                    background-color: var(--error-transparent-34);
+                    background-color: var(--error-hover);
                 }
             }
         }

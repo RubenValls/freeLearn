@@ -13,8 +13,8 @@ import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 export class TechnologiesComponent {
   isFormVisible = false
   technologies$ = this.store.select(selectTechnologies);
-  modalWith: string = '100%';
-  modalHeight: string = '750px';
+  modalWith: string = '1034';
+  modalHeight: string = '650px';
   modalTitle: string = 'Technology';
 
   constructor(
@@ -45,14 +45,14 @@ export class TechnologiesComponent {
     this.isFormVisible = !this.isFormVisible
   }
 
-  onEdit(element: TechnologyType){       
-    debugger; 
+  onEdit(element: TechnologyType){           
     this.techsService.updateTechnology(element.id!, element).then((data) => {
       this.alertMessages.successMessage('Technology update successfully');
     }).catch((error) => {
       this.alertMessages.errorMessage('Error updating technology', error.message);
     }) 
   }
+
   onDelete(id:string){    
    this.techsService.deleteTechDoc(id)
    .then((data) => {
@@ -60,8 +60,8 @@ export class TechnologiesComponent {
    }).catch((error) => {
     this.alertMessages.errorMessage('Error deleting technology', error.message);
   }) 
-
   }
+  
   onModals(element: TechnologyType){
     console.log(element, "modal")
     this.techsService.getTechnologyById(element.id!)    
