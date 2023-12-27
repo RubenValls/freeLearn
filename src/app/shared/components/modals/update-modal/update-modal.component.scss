@@ -18,7 +18,6 @@
         .--edit-icon {
             border-radius: 50%;
             border: 2px var(--succes);
-
             display: inline-block;
             background-color: var(--succes-transparent);
             padding: 10px;
@@ -36,15 +35,12 @@
 
             .title {
                 font-weight: bolder;
-
-
             }
 
             .text-advise {
-                color: var(--error);
-
+                color: var(--succes);
+                font-weight: bold;
             }
-
         }
 
 
@@ -55,16 +51,16 @@
 
             button {
                 margin-left: 10px;
-
-
             }
 
             .confirm-update {
                 background-color: var(--primary);
+                //background-color: #1d9da8;
                 color: var(--white);
 
                 &:hover {
-                    background-color: var(--primary-transparent);
+                    background-color: var(--primary-hover);
+
                 }
             }
         }

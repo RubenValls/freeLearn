@@ -1,8 +1,9 @@
 .detail-modal {
     overflow-x: hidden;
+    max-width: 1034px;
     padding: 10px;
     background-image: url("../../../../../assets/images/svgs/waveGreenUp.svg");
-    background-repeat: no-repeat;  
+    background-repeat: no-repeat;
     background-size: contain;
 
 
@@ -32,21 +33,21 @@
 
             display: flex;
             flex-direction: column;
-            gap: 5px;        
+            gap: 5px;
 
         }
     }
 
-      .modal-buttons {
+    .modal-buttons {
         display: flex;
-        justify-content: space-between;      
-    
+        justify-content: space-between;
+
 
         .btn-right {
             display: flex;
             justify-content: flex-end;
             gap: 5px;
-          
+
         }
 
         button {
@@ -59,9 +60,19 @@
             color: white;
         }
 
+        .btn-delete:hover {
+            background-color: var(--error-hover);
+
+        }
+
         .btn-edit {
-            background-color:var(--accent);
+            background-color: var(--succes);
             color: white;
+        }
+
+        .btn-edit:hover {
+            background-color: var(--succes-hover);
+
         }
 
 
@@ -69,6 +80,6 @@
 }
 
 // .mat-mdc-dialog-container  {
-   
+
 //     height:auto !important;
 // }

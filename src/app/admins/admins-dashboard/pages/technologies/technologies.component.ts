@@ -13,8 +13,8 @@ import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 export class TechnologiesComponent {
   isFormVisible = false
   technologies$ = this.store.select(selectTechnologies);
-  modalWith: string = '100%';
-  modalHeight: string = '750px';
+  modalWith: string = '1034';
+  modalHeight: string = '650px';
   modalTitle: string = 'Technology';
 
   constructor(
