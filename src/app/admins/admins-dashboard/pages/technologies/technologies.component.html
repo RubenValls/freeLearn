@@ -3,8 +3,10 @@
         Add technology
         <mat-icon iconPositionEnd>add</mat-icon>
     </button>
+    <app-new-tech-form *ngIf="isFormVisible"></app-new-tech-form>
+    <app-custom-table [data]="technologies$" [displayedColumns]="tableColumns"></app-custom-table>
 </div>
-<app-new-tech-form *ngIf="isFormVisible"></app-new-tech-form>
 
-<app-custom-table [data]="technologies$" [displayedColumns]="tableColumns"></app-custom-table>
+
+
 
