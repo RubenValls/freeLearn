@@ -13,20 +13,16 @@
         .menu-container{
             .navigation-links{
                 .container{
-                    mat-icon{
+                    i{
                         margin-left: 10px;
                         font-size: 20px;
-                        height: 20px;
-                        width: 20px;
                     }
                 }
             }
             .logout-icons{
                 margin-left: 10px;
-                mat-icon{
+                i{
                     font-size: 20px;
-                    height: 20px;
-                    width: 20px;
                 }
             }
         }
@@ -65,23 +61,23 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                height: 50px;
 
                 &.active{
+                    height: 50px;
                     border-left: 2px solid;
                     border-image: linear-gradient(to bottom, #4defa7, #2d71fa) 1;
 
-                    mat-icon{
+                    i{
                         color: transparent;
                         background: var(--gradient);
                         -webkit-background-clip: text;
                     }
                 }
 
-                mat-icon{
+                i{
                     margin-left: 20px;
                     font-size: 30px;
-                    height: 30px;
-                    width: 30px;
                     color: var(--grey);
     
                     &:hover{
@@ -100,10 +96,8 @@
             justify-content: center;
             align-items: center;
 
-            mat-icon{
+            i{
                 font-size: 30px;
-                height: 30px;
-                width: 30px;
                 color: var(--grey);
 
                 &:hover{
