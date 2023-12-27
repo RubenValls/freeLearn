@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UpdateModalComponent } from '../update-modal/update-modal.component';
 
 @Component({
@@ -12,7 +12,7 @@ import { UpdateModalComponent } from '../update-modal/update-modal.component';
 export class DetailModalComponent implements OnInit {
   dataGeneral: any;
   title: string = ''
-  totalCourses: string = ""
+  totalCourses: string | null = null
   rows: any[] = [];
   form!: FormGroup; 
 
@@ -29,6 +29,7 @@ export class DetailModalComponent implements OnInit {
     this.title = this.data.title
     this.totalCourses = this.data.totalCourses > 0 ? `This technology has ${this.data.totalCourses} associated courses` : "This technology has 0 associated courses"
     this.createDynamicForm(); 
+  
     this.form.patchValue(this.data.data);
  
   }
@@ -36,12 +37,34 @@ export class DetailModalComponent implements OnInit {
   createDynamicForm() {
     this.form = this.builderForm.group({});
     this.rows.forEach((row: any) => {
-      if( row.prop !== 'courses'){
-        this.form.addControl(row.prop, this.builderForm.control('', Validators.required));
-        }      
+      if (row.prop !== 'courses') {
+        if (row.subFields) {
+          const subFormGroup = this.createSubFormGroup(row.subFields);
+          this.form.addControl(row.prop, subFormGroup);
+        } else {
+          this.form.addControl(row.prop, this.builderForm.control('', Validators.required));
+        }
+      }        
     });
   
   }
+  createSubFormGroup(subFields: any[]): FormGroup {
+    const subFormGroup: { [key: string]: AbstractControl } = {};
+    subFields.forEach((field: any) => {
+      if (field.subFields) {
+        subFormGroup[field.prop] = this.createSubFormGroup(field.subFields);
+      } else {
+        subFormGroup[field.prop] = this.builderForm.control('');
+      }
+    });
+    return this.builderForm.group(subFormGroup);
+  }
+
+  get socialMediaForm(): FormGroup {
+    return this.form.get('socialMedia') as FormGroup;
+  }
+
+
   close() {
     this.dialogRef.close();
   }
@@ -67,7 +90,7 @@ export class DetailModalComponent implements OnInit {
   }
 
   onEdit() {  
-    if(this.form.valid && this.data.onEdit){
+    if( this.data.onEdit){
      const updateDialog= this.dialog.open(UpdateModalComponent,{
         width: '400px',
         data: {

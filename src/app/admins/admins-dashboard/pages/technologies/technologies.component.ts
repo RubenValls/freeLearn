@@ -22,49 +22,48 @@ export class TechnologiesComponent {
     private techsService: TechService,
     private alertMessages: AlertsService
 
-  ) { } 
+  ) { }
 
   tableColumns = [
     { prop: 'name', title: 'Name' },
     { prop: 'imagePath', title: 'Image' },
     { prop: 'courses', title: 'NºCourses' },
     { prop: 'description', title: 'Description' }
-    
+
   ];
 
   rows = [
-    {label: 'Id', prop: 'id'},
-    {label: 'Name', prop: 'name'},
-    {label: 'Image', prop: 'imagePath'},
-    {label: 'Description', prop: 'description'},
-    {label: 'Courses', prop: 'courses'},
-  
+    { label: 'Id', prop: 'id' },
+    { label: 'Name', prop: 'name' },
+    { label: 'Image', prop: 'imagePath' },
+    { label: 'Description', prop: 'description' },
+    { label: 'Courses', prop: 'courses' },
+
   ]
-  
-  onToggleForm(){
+
+  onToggleForm() {
     this.isFormVisible = !this.isFormVisible
   }
 
-  onEdit(element: TechnologyType){           
+  onEdit(element: TechnologyType) {
     this.techsService.updateTechnology(element.id!, element).then((data) => {
       this.alertMessages.successMessage('Technology update successfully');
     }).catch((error) => {
       this.alertMessages.errorMessage('Error updating technology', error.message);
-    }) 
+    })
   }
 
-  onDelete(id:string){    
-   this.techsService.deleteTechDoc(id)
-   .then((data) => {
-    this.alertMessages.successMessage('Technology delete successfully');
-   }).catch((error) => {
-    this.alertMessages.errorMessage('Error deleting technology', error.message);
-  }) 
+  onDelete(id: string) {
+    this.techsService.deleteTechDoc(id)
+      .then((data) => {
+        this.alertMessages.successMessage('Technology delete successfully');
+      }).catch((error) => {
+        this.alertMessages.errorMessage('Error deleting technology', error.message);
+      })
   }
-  
-  onModals(element: TechnologyType){
-    console.log(element, "modal")
-    this.techsService.getTechnologyById(element.id!)    
+
+  onModals(element: TechnologyType) {
+    this.techsService.getTechnologyById(element.id!)
 
   }
 

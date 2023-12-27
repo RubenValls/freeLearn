@@ -16,7 +16,7 @@
 
             <form class="edit-form" [formGroup]="form" class="row">
                 <div *ngFor="let row of rows" class="row">
-                    <mat-form-field *ngIf="row.prop !== 'courses' && row.prop !== 'description' && row.prop !== 'id'">
+                    <mat-form-field *ngIf="row.prop !== 'courses' && row.prop !== 'description' && row.prop !== 'id' && row.prop !== 'socialMedia'">
                         <mat-label>{{row.label}}</mat-label>
                         <input matInput formControlName="{{ row.prop }}">
                     </mat-form-field>
@@ -36,7 +36,21 @@
                         <textarea matInput formControlName="{{ row.prop }}" cdkTextareaAutosize
                             cdkAutosizeMinRows="5"></textarea>
                     </mat-form-field>
+
+                    <ng-container *ngIf="row.prop === 'socialMedia'">
+                        <div [formGroup]="socialMediaForm">
+                          <div *ngFor="let subField of row.subFields" class="row">
+                            <mat-form-field>
+                              <mat-label>{{subField.label}}</mat-label>
+                              <input matInput formControlName="{{ subField.prop }}">
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+
                 </div>
+
+              
             </form>
 
         </div>
@@ -46,7 +60,7 @@
                 <button (click)="onDelete()" class="btn btn-delete"> Delete</button>
             </div>
             <div class="btn-right">
-                <button (click)="onEdit()" class="btn btn-edit"> Edit</button>
+                <button (click)="onEdit()" class="btn btn-edit"  [disabled]="!form.valid" > Edit</button>
                 <button class="btn" (click)="close()">Close</button>
             </div>
 

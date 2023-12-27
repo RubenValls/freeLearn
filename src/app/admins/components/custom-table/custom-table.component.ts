@@ -24,8 +24,6 @@ export class CustomTableComponent implements OnInit{
   @Input() modalHeight: string = '';
   @Input() modalTitle: string = '';
 
- 
-
 
   dataSource = []
   columns = this.displayedColumns.map(column => column.prop);
@@ -45,7 +43,7 @@ export class CustomTableComponent implements OnInit{
    const onModals = (element:any) =>{
     this.onModal.emit(element)
    }
-   const onEdit = (element:any) =>{
+   const onEdit = (element:any) =>{   
     this.onEdit.emit(element)
    }
    const onDelete = (element:any) =>{
