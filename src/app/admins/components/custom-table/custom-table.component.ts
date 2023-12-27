@@ -1,7 +1,12 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { TechnologyType } from '../../admins-dashboard/pages/technologies/types/technologies';
 import { CdkTableDataSourceInput } from '@angular/cdk/table';
 import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { DetailModalComponent } from 'src/app/shared/components/modals/detail-modal/detail-modal.component';
+import { DialogRef } from '@angular/cdk/dialog';
+import { DeleteModalComponent } from 'src/app/shared/components/modals/delete-modal/delete-modal.component';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-custom-table',
@@ -12,6 +17,13 @@ export class CustomTableComponent implements OnInit{
   @Input() displayedColumns: any[] = [];
   @Input() data: any | null = [];
   @Input() rows: any[] = [];
+  @Output() onModal: EventEmitter<any> = new EventEmitter();
+  @Output() onEdit:  EventEmitter<any> = new EventEmitter();
+  @Output() onDelete: EventEmitter<any> = new EventEmitter();
+  @Input() modalWith : string = '' ;
+  @Input() modalHeight: string = '';
+  @Input() modalTitle: string = '';
+
  
 
 
@@ -19,7 +31,8 @@ export class CustomTableComponent implements OnInit{
   columns = this.displayedColumns.map(column => column.prop);
 
   constructor(
-    
+    public dialog: MatDialog,
+
   ) { }
 
   ngOnInit(): void {
@@ -27,22 +40,34 @@ export class CustomTableComponent implements OnInit{
     this.columns = this.displayedColumns.map(column => column.prop);
   }
 
+  handleModal(element: any) {    
 
-  click(){
-    console.log("Hola")
+   const onModals = (element:any) =>{
+    this.onModal.emit(element)
+   }
+   const onEdit = (element:any) =>{
+    this.onEdit.emit(element)
+   }
+   const onDelete = (element:any) =>{
+    this.onDelete.emit(element.id)
+   }
+  this.dialog.open(DetailModalComponent, {   
+    width:this.modalWith,
+    height: this.modalHeight,
+    data: 
+    {
+      data: element,
+      title: this.modalTitle,   
+      rows: this.rows,    
+      totalCourses: element.courses.length,
+      onModal:onModals,
+      onEdit:onEdit,
+      onDelete:onDelete,    
+    }
+   });   
   }
 
-  handleEdit(element: any) {
-    
-  }
+  handleDetail(element: any) { }
 
-
-  handleDetail(element: any) { 
-
-
-  }
-
-  handleDelete(element: any) {
-      
-  }
+  handleDelete(element: any) { }
 }
