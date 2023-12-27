@@ -1,14 +1,20 @@
-<div class="flex-container">  
-    <button
-      mat-raised-button
-      class="button-with-icon"
-      (click)="toggleForm()"
-    >
-      Add instructor
-      <mat-icon iconPositionEnd>add</mat-icon>
-    </button>
+<div class="flex-container">
+  <button mat-raised-button class="button-with-icon" (click)="toggleForm()">
+    Add instructor
+    <mat-icon iconPositionEnd>add</mat-icon>
+  </button>
 
   <app-create-instructors-form *ngIf="showForm" (closeForm)="toggleForm()"></app-create-instructors-form>
 
-  <app-custom-table [data]="instructors$" [displayedColumns]="tableColumns"></app-custom-table>
+  <app-custom-table 
+  [data]="instructors$"
+  [displayedColumns]="tableColumns"
+  (onModal)="onModals($event)"
+  [rows]="rows"
+  [modalWith]="modalWith"
+  [modalHeight]="modalHeight"
+  [modalTitle]="modalTitle"
+  (onEdit)="onEdit($event)"
+  (onDelete)="onDelete($event)">
+  </app-custom-table>
 </div>

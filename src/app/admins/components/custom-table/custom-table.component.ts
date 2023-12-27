@@ -25,8 +25,6 @@ export class CustomTableComponent implements OnInit{
   @Input() modalHeight: string = '';
   @Input() modalTitle: string = '';
 
- 
-
 
   dataSource = []
   columns = this.displayedColumns.map(column => column.prop);
@@ -42,18 +40,19 @@ export class CustomTableComponent implements OnInit{
   
   }
 
-  handleModal(element: any) {    
-
+  handleModal(element: any) {     
+   
    const onModals = (element:any) =>{
     this.onModal.emit(element)
    }
-   const onEdit = (element:any) =>{
+   const onEdit = (element:any) =>{   
     this.onEdit.emit(element)
    }
    const onDelete = (element:any) =>{
     this.onDelete.emit(element.id)
    }
-  this.dialog.open(DetailModalComponent, {   
+  this.dialog.open(DetailModalComponent, {
+   
     width:this.modalWith,
     height: this.modalHeight,
     data: 
@@ -61,7 +60,7 @@ export class CustomTableComponent implements OnInit{
       data: element,
       title: this.modalTitle,   
       rows: this.rows,    
-      totalCourses: element.courses.length,
+      ...(element && element.courses && { totalCourses: element.courses.length }),
       onModal:onModals,
       onEdit:onEdit,
       onDelete:onDelete,    
