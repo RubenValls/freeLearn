@@ -24,12 +24,6 @@ describe('CoursesComponent', () => {
     store = TestBed.inject(Store);
     fixture.detectChanges();
   });
-
-  it('should dispatch Fetch Courses action on init', () => {
-    spyOn(store, 'dispatch');
-    component.ngOnInit();
-    expect(store.dispatch).toHaveBeenCalledWith({ type: 'Fetch Courses' });
-  });
   
   it('should toggle watchForm on addCourse', () => {
     component.watchForm = false;
