@@ -20,6 +20,7 @@ import { CreateInstructorsFormComponent } from './admins-dashboard/pages/instruc
 import { SharedModule } from '../shared/shared.module';
 import { CustomTableComponent } from './components/custom-table/custom-table.component';
 import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 
 
@@ -49,7 +50,8 @@ import { MatTableModule } from '@angular/material/table';
     MatFormFieldModule,
     MatIconModule,
     SharedModule,
-    MatTableModule
+    MatTableModule,
+    MatSortModule
 
   ]
 })

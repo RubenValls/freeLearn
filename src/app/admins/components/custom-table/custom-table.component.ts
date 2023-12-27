@@ -1,7 +1,8 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { TechnologyType } from '../../admins-dashboard/pages/technologies/types/technologies';
 import { CdkTableDataSourceInput } from '@angular/cdk/table';
 import { Observable } from 'rxjs';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-custom-table',
@@ -13,6 +14,8 @@ export class CustomTableComponent implements OnInit{
   @Input() data: any | null = [];
   @Input() rows: any[] = [];
  
+  @ViewChild(MatSort) sort?: MatSort;
+
 
 
   dataSource = []
@@ -25,6 +28,7 @@ export class CustomTableComponent implements OnInit{
   ngOnInit(): void {
     this.data?.subscribe((data: any) => this.dataSource = data )
     this.columns = this.displayedColumns.map(column => column.prop);
+    this.data.sort = this.sort;
   }
 
 
