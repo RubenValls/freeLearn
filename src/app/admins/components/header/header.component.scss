@@ -6,7 +6,7 @@
     margin: auto;
     padding: 0;
     position: sticky;
-    height: 75px;
+    height: 50px;
 
     img{
         width: 150px;
@@ -16,33 +16,25 @@
     #log-out-btn{
         max-width: 50px;
 
-        mat-icon{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: auto;
-            font-size: 30px;
-            height: 30px;
-            width: 30px;
-        }
-
         .large-icon {
             display: flex;
             justify-content: center;
             align-items: center;
             margin: auto;
-            font-size: 35px;
-            height: 35px;
-            width: 35px;
+            font-size: 20px;
         }
     }
 
     button{
         width: 100%;
         height: 100%;
-        font-size: 1.1em;
+        font-size: 14px;
         color: var(--white);
         border-radius: 0%;
+        
+        i{
+            margin-right: 0.5rem;
+        }
 
         &.active{
             background: var(--gradient);
@@ -50,18 +42,13 @@
             transition: 0.5s;
         }
 
-        mat-icon{
-            color: var(--white);
-        }
-
         .large-icon {
             display: flex;
             justify-content: center;
             align-items: center;
             margin: auto;
-            font-size: 35px;
-            height: 35px;
-            width: 35px;
+            font-size: 20px;
+           
         }
     }
 
