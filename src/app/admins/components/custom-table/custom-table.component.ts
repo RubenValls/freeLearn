@@ -8,6 +8,7 @@ import { DialogRef } from '@angular/cdk/dialog';
 import { DeleteModalComponent } from 'src/app/shared/components/modals/delete-modal/delete-modal.component';
 import { ThisReceiver } from '@angular/compiler';
 
+
 @Component({
   selector: 'app-custom-table',
   templateUrl: './custom-table.component.html',
@@ -36,8 +37,9 @@ export class CustomTableComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    this.data?.subscribe((data: any) => this.dataSource = data )
+    this.data?.subscribe((data: any) => {this.dataSource = data} )
     this.columns = this.displayedColumns.map(column => column.prop);
+  
   }
 
   handleModal(element: any) {    
