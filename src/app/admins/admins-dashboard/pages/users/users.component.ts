@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { selectUsers } from 'src/app/store/users/users.selectors';
@@ -8,11 +8,11 @@ import { selectUsers } from 'src/app/store/users/users.selectors';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
-export class UsersComponent {
+export class UsersComponent{
   users$ = this.store.select(selectUsers);
 
   tableColumns = [
-    { prop: 'displayName', title: 'Instructor' },
+    { prop: 'displayName', title: 'User' },
     { prop: 'photoUrl', title: 'Img' },
     { prop: 'email', title: 'Email' },
     { prop: 'phoneNumber', title: 'Phone' },
@@ -23,7 +23,9 @@ export class UsersComponent {
 
   constructor(
     private store: Store,
-  ) { } 
+  ) { 
+    console.log(this.users$);
+  } 
 
   
 }
