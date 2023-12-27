@@ -5,6 +5,7 @@ import { StudentsRoutingModule } from './students-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -18,6 +19,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     StudentsRoutingModule,
     SharedModule,
     MatDialogModule,
+    MatIconModule,
 
 
 
