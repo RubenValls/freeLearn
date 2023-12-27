@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UpdateModalComponent } from '../update-modal/update-modal.component';
 
 @Component({
   selector: 'app-detail-modal',
@@ -11,7 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class DetailModalComponent implements OnInit {
   dataGeneral: any;
   title: string = ''
-  totalCourses: number = 0
+  totalCourses: string = ""
   rows: any[] = [];
   form!: FormGroup; 
 
@@ -26,16 +27,16 @@ export class DetailModalComponent implements OnInit {
     this.dataGeneral = this.data
     this.rows = this.data.rows
     this.title = this.data.title
-    this.totalCourses = this.data.totalCourses
+    this.totalCourses = this.data.totalCourses > 0 ? `This technology has ${this.data.totalCourses} associated courses` : "This technology has 0 associated courses"
     this.createDynamicForm(); 
     this.form.patchValue(this.data.data);
-    console.log(this.data.data);
+ 
   }
 
   createDynamicForm() {
     this.form = this.builderForm.group({});
     this.rows.forEach((row: any) => {
-      if(row.prop !== 'id' || row.prop !== 'courses'){
+      if( row.prop !== 'courses'){
         this.form.addControl(row.prop, this.builderForm.control('', Validators.required));
         }      
     });
@@ -47,7 +48,7 @@ export class DetailModalComponent implements OnInit {
 
   onDelete() {
     if(this.data.onDelete){
-      this.dialog.open(DeleteModalComponent, {
+    const deleteDialog=  this.dialog.open(DeleteModalComponent, {
         width: '400px',
         data: {
           title: this.title,
@@ -57,16 +58,29 @@ export class DetailModalComponent implements OnInit {
         }
       });
      
-      this.dialogRef.close();
+      deleteDialog.afterClosed().subscribe(result => {
+        if(result){
+          this.dialogRef.close();
+        }
+      });
     }
   }
 
   onEdit() {  
     if(this.form.valid && this.data.onEdit){
-      console.log(this.form.value);
-      this.data.onEdit(this.form.value)    
-
-      this.dialogRef.close();
+     const updateDialog= this.dialog.open(UpdateModalComponent,{
+        width: '400px',
+        data: {
+          title: this.title,
+          onEdit: this.data.onEdit,         
+          editData: this.form.value
+        }
+      })
+      updateDialog.afterClosed().subscribe(result => {
+        if(result){
+          this.dialogRef.close();
+        }
+      });
     }
 
   }

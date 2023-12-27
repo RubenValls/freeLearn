@@ -6,14 +6,19 @@
         <div class="--detail-icon">
             <mat-icon>info</mat-icon>
         </div>
-        <div class="modal-body">
-            <h2>{{title}}</h2>
+        <div mat-dialog-content class="modal-body">
+            <h3 mat-dialog-title>{{title}}</h3>
 
             <form class="edit-form" [formGroup]="form" class="row">
                 <div *ngFor="let row of rows" class="row">
-                    <mat-form-field *ngIf="row.prop !== 'courses' && row.prop !== 'description'">
+                    <mat-form-field *ngIf="row.prop !== 'courses' && row.prop !== 'description' && row.prop !== 'id'">
                         <mat-label>{{row.label}}</mat-label>
                         <input matInput formControlName="{{ row.prop }}">
+                    </mat-form-field>
+                    
+                    <mat-form-field *ngIf="row.prop === 'id'">
+                        <mat-label>{{row.label}}</mat-label>
+                        <input  matInput formControlName="{{ row.prop }}" readonly>
                     </mat-form-field>
 
                     <mat-form-field *ngIf="row.prop === 'courses'">

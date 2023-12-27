@@ -1,1 +1,25 @@
-<p>update-modal works!</p>
+<div class="update-modal">
+
+    <div class="update-modal--content">
+        <div class="--close-icon">
+            <mat-icon (click)="close()">close</mat-icon>
+        </div>
+
+        <div class="--edit-icon">
+            <mat-icon>edit</mat-icon>
+        </div>
+        <div mat-dialog-content class="modal-body">
+
+        <h5 mat-dialog-title class="title">Update {{title}}</h5>
+        <p class="text">Are you sure you want to permanently update this file?</p>
+        <p class="text-advise">This action cannot be undone</p>
+        </div>
+
+
+        <div class="modal-buttons">
+            <button class="btn btn-light" (click)="close()">Cancel</button>
+            <button class="btn confirm-update" (click)="onUpdate()">Update file</button>
+        </div>
+    </div>
+
+</div>

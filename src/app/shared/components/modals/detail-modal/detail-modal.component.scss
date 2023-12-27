@@ -3,9 +3,7 @@
     padding: 10px;
     background-image: url("../../../../../assets/images/svgs/wave.svg");
     background-repeat: no-repeat;
-    background-position: 70 30%;
-
-    border: px 1 solid var(--primary);
+    background-position: 70 ;
 
     &--content {
         .--close-icon {
@@ -24,7 +22,6 @@
 
             mat-icon {
                 color: var(--primary);
-
                 display: block;
                 margin: 0 auto;
             }
@@ -34,27 +31,15 @@
 
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-top: 5px;
-
-            .edit-form {
-
-                margin: 0 auto;
-
-            }
+            gap: 5px;        
 
         }
     }
 
-    .--form-content {
-        border: 1ox solid green;
-    }
-
-    .modal-buttons {
+      .modal-buttons {
         display: flex;
-        justify-content: space-between;
-       
-        margin-top: 20px;
+        justify-content: space-between;      
+    
 
         .btn-right {
             display: flex;
@@ -81,3 +66,8 @@
 
     }
 }
+
+// .mat-mdc-dialog-container  {
+   
+//     height:auto !important;
+// }
