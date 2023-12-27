@@ -1,9 +1,11 @@
+.table{
+    background-color: var(--black);
+    padding: 2rem;
+}
 .tech-logo{
     width: 50px;
 }
-.cell{
-    
-}
+
 .cell:hover{
     background-color: var(--mediumGrey);
     cursor: pointer;
@@ -16,5 +18,40 @@
 }
 .courses{
     margin: 0;
-    text-align: center;
+    margin-left: 2rem;
+
+}
+.social-media{
+    display: flex ;
+    gap: 1rem;
+    a{
+        color: inherit;
+        text-decoration: none;
+        font-size: 20px;
+    }
+    .youtube{
+        color: red;
+        
+    }
+
+    .linkedin{
+        color: rgb(35, 78, 163);
+    }
+    .web{
+        color: rgb(75, 181, 93);
+    }
+}
+
+.youtube-intro{
+    font-size: 20px;
+    color: inherit;
+        text-decoration: none;
+        color: red;
+        margin-left: 1.5rem;
+}
+
+.custom-icon{
+    font-size: 30px;
+    margin-left: 0.6rem;
+    
 }

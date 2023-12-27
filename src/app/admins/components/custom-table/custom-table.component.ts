@@ -36,7 +36,7 @@ export class CustomTableComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    this.data?.subscribe((data: any) => this.dataSource = data)
+    this.data?.subscribe((data: any) => this.dataSource = data )
     this.columns = this.displayedColumns.map(column => column.prop);
   }
 

@@ -13,7 +13,7 @@ const routes: Routes = [
     { path: '', component: AdminsDashboardComponent, canActivate:[RoleGuard], data: {expectedRole: 'admin'}, children: [
       { path: '', redirectTo: 'users', pathMatch: 'full' },
       // { path: 'users', component: UsersComponent },
-      { path: 'users', component: WorkingInProgressComponent },
+      { path: 'users', component: UsersComponent },
       { path: 'technologies', component: TechnologiesComponent },
       { path: 'courses', component: CoursesComponent },
       { path: 'instructors', component: InstructorsComponent },

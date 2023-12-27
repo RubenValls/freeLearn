@@ -9,4 +9,6 @@
     </button>
 
   <app-create-instructors-form *ngIf="showForm" (closeForm)="toggleForm()"></app-create-instructors-form>
+
+  <app-custom-table [data]="instructors$" [displayedColumns]="tableColumns"></app-custom-table>
 </div>

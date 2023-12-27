@@ -6,5 +6,6 @@
     <ng-container *ngIf="watchForm">
         <app-add-course-form (closeForm)="addCourse()"></app-add-course-form>
     </ng-container>
+    <app-custom-table [data]="courses$" [displayedColumns]="tableColumns"></app-custom-table>
 
 </div>

@@ -1,34 +1,111 @@
+<div class="table">
 <table mat-table [dataSource]="dataSource">
-    <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column.prop" >
-      <th mat-header-cell *matHeaderCellDef>{{ column.title }}</th>
-
-
-       
-
-      <td mat-cell *matCellDef="let element" (click)="handleModal(element)">
-        <ng-container *ngIf="column.prop === 'imagePath' || column.prop === 'courses' || column.prop === 'description' ; else defaultContent">
-          <ng-container *ngIf="column.prop === 'imagePath'">
-            <img class="tech-logo" src="{{element[column.prop]}}" alt="">
+  <ng-container
+    *ngFor="let column of displayedColumns"
+    [matColumnDef]="column.prop"
+  >
+    <th mat-header-cell *matHeaderCellDef>{{ column.title }}</th>
+    <td mat-cell *matCellDef="let element" (click)="handleModal(element)">
+      <ng-container
+        *ngIf="
+          column.prop === 'imagePath' ||
+            column.prop === 'courses' ||
+            column.prop === 'description' ||
+            column.prop === 'socialMedia' ||
+            column.prop === 'introductionURL' ||
+            column.prop === 'lessons' ||
+            column.prop === 'instructorId' ||
+            column.prop === 'rating' ||
+            column.prop === 'techs' ||
+            column.prop === 'photoURL' ||
+            column.prop === 'imageUrl';
+          else defaultContent
+        "
+      >
+        <ng-container *ngIf="column.prop === 'imagePath'">
+          <img class="tech-logo" src="{{ element[column.prop] }}" alt="" />
+        </ng-container>
+        <ng-container *ngIf="column.prop === 'imageUrl'">
+          <img class="tech-logo" src="{{ element[column.prop] }}" alt="" />
+        </ng-container>
+        <ng-container *ngIf="column.prop === 'photoURL'">
+          <ng-container *ngIf="element[column.prop]">
+            <img class="tech-logo" src="{{ element[column.prop] }}" alt="" />
           </ng-container>
-          <ng-container *ngIf="column.prop === 'courses'">
-            <p class="courses">{{ element[column.prop].length }} </p>  
+          <ng-container *ngIf="!element[column.prop]">
+            <i class="bi bi-person-circle custom-icon"></i>
           </ng-container>
-          <ng-container *ngIf="column.prop === 'description'">
-            <p class="description">{{ element[column.prop].slice(0, 350) + (element[column.prop].length > 350 ? '...' : '')}} </p> 
+          
+        </ng-container>
+        <ng-container *ngIf="column.prop === 'courses'">
+          <p class="courses">{{ element[column.prop]?.length || 0 }}</p>
+        </ng-container>
+        <ng-container *ngIf="column.prop === 'lessons'">
+          <p class="courses">{{ element[column.prop]?.length || 0 }}</p>
+        </ng-container>
+        <ng-container *ngIf="column.prop === 'rating'">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star"></i>
+            <i class="bi bi-star"></i>
+        </ng-container>
+        <ng-container *ngIf="column.prop === 'instructorId'">
+          <ng-container *ngFor="let instructor of element[column.prop]">
+            {{ instructor.name }}
           </ng-container>
         </ng-container>
-            
-        <ng-template #defaultContent>
-          {{ element[column.prop] }}
-        </ng-template>
-      </td>
-    </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="columns"></tr>
-    <tr mat-row *matRowDef="let row; columns: columns" class="cell"></tr>
-  </table>
-  
-  
-  
-  
+        <ng-container *ngIf="column.prop === 'techs'">
+          <ng-container *ngFor="let tech of element[column.prop]">
+            {{ tech.name }}
+          </ng-container>
+        </ng-container>
+        <ng-container *ngIf="column.prop === 'introductionURL'">
+          <a class="youtube-intro" href="{{ element[column.prop] }}" target="_blank">
+            <i class="bi bi-youtube"></i>
+          </a>
+        </ng-container>
+        <ng-container *ngIf="column.prop === 'description'">
+          <p class="description">
+            {{
+              element[column.prop]?.slice(0, 350) +
+                (element[column.prop]?.length > 350 ? "..." : "")
+            }}
+          </p>
+        </ng-container>
+        <ng-container *ngIf="column.prop === 'socialMedia'">
+          <div class="social-media">
+            <ng-container *ngIf="element[column.prop]?.twitter">
+              <a href="{{ element[column.prop]?.twitter }}" target="_blank">
+                <i class="bi bi-twitter-x"></i>
+              </a>
+            </ng-container>
+            <ng-container *ngIf="element[column.prop]?.youtube">
+              <a class="youtube" href="{{ element[column.prop]?.youtube }}" target="_blank">
+                <i class="bi bi-youtube"></i>
+              </a>
+            </ng-container>
+            <ng-container *ngIf="element[column.prop]?.linkedin">
+              <a class="linkedin" href="{{ element[column.prop]?.linkedin }}" target="_blank">
+                <i class="bi bi-linkedin"></i>
+              </a>
+            </ng-container>
+            <ng-container *ngIf="element[column.prop]?.web">
+              <a class="web" href="{{ element[column.prop]?.web }}" target="_blank">
+                <i class="bi bi-browser-chrome"></i>
+              </a>
+            </ng-container>
+          </div>
+        </ng-container>
+      </ng-container>
 
+      <ng-template #defaultContent>
+        {{ element[column.prop] }}
+      </ng-template>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columns"></tr>
+  <tr mat-row *matRowDef="let row; columns: columns" class="cell"></tr>
+</table>
+</div>
