@@ -13,7 +13,7 @@ export class UsersComponent{
 
   tableColumns = [
     { prop: 'displayName', title: 'User' },
-    { prop: 'photoUrl', title: 'Img' },
+    { prop: 'photoURL', title: 'Img' },
     { prop: 'email', title: 'Email' },
     { prop: 'phoneNumber', title: 'Phone' },
     { prop: 'role', title: 'Introduction' },

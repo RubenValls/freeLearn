@@ -16,6 +16,7 @@
             column.prop === 'instructorId' ||
             column.prop === 'rating' ||
             column.prop === 'techs' ||
+            column.prop === 'photoURL' ||
             column.prop === 'imageUrl';
           else defaultContent
         "
@@ -25,6 +26,15 @@
         </ng-container>
         <ng-container *ngIf="column.prop === 'imageUrl'">
           <img class="tech-logo" src="{{ element[column.prop] }}" alt="" />
+        </ng-container>
+        <ng-container *ngIf="column.prop === 'photoURL'">
+          <ng-container *ngIf="element[column.prop]">
+            <img class="tech-logo" src="{{ element[column.prop] }}" alt="" />
+          </ng-container>
+          <ng-container *ngIf="!element[column.prop]">
+            <i class="bi bi-person-circle custom-icon"></i>
+          </ng-container>
+          
         </ng-container>
         <ng-container *ngIf="column.prop === 'courses'">
           <p class="courses">{{ element[column.prop]?.length || 0 }}</p>
