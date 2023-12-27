@@ -13,10 +13,6 @@ export class CustomTableComponent implements OnInit{
   @Input() displayedColumns: any[] = [];
   @Input() data: any | null = [];
   @Input() rows: any[] = [];
- 
-  @ViewChild(MatSort) sort?: MatSort;
-
-
 
   dataSource = []
   columns = this.displayedColumns.map(column => column.prop);
@@ -26,9 +22,9 @@ export class CustomTableComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    this.data?.subscribe((data: any) => this.dataSource = data )
+    this.data?.subscribe((data: any) => {this.dataSource = data} )
     this.columns = this.displayedColumns.map(column => column.prop);
-    this.data.sort = this.sort;
+  
   }
 
 
