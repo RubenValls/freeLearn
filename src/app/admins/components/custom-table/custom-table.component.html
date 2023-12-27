@@ -1,3 +1,4 @@
+<div class="table">
 <table mat-table [dataSource]="dataSource">
   <ng-container
     *ngFor="let column of displayedColumns"
@@ -107,3 +108,4 @@
   <tr mat-header-row *matHeaderRowDef="columns"></tr>
   <tr mat-row *matRowDef="let row; columns: columns" class="cell"></tr>
 </table>
+</div>
