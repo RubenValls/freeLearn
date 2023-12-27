@@ -38,8 +38,8 @@ export class CustomTableComponent implements OnInit{
     this.columns = this.displayedColumns.map(column => column.prop);
   }
 
-  handleModal(element: any) {    
-
+  handleModal(element: any) {     
+   
    const onModals = (element:any) =>{
     this.onModal.emit(element)
    }
@@ -49,7 +49,8 @@ export class CustomTableComponent implements OnInit{
    const onDelete = (element:any) =>{
     this.onDelete.emit(element.id)
    }
-  this.dialog.open(DetailModalComponent, {   
+  this.dialog.open(DetailModalComponent, {
+   
     width:this.modalWith,
     height: this.modalHeight,
     data: 
@@ -57,7 +58,7 @@ export class CustomTableComponent implements OnInit{
       data: element,
       title: this.modalTitle,   
       rows: this.rows,    
-      totalCourses: element.courses.length,
+      ...(element && element.courses && { totalCourses: element.courses.length }),
       onModal:onModals,
       onEdit:onEdit,
       onDelete:onDelete,    

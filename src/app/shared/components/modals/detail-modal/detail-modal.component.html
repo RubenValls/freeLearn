@@ -16,7 +16,7 @@
 
             <form class="edit-form" [formGroup]="form" class="row">
                 <div *ngFor="let row of rows" class="row">
-                    <mat-form-field *ngIf="row.prop !== 'courses' && row.prop !== 'description' && row.prop !== 'id' && row.prop !== 'socialMedia'">
+                    <mat-form-field *ngIf="row.prop !== 'courses' && row.prop !== 'description' && row.prop !== 'id' && row.prop !== 'socialMedia' && row.prop !== 'lessons' && row.prop !== 'techs' && row.prop !== 'instructorId'">
                         <mat-label>{{row.label}}</mat-label>
                         <input matInput formControlName="{{ row.prop }}">
                     </mat-form-field>
@@ -37,7 +37,7 @@
                             cdkAutosizeMinRows="5"></textarea>
                     </mat-form-field>
 
-                    <ng-container *ngIf="row.prop === 'socialMedia'">
+                    <ng-container *ngIf="row.prop === 'socialMedia' ">
                         <div [formGroup]="socialMediaForm">
                           <div *ngFor="let subField of row.subFields" class="row">
                             <mat-form-field>
@@ -47,6 +47,45 @@
                           </div>
                         </div>
                       </ng-container>
+
+
+                      
+                    <ng-container *ngIf="row.prop === 'techs' ">
+                        <h5>Techs</h5>
+                        <div [formGroup]="socialMediaForm">
+                          <div *ngFor="let subField of row.subFields" class="row">
+                            <mat-form-field>
+                              <mat-label>{{subField.label}}</mat-label>
+                              <input matInput formControlName="{{ subField.prop }}">
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+
+                      <ng-container *ngIf="row.prop === 'instructorId' ">
+                        <h5>Instructors</h5>
+                        <div [formGroup]="socialMediaForm">
+                          <div *ngFor="let subField of row.subFields" class="row">
+                            <mat-form-field>
+                              <mat-label>{{subField.label}}</mat-label>
+                              <input matInput formControlName="{{ subField.prop }}">
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+
+                      <ng-container *ngIf="row.prop === 'lessons' ">
+                        <h5>Lessons</h5>
+                        <div [formGroup]="socialMediaForm">
+                          <div *ngFor="let subField of row.subFields" class="row">
+                            <mat-form-field>
+                              <mat-label>{{subField.label}}</mat-label>
+                              <input matInput formControlName="{{ subField.prop }}">
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                       
 
                 </div>
 

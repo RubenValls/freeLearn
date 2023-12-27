@@ -10,7 +10,7 @@ import { Course } from './interface/course';
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.scss']
 })
-export class CoursesComponent implements OnInit {
+export class CoursesComponent  {
   watchForm: boolean = false;
   courses$ = this.store.select(selectCourses);
   modalWith: string = '1034';
@@ -44,12 +44,7 @@ export class CoursesComponent implements OnInit {
       ],
   },
     { label: 'Introduction', prop: 'introductionURL' },
-    { label: 'Rating', prop: 'rating',
-      subFields: [
-        { label: 'User', prop: 'userId' },
-        { label: 'Rating', prop: 'rating' },           
-      ],
-     },
+    
     { label: 'Lessons', prop: 'lessons',
       subFields: [
         { label: 'Id', prop: 'id' },
@@ -68,9 +63,7 @@ export class CoursesComponent implements OnInit {
     private alertMessages: AlertsService,
   ) { } 
 
-  ngOnInit(): void {
-    
-  }
+
   addCourse() {
     this.watchForm = !this.watchForm;
   }
@@ -86,6 +79,7 @@ export class CoursesComponent implements OnInit {
   }
 
   onDelete(id:string){
+   console.log(id, "course component"), 
     this.coursesService.deleteCourse(id)
     .then((data) => {
       this.alertMessages.successMessage('Course delete successfully');

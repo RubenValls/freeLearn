@@ -8,7 +8,7 @@
     </ng-container>
     <app-custom-table
         [data]="courses$" 
-        [displayedColumns]="tableColumns">
+        [displayedColumns]="tableColumns" 
         (onModal)="onModals($event)"
         [rows]="rows"
         [modalWith]="modalWith"
@@ -19,3 +19,4 @@
     </app-custom-table>
 
 </div>
+

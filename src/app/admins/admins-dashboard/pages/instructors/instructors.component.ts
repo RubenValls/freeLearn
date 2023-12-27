@@ -70,7 +70,7 @@ export class InstructorsComponent {
       })
   }
   onModals(element: Instructor) {
-    this.instructorsService.getInstructorById(element.id!)
+     this.instructorsService.getInstructorById(element.id!)
   }
 
 }

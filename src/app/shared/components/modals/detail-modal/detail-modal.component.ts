@@ -14,7 +14,7 @@ export class DetailModalComponent implements OnInit {
   title: string = ''
   totalCourses: string | null = null
   rows: any[] = [];
-  form!: FormGroup; 
+  form!: FormGroup;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -28,10 +28,11 @@ export class DetailModalComponent implements OnInit {
     this.rows = this.data.rows
     this.title = this.data.title
     this.totalCourses = this.data.totalCourses > 0 ? `This technology has ${this.data.totalCourses} associated courses` : "This technology has 0 associated courses"
-    this.createDynamicForm(); 
-  
+    this.createDynamicForm();
+
     this.form.patchValue(this.data.data);
- 
+  
+
   }
 
   createDynamicForm() {
@@ -44,9 +45,9 @@ export class DetailModalComponent implements OnInit {
         } else {
           this.form.addControl(row.prop, this.builderForm.control('', Validators.required));
         }
-      }        
+      }
     });
-  
+
   }
   createSubFormGroup(subFields: any[]): FormGroup {
     const subFormGroup: { [key: string]: AbstractControl } = {};
@@ -69,38 +70,38 @@ export class DetailModalComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  onDelete() {
-    if(this.data.onDelete){
-    const deleteDialog=  this.dialog.open(DeleteModalComponent, {
+  onDelete() {   
+    if (this.data.onDelete) {
+      const deleteDialog = this.dialog.open(DeleteModalComponent, {
         width: '400px',
         data: {
           title: this.title,
           onDelete: this.data.onDelete,
-          id:this.form.value,
+          id: this.form.value,
           data: this.data.data
         }
       });
-     
+
       deleteDialog.afterClosed().subscribe(result => {
-        if(result){
+        if (result) {
           this.dialogRef.close();
         }
       });
     }
   }
 
-  onEdit() {  
-    if( this.data.onEdit){
-     const updateDialog= this.dialog.open(UpdateModalComponent,{
+  onEdit() {
+    if (this.data.onEdit) {
+      const updateDialog = this.dialog.open(UpdateModalComponent, {
         width: '400px',
         data: {
           title: this.title,
-          onEdit: this.data.onEdit,         
+          onEdit: this.data.onEdit,
           editData: this.form.value
         }
       })
       updateDialog.afterClosed().subscribe(result => {
-        if(result){
+        if (result) {
           this.dialogRef.close();
         }
       });
