@@ -1,9 +1,17 @@
 .container-fluid{
     display: flex;
+    padding: 0;
     background-color: var(--black);
     height: 100%;
 
-    app-sidebar{
-        color: var(--white);
+    .container-fluid{
+        height: 100%;
+        padding: 20px;
+        
+        .container-fluid{
+            border-radius: 20px;
+            background-color: var(--white);
+            color: var(--black);
+        }
     }
 }

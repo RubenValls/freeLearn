@@ -1,1 +1,27 @@
-<p>sidebar works!</p>
+<div [ngClass]="{'small-screen': isSmallScreen}" class="container">
+    <div class="logo-container" *ngIf="!isSmallScreen">
+        <img src="../../../../assets/images/logo/png/White logo without words - no background.png" alt="web-logo">
+    </div>
+    <div class="menu-container">
+        <div class="navigation-links">
+            <div class="container" routerLink="home" routerLinkActive="active">
+                <mat-icon matTooltip="Home" matTooltipPosition="right">home</mat-icon>
+            </div>
+            <div class="container" routerLink="courses" routerLinkActive="active">
+                <mat-icon matTooltip="Courses" matTooltipPosition="right">video_library</mat-icon>
+            </div>
+            <div class="container" routerLink="trainers" routerLinkActive="active">
+                <mat-icon matTooltip="Trainers" matTooltipPosition="right">school</mat-icon>
+            </div>
+            <div class="container" routerLink="technologies" routerLinkActive="active">
+                <mat-icon matTooltip="Technologies" matTooltipPosition="right">device_hub</mat-icon>
+            </div>
+            <div class="container" routerLink="settings" routerLinkActive="active">
+                <mat-icon matTooltip="Settings" matTooltipPosition="right">settings</mat-icon>
+            </div>
+        </div>
+        <div class="logout-icons">
+            <mat-icon (click)="handleLogOut()" matTooltip="Log Out" matTooltipPosition="right">exit_to_app</mat-icon>
+        </div>
+    </div>
+</div>

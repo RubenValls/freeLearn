@@ -23,6 +23,11 @@ describe('InstructorsService', () => {
       linkedin: 'https://www.linkedin.com/in/instructor1',
     },
     courses: [],
+    imagePath: 'path/to/image', // Add this property
+    rating: [{
+      userId: '1',
+      rating: 4
+    }], 
   };
 
   const instructorId = '1';

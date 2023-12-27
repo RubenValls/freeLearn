@@ -36,9 +36,14 @@ describe('AddCourseFormComponent', () => {
 
     component.courseForm.controls['name'].setValue('Test Course');
     component.courseForm.controls['description'].setValue('Test Description');
-    component.courseForm.controls['instructorId'].setValue(['1', '2']);
-    component.courseForm.controls['techs'].setValue(['Angular', 'TypeScript']);
+    component.courseForm.controls['instructorId'].setValue([{name: 'Midudev', id: '1'}, {name: 'Mouredev', id: '2'}]);
+    component.courseForm.controls['techs'].setValue({name: 'Angular', id: '1234'}, {name: 'Typescript', id: '1234'});
     component.courseForm.controls['imageUrl'].setValue('test.jpg');
+    component.courseForm.controls['rating'].setValue([{
+      userId: '1',
+      rating: '4'
+    }]);  
+    component.courseForm.controls['introductionURL'].setValue('http://example.com/intro');
     component.courseForm.controls['lessons'].setValue([{
       id: '1',
       name: 'Lesson 1',
@@ -51,14 +56,19 @@ describe('AddCourseFormComponent', () => {
     expect(component.coursesService.addCourse).toHaveBeenCalledWith({
       name: 'Test Course',
       description:'Test Description',
-      techs: ['Angular', 'TypeScript'],
-      instructorId: ['1', '2'], 
+      techs: [{name: 'Angular', id: '1234'}, {name: 'Typescript', id: '1234'}],
+      instructorId: [{name: 'Midudev', id: '1'}, {name: 'Mouredev', id: '2'}], 
       imageUrl: 'test.jpg',
       lessons: [{
          id: '1',
          name: 'Lesson 1',
          videoUrl: 'https://www.google.com' 
-        }]
+        }],
+      rating: [{
+        userId: '1',
+        rating: 4
+    }],
+      introductionURL: 'http://example.com/intro'
     });
   });
 });
