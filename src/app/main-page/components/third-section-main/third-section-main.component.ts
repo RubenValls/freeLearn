@@ -25,9 +25,15 @@ export class ThirdSectionMainComponent implements OnInit{
       setTimeout(() => {
         const carouselItems = this.carousel?.nativeElement.querySelectorAll('.carousel__item');
         carouselItems.forEach((item: any, index: any) => {
-          const delay = `calc(3s * ${index - 1})`;
-          item.style.animationDelay = delay;
-          item.style.webkitAnimationDelay = delay;
+          if(index === carouselItems.length - 1){
+            const delay = `calc(-3s * 2)`;
+            item.style.animationDelay = delay;
+            item.style.webkitAnimationDelay = delay;
+          }else{
+            const delay = `calc(3s * ${index - 1})`;
+            item.style.animationDelay = delay;
+            item.style.webkitAnimationDelay = delay;
+          }
         });
       }, 500);
     });
