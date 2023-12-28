@@ -69,7 +69,11 @@ export class CustomTableComponent implements OnInit{
   }
 
   getRatingAverage(ratings: any[]): number {
-    return ratings.reduce((sum, item) => sum + item.rating, 0);
-    }
+    const sum = ratings.reduce((total, item) => total + item.rating, 0);
+    const average = sum / ratings.length;
+    const roundedAverage = Math.round(average);
+
+    return roundedAverage;
+}
 
 }
