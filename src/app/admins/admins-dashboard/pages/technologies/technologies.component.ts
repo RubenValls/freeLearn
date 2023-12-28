@@ -64,7 +64,6 @@ export class TechnologiesComponent {
 
   onModals(element: TechnologyType) {
     this.techsService.getTechnologyById(element.id!)
-
   }
 
 }
