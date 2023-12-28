@@ -44,14 +44,7 @@ export class InstructorsService {
 
   async deleteInstructor(id: string){
     const instructorRef = doc(this.firestore, 'instructors', id);
-    const instructor = this.getInstructorById(id)
-    if((await instructor).courses.length == 0){
-      console.log("Se borra");
-    }else{
-      console.log("No se borra");
-    }
-    
-    // await deleteDoc(instructorRef);
+    await deleteDoc(instructorRef);
   }
 
 }

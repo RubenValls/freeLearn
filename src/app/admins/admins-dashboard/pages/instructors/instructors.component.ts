@@ -61,13 +61,16 @@ export class InstructorsComponent {
       this.alertMessages.errorMessage('Error updating Trainer', error.message);
     })
   }
-  onDelete(id: string) {
-    this.instructorsService.deleteInstructor(id)
-      .then((data) => {
-        this.alertMessages.successMessage('Trainer delete successfully');
-      }).catch((error) => {
-        this.alertMessages.errorMessage('Error deleting Trainer', error.message);
-      })
+  async onDelete(id: string) {
+    const instructor = this.instructorsService.getInstructorById(id)
+    if((await instructor).courses.length == 0){
+      this.instructorsService.deleteInstructor(id)
+      this.alertMessages.successMessage('Trainer delete successfully');
+    }else{
+      this.alertMessages.errorMessage("You can't delete it, contains courses")
+    }
+    
+      
   }
   onModals(element: Instructor) {
      this.instructorsService.getInstructorById(element.id!)
