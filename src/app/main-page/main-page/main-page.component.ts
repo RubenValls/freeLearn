@@ -15,6 +15,7 @@ export class MainPageComponent implements OnInit{
   ngOnInit(): void {
     this.store.dispatch({ type: 'Fetch Technologies' });
     this.store.dispatch({ type: 'Fetch Instructors' });
+    this.store.dispatch({ type: 'Fetch Courses' });
   }
 
 }
