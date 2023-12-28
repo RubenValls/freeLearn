@@ -68,7 +68,8 @@ export class CustomTableComponent implements OnInit{
    });   
   }
 
-  handleDetail(element: any) { }
+  getRatingAverage(ratings: any[]): number {
+    return ratings.reduce((sum, item) => sum + item.rating, 0);
+    }
 
-  handleDelete(element: any) { }
 }

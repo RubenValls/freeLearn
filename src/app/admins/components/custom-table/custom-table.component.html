@@ -1,4 +1,3 @@
-
 <table mat-table [dataSource]="dataSource">
   <ng-container
     *ngFor="let column of displayedColumns"
@@ -35,7 +34,6 @@
           <ng-container *ngIf="!element[column.prop]">
             <i class="bi bi-person-circle custom-icon"></i>
           </ng-container>
-          
         </ng-container>
         <ng-container *ngIf="column.prop === 'courses'">
           <p class="courses">{{ element[column.prop]?.length || 0 }}</p>
@@ -43,13 +41,18 @@
         <ng-container *ngIf="column.prop === 'lessons'">
           <p class="courses">{{ element[column.prop]?.length || 0 }}</p>
         </ng-container>
+
+
         <ng-container *ngIf="column.prop === 'rating'">
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star"></i>
-            <i class="bi bi-star"></i>
+          <ng-container *ngIf="element[column.prop]?.length > 0">
+            {{ getRatingAverage(element[column.prop]) }}
+          </ng-container>
+          <ng-container *ngIf="element[column.prop]?.length == 0;">
+            No rating
+          </ng-container>
         </ng-container>
+
+
         <ng-container *ngIf="column.prop === 'instructorId'">
           <ng-container *ngFor="let instructor of element[column.prop]">
             {{ instructor.name }}
@@ -61,7 +64,11 @@
           </ng-container>
         </ng-container>
         <ng-container *ngIf="column.prop === 'introductionURL'">
-          <a class="youtube-intro" href="{{ element[column.prop] }}" target="_blank">
+          <a
+            class="youtube-intro"
+            href="{{ element[column.prop] }}"
+            target="_blank"
+          >
             <i class="bi bi-youtube"></i>
           </a>
         </ng-container>
@@ -81,17 +88,29 @@
               </a>
             </ng-container>
             <ng-container *ngIf="element[column.prop]?.youtube">
-              <a class="youtube" href="{{ element[column.prop]?.youtube }}" target="_blank">
+              <a
+                class="youtube"
+                href="{{ element[column.prop]?.youtube }}"
+                target="_blank"
+              >
                 <i class="bi bi-youtube"></i>
               </a>
             </ng-container>
             <ng-container *ngIf="element[column.prop]?.linkedin">
-              <a class="linkedin" href="{{ element[column.prop]?.linkedin }}" target="_blank">
+              <a
+                class="linkedin"
+                href="{{ element[column.prop]?.linkedin }}"
+                target="_blank"
+              >
                 <i class="bi bi-linkedin"></i>
               </a>
             </ng-container>
             <ng-container *ngIf="element[column.prop]?.web">
-              <a class="web" href="{{ element[column.prop]?.web }}" target="_blank">
+              <a
+                class="web"
+                href="{{ element[column.prop]?.web }}"
+                target="_blank"
+              >
                 <i class="bi bi-browser-chrome"></i>
               </a>
             </ng-container>
@@ -108,4 +127,3 @@
   <tr mat-header-row *matHeaderRowDef="columns"></tr>
   <tr mat-row *matRowDef="let row; columns: columns" class="cell"></tr>
 </table>
-
