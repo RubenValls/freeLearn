@@ -46,45 +46,7 @@
                             </mat-form-field>
                           </div>
                         </div>
-                      </ng-container>
-
-
-                      
-                    <ng-container *ngIf="row.prop === 'techs' ">
-                        <h5>Techs</h5>
-                        <div [formGroup]="socialMediaForm">
-                          <div *ngFor="let subField of row.subFields" class="row">
-                            <mat-form-field>
-                              <mat-label>{{subField.label}}</mat-label>
-                              <input matInput formControlName="{{ subField.prop }}">
-                            </mat-form-field>
-                          </div>
-                        </div>
-                      </ng-container>
-
-                      <ng-container *ngIf="row.prop === 'instructorId' ">
-                        <h5>Instructors</h5>
-                        <div [formGroup]="socialMediaForm">
-                          <div *ngFor="let subField of row.subFields" class="row">
-                            <mat-form-field>
-                              <mat-label>{{subField.label}}</mat-label>
-                              <input matInput formControlName="{{ subField.prop }}">
-                            </mat-form-field>
-                          </div>
-                        </div>
-                      </ng-container>
-
-                      <ng-container *ngIf="row.prop === 'lessons' ">
-                        <h5>Lessons</h5>
-                        <div [formGroup]="socialMediaForm">
-                          <div *ngFor="let subField of row.subFields" class="row">
-                            <mat-form-field>
-                              <mat-label>{{subField.label}}</mat-label>
-                              <input matInput formControlName="{{ subField.prop }}">
-                            </mat-form-field>
-                          </div>
-                        </div>
-                      </ng-container>
+                      </ng-container>                 
                        
 
                 </div>
