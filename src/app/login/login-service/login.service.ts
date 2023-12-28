@@ -41,7 +41,9 @@ export class LoginService {
           this.handleUserInfo(formValue, userCredential, false);
         })
         .catch((error) => {
-          this.alertsService.errorMessage(error.message);
+          error.message === "Firebase: Error (auth/email-already-in-use)."
+          &&
+          this.alertsService.errorMessage("Email already exist");
         });
     }
   }
