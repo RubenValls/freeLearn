@@ -15,12 +15,10 @@ export class SecondSectionMainComponent implements OnInit {
   currentIndex = 0;
 
   constructor(
-    private techService: TechService,
     private store: Store,
   ) { } 
 
   ngOnInit(): void {
-    this.store.dispatch({ type: 'Fetch Technologies' });
     this.technologies$.subscribe(technologies => {
       this.visibleTechnologies = technologies.slice(this.currentIndex, this.currentIndex + 4);
     });

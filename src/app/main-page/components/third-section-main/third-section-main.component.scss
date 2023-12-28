@@ -1,0 +1,209 @@
+.content {
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @media (width < 900px) {
+        flex-direction: column-reverse; 
+    }
+   
+    
+    .left-container {
+        width: 50%;
+        margin-top: 15px;
+        display: flex;
+        justify-content: center;
+        margin: auto;
+
+        @media (width < 900px) {
+            margin-top: 200px;
+            width: 75%;
+        }
+        
+        .wrapper {
+            *, *::before, *::after {
+                box-sizing: border-box;
+            }
+            background: linear-gradient(60deg, #420285, #08BDBD);
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+
+            .carousel {
+                position: relative;
+                width: 100%;
+                max-width: 500px;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+              }
+              
+              .carousel__item {
+                display: flex;
+                align-items: center;
+                position: absolute;
+                width: 100%;
+                padding: 0 12px;
+                opacity: 0;
+                filter: drop-shadow(0 2px 2px #555);
+                will-change: transform, opacity;
+                -webkit-animation: carousel-animate-vertical 27s linear infinite;
+                        animation: carousel-animate-vertical 27s linear infinite;
+              }
+              
+              
+              .carousel__item-head {
+                border-radius: 50%;
+                background-color: #d7f7fc;
+                width: 90px;
+                height: 90px;
+                padding: 14px;
+                position: relative;
+                margin-right: -45px;
+                flex-shrink: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 50px;
+                overflow: hidden;
+
+                img{
+                  width: 150%;
+                }
+              }
+              
+              .carousel__item-body {
+                width: 100%;
+                background-color: #fff;
+                border-radius: 8px;
+                padding: 16px 20px 16px 70px;
+              }
+              
+              .title {
+                text-transform: uppercase;
+                font-size: 20px;
+                margin-top: 10px;
+              }
+              
+              @-webkit-keyframes carousel-animate-vertical {
+                0% {
+                  transform: translateY(100%) scale(0.5);
+                  opacity: 0;
+                  visibility: hidden;
+                }
+                3%, 11.1111111111% {
+                  transform: translateY(100%) scale(0.7);
+                  opacity: 0.4;
+                  visibility: visible;
+                }
+                14.1111111111%, 22.2222222222% {
+                  transform: translateY(0) scale(1);
+                  opacity: 1;
+                  visibility: visible;
+                }
+                25.2222222222%, 33.3333333333% {
+                  transform: translateY(-100%) scale(0.7);
+                  opacity: 0.4;
+                  visibility: visible;
+                }
+                36.3333333333% {
+                  transform: translateY(-100%) scale(0.5);
+                  opacity: 0;
+                  visibility: visible;
+                }
+                100% {
+                  transform: translateY(-100%) scale(0.5);
+                  opacity: 0;
+                  visibility: hidden;
+                }
+              }
+              
+              @keyframes carousel-animate-vertical {
+                0% {
+                  transform: translateY(100%) scale(0.5);
+                  opacity: 0;
+                  visibility: hidden;
+                }
+                3%, 11.1111111111% {
+                  transform: translateY(100%) scale(0.7);
+                  opacity: 0.4;
+                  visibility: visible;
+                }
+                14.1111111111%, 22.2222222222% {
+                  transform: translateY(0) scale(1);
+                  opacity: 1;
+                  visibility: visible;
+                }
+                25.2222222222%, 33.3333333333% {
+                  transform: translateY(-100%) scale(0.7);
+                  opacity: 0.4;
+                  visibility: visible;
+                }
+                36.3333333333% {
+                  transform: translateY(-100%) scale(0.5);
+                  opacity: 0;
+                  visibility: visible;
+                }
+                100% {
+                  transform: translateY(-100%) scale(0.5);
+                  opacity: 0;
+                  visibility: hidden;
+                }
+              }
+        }
+
+    }
+    
+    
+    .right-container{
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+        
+        
+        div{
+            width: 100%;
+            margin-right: 35%;
+            margin-bottom: 1rem;
+            @media (width < 900px) {
+                display: flex;
+                flex-direction: column;
+                align-items: center; 
+                margin-right: 0;
+            }
+            
+        }
+        
+        h1{
+            width: 100%;
+            font-size: 60px;
+            font-weight: bold;
+            span{
+                color: transparent;
+                background: var(--gradient);
+                -webkit-background-clip: text;
+            }
+            @media (width < 1100px) {
+                font-size: 35px;
+            }
+            @media (width < 900px) {
+                font-size: 50px; 
+                text-align: center;
+            }
+            @media (width < 600px) {
+                font-size: 40px;
+            }
+        }
+        p{
+            font-size: 18px;
+            width: 100%;
+            text-align: justify;
+            @media (width < 1100px) {
+                font-size: 14px;
+            }
+        }
+    }
+}
