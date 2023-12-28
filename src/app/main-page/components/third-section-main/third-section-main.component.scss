@@ -177,26 +177,30 @@
             
         }
         
-        h1{
-            width: 100%;
-            font-size: 60px;
-            font-weight: bold;
-            span{
-                color: transparent;
-                background: var(--gradient);
-                -webkit-background-clip: text;
-            }
-            @media (width < 1100px) {
-                font-size: 35px;
-            }
-            @media (width < 900px) {
-                font-size: 50px; 
-                text-align: center;
-            }
-            @media (width < 600px) {
-                font-size: 40px;
-            }
+        h1 {
+          width: 100%;
+          font-size: 50px;
+          font-weight: bold;
+          span{
+              color: transparent;
+              background: var(--gradient);
+              -webkit-background-clip: text;
+          }
+
+          @media (width < 1100px) {
+              font-size: 35px;
+          }
+
+          @media (width < 900px) {
+              font-size: 50px;
+              text-align: center;
+
+          }
+          @media (width < 600px) {
+              font-size: 40px;
+          }
         }
+        
         p{
             font-size: 18px;
             width: 100%;
