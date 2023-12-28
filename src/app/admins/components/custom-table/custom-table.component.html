@@ -46,7 +46,7 @@
         <ng-container *ngIf="column.prop === 'rating'">
           <ng-container *ngIf="element[column.prop]?.length > 0">
             <ng-container *ngFor="let i of [].constructor(5); let j = index">
-              <i class="bi" [ngClass]="{'bi-star-fill': j < getRatingAverage(element[column.prop]), 'bi-star': j >= getRatingAverage(element[column.prop])}"></i>
+              <i class="bi stars" [ngClass]="{'bi-star-fill': j < getRatingAverage(element[column.prop]), 'bi-star': j >= getRatingAverage(element[column.prop])}"></i>
             </ng-container>
           </ng-container>
           <ng-container *ngIf="element[column.prop]?.length == 0;">
