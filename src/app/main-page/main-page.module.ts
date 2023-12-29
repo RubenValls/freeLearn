@@ -12,6 +12,7 @@ import { FirstSectionMainComponent } from './components/first-section-main/first
 import { SecondSectionMainComponent } from './components/second-section-main/second-section-main.component';
 import { ThirdSectionMainComponent } from './components/third-section-main/third-section-main.component';
 import { FourthSectionMainComponent } from './components/fourth-section-main/fourth-section-main.component';
+import { MainPageFooterComponent } from './components/main-page-footer/main-page-footer.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FourthSectionMainComponent } from './components/fourth-section-main/fou
     FirstSectionMainComponent,
     SecondSectionMainComponent,
     ThirdSectionMainComponent,
-    FourthSectionMainComponent
+    FourthSectionMainComponent,
+    MainPageFooterComponent
   ],
   imports: [
     CommonModule,
