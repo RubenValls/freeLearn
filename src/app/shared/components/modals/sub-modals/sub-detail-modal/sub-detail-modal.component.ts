@@ -35,7 +35,7 @@ export class SubDetailModalComponent implements OnInit {
   onAddLesson() {
     const updateDialog = this.dialog.open(SubModalCreateComponent, {
       width: '300px',
-      height: '200px',
+      height: '220px',
       data: {       
         onEdit: this.data.onEdit,
         onDelete: this.data.onDelete,
@@ -44,5 +44,8 @@ export class SubDetailModalComponent implements OnInit {
       }
     })
    
+  }
+  close(){
+    this.dialogRef.close();
   }
 }

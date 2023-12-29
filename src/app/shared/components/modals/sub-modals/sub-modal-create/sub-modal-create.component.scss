@@ -1,0 +1,29 @@
+.create-modal{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+   padding: 10px;
+   background-image: url("../../../../../../assets/images/svgs/waveGreenUp.svg");
+   background-repeat: no-repeat;
+   background-size: cover;
+
+    form{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .btn-add{
+            display: flex;
+            justify-content: end;          
+           
+
+            button{
+                background-color: var(--primary);
+                color: white;
+                padding: 5px;
+                border: none;
+                border-radius: 5px;
+            }
+        }
+    }
+}
