@@ -10,14 +10,19 @@ import {MatButtonModule} from '@angular/material/button';
 import { SharedModule } from '../shared/shared.module';
 import { FirstSectionMainComponent } from './components/first-section-main/first-section-main.component';
 import { SecondSectionMainComponent } from './components/second-section-main/second-section-main.component';
+import { ThirdSectionMainComponent } from './components/third-section-main/third-section-main.component';
+import { FourthSectionMainComponent } from './components/fourth-section-main/fourth-section-main.component';
+import { MainPageFooterComponent } from './components/main-page-footer/main-page-footer.component';
 
 @NgModule({
   declarations: [
     MainPageComponent,
     MainPageHeaderComponent,
     FirstSectionMainComponent,
-    SecondSectionMainComponent
-    
+    SecondSectionMainComponent,
+    ThirdSectionMainComponent,
+    FourthSectionMainComponent,
+    MainPageFooterComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,77 @@
+.footer #button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+	width:15px;
+	height:15px;
+	border-radius:75px;
+	margin:0 auto;
+	position:relative;
+	-webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    transition: all 1s ease;
+
+    i{
+        font-size: 30px;
+        color: transparent;
+        background: var(--gradient);
+        -webkit-background-clip: text;
+    }
+}
+.footer #button:hover{
+    cursor: pointer;
+	width:15px;
+	height:15px;
+	-webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    transition: all 1s ease;
+	position:relative;
+}
+.footer {
+	bottom:0;
+	left:0;
+	position:fixed;
+    width: 100%;
+    height: 1em;
+    overflow:hidden;
+    margin:0 auto;
+	-webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    transition: all 1s ease;
+	z-index:999;
+}
+.footer:hover {
+	-webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    transition: all 1s ease;
+	height: 7em;
+}
+.footer #container{
+    color: var(--white);
+	margin-top:5px;
+	width:100%;
+    height:100%;
+    max-height: 100px;
+    position:relative;
+    top:0;
+    left:0;
+    display: flex;
+    justify-content: center;
+	background: var(--gradient);
+
+    img{
+        position: absolute;
+        top: 5px;
+        max-width: 300px;
+    }
+}
+

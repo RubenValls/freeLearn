@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { UpdateModalComponent } from './components/modals/update-modal/update-modal.component';
 import { DeleteModalComponent } from './components/modals/delete-modal/delete-modal.component';
 import { DetailModalComponent } from './components/modals/detail-modal/detail-modal.component';
+import { CourseCardComponent } from './components/course-card/course-card.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { DetailModalComponent } from './components/modals/detail-modal/detail-mo
     UpdateModalComponent,
     DeleteModalComponent,
     DetailModalComponent,
+    CourseCardComponent,
   ],
   imports: [
     CommonModule,
@@ -44,7 +46,7 @@ import { DetailModalComponent } from './components/modals/detail-modal/detail-mo
     BtnGradientComponent,
     BtnBlackComponent,
     ButtonComponent,
-    
+    CourseCardComponent,
   ]
 })
 export class SharedModule { }
