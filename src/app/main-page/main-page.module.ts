@@ -21,7 +21,6 @@ import { FourthSectionMainComponent } from './components/fourth-section-main/fou
     SecondSectionMainComponent,
     ThirdSectionMainComponent,
     FourthSectionMainComponent
-    
   ],
   imports: [
     CommonModule,

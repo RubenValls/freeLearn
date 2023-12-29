@@ -1,0 +1,21 @@
+<div class="a-box">
+  <div class="img-container">
+    <div class="img-inner">
+      <div class="inner-skew">
+        <img [src]="course?.imageUrl">
+      </div>
+    </div>
+  </div>
+  <div class="text-container">
+    <h3>{{course?.name}}</h3>
+    <div> 
+      {{this.handleDescription(course?.description || '')}}
+    </div>
+    <div class="lessons-text"> 
+      Lessons: {{course?.lessons?.length}}
+    </div>
+    <app-btn-gradient
+          [buttonText]="'Learn ' + course?.techs?.[0]?.name"
+          [routerLink]="'/login'"
+    ></app-btn-gradient>
+</div>
