@@ -19,7 +19,6 @@ export class SubModalCreateComponent implements OnInit {
     public builderForm: FormBuilder,
   ) { }
   ngOnInit(): void {
-    console.log(this.data.editForm.value)
     this.mainForm = this.data.editForm;
     this.lessons = this.data.lessons;
   }

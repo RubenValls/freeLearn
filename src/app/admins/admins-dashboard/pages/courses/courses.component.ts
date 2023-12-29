@@ -62,8 +62,7 @@ export class CoursesComponent  {
     })
   }
 
-  onDelete(id:string){
-   console.log(id, "course component"), 
+  onDelete(id:string){ 
     this.coursesService.deleteCourse(id)
     .then((data) => {
       this.alertMessages.successMessage('Course delete successfully');

@@ -44,11 +44,10 @@ export class DetailModalComponent implements OnInit {
     this.techs = this.data.data.techs
     this.instructors = this.data.data.instructorId
     this.lessons = this.data.data.lessons
-    this.totalLessons = this.data.data.lessons.length > 0 ? this.data.data.lessons.length : "This course has 0 lessons"
+    this.totalLessons = this.data.data.lessons.length > 0 ? `this course has ${this.data.data.lessons.length} lessons` : "This course has 0 lessons"
     this.isCourse = this.data.title == "Courses" ? true : false
-    console.log(this.form.value)
 
-  }
+   }
 
   createDynamicForm() {
     this.form = this.builderForm.group({});
