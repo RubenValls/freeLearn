@@ -16,7 +16,8 @@
 
             <form class="edit-form" [formGroup]="form" class="row">
                 <div *ngFor="let row of rows" class="row">
-                    <mat-form-field *ngIf="row.prop !== 'courses' && row.prop !== 'description' && row.prop !== 'id' && row.prop !== 'socialMedia' && row.prop !== 'lessons' && row.prop !== 'techs' && row.prop !== 'instructorId'">
+                    <mat-form-field
+                        *ngIf="row.prop !== 'courses' && row.prop !== 'description' && row.prop !== 'id' && row.prop !== 'socialMedia' && row.prop !== 'lessons' && row.prop !== 'techs' && row.prop !== 'instructorId'">
                         <mat-label>{{row.label}}</mat-label>
                         <input matInput formControlName="{{ row.prop }}">
                     </mat-form-field>
@@ -37,22 +38,52 @@
                             cdkAutosizeMinRows="5"></textarea>
                     </mat-form-field>
 
-                    <ng-container *ngIf="row.prop === 'socialMedia' ">
+                    <ng-container *ngIf="row.prop === 'socialMedia' && socialMediaForm">
                         <div [formGroup]="socialMediaForm">
-                          <div *ngFor="let subField of row.subFields" class="row">
-                            <mat-form-field>
-                              <mat-label>{{subField.label}}</mat-label>
-                              <input matInput formControlName="{{ subField.prop }}">
-                            </mat-form-field>
-                          </div>
+                            <div *ngFor="let subField of row.subFields" class="row">
+                                <mat-form-field>
+                                    <mat-label>{{subField.label}}</mat-label>
+                                    <input matInput formControlName="{{ subField.prop }}">
+                                </mat-form-field>
+                            </div>
                         </div>
-                      </ng-container>                 
-                       
+                    </ng-container>
+
 
                 </div>
-
-              
             </form>
+
+            <div class="row information-related">
+                <div class="col-12 col-md-4 col-lg-3 box">
+                    <h5>Trainers:</h5>
+                    <ul *ngFor="let instr of instructors">
+                        <li>{{instr.name}}</li>
+                    </ul>
+                    <div class="btn">
+                        <button>Edit Trainers</button>
+                    </div>
+                   
+                </div>
+                <div class="col-12 col-md-4 col-lg-3 box">
+                    <h5>Techs:</h5>
+                    <ul *ngFor="let tech of techs">
+                        <li>{{tech.name}}</li>
+                    </ul>
+                    <div  class="btn">
+                          <button>Edit Techs</button>
+                    </div>
+                  
+                </div>
+                <div class="col-12 col-md-4 col-lg-3 box">
+                    <h5>Lessons:</h5>
+                    <p>{{lessons}}</p>
+                    <div  class="btn">
+                        <button>See Lessons</button>
+                    </div>
+                  
+                </div>
+               
+            </div>
 
         </div>
         <div class="modal-buttons">
@@ -61,7 +92,7 @@
                 <button (click)="onDelete()" class="btn btn-delete"> Delete</button>
             </div>
             <div class="btn-right">
-                <button (click)="onEdit()" class="btn btn-edit"  [disabled]="!form.valid" > Edit</button>
+                <button (click)="onEdit()" class="btn btn-edit" [disabled]="!form.valid"> Edit</button>
                 <button class="btn" (click)="close()">Close</button>
             </div>
 

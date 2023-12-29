@@ -31,26 +31,10 @@ export class CoursesComponent  {
     { label: 'Id', prop: 'id' },
     { label: 'Name', prop: 'name' },
     { label: 'Image', prop: 'imageUrl' },
-    { label: 'Technologies', prop: 'techs',
-      subFields:[
-        { label: 'Id', prop: 'id' },
-        { label: 'Name', prop: 'name' },
-      ]
-    },
-    { label: 'Instructor', prop: 'instructorId',
-      subFields: [
-        { label: 'Id', prop: 'id' },
-        { label: 'Name', prop: 'name' },           
-      ],
-  },
-    { label: 'Introduction', prop: 'introductionURL' },
-    
-    { label: 'Lessons', prop: 'lessons',
-      subFields: [
-        { label: 'Id', prop: 'id' },
-        { label: 'Name', prop: 'name' },
-        { label: 'Video', prop: 'videoURL' }     
-      ],
+    { label: 'Technologies', prop: 'techs'},
+    { label: 'Instructor', prop: 'instructorId' },
+    { label: 'Introduction', prop: 'introductionURL' },    
+    { label: 'Lessons', prop: 'lessons',    
   
   },
     
