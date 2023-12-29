@@ -21,10 +21,13 @@ export class ThirdSectionMainComponent implements OnInit{
 
   ngOnInit(): void {
     this.trainers$.subscribe(trainers => {
-      this.trainers = [...trainers]
+      this.trainers = [...trainers];
+      const duration = trainers.length * 3 + 's';
       setTimeout(() => {
         const carouselItems = this.carousel?.nativeElement.querySelectorAll('.carousel__item');
         carouselItems.forEach((item: any, index: any) => {
+          item.style.animationDuration = duration;
+          item.style.webkitAnimationDuration = duration;
           if(index === carouselItems.length - 1){
             const delay = `calc(-3s * 2)`;
             item.style.animationDelay = delay;
