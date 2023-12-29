@@ -48,41 +48,40 @@
                             </div>
                         </div>
                     </ng-container>
-
-
                 </div>
             </form>
 
-            <div class="row information-related">
+
+            <div class="row information-related" *ngIf="isCourse">
                 <div class="col-12 col-md-4 col-lg-3 box">
                     <h5>Trainers:</h5>
-                    <ul *ngFor="let instr of instructors">
-                        <li>{{instr.name}}</li>
+                    <ul *ngFor="let instructor of instructors">
+                        <li>{{instructor.name}}
+
+                        </li>
+
                     </ul>
-                    <div class="btn">
-                        <button>Edit Trainers</button>
-                    </div>
-                   
+
+
                 </div>
                 <div class="col-12 col-md-4 col-lg-3 box">
                     <h5>Techs:</h5>
                     <ul *ngFor="let tech of techs">
-                        <li>{{tech.name}}</li>
+                        <li>{{tech.name}}
+                        </li>
                     </ul>
-                    <div  class="btn">
-                          <button>Edit Techs</button>
-                    </div>
-                  
+
+
                 </div>
                 <div class="col-12 col-md-4 col-lg-3 box">
                     <h5>Lessons:</h5>
-                    <p>{{lessons}}</p>
-                    <div  class="btn">
-                        <button>See Lessons</button>
+                    <p>{{totalLessons}}</p>
+                    <div class="go-lessons">
+                        <button class="btn-lessons" (click)="openLessons()">Go to lessons</button>
                     </div>
-                  
+
                 </div>
-               
+
             </div>
 
         </div>

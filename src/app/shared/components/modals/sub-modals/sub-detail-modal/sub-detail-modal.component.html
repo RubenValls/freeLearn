@@ -1,0 +1,35 @@
+<div class="detail-modal">
+
+    <div class="detail-modal--content">
+
+        <div class="--close-icon">
+
+            <mat-icon></mat-icon>
+        </div>
+        <div class="--detail-icon">
+            <mat-icon>info</mat-icon>
+        </div>
+        <h2>Lessons</h2>
+
+        <div class="add-lessons"> 
+            <button (click)="onAddLesson()"  mat-raised-button>Add lesson</button>           
+        </div>
+
+        <div class="lessons-list">
+            <div class="lesson" *ngFor="let lesson of lessons">
+                <div class="lesson--name">
+                    <h4>{{lesson.name}}</h4>
+                </div>
+                <div class="lesson--video">
+                   {{lesson.videoUrl}}
+                </div>
+                <div class="lesson--actions">
+                    <button >Edit</button>
+                    <button >Delete</button>
+                </div>
+            </div>
+
+
+    </div>
+
+</div>

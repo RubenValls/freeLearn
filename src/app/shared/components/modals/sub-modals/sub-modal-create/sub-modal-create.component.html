@@ -1,0 +1,17 @@
+<div>
+  
+    <form [formGroup]="createLessonForm">
+        <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Url video</mat-label>
+            <input matInput formControlName="videoUrl">
+        </mat-form-field>
+
+        <button (click)="onAddLesson()">añadir</button>
+
+    </form>
+</div>

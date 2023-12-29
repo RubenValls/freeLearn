@@ -14,6 +14,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { UpdateModalComponent } from './components/modals/update-modal/update-modal.component';
 import { DeleteModalComponent } from './components/modals/delete-modal/delete-modal.component';
 import { DetailModalComponent } from './components/modals/detail-modal/detail-modal.component';
+import { SubDetailModalComponent } from './components/modals/sub-modals/sub-detail-modal/sub-detail-modal.component';
+import { SubModalCreateComponent } from './components/modals/sub-modals/sub-modal-create/sub-modal-create.component';
 
 
 @NgModule({
@@ -26,6 +28,8 @@ import { DetailModalComponent } from './components/modals/detail-modal/detail-mo
     UpdateModalComponent,
     DeleteModalComponent,
     DetailModalComponent,
+    SubDetailModalComponent,
+    SubModalCreateComponent,
   ],
   imports: [
     CommonModule,
