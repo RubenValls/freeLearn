@@ -45,16 +45,14 @@ export class SubDetailModalComponent implements OnInit {
     const updateDialog = this.dialog.open(SubModalCreateComponent, {
       width: '500px',
       data: {
+        title: 'Create Lesson',
         onEdit: this.data.onEdit,
         onDelete: this.data.onDelete,
         editForm: this.mainForm,
         lessons: this.lessons,
+        create: true
       }
     })
-
-  }
-  close() {
-    this.dialogRef.close();
   }
 
   deleteLesson(element: Lesson) {
@@ -76,16 +74,18 @@ export class SubDetailModalComponent implements OnInit {
     });
   }
 
-  editLesson(element: Lesson) {
-    const lessonCopy = this.lessons.filter((lesson: Lesson) => lesson.id !== element.id);
-    this.mainForm.get('lessons')?.setValue(lessonCopy);
+  editLesson(element: Lesson, index: number) {    
 
-    const updateDialog = this.dialog.open(UpdateModalComponent, {
+    const updateDialog = this.dialog.open(SubModalCreateComponent, {
       width: '400px',
       data: {
         title: 'Edit Lesson',
         onEdit: this.data.onEdit,
-        editForm: this.mainForm.value,
+        editForm: this.mainForm,
+        lesson: element,
+        lessons: this.lessons,
+        index: index,
+        create: false,
       }
     })
     updateDialog.afterClosed().subscribe((result: any) => {
@@ -95,4 +95,10 @@ export class SubDetailModalComponent implements OnInit {
     });
   }
 
+    
+  close() {
+    this.dialogRef.close();
+  }
+
 }
+

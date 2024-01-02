@@ -10,6 +10,10 @@ import { selectCourse } from 'src/app/admins/admins-dashboard/pages/courses/stor
 import { Observable } from 'rxjs';
 import { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';
 import { CourseActions } from 'src/app/admins/admins-dashboard/pages/courses/store/course/course.actions';
+import { TechService } from 'src/app/admins/admins-dashboard/pages/technologies/service/tech.service';
+import { InstructorsService } from 'src/app/admins/admins-dashboard/pages/instructors/instructors-service/instructors.service';
+import { Instructor } from 'src/app/admins/admins-dashboard/pages/instructors/instructors';
+import { TechnologyType } from 'src/app/admins/admins-dashboard/pages/technologies/types/technologies';
 
 @Component({
   selector: 'app-detail-modal',
@@ -30,7 +34,10 @@ export class DetailModalComponent implements OnInit {
   totalLessons: string | number = '';
   isCourse: boolean = false;
   course$: Observable<Course> | undefined;
-  course: any
+  course: any;
+  instructors$: Instructor[] = [];
+  techs$: TechnologyType[] = [];
+  newValues: any[] = [];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -38,16 +45,19 @@ export class DetailModalComponent implements OnInit {
     public dialog: MatDialog,
     public builderForm: FormBuilder,
     private store: Store,
+    private techsService: TechService,
+    private instructorsService: InstructorsService,
   ) { }
 
   ngOnInit(): void {
-    if(this.data.title == "Courses"){
+    if (this.data.title == "Courses") {
       console.log(this.course)
       this.course$ = this.store.select(selectCourse);
-      this.store.dispatch(CourseActions.addCourse({course: this.data.data}))
-      this.course$.subscribe((course: Course) => {
+      this.store.dispatch(CourseActions.addCourse({ course: this.data.data }))
+      this.course$.subscribe((course: Course) => {        
         this.totalLessons = course.lessons.length > 0 ? `this course has ${course.lessons.length} lessons` : "This course has 0 lessons"
         this.course = course
+        this.instructors = course.instructorId
       })
     }
     this.rows = this.data.rows
@@ -58,11 +68,13 @@ export class DetailModalComponent implements OnInit {
     this.socialMediaForm = this.getFormGroup('socialMedia') as FormGroup;
     this.techsForm = this.getFormGroup('techs') as FormGroup;
     this.techs = this.data.data.techs
-    this.instructors = this.data.data.instructorId
+    this.instructors = this.course.instructorId
     this.lessons = this.course.lessons
     this.totalLessons = this.course.lessons.length > 0 ? `this course has ${this.course.lessons.length} lessons` : "This course has 0 lessons"
     this.isCourse = this.data.title == "Courses" ? true : false
-   }
+    this.techsService.getTechnologies().subscribe(techs => { this.techs$ = techs; });
+    this.instructorsService.getInstructors().subscribe(instructor => { this.instructors$ = instructor; });
+  }
 
   createDynamicForm() {
     this.form = this.builderForm.group({});
@@ -167,34 +179,101 @@ export class DetailModalComponent implements OnInit {
     }
 
   }
-  onEditField(field: any) {
-    const techsArray = this.form.get("instructorId") as FormArray;
-    alert(techsArray.controls.values)
-    // Encuentra el índice del primer elemento con el id específico
-    const index = techsArray.controls.findIndex(control =>
-      control.get('id')?.value === field.id
-    );
 
-    if (index !== -1) {
-      // Aquí puedes realizar cualquier acción que necesites con el índice encontrado
-      console.log('Índice del primer elemento con el id específico:', index);
-    } else {
-      console.error('Elemento con el id específico no encontrado en el FormArray');
-    }
-
-
-  }
 
   openLessons() {
     const updateDialog = this.dialog.open(SubDetailModalComponent, {
       width: '1030px',
       height: '650px',
-      data: {       
+      data: {
         onEdit: this.data.onEdit,
         onDelete: this.data.onDelete,
-        editForm: this.form, 
+        editForm: this.form,
       }
     })
+  }
+
+  onTechsSelectionChange(event: any) {
+    this.newValues = event.value as string[];
+  }
+  onAddTechs() {
+    const currentTechs = this.techs;
+    const newUniqueTechs = this.newValues.filter(newTech =>
+      !currentTechs.some(currentTechs => currentTechs.id === newTech.id)
+    );
+
+    const updatedInstructors = [...currentTechs, ...newUniqueTechs];
+
+    this.form.get('techs')?.setValue(updatedInstructors);
+
+    if (this.data.onEdit) {
+      this.data.onEdit(this.form.value)
+    }
+    this.newValues = [];
+  }
+
+  onInstructorSelectionChange(event: any) {
+    this.newValues = event.value as string[];
+  }
+
+  onAddInstructors() {     
+    const currentInstructors = this.instructors;
+    const newUniqueInstructors = this.newValues.filter(newInstructor =>
+      !currentInstructors.some(currentInstructor => currentInstructor.id === newInstructor.id)
+    );
+    const updatedInstructors = [...currentInstructors, ...newUniqueInstructors];
+    this.form.get('instructorId')?.setValue(updatedInstructors);
+
+    if (this.data.onEdit) {
+      this.store.dispatch(CourseActions.editCourse({ course: { ...this.course, instructorId:updatedInstructors,} }))
+      this.data.onEdit(this.form.value)
+      
+    }
+
+    this.newValues = [];
+  }
+
+
+  onDeleteTech(element: any) {
+    const techsCopy = this.techs.filter((tech: any) => tech.id !== element.id);
+    this.form.get('techs')?.setValue(techsCopy);
+
+    const deleteDialog = this.dialog.open(DeleteModalComponent, {
+      width: '400px',
+      data: {
+        title: "Delete Technology",
+        onEdit: this.data.onEdit,
+        editData: this.form.value,
+      }
+    });
+
+    deleteDialog.afterClosed().subscribe(result => {
+      if (result) {
+        this.dialogRef.close();
+      }
+    });
+  }
+  onDeleteInstructor(element: any) {
+    const instructorsCopy = this.instructors.filter((instructor: any) => instructor.id !== element.id);
+
+    this.form.get('instructorId')?.setValue(instructorsCopy);
+    console.log("despues", this.form.value)
+
+    const deleteDialog = this.dialog.open(DeleteModalComponent, {
+      width: '400px',
+      data: {
+        title: "Delete Instructor",
+        onEdit: this.data.onEdit,
+        editData: this.form,
+      }
+    });
+
+    deleteDialog.afterClosed().subscribe(result => {
+      if (result) {
+        this.store.dispatch(CourseActions.editCourse({ course: this.course }))
+      }
+    });
+
   }
 
 

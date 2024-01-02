@@ -21,33 +21,55 @@ export class SubModalCreateComponent implements OnInit {
     public builderForm: FormBuilder,
     private store: Store,
   ) { }
-  ngOnInit(): void {
-    this.mainForm = this.data.editForm;
-    this.lessons = this.data.lessons;
-  }
 
-  createLessonForm: FormGroup = this.builderForm.group({
+  lessonForm: FormGroup = this.builderForm.group({
     id: [''],
     name: [''],
     videoUrl: [''],
   });
 
-  onAddLesson() {   
-    const lessonsCopy = [...this.lessons]; 
+  ngOnInit(): void {
+    this.mainForm = this.data.editForm;
+    this.lessons = this.data.lessons;
+    !this.data.create && this.lessonForm.patchValue(this.data.lesson);
+  }
+
+
+  onAddLesson() {
+    const lessonsCopy = [...this.lessons];
 
     const randomNumber = Math.floor(Math.random() * 1000);
-    randomNumber.toString(16);    
-    const generateId = `lesson-${lessonsCopy.length}-${randomNumber}`;   
+    randomNumber.toString(16);
+    const generateId = `lesson-${lessonsCopy.length}-${randomNumber}`;
 
-    this.createLessonForm.get('id')?.setValue(generateId);
-    const newLesson = this.createLessonForm.value;
+    this.lessonForm.get('id')?.setValue(generateId);
+    const newLesson = this.lessonForm.value;
     lessonsCopy.push(newLesson);
     this.mainForm.get('lessons')?.setValue(lessonsCopy);
     if (this.data.onEdit) {
       this.data.onEdit(this.mainForm.value);
-      this.store.dispatch(CourseActions.editCourse({course: this.mainForm.value}))
+      this.store.dispatch(CourseActions.editCourse({ course: this.mainForm.value }))
       this.dialogRef.close()
     }
+  }
+
+  onEditLesson() {
+    const lessonsCopy = [...this.lessons];
+    const position = this.data.index;
+    const lesson = this.lessonForm.value;
+
+    lessonsCopy[position] = lesson;
+    this.mainForm.get('lessons')?.setValue(lessonsCopy);
+    if(this.data.onEdit) {
+      this.data.onEdit(this.mainForm.value);
+      this.store.dispatch(CourseActions.editCourse({ course: this.mainForm.value }))
+      this.dialogRef.close()
+    }
+    
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 
 }
