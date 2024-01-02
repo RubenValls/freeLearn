@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -7,7 +7,7 @@ import { SubDetailModalComponent } from '../sub-modals/sub-detail-modal/sub-deta
 import { SubModalCreateComponent } from '../sub-modals/sub-modal-create/sub-modal-create.component';
 import { Store } from '@ngrx/store';
 import { selectCourse } from 'src/app/admins/admins-dashboard/pages/courses/store/course/course.selectors';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';
 import { CourseActions } from 'src/app/admins/admins-dashboard/pages/courses/store/course/course.actions';
 
@@ -16,7 +16,7 @@ import { CourseActions } from 'src/app/admins/admins-dashboard/pages/courses/sto
   templateUrl: './detail-modal.component.html',
   styleUrls: ['./detail-modal.component.scss']
 })
-export class DetailModalComponent implements OnInit {
+export class DetailModalComponent implements OnInit, OnDestroy {
 
   title: string = ''
   totalCourses: string | null = null
@@ -32,6 +32,8 @@ export class DetailModalComponent implements OnInit {
   course$: Observable<Course> | undefined;
   course: any
 
+  courseSubscription: Subscription | undefined
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<DetailModalComponent>,
@@ -45,7 +47,7 @@ export class DetailModalComponent implements OnInit {
       console.log(this.course)
       this.course$ = this.store.select(selectCourse);
       this.store.dispatch(CourseActions.addCourse({course: this.data.data}))
-      this.course$.subscribe((course: Course) => {
+      this.courseSubscription = this.course$.subscribe((course: Course) => {
         this.totalLessons = course.lessons.length > 0 ? `this course has ${course.lessons.length} lessons` : "This course has 0 lessons"
         this.course = course
       })
@@ -62,6 +64,10 @@ export class DetailModalComponent implements OnInit {
     this.lessons = this.course.lessons
     this.totalLessons = this.course.lessons.length > 0 ? `this course has ${this.course.lessons.length} lessons` : "This course has 0 lessons"
     this.isCourse = this.data.title == "Courses" ? true : false
+   }
+
+   ngOnDestroy(): void {
+     this.courseSubscription?.unsubscribe()
    }
 
   createDynamicForm() {
@@ -170,13 +176,11 @@ export class DetailModalComponent implements OnInit {
   onEditField(field: any) {
     const techsArray = this.form.get("instructorId") as FormArray;
     alert(techsArray.controls.values)
-    // Encuentra el índice del primer elemento con el id específico
     const index = techsArray.controls.findIndex(control =>
       control.get('id')?.value === field.id
     );
 
     if (index !== -1) {
-      // Aquí puedes realizar cualquier acción que necesites con el índice encontrado
       console.log('Índice del primer elemento con el id específico:', index);
     } else {
       console.error('Elemento con el id específico no encontrado en el FormArray');
