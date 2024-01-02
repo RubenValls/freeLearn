@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { UpdateModalComponent } from './components/modals/update-modal/update-modal.component';
 import { DeleteModalComponent } from './components/modals/delete-modal/delete-modal.component';
 import { DetailModalComponent } from './components/modals/detail-modal/detail-modal.component';
+import { CourseCardComponent } from './components/course-card/course-card.component';
 import { SubDetailModalComponent } from './components/modals/sub-modals/sub-detail-modal/sub-detail-modal.component';
 import { SubModalCreateComponent } from './components/modals/sub-modals/sub-modal-create/sub-modal-create.component';
 
@@ -28,6 +29,7 @@ import { SubModalCreateComponent } from './components/modals/sub-modals/sub-moda
     UpdateModalComponent,
     DeleteModalComponent,
     DetailModalComponent,
+    CourseCardComponent,
     SubDetailModalComponent,
     SubModalCreateComponent,
   ],
@@ -48,7 +50,7 @@ import { SubModalCreateComponent } from './components/modals/sub-modals/sub-moda
     BtnGradientComponent,
     BtnBlackComponent,
     ButtonComponent,
-    
+    CourseCardComponent,
   ]
 })
 export class SharedModule { }

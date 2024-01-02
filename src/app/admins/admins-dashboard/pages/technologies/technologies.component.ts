@@ -53,13 +53,14 @@ export class TechnologiesComponent {
     })
   }
 
-  onDelete(id: string) {
-    this.techsService.deleteTechDoc(id)
-      .then((data) => {
-        this.alertMessages.successMessage('Technology delete successfully');
-      }).catch((error) => {
-        this.alertMessages.errorMessage('Error deleting technology', error.message);
-      })
+  async onDelete(id: string) {
+    const tech = this.techsService.getTechnologyById(id)
+    if((await tech).courses.length == 0){
+      this.techsService.deleteTechDoc(id)
+      this.alertMessages.successMessage('Technology delete successfully');
+    }else{
+      this.alertMessages.errorMessage("You can't delete it, contains courses")
+    }
   }
 
   onModals(element: TechnologyType) {

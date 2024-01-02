@@ -28,7 +28,7 @@ export class LoginService {
     private firestore: Firestore,
     private alertsService: AlertsService,
     private usersService: UsersService,
-    private router: Router,
+    private router: Router
   ) {}
 
   signInWithEmail(formValue: FormGroup<SigninFormType>) {
@@ -41,7 +41,9 @@ export class LoginService {
           this.handleUserInfo(formValue, userCredential, false);
         })
         .catch((error) => {
-          this.alertsService.errorMessage(error.message)
+          error.message === "Firebase: Error (auth/email-already-in-use)."
+          &&
+          this.alertsService.errorMessage("Email already exist");
         });
     }
   }
@@ -56,7 +58,8 @@ export class LoginService {
           this.handleUserInfo(formValue, userCredential, true);
         })
         .catch((error) => {
-          this.alertsService.errorMessage(error.message)
+          error.message === 'Firebase: Error (auth/invalid-credential).' &&
+            this.alertsService.errorMessage('Invalid credentials');
         });
     }
   }
@@ -69,7 +72,7 @@ export class LoginService {
         this.handleUserInfo(formValue, result, isLogin);
       })
       .catch((error) => {
-        this.alertsService.errorMessage(error.message)
+        this.alertsService.errorMessage(error.message);
       });
   }
 
@@ -79,47 +82,57 @@ export class LoginService {
     isLogin: boolean
   ) {
     if (!isLogin) {
-      const userInfo = this.getUserInfoData(isLogin, formValue, userCredential)
-      const usersSubscription = this.usersService.getUsers().subscribe((users) => {
-        const user = users.find(user => user.email === userInfo.email)
-        if(!user){
-          const usersRef = collection(this.firestore, 'users');
-          addDoc(usersRef, userInfo);
-        }
-        this.saveUserDataAndNavigate(userInfo, usersSubscription)
-      })
-    } else {
-      const userInfo = this.getUserInfoData(isLogin, formValue, userCredential)
-      const usersSubscription = this.usersService.getUsers().subscribe((users) => {
-        let user = users.find(user => user.email === userInfo.email)
-        this.usersService.updateUser(user?.id ? user?.id : '', userInfo).then(() => {
-          user = users.find(user => user.email === userInfo.email)
-          if(user){
-            this.saveUserDataAndNavigate(user, usersSubscription)
+      const userInfo = this.getUserInfoData(isLogin, formValue, userCredential);
+      const usersSubscription = this.usersService
+        .getUsers()
+        .subscribe((users) => {
+          const user = users.find((user) => user.email === userInfo.email);
+          if (!user) {
+            const usersRef = collection(this.firestore, 'users');
+            addDoc(usersRef, userInfo);
           }
-        })
-      })
+          this.saveUserDataAndNavigate(userInfo, usersSubscription);
+        });
+    } else {
+      const userInfo = this.getUserInfoData(isLogin, formValue, userCredential);
+      const usersSubscription = this.usersService
+        .getUsers()
+        .subscribe((users) => {
+          let user = users.find((user) => user.email === userInfo.email);
+          this.usersService
+            .updateUser(user?.id ? user?.id : '', userInfo)
+            .then(() => {
+              user = users.find((user) => user.email === userInfo.email);
+              if (user) {
+                this.saveUserDataAndNavigate(user, usersSubscription);
+              }
+            });
+        });
     }
   }
 
-  saveUserDataAndNavigate(userInfo: User, usersSubscription: Subscription){
+  saveUserDataAndNavigate(userInfo: User, usersSubscription: Subscription) {
     this.store.dispatch(UserActions.addUser({ user: userInfo }));
     this.usersService.saveUserInStorage(userInfo.rememberMe, userInfo);
     usersSubscription.unsubscribe();
     this.router.navigate(['/students']);
-    this.alertsService.successMessage('Welcome to FreeLearn.')
+    this.alertsService.successMessage('Welcome to FreeLearn.');
   }
 
-  getUserInfoData(isLogin: boolean, formValue: FormGroup, userCredential: UserCredential,){
-    if(isLogin){
+  getUserInfoData(
+    isLogin: boolean,
+    formValue: FormGroup,
+    userCredential: UserCredential
+  ) {
+    if (isLogin) {
       return {
         authUid: userCredential.user.uid,
         rememberMe: formValue.value?.rememberMe
           ? formValue.value.rememberMe
           : false,
         ...userCredential.user.providerData[0],
-      }
-    }else{
+      };
+    } else {
       return {
         authUid: userCredential.user.uid,
         ...userCredential.user.providerData[0],
@@ -127,8 +140,8 @@ export class LoginService {
           ? formValue.value.rememberMe
           : false,
         role: 'student',
-        favorites: []
-      }
+        favorites: [],
+      };
     }
   }
 }

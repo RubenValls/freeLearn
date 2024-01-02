@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { CourseActions } from 'src/app/admins/admins-dashboard/pages/courses/store/course/course.actions';
 
 @Component({
   selector: 'app-sub-modal-create',
@@ -17,6 +19,7 @@ export class SubModalCreateComponent implements OnInit {
     public dialogRef: MatDialogRef<Component>,
     public dialog: MatDialog,
     public builderForm: FormBuilder,
+    private store: Store,
   ) { }
   ngOnInit(): void {
     this.mainForm = this.data.editForm;
@@ -42,6 +45,8 @@ export class SubModalCreateComponent implements OnInit {
     this.mainForm.get('lessons')?.setValue(lessonsCopy);
     if (this.data.onEdit) {
       this.data.onEdit(this.mainForm.value);
+      this.store.dispatch(CourseActions.editCourse({course: this.mainForm.value}))
+      this.dialogRef.close()
     }
   }
 
