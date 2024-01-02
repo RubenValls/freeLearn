@@ -33,7 +33,6 @@ export class DetailModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
     this.rows = this.data.rows
     this.title = this.data.title
     this.totalCourses = this.data.totalCourses > 0 ? `This technology has ${this.data.totalCourses} associated courses` : "This technology has 0 associated courses"
@@ -46,7 +45,6 @@ export class DetailModalComponent implements OnInit {
     this.lessons = this.data.data.lessons
     this.totalLessons = this.data.data.lessons.length > 0 ? `this course has ${this.data.data.lessons.length} lessons` : "This course has 0 lessons"
     this.isCourse = this.data.title == "Courses" ? true : false
-
    }
 
   createDynamicForm() {
