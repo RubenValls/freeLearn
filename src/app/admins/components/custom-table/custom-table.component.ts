@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { TechnologyType } from '../../admins-dashboard/pages/technologies/types/technologies';
 import { CdkTableDataSourceInput } from '@angular/cdk/table';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { DetailModalComponent } from 'src/app/shared/components/modals/detail-modal/detail-modal.component';
 import { DialogRef } from '@angular/cdk/dialog';
@@ -14,7 +14,7 @@ import { ThisReceiver } from '@angular/compiler';
   templateUrl: './custom-table.component.html',
   styleUrls: ['./custom-table.component.scss']
 })
-export class CustomTableComponent implements OnInit{
+export class CustomTableComponent implements OnInit, OnDestroy{
   @Input() displayedColumns: any[] = [];
   @Input() data: any | null = [];
   @Input() rows: any[] = [];
@@ -25,7 +25,7 @@ export class CustomTableComponent implements OnInit{
   @Input() modalHeight: string = '';
   @Input() modalTitle: string = '';
 
-
+  dataSubscription: Subscription | undefined
   dataSource = []
   columns = this.displayedColumns.map(column => column.prop);
 
@@ -35,9 +35,13 @@ export class CustomTableComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    this.data?.subscribe((data: any) => {this.dataSource = data} )
+    this.dataSubscription = this.data?.subscribe((data: any) => {this.dataSource = data} )
     this.columns = this.displayedColumns.map(column => column.prop);
   
+  }
+
+  ngOnDestroy(): void {
+    this.dataSubscription?.unsubscribe();
   }
 
   handleModal(element: any) {      

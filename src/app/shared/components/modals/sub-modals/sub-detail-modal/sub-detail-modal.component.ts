@@ -4,7 +4,10 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { UpdateModalComponent } from '../../update-modal/update-modal.component';
 import { DeleteModalComponent } from '../../delete-modal/delete-modal.component';
 import { SubModalCreateComponent } from '../sub-modal-create/sub-modal-create.component';
-import { Lesson } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';
+import { Course, Lesson } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';
+import { Store } from '@ngrx/store';
+import { selectCourse } from 'src/app/admins/admins-dashboard/pages/courses/store/course/course.selectors';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-sub-detail-modal',
@@ -14,17 +17,22 @@ import { Lesson } from 'src/app/admins/admins-dashboard/pages/courses/interface/
 export class SubDetailModalComponent implements OnInit {
   mainForm!: FormGroup;
   lessons: any[] = [];
+  course$: Observable<Course> | undefined;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<Component>,
     public dialog: MatDialog,
     public builderForm: FormBuilder,
+    private store: Store,
   ) { }
 
   ngOnInit(): void {
     this.mainForm = this.data.editForm;
-    this.lessons = this.data.lessons;
+    this.course$ = this.store.select(selectCourse);
+    this.course$.subscribe((course: Course) => {
+      this.lessons = course.lessons
+    })
   }
 
   editLessonForm: FormGroup = this.builderForm.group({

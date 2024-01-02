@@ -5,6 +5,11 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { UpdateModalComponent } from '../update-modal/update-modal.component';
 import { SubDetailModalComponent } from '../sub-modals/sub-detail-modal/sub-detail-modal.component';
 import { SubModalCreateComponent } from '../sub-modals/sub-modal-create/sub-modal-create.component';
+import { Store } from '@ngrx/store';
+import { selectCourse } from 'src/app/admins/admins-dashboard/pages/courses/store/course/course.selectors';
+import { Observable } from 'rxjs';
+import { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';
+import { CourseActions } from 'src/app/admins/admins-dashboard/pages/courses/store/course/course.actions';
 
 @Component({
   selector: 'app-detail-modal',
@@ -24,29 +29,39 @@ export class DetailModalComponent implements OnInit {
   lessons: any[] = [];
   totalLessons: string | number = '';
   isCourse: boolean = false;
+  course$: Observable<Course> | undefined;
+  course: any
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<DetailModalComponent>,
     public dialog: MatDialog,
     public builderForm: FormBuilder,
+    private store: Store,
   ) { }
 
   ngOnInit(): void {
-
+    if(this.data.title == "Courses"){
+      console.log(this.course)
+      this.course$ = this.store.select(selectCourse);
+      this.store.dispatch(CourseActions.addCourse({course: this.data.data}))
+      this.course$.subscribe((course: Course) => {
+        this.totalLessons = course.lessons.length > 0 ? `this course has ${course.lessons.length} lessons` : "This course has 0 lessons"
+        this.course = course
+      })
+    }
     this.rows = this.data.rows
     this.title = this.data.title
     this.totalCourses = this.data.totalCourses > 0 ? `This technology has ${this.data.totalCourses} associated courses` : "This technology has 0 associated courses"
     this.createDynamicForm();
-    this.form.patchValue(this.data.data);
+    this.form.patchValue(this.course ? this.course : this.data.data);
     this.socialMediaForm = this.getFormGroup('socialMedia') as FormGroup;
     this.techsForm = this.getFormGroup('techs') as FormGroup;
     this.techs = this.data.data.techs
     this.instructors = this.data.data.instructorId
-    this.lessons = this.data.data.lessons
-    this.totalLessons = this.data.data.lessons.length > 0 ? `this course has ${this.data.data.lessons.length} lessons` : "This course has 0 lessons"
+    this.lessons = this.course.lessons
+    this.totalLessons = this.course.lessons.length > 0 ? `this course has ${this.course.lessons.length} lessons` : "This course has 0 lessons"
     this.isCourse = this.data.title == "Courses" ? true : false
-
    }
 
   createDynamicForm() {
@@ -177,8 +192,7 @@ export class DetailModalComponent implements OnInit {
       data: {       
         onEdit: this.data.onEdit,
         onDelete: this.data.onDelete,
-        editForm: this.form,
-        lessons: this.lessons,    
+        editForm: this.form, 
       }
     })
   }
