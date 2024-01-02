@@ -2966,7 +2966,7 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "button {\r\n   \r\n    font-size: 16px;\r\n    letter-spacing: 1px;\r\n    padding:10px;\r\n    transition: background 0.2s;\r\n    border: none;\r\n    border-radius: 5px;\r\n\r\n}\r\n\r\n.primary {\r\n    background: var(--primary) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.primary:hover {  \r\n    background: linear-gradient(145deg, #cacaca, #f0f0f0);\r\n    box-shadow:  7px 7px 14px #a4a4a4,\r\n                 -7px -7px 14px #ffffff;\r\n}\r\n\r\n .primary:active {\r\n  \r\n    transform: translateY(10px);\r\n    transition: 100ms;\r\n  }\r\n\r\n.secondary {\r\n    background: var(--accent) !important;\r\n    color: var(--white) !important;\r\n}\r\n.success {\r\n    background: var(--succes) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.info {\r\n    background: var(--black) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.danger {\r\n    background: var(--error) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.warning {\r\n    background: var(--warning) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.gradient {\r\n    background: linear-gradient(61deg, var(--accent) 1%, #20ded3 85%, #20ded3 90%) 0 0 /100% 100% no-repeat;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.gradient:hover {\r\n    background: var(--black) !important;\r\n}\r\n\r\n.large {\r\n\r\n    font-size: 18px;\r\n}\r\n\r\n.medium {\r\n\r\n    font-size: 16px;\r\n}\r\n\r\n.small {\r\n\r\n    font-size: 14px;\r\n}",
+                    "data": "button {\r\n   \r\n    font-size: 14px;\r\n    letter-spacing: 1px;\r\n    padding:10px;\r\n    transition: background 0.2s;\r\n    border: none;\r\n    border-radius: 5px;\r\n\r\n}\r\n\r\n.primary {\r\n    background: var(--primary) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.primary:hover {  \r\n    background: linear-gradient(145deg, #cacaca, #f0f0f0);\r\n    box-shadow:  7px 7px 14px #a4a4a4,\r\n                 -7px -7px 14px #ffffff;\r\n}\r\n\r\n .primary:active {\r\n  \r\n    transform: translateY(10px);\r\n    transition: 100ms;\r\n  }\r\n\r\n.secondary {\r\n    background: var(--accent) !important;\r\n    color: var(--white) !important;\r\n}\r\n.success {\r\n    background: var(--succes) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.info {\r\n    background: var(--black) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.danger {\r\n    background: var(--error) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.warning {\r\n    background: var(--warning) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.gradient {\r\n    background: linear-gradient(61deg, var(--accent) 1%, #20ded3 85%, #20ded3 90%) 0 0 /100% 100% no-repeat;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.gradient:hover {\r\n    background: var(--black) !important;\r\n}\r\n\r\n.large {\r\n\r\n    font-size: 18px;\r\n}\r\n\r\n.medium {\r\n\r\n    font-size: 16px;\r\n}\r\n\r\n.small {\r\n\r\n    font-size: 14px;\r\n}",
                     "styleUrl": "./button.component.scss"
                 }
             ],
@@ -3948,7 +3948,7 @@
         },
         {
             "name": "DetailModalComponent",
-            "id": "component-DetailModalComponent-ef6c787e60695079bf3074297dfbb9912a4a58bb810319e87f902394b6b269d6bd552df5f907ea8a9adaf89867204ef4759ac4799a6e46413ff3d5ab88aa6fb3",
+            "id": "component-DetailModalComponent-1e626cfd6cfff176759a07157858f4c9a9b7d596a0d3db187ea2dddfe1f2d1b99a90436d7ce82e0653a967984f8797a9a421ca502cb10d845255cb384637ef8c",
             "file": "src/app/shared/components/modals/detail-modal/detail-modal.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -3975,7 +3975,7 @@
                     "type": "FormBuilder",
                     "optional": false,
                     "description": "",
-                    "line": 39,
+                    "line": 41,
                     "modifierKind": [
                         125
                     ]
@@ -3999,13 +3999,22 @@
                     "line": 32
                 },
                 {
+                    "name": "courseSubscription",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Subscription | undefined",
+                    "optional": false,
+                    "description": "",
+                    "line": 35
+                },
+                {
                     "name": "data",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "any",
                     "optional": false,
                     "description": "",
-                    "line": 36,
+                    "line": 38,
                     "decorators": [
                         {
                             "name": "Inject",
@@ -4024,7 +4033,7 @@
                     "type": "MatDialog",
                     "optional": false,
                     "description": "",
-                    "line": 38,
+                    "line": 40,
                     "modifierKind": [
                         125
                     ]
@@ -4036,7 +4045,7 @@
                     "type": "MatDialogRef<DetailModalComponent>",
                     "optional": false,
                     "description": "",
-                    "line": 37,
+                    "line": 39,
                     "modifierKind": [
                         125
                     ]
@@ -4156,7 +4165,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 128,
+                    "line": 134,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -4166,7 +4175,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 67,
+                    "line": 73,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -4183,7 +4192,7 @@
                     "optional": false,
                     "returnType": "FormGroup | FormControl",
                     "typeParameters": [],
-                    "line": 90,
+                    "line": 96,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -4211,7 +4220,7 @@
                     "optional": false,
                     "returnType": "FormGroup",
                     "typeParameters": [],
-                    "line": 108,
+                    "line": 114,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -4239,7 +4248,7 @@
                     "optional": false,
                     "returnType": "FormGroup | null",
                     "typeParameters": [],
-                    "line": 120,
+                    "line": 126,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -4267,7 +4276,7 @@
                     "optional": false,
                     "returnType": "FormControl",
                     "typeParameters": [],
-                    "line": 124,
+                    "line": 130,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -4283,12 +4292,22 @@
                     ]
                 },
                 {
+                    "name": "ngOnDestroy",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 69,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
                     "name": "ngOnInit",
                     "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 43,
+                    "line": 45,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -4298,7 +4317,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 132,
+                    "line": 138,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -4308,7 +4327,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 152,
+                    "line": 158,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -4325,7 +4344,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 170,
+                    "line": 176,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -4346,7 +4365,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 188,
+                    "line": 192,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -4360,7 +4379,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Inject, OnInit } from '@angular/core';\r\nimport { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';\r\nimport { DeleteModalComponent } from '../delete-modal/delete-modal.component';\r\nimport { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';\r\nimport { UpdateModalComponent } from '../update-modal/update-modal.component';\r\nimport { SubDetailModalComponent } from '../sub-modals/sub-detail-modal/sub-detail-modal.component';\r\nimport { SubModalCreateComponent } from '../sub-modals/sub-modal-create/sub-modal-create.component';\r\nimport { Store } from '@ngrx/store';\r\nimport { selectCourse } from 'src/app/admins/admins-dashboard/pages/courses/store/course/course.selectors';\r\nimport { Observable } from 'rxjs';\r\nimport { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';\r\nimport { CourseActions } from 'src/app/admins/admins-dashboard/pages/courses/store/course/course.actions';\r\n\r\n@Component({\r\n  selector: 'app-detail-modal',\r\n  templateUrl: './detail-modal.component.html',\r\n  styleUrls: ['./detail-modal.component.scss']\r\n})\r\nexport class DetailModalComponent implements OnInit {\r\n\r\n  title: string = ''\r\n  totalCourses: string | null = null\r\n  rows: any[] = [];\r\n  form!: FormGroup;\r\n  socialMediaForm!: FormGroup;\r\n  techsForm!: FormGroup;\r\n  techs: any[] = [];\r\n  instructors: any[] = [];\r\n  lessons: any[] = [];\r\n  totalLessons: string | number = '';\r\n  isCourse: boolean = false;\r\n  course$: Observable<Course> | undefined;\r\n  course: any\r\n\r\n  constructor(\r\n    @Inject(MAT_DIALOG_DATA) public data: any,\r\n    public dialogRef: MatDialogRef<DetailModalComponent>,\r\n    public dialog: MatDialog,\r\n    public builderForm: FormBuilder,\r\n    private store: Store,\r\n  ) { }\r\n\r\n  ngOnInit(): void {\r\n    if(this.data.title == \"Courses\"){\r\n      console.log(this.course)\r\n      this.course$ = this.store.select(selectCourse);\r\n      this.store.dispatch(CourseActions.addCourse({course: this.data.data}))\r\n      this.course$.subscribe((course: Course) => {\r\n        this.totalLessons = course.lessons.length > 0 ? `this course has ${course.lessons.length} lessons` : \"This course has 0 lessons\"\r\n        this.course = course\r\n      })\r\n    }\r\n    this.rows = this.data.rows\r\n    this.title = this.data.title\r\n    this.totalCourses = this.data.totalCourses > 0 ? `This technology has ${this.data.totalCourses} associated courses` : \"This technology has 0 associated courses\"\r\n    this.createDynamicForm();\r\n    this.form.patchValue(this.course ? this.course : this.data.data);\r\n    this.socialMediaForm = this.getFormGroup('socialMedia') as FormGroup;\r\n    this.techsForm = this.getFormGroup('techs') as FormGroup;\r\n    this.techs = this.data.data.techs\r\n    this.instructors = this.data.data.instructorId\r\n    this.lessons = this.course.lessons\r\n    this.totalLessons = this.course.lessons.length > 0 ? `this course has ${this.course.lessons.length} lessons` : \"This course has 0 lessons\"\r\n    this.isCourse = this.data.title == \"Courses\" ? true : false\r\n   }\r\n\r\n  createDynamicForm() {\r\n    this.form = this.builderForm.group({});\r\n    this.rows.forEach((row: any) => {\r\n      if (row.prop !== 'courses') {\r\n        if (row.subFields) {\r\n          if (row.prop !== \"socialMedia\") {\r\n            const subFormGroup = this.createSubFormGroup(row.subFields);\r\n            this.form.addControl(row.prop, subFormGroup);\r\n          } else {\r\n\r\n            const subFormGroup = this.createSubFormGroupFromObject(row.subFields);\r\n            this.form.addControl(row.prop, subFormGroup);\r\n          }\r\n        }\r\n\r\n        else {\r\n          this.form.addControl(row.prop, this.builderForm.control('', Validators.required));\r\n        }\r\n      }\r\n    });\r\n\r\n  }\r\n\r\n  createSubFormGroup(field: any): FormGroup | FormControl {\r\n    if (!field) {\r\n      return this.builderForm.control('');\r\n    }\r\n\r\n    if (field.subFields) {\r\n      const subFormGroup: { [key: string]: AbstractControl } = {};\r\n\r\n      field.subFields.forEach((subField: any) => {\r\n        subFormGroup[subField.prop] = this.createSubFormGroup(subField);\r\n      });\r\n\r\n      return this.builderForm.group(subFormGroup);\r\n    } else {\r\n      return this.builderForm.control('');\r\n    }\r\n  }\r\n\r\n  createSubFormGroupFromObject(subFields: any[]): FormGroup {\r\n    const subFormGroup: { [key: string]: AbstractControl } = {};\r\n    subFields.forEach((field: any) => {\r\n      if (field.subFields) {\r\n        subFormGroup[field.prop] = this.createSubFormGroup(field.subFields);\r\n      } else {\r\n        subFormGroup[field.prop] = this.builderForm.control('');\r\n      }\r\n    });\r\n    return this.builderForm.group(subFormGroup);\r\n  }\r\n\r\n  getFormGroup(sectionName: string): FormGroup | null {\r\n    const formGroup = this.form.get(sectionName) as FormGroup;\r\n    return formGroup || null;\r\n  }\r\n  getSubFieldControl(controlName: string): FormControl {\r\n    return this.techsForm.get(controlName) as FormControl;\r\n  }\r\n\r\n  close() {\r\n    this.dialogRef.close();\r\n  }\r\n\r\n  onDelete() {\r\n    if (this.data.onDelete) {\r\n      const deleteDialog = this.dialog.open(DeleteModalComponent, {\r\n        width: '400px',\r\n        data: {\r\n          title: this.title,\r\n          onDelete: this.data.onDelete,\r\n          id: this.form.value,\r\n          data: this.data.data\r\n        }\r\n      });\r\n\r\n      deleteDialog.afterClosed().subscribe(result => {\r\n        if (result) {\r\n          this.dialogRef.close();\r\n        }\r\n      });\r\n    }\r\n  }\r\n\r\n  onEdit() {\r\n    if (this.data.onEdit) {\r\n      const updateDialog = this.dialog.open(UpdateModalComponent, {\r\n        width: '400px',\r\n        data: {\r\n          title: this.title,\r\n          onEdit: this.data.onEdit,\r\n          editData: this.form.value\r\n        }\r\n      })\r\n      updateDialog.afterClosed().subscribe(result => {\r\n        if (result) {\r\n          this.dialogRef.close();\r\n        }\r\n      });\r\n    }\r\n\r\n  }\r\n  onEditField(field: any) {\r\n    const techsArray = this.form.get(\"instructorId\") as FormArray;\r\n    alert(techsArray.controls.values)\r\n    // Encuentra el índice del primer elemento con el id específico\r\n    const index = techsArray.controls.findIndex(control =>\r\n      control.get('id')?.value === field.id\r\n    );\r\n\r\n    if (index !== -1) {\r\n      // Aquí puedes realizar cualquier acción que necesites con el índice encontrado\r\n      console.log('Índice del primer elemento con el id específico:', index);\r\n    } else {\r\n      console.error('Elemento con el id específico no encontrado en el FormArray');\r\n    }\r\n\r\n\r\n  }\r\n\r\n  openLessons() {\r\n    const updateDialog = this.dialog.open(SubDetailModalComponent, {\r\n      width: '1030px',\r\n      height: '650px',\r\n      data: {       \r\n        onEdit: this.data.onEdit,\r\n        onDelete: this.data.onDelete,\r\n        editForm: this.form, \r\n      }\r\n    })\r\n  }\r\n\r\n\r\n}\r\n",
+            "sourceCode": "import { Component, Inject, OnDestroy, OnInit } from '@angular/core';\r\nimport { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';\r\nimport { DeleteModalComponent } from '../delete-modal/delete-modal.component';\r\nimport { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';\r\nimport { UpdateModalComponent } from '../update-modal/update-modal.component';\r\nimport { SubDetailModalComponent } from '../sub-modals/sub-detail-modal/sub-detail-modal.component';\r\nimport { SubModalCreateComponent } from '../sub-modals/sub-modal-create/sub-modal-create.component';\r\nimport { Store } from '@ngrx/store';\r\nimport { selectCourse } from 'src/app/admins/admins-dashboard/pages/courses/store/course/course.selectors';\r\nimport { Observable, Subscription } from 'rxjs';\r\nimport { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';\r\nimport { CourseActions } from 'src/app/admins/admins-dashboard/pages/courses/store/course/course.actions';\r\n\r\n@Component({\r\n  selector: 'app-detail-modal',\r\n  templateUrl: './detail-modal.component.html',\r\n  styleUrls: ['./detail-modal.component.scss']\r\n})\r\nexport class DetailModalComponent implements OnInit, OnDestroy {\r\n\r\n  title: string = ''\r\n  totalCourses: string | null = null\r\n  rows: any[] = [];\r\n  form!: FormGroup;\r\n  socialMediaForm!: FormGroup;\r\n  techsForm!: FormGroup;\r\n  techs: any[] = [];\r\n  instructors: any[] = [];\r\n  lessons: any[] = [];\r\n  totalLessons: string | number = '';\r\n  isCourse: boolean = false;\r\n  course$: Observable<Course> | undefined;\r\n  course: any\r\n\r\n  courseSubscription: Subscription | undefined\r\n\r\n  constructor(\r\n    @Inject(MAT_DIALOG_DATA) public data: any,\r\n    public dialogRef: MatDialogRef<DetailModalComponent>,\r\n    public dialog: MatDialog,\r\n    public builderForm: FormBuilder,\r\n    private store: Store,\r\n  ) { }\r\n\r\n  ngOnInit(): void {\r\n    if(this.data.title == \"Courses\"){\r\n      console.log(this.course)\r\n      this.course$ = this.store.select(selectCourse);\r\n      this.store.dispatch(CourseActions.addCourse({course: this.data.data}))\r\n      this.courseSubscription = this.course$.subscribe((course: Course) => {\r\n        this.totalLessons = course.lessons.length > 0 ? `this course has ${course.lessons.length} lessons` : \"This course has 0 lessons\"\r\n        this.course = course\r\n      })\r\n    }\r\n    this.rows = this.data.rows\r\n    this.title = this.data.title\r\n    this.totalCourses = this.data.totalCourses > 0 ? `This technology has ${this.data.totalCourses} associated courses` : \"This technology has 0 associated courses\"\r\n    this.createDynamicForm();\r\n    this.form.patchValue(this.course ? this.course : this.data.data);\r\n    this.socialMediaForm = this.getFormGroup('socialMedia') as FormGroup;\r\n    this.techsForm = this.getFormGroup('techs') as FormGroup;\r\n    this.techs = this.data.data.techs\r\n    this.instructors = this.data.data.instructorId\r\n    this.lessons = this.course.lessons\r\n    this.totalLessons = this.course.lessons.length > 0 ? `this course has ${this.course.lessons.length} lessons` : \"This course has 0 lessons\"\r\n    this.isCourse = this.data.title == \"Courses\" ? true : false\r\n   }\r\n\r\n   ngOnDestroy(): void {\r\n     this.courseSubscription?.unsubscribe()\r\n   }\r\n\r\n  createDynamicForm() {\r\n    this.form = this.builderForm.group({});\r\n    this.rows.forEach((row: any) => {\r\n      if (row.prop !== 'courses') {\r\n        if (row.subFields) {\r\n          if (row.prop !== \"socialMedia\") {\r\n            const subFormGroup = this.createSubFormGroup(row.subFields);\r\n            this.form.addControl(row.prop, subFormGroup);\r\n          } else {\r\n\r\n            const subFormGroup = this.createSubFormGroupFromObject(row.subFields);\r\n            this.form.addControl(row.prop, subFormGroup);\r\n          }\r\n        }\r\n\r\n        else {\r\n          this.form.addControl(row.prop, this.builderForm.control('', Validators.required));\r\n        }\r\n      }\r\n    });\r\n\r\n  }\r\n\r\n  createSubFormGroup(field: any): FormGroup | FormControl {\r\n    if (!field) {\r\n      return this.builderForm.control('');\r\n    }\r\n\r\n    if (field.subFields) {\r\n      const subFormGroup: { [key: string]: AbstractControl } = {};\r\n\r\n      field.subFields.forEach((subField: any) => {\r\n        subFormGroup[subField.prop] = this.createSubFormGroup(subField);\r\n      });\r\n\r\n      return this.builderForm.group(subFormGroup);\r\n    } else {\r\n      return this.builderForm.control('');\r\n    }\r\n  }\r\n\r\n  createSubFormGroupFromObject(subFields: any[]): FormGroup {\r\n    const subFormGroup: { [key: string]: AbstractControl } = {};\r\n    subFields.forEach((field: any) => {\r\n      if (field.subFields) {\r\n        subFormGroup[field.prop] = this.createSubFormGroup(field.subFields);\r\n      } else {\r\n        subFormGroup[field.prop] = this.builderForm.control('');\r\n      }\r\n    });\r\n    return this.builderForm.group(subFormGroup);\r\n  }\r\n\r\n  getFormGroup(sectionName: string): FormGroup | null {\r\n    const formGroup = this.form.get(sectionName) as FormGroup;\r\n    return formGroup || null;\r\n  }\r\n  getSubFieldControl(controlName: string): FormControl {\r\n    return this.techsForm.get(controlName) as FormControl;\r\n  }\r\n\r\n  close() {\r\n    this.dialogRef.close();\r\n  }\r\n\r\n  onDelete() {\r\n    if (this.data.onDelete) {\r\n      const deleteDialog = this.dialog.open(DeleteModalComponent, {\r\n        width: '400px',\r\n        data: {\r\n          title: this.title,\r\n          onDelete: this.data.onDelete,\r\n          id: this.form.value,\r\n          data: this.data.data\r\n        }\r\n      });\r\n\r\n      deleteDialog.afterClosed().subscribe(result => {\r\n        if (result) {\r\n          this.dialogRef.close();\r\n        }\r\n      });\r\n    }\r\n  }\r\n\r\n  onEdit() {\r\n    if (this.data.onEdit) {\r\n      const updateDialog = this.dialog.open(UpdateModalComponent, {\r\n        width: '400px',\r\n        data: {\r\n          title: this.title,\r\n          onEdit: this.data.onEdit,\r\n          editData: this.form.value\r\n        }\r\n      })\r\n      updateDialog.afterClosed().subscribe(result => {\r\n        if (result) {\r\n          this.dialogRef.close();\r\n        }\r\n      });\r\n    }\r\n\r\n  }\r\n  onEditField(field: any) {\r\n    const techsArray = this.form.get(\"instructorId\") as FormArray;\r\n    alert(techsArray.controls.values)\r\n    const index = techsArray.controls.findIndex(control =>\r\n      control.get('id')?.value === field.id\r\n    );\r\n\r\n    if (index !== -1) {\r\n      console.log('Índice del primer elemento con el id específico:', index);\r\n    } else {\r\n      console.error('Elemento con el id específico no encontrado en el FormArray');\r\n    }\r\n\r\n\r\n  }\r\n\r\n  openLessons() {\r\n    const updateDialog = this.dialog.open(SubDetailModalComponent, {\r\n      width: '1030px',\r\n      height: '650px',\r\n      data: {       \r\n        onEdit: this.data.onEdit,\r\n        onDelete: this.data.onDelete,\r\n        editForm: this.form, \r\n      }\r\n    })\r\n  }\r\n\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -4406,7 +4425,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 33,
+                "line": 35,
                 "jsdoctags": [
                     {
                         "name": "data",
@@ -4457,7 +4476,8 @@
             },
             "extends": [],
             "implements": [
-                "OnInit"
+                "OnInit",
+                "OnDestroy"
             ],
             "templateData": "<div class=\"detail-modal\">\r\n\r\n    <div class=\"detail-modal--content\">\r\n\r\n        <div class=\"--close-icon\">\r\n\r\n            <mat-icon (click)=\"close()\">close</mat-icon>\r\n        </div>\r\n        <div class=\"--detail-icon\">\r\n            <mat-icon>info</mat-icon>\r\n        </div>\r\n\r\n        <div mat-dialog-content class=\"modal-body\">\r\n\r\n            <h3 mat-dialog-title>{{title}}</h3>\r\n\r\n            <form class=\"edit-form\" [formGroup]=\"form\" class=\"row\">\r\n                <div *ngFor=\"let row of rows\" class=\"row\">\r\n                    <mat-form-field\r\n                        *ngIf=\"row.prop !== 'courses' && row.prop !== 'description' && row.prop !== 'id' && row.prop !== 'socialMedia' && row.prop !== 'lessons' && row.prop !== 'techs' && row.prop !== 'instructorId'\">\r\n                        <mat-label>{{row.label}}</mat-label>\r\n                        <input matInput formControlName=\"{{ row.prop }}\">\r\n                    </mat-form-field>\r\n\r\n                    <mat-form-field *ngIf=\"row.prop === 'id'\">\r\n                        <mat-label>{{row.label}}</mat-label>\r\n                        <input matInput formControlName=\"{{ row.prop }}\" readonly>\r\n                    </mat-form-field>\r\n\r\n                    <mat-form-field *ngIf=\"row.prop === 'courses'\">\r\n                        <mat-label>{{row.label}}</mat-label>\r\n                        <input type=\"text\" [value]=\"totalCourses\" matInput readonly>\r\n                    </mat-form-field>\r\n\r\n                    <mat-form-field *ngIf=\"row.prop === 'description'\">\r\n                        <mat-label>{{row.label}}</mat-label>\r\n                        <textarea matInput formControlName=\"{{ row.prop }}\" cdkTextareaAutosize\r\n                            cdkAutosizeMinRows=\"5\"></textarea>\r\n                    </mat-form-field>\r\n\r\n                    <ng-container *ngIf=\"row.prop === 'socialMedia' && socialMediaForm\">\r\n                        <div [formGroup]=\"socialMediaForm\">\r\n                            <div *ngFor=\"let subField of row.subFields\" class=\"row\">\r\n                                <mat-form-field>\r\n                                    <mat-label>{{subField.label}}</mat-label>\r\n                                    <input matInput formControlName=\"{{ subField.prop }}\">\r\n                                </mat-form-field>\r\n                            </div>\r\n                        </div>\r\n                    </ng-container>\r\n                </div>\r\n            </form>\r\n\r\n\r\n            <div class=\"row information-related\" *ngIf=\"isCourse\">\r\n                <div class=\"col-12 col-md-4 col-lg-3 box\">\r\n                    <h5>Trainers:</h5>\r\n                    <ul *ngFor=\"let instructor of instructors\">\r\n                        <li>{{instructor.name}}\r\n\r\n                        </li>\r\n\r\n                    </ul>\r\n\r\n\r\n                </div>\r\n                <div class=\"col-12 col-md-4 col-lg-3 box\">\r\n                    <h5>Techs:</h5>\r\n                    <ul *ngFor=\"let tech of techs\">\r\n                        <li>{{tech.name}}\r\n                        </li>\r\n                    </ul>\r\n\r\n\r\n                </div>\r\n                <div class=\"col-12 col-md-4 col-lg-3 box\">\r\n                    <h5>Lessons:</h5>\r\n                    <p>{{totalLessons}}</p>\r\n                    <div class=\"go-lessons\">\r\n                        <button class=\"btn-lessons\" (click)=\"openLessons()\">Go to lessons</button>\r\n                    </div>\r\n\r\n                </div>\r\n\r\n            </div>\r\n\r\n        </div>\r\n        <div class=\"modal-buttons\">\r\n\r\n            <div class=\"btn-left\">\r\n                <button (click)=\"onDelete()\" class=\"btn btn-delete\"> Delete</button>\r\n            </div>\r\n            <div class=\"btn-right\">\r\n                <button (click)=\"onEdit()\" class=\"btn btn-edit\"> Edit</button>\r\n                <button class=\"btn\" (click)=\"close()\">Close</button>\r\n            </div>\r\n\r\n        </div>\r\n    </div>\r\n\r\n</div>"
         },
@@ -5996,7 +6016,7 @@
         },
         {
             "name": "SidebarComponent",
-            "id": "component-SidebarComponent-3e7d47211d37120836d0c6f997b6f1350abf595bf16eda42d429e91bb0693bf22258e3d286766e706f0bbe5f5963f68bc957f4517f21e17f109d1b4494250d4d",
+            "id": "component-SidebarComponent-a16bef47f2bd9697b8951cc438e385d5ebaae3ddd6db18f42f928de0fdda6c005bdd12cd628c50ba250f953cdc212ab9a2e029bae47c7efe50b9c534e0624c7a",
             "file": "src/app/students/components/sidebar/sidebar.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -6024,7 +6044,16 @@
                     "type": "boolean",
                     "optional": false,
                     "description": "",
-                    "line": 11
+                    "line": 12
+                },
+                {
+                    "name": "smallScreenSubscription",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Subscription | undefined",
+                    "optional": false,
+                    "description": "",
+                    "line": 13
                 }
             ],
             "methodsClass": [
@@ -6034,7 +6063,17 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 22,
+                    "line": 28,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "ngOnDestroy",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 24,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -6044,7 +6083,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 15,
+                    "line": 17,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -6058,7 +6097,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { Router } from '@angular/router';\r\nimport { ResizeService } from 'src/app/shared/services/resize/resize.service';\r\n\r\n@Component({\r\n  selector: 'app-sidebar',\r\n  templateUrl: './sidebar.component.html',\r\n  styleUrls: ['./sidebar.component.scss']\r\n})\r\nexport class SidebarComponent implements OnInit {\r\n  isSmallScreen: boolean = false;\r\n\r\n  constructor( private router: Router, private resizeService: ResizeService ){}\r\n\r\n  ngOnInit(): void {\r\n    this.resizeService.checkScreenSize(500);\r\n    this.resizeService.isSmallScreen$.subscribe(isSmallScreen => {\r\n      this.isSmallScreen = isSmallScreen;\r\n    });\r\n  }\r\n\r\n  handleLogOut(){\r\n    localStorage.removeItem('userInfo');\r\n    sessionStorage.removeItem('userInfo')\r\n    this.router.navigate(['/login'])\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, OnDestroy, OnInit } from '@angular/core';\r\nimport { Router } from '@angular/router';\r\nimport { Subscription } from 'rxjs';\r\nimport { ResizeService } from 'src/app/shared/services/resize/resize.service';\r\n\r\n@Component({\r\n  selector: 'app-sidebar',\r\n  templateUrl: './sidebar.component.html',\r\n  styleUrls: ['./sidebar.component.scss']\r\n})\r\nexport class SidebarComponent implements OnInit, OnDestroy {\r\n  isSmallScreen: boolean = false;\r\n  smallScreenSubscription: Subscription | undefined\r\n\r\n  constructor( private router: Router, private resizeService: ResizeService ){}\r\n\r\n  ngOnInit(): void {\r\n    this.resizeService.checkScreenSize(500);\r\n    this.smallScreenSubscription = this.resizeService.isSmallScreen$.subscribe(isSmallScreen => {\r\n      this.isSmallScreen = isSmallScreen;\r\n    });\r\n  }\r\n\r\n  ngOnDestroy(): void {\r\n    this.smallScreenSubscription?.unsubscribe()\r\n  }\r\n\r\n  handleLogOut(){\r\n    localStorage.removeItem('userInfo');\r\n    sessionStorage.removeItem('userInfo')\r\n    this.router.navigate(['/login'])\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -6086,7 +6125,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 11,
+                "line": 13,
                 "jsdoctags": [
                     {
                         "name": "router",
@@ -6110,7 +6149,8 @@
             },
             "extends": [],
             "implements": [
-                "OnInit"
+                "OnInit",
+                "OnDestroy"
             ],
             "templateData": "<div [ngClass]=\"{'small-screen': isSmallScreen}\" class=\"container\">\r\n    <div class=\"logo-container\" *ngIf=\"!isSmallScreen\">\r\n        <img src=\"../../../../assets/images/logo/png/White logo without words - no background.png\" alt=\"web-logo\">\r\n    </div>\r\n    <div class=\"menu-container\">\r\n        <div class=\"navigation-links\">\r\n            <div class=\"container\" routerLink=\"home\" routerLinkActive=\"active\">\r\n                <i class=\"bi bi-house-fill\" matTooltip=\"Home\" matTooltipPosition=\"right\"></i>\r\n            </div>\r\n            <div class=\"container\" routerLink=\"courses\" routerLinkActive=\"active\">\r\n                <i class=\"bi bi-book-fill\" matTooltip=\"Courses\" matTooltipPosition=\"right\"></i>\r\n            </div>\r\n            <div class=\"container\" routerLink=\"trainers\" routerLinkActive=\"active\">\r\n                <i class=\"bi bi-mortarboard-fill\" matTooltip=\"Trainers\" matTooltipPosition=\"right\"></i>\r\n            </div>\r\n            <div class=\"container\" routerLink=\"technologies\" routerLinkActive=\"active\">\r\n                <i class=\"bi bi-tools\" matTooltip=\"Technologies\" matTooltipPosition=\"right\"></i>\r\n            </div>\r\n            <div class=\"container\" routerLink=\"settings\" routerLinkActive=\"active\">\r\n                <i class=\"bi bi-gear-wide-connected\" matTooltip=\"Settings\" matTooltipPosition=\"right\"></i>\r\n            </div>\r\n        </div>\r\n        <div class=\"logout-icons\">\r\n            <i class=\"bi bi-box-arrow-right\" (click)=\"handleLogOut()\" matTooltip=\"Log Out\" matTooltipPosition=\"right\"></i>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
         },
@@ -7215,7 +7255,7 @@
         },
         {
             "name": "ThirdSectionMainComponent",
-            "id": "component-ThirdSectionMainComponent-229989e3528c66f84fb65c0a5e8b29ce989cd1ebd57507aa5f0bd5a7cd50257aa3207aeb36209845c632dc8c91e54f61c09807596fb97022305a1f1348ed9c04",
+            "id": "component-ThirdSectionMainComponent-159481677179a4a2c7cd22a7d96cf31bf77bede2a509d085209927359948de156afa896a6efcf1586070447189c64a9a96dd3b3728d59921456194ff93df02f5",
             "file": "src/app/main-page/components/third-section-main/third-section-main.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -7242,7 +7282,7 @@
                     "type": "ElementRef | undefined",
                     "optional": false,
                     "description": "",
-                    "line": 16,
+                    "line": 19,
                     "decorators": [
                         {
                             "name": "ViewChild",
@@ -7260,7 +7300,7 @@
                     "type": "Instructor[] | undefined",
                     "optional": false,
                     "description": "",
-                    "line": 14
+                    "line": 15
                 },
                 {
                     "name": "trainers$",
@@ -7270,17 +7310,36 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 13
+                    "line": 14
+                },
+                {
+                    "name": "trainerSubscription",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Subscription | undefined",
+                    "optional": false,
+                    "description": "",
+                    "line": 17
                 }
             ],
             "methodsClass": [
+                {
+                    "name": "ngOnDestroy",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 48,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
                 {
                     "name": "ngOnInit",
                     "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 22,
+                    "line": 25,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -7294,7 +7353,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { Instructor } from 'src/app/admins/admins-dashboard/pages/instructors/instructors';\r\nimport { selectInstructor } from 'src/app/store/instructors/instructors.selectors';\r\n\r\n@Component({\r\n  selector: 'app-third-section-main',\r\n  templateUrl: './third-section-main.component.html',\r\n  styleUrls: ['./third-section-main.component.scss']\r\n})\r\nexport class ThirdSectionMainComponent implements OnInit{\r\n\r\n  trainers$ = this.store.select(selectInstructor);\r\n  trainers: Instructor[] | undefined\r\n\r\n  @ViewChild('carousel') carousel: ElementRef | undefined;\r\n\r\n  constructor(\r\n    private store: Store,\r\n  ) { } \r\n\r\n  ngOnInit(): void {\r\n    this.trainers$.subscribe(trainers => {\r\n      this.trainers = [...trainers];\r\n      const duration = trainers.length * 3 + 's';\r\n      setTimeout(() => {\r\n        const carouselItems = this.carousel?.nativeElement.querySelectorAll('.carousel__item');\r\n        carouselItems.forEach((item: any, index: any) => {\r\n          item.style.animationDuration = duration;\r\n          item.style.webkitAnimationDuration = duration;\r\n          if(index === carouselItems.length - 1){\r\n            const delay = `calc(-3s * 2)`;\r\n            item.style.animationDelay = delay;\r\n            item.style.webkitAnimationDelay = delay;\r\n          }else{\r\n            const delay = `calc(3s * ${index - 1})`;\r\n            item.style.animationDelay = delay;\r\n            item.style.webkitAnimationDelay = delay;\r\n          }\r\n        });\r\n      }, 500);\r\n    });\r\n  }\r\n}\r\n",
+            "sourceCode": "import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { Subscription } from 'rxjs';\r\nimport { Instructor } from 'src/app/admins/admins-dashboard/pages/instructors/instructors';\r\nimport { selectInstructor } from 'src/app/store/instructors/instructors.selectors';\r\n\r\n@Component({\r\n  selector: 'app-third-section-main',\r\n  templateUrl: './third-section-main.component.html',\r\n  styleUrls: ['./third-section-main.component.scss']\r\n})\r\nexport class ThirdSectionMainComponent implements OnInit, OnDestroy{\r\n\r\n  trainers$ = this.store.select(selectInstructor);\r\n  trainers: Instructor[] | undefined\r\n\r\n  trainerSubscription: Subscription | undefined\r\n\r\n  @ViewChild('carousel') carousel: ElementRef | undefined;\r\n\r\n  constructor(\r\n    private store: Store,\r\n  ) { } \r\n\r\n  ngOnInit(): void {\r\n    this.trainerSubscription = this.trainers$.subscribe(trainers => {\r\n      this.trainers = [...trainers];\r\n      const duration = trainers.length * 3 + 's';\r\n      setTimeout(() => {\r\n        const carouselItems = this.carousel?.nativeElement.querySelectorAll('.carousel__item');\r\n        carouselItems.forEach((item: any, index: any) => {\r\n          item.style.animationDuration = duration;\r\n          item.style.webkitAnimationDuration = duration;\r\n          if(index === carouselItems.length - 1){\r\n            const delay = `calc(-3s * 2)`;\r\n            item.style.animationDelay = delay;\r\n            item.style.webkitAnimationDelay = delay;\r\n          }else{\r\n            const delay = `calc(3s * ${index - 1})`;\r\n            item.style.animationDelay = delay;\r\n            item.style.webkitAnimationDelay = delay;\r\n          }\r\n        });\r\n      }, 500);\r\n    });\r\n  }\r\n\r\n  ngOnDestroy(): void {\r\n    this.trainerSubscription?.unsubscribe()\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -7316,7 +7375,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 16,
+                "line": 19,
                 "jsdoctags": [
                     {
                         "name": "store",
@@ -7331,7 +7390,8 @@
             },
             "extends": [],
             "implements": [
-                "OnInit"
+                "OnInit",
+                "OnDestroy"
             ],
             "templateData": "<div class=\"content\">\r\n    <div class=\"left-container\">\r\n        <div class='wrapper'>\r\n            <div class='carousel' #carousel>\r\n              <div class='carousel__item' *ngFor=\"let trainer of trainers\">\r\n                <div class='carousel__item-head'>\r\n                    <img [src]=\"trainer.imagePath\" alt=\"trainer.name\">\r\n                </div>\r\n                <div class='carousel__item-body'>\r\n                    <p class='title'>{{trainer.name}}</p>\r\n                    <p>Courses available: {{trainer.courses.length}}</p>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n    </div>\r\n    <div class=\"right-container\">\r\n        <div >\r\n            <h1>The <span>best trainers</span> to take your skills to the next level </h1>\r\n            <p>Learn at your own pace from the best with complete courses on the key technologies of the software development world.</p>\r\n            <app-btn-black\r\n            [buttonText]=\"'Start now'\"\r\n            [routerLink]=\"'/login'\"\r\n          ></app-btn-black>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n"
         },
@@ -9885,7 +9945,7 @@
                 "linktype": "component",
                 "name": "ThirdSectionMainComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/6",
+                "coverageCount": "0/8",
                 "status": "low"
             },
             {
@@ -10086,7 +10146,7 @@
                 "linktype": "component",
                 "name": "DetailModalComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/30",
+                "coverageCount": "0/32",
                 "status": "low"
             },
             {
@@ -10355,7 +10415,7 @@
                 "linktype": "component",
                 "name": "SidebarComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/5",
+                "coverageCount": "0/7",
                 "status": "low"
             },
             {
