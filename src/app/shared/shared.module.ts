@@ -7,7 +7,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { WorkingInProgressComponent } from './components/default-pages/working-in-progress/working-in-progress.component';
 import { ErrorPageComponent } from './components/default-pages/error-page/error-page.component';
-import { BtnGradientComponent } from './components/btn-gradient/btn-gradient.component';
 import { BtnBlackComponent } from './components/btn-black/btn-black.component';
 import { ButtonComponent } from './components/button/button.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,13 +16,13 @@ import { DetailModalComponent } from './components/modals/detail-modal/detail-mo
 import { CourseCardComponent } from './components/course-card/course-card.component';
 import { SubDetailModalComponent } from './components/modals/sub-modals/sub-detail-modal/sub-detail-modal.component';
 import { SubModalCreateComponent } from './components/modals/sub-modals/sub-modal-create/sub-modal-create.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
   declarations: [ 
     WorkingInProgressComponent,
     ErrorPageComponent,
-    BtnGradientComponent,
     BtnBlackComponent,
     ButtonComponent,
     UpdateModalComponent,
@@ -42,12 +41,12 @@ import { SubModalCreateComponent } from './components/modals/sub-modals/sub-moda
     MatSnackBarModule,
     MatIconModule,
     ReactiveFormsModule,
+    RouterModule
 
   ],
   exports: [   
     WorkingInProgressComponent,
     ErrorPageComponent,
-    BtnGradientComponent,
     BtnBlackComponent,
     ButtonComponent,
     CourseCardComponent,

@@ -14,8 +14,12 @@
     <div class="lessons-text"> 
       Lessons: {{course?.lessons?.length}}
     </div>
-    <app-btn-gradient
-          [buttonText]="'Learn ' + course?.techs?.[0]?.name"
-          [routerLink]="'/login'"
-    ></app-btn-gradient>
+
+    <app-button
+          [label]="'Learn ' + course?.techs?.[0]?.name"
+          [type]="'gradient'"
+          routerLink="/login"
+    ></app-button>
+
+    
 </div>
