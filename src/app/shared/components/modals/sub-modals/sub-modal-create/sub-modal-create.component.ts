@@ -30,7 +30,13 @@ export class SubModalCreateComponent implements OnInit {
   });
 
   onAddLesson() {   
-    const lessonsCopy = [...this.lessons];  
+    const lessonsCopy = [...this.lessons]; 
+
+    const randomNumber = Math.floor(Math.random() * 1000);
+    randomNumber.toString(16);    
+    const generateId = `lesson-${lessonsCopy.length}-${randomNumber}`;   
+
+    this.createLessonForm.get('id')?.setValue(generateId);
     const newLesson = this.createLessonForm.value;
     lessonsCopy.push(newLesson);
     this.mainForm.get('lessons')?.setValue(lessonsCopy);
