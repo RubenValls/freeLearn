@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { ResizeService } from 'src/app/shared/services/resize/resize.service';
 
 @Component({
@@ -7,16 +8,21 @@ import { ResizeService } from 'src/app/shared/services/resize/resize.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnDestroy {
   isSmallScreen: boolean = false;
+  smallScreenSubscription: Subscription | undefined
 
   constructor( private router: Router, private resizeService: ResizeService ){}
 
   ngOnInit(): void {
     this.resizeService.checkScreenSize(500);
-    this.resizeService.isSmallScreen$.subscribe(isSmallScreen => {
+    this.smallScreenSubscription = this.resizeService.isSmallScreen$.subscribe(isSmallScreen => {
       this.isSmallScreen = isSmallScreen;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.smallScreenSubscription?.unsubscribe()
   }
 
   handleLogOut(){
