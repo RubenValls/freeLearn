@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import { Instructor } from 'src/app/admins/admins-dashboard/pages/instructors/instructors';
 import { selectInstructor } from 'src/app/store/instructors/instructors.selectors';
 
@@ -8,10 +9,12 @@ import { selectInstructor } from 'src/app/store/instructors/instructors.selector
   templateUrl: './third-section-main.component.html',
   styleUrls: ['./third-section-main.component.scss']
 })
-export class ThirdSectionMainComponent implements OnInit{
+export class ThirdSectionMainComponent implements OnInit, OnDestroy{
 
   trainers$ = this.store.select(selectInstructor);
   trainers: Instructor[] | undefined
+
+  trainerSubscription: Subscription | undefined
 
   @ViewChild('carousel') carousel: ElementRef | undefined;
 
@@ -20,7 +23,7 @@ export class ThirdSectionMainComponent implements OnInit{
   ) { } 
 
   ngOnInit(): void {
-    this.trainers$.subscribe(trainers => {
+    this.trainerSubscription = this.trainers$.subscribe(trainers => {
       this.trainers = [...trainers];
       const duration = trainers.length * 3 + 's';
       setTimeout(() => {
@@ -40,5 +43,9 @@ export class ThirdSectionMainComponent implements OnInit{
         });
       }, 500);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.trainerSubscription?.unsubscribe()
   }
 }
