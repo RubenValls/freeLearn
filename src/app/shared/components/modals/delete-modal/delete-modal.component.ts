@@ -13,7 +13,6 @@ export class DeleteModalComponent {
   ) { }
 
   onDelete() {
-    debugger
     if (this.data.onDelete) { this.data.onDelete(this.data.id) };
 
     if (this.data.onEdit) { this.data.onEdit(this.data.editData) }
