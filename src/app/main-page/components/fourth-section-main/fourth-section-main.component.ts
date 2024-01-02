@@ -19,7 +19,6 @@ export class FourthSectionMainComponent implements OnInit {
 
   ngOnInit(): void {
     this.courses$.subscribe(courses => {
-      // Obtener 8 cursos aleatorios
       this.courses = this.getRandomCourses(courses, 8);
     });
   }
