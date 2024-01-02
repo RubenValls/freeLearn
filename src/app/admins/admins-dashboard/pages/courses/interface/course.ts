@@ -10,7 +10,7 @@ export interface Course {
     introductionURL: string;
 }
 
-interface Lesson {
+export interface Lesson {
     id?: string;
     name: string;       
     videoUrl: string;                   

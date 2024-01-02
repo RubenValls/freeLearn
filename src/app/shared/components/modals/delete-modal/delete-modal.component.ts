@@ -12,13 +12,16 @@ export class DeleteModalComponent {
     public dialogRef: MatDialogRef<DeleteModalComponent>,
   ) { }
 
-  onDelete() {    
-    if(this.data && this.data.onDelete) this.data.onDelete(this.data.id);
-    this.dialogRef.close(true);
+  onDelete() {
+    debugger
+    if (this.data.onDelete) { this.data.onDelete(this.data.id) };
+
+    if (this.data.onEdit) { this.data.onEdit(this.data.editData) }
+    this.dialogRef.close();
   }
   close() {
     this.dialogRef.close();
-   }
+  }
 
 
 }

@@ -1,0 +1,18 @@
+<div class="create-modal">
+  
+    <form [formGroup]="createLessonForm">
+        <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Url video</mat-label>
+            <input matInput formControlName="videoUrl">
+        </mat-form-field>
+        <div class="btn-add">
+              <button (click)="onAddLesson()">Add</button>
+        </div>      
+
+    </form>
+</div>

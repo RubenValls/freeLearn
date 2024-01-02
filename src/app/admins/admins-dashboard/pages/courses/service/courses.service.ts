@@ -43,7 +43,8 @@ export class CoursesService {
 
   updateCourse(id: string, course: Course) {
     const coursesRef = doc(this.firestore, "courses", id);
-    return updateDoc(coursesRef, { course })
+    const courseUpdate = updateDoc(coursesRef, { ...course })
+    return courseUpdate;
   };
 
   deleteCourse(id: string) {

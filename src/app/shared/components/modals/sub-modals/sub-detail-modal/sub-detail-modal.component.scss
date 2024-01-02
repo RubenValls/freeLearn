@@ -1,0 +1,59 @@
+.icon {
+    cursor: pointer;
+}
+
+.edit-icon {
+    color: var(--primary);
+}
+
+.delete-icon {
+    color: var(--error);
+}
+
+.link-icon {
+    color: var(--error);
+}
+
+
+.btn-add-lessons{
+    background: var(--gradient);
+    color: white;
+    font-size: 14px;
+}
+
+.detail-modal {
+    overflow-x: hidden;
+    max-width: 1034px;
+    padding: 10px;
+    background-image: url("../../../../../../assets/images/svgs/waveGreenUp.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+
+
+    &--content {
+        .--close-icon {
+            display: flex;
+            justify-content: flex-end;
+            cursor: pointer;
+        }
+
+        .--detail-icon {
+            border-radius: 50%;
+            border: 2px var(--primary);
+
+            display: inline-block;
+            background-color: var(--primary-transparent);
+            padding: 10px;
+
+            mat-icon {
+                color: var(--primary);
+                display: block;
+                margin: 0 auto;
+            }
+        }
+
+
+    }
+
+
+}

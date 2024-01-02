@@ -40,12 +40,8 @@ export class CustomTableComponent implements OnInit{
   
   }
 
-  handleModal(element: any) {     
-   
-   const onModals = (element:any) =>{
-    this.onModal.emit(element)
-   }
-   const onEdit = (element:any) =>{   
+  handleModal(element: any) {      
+     const onEdit = (element:any) =>{   
     this.onEdit.emit(element)
    }
    const onDelete = (element:any) =>{
@@ -60,8 +56,7 @@ export class CustomTableComponent implements OnInit{
       data: element,
       title: this.modalTitle,   
       rows: this.rows,    
-      ...(element && element.courses && { totalCourses: element.courses.length }),
-      onModal:onModals,
+      ...(element && element.courses && { totalCourses: element.courses.length }),     
       onEdit:onEdit,
       onDelete:onDelete,    
     }

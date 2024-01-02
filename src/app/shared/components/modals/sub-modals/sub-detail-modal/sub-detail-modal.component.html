@@ -1,0 +1,51 @@
+<div class="detail-modal">
+
+    <div class="detail-modal--content">
+
+        <div class="--close-icon">
+            <mat-icon (click)="close()">close</mat-icon>
+        </div>
+        <div class="--detail-icon">
+            <mat-icon>info</mat-icon>
+        </div>
+        <h2>Lessons</h2>
+
+        <div class="add-lessons">
+            <button class="btn-add-lessons" (click)="onAddLesson()" mat-raised-button>Add lesson</button>
+        </div>
+
+        <div class="lessons-list">
+           
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">VideoUrl</th>
+                        <th scope="col">Link</th>
+                        <th  scope="col">edit</th>
+                        <th  scope="col">delete</th>
+                    </tr>
+                </thead>
+                <tbody  *ngFor="let lesson of lessons, let i = index">
+                    <tr>
+                        <th scope="row">{{lesson.id}}</th>
+                        <td>{{lesson.name}}</td>
+                        <td>{{lesson.videoUrl}}</td>                            
+                        <td class=""><a href="{{lesson.videoUrl}}"> <i class="bi bi-youtube link-icon"></i></a></td>                           
+                        <td  class="edit-icon icon"><mat-icon >edit</mat-icon></td>
+                        <td  (click)="deleteLesson(lesson)"  class="delete-icon icon"><mat-icon>delete_forever</mat-icon></td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+
+               
+
+            </div>
+
+
+        </div>
+
+    </div>

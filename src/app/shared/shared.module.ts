@@ -15,6 +15,8 @@ import { UpdateModalComponent } from './components/modals/update-modal/update-mo
 import { DeleteModalComponent } from './components/modals/delete-modal/delete-modal.component';
 import { DetailModalComponent } from './components/modals/detail-modal/detail-modal.component';
 import { CourseCardComponent } from './components/course-card/course-card.component';
+import { SubDetailModalComponent } from './components/modals/sub-modals/sub-detail-modal/sub-detail-modal.component';
+import { SubModalCreateComponent } from './components/modals/sub-modals/sub-modal-create/sub-modal-create.component';
 
 
 @NgModule({
@@ -28,6 +30,8 @@ import { CourseCardComponent } from './components/course-card/course-card.compon
     DeleteModalComponent,
     DetailModalComponent,
     CourseCardComponent,
+    SubDetailModalComponent,
+    SubModalCreateComponent,
   ],
   imports: [
     CommonModule,
