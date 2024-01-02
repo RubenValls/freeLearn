@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { CoursesService } from '../../service/courses.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TechService } from '../../../technologies/service/tech.service';
@@ -7,16 +7,22 @@ import { Course } from '../../interface/course';
 import { TechnologyType } from '../../../technologies/types/technologies';
 import { Instructor } from '../../../instructors/instructors';
 import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-course-form',
   templateUrl: './add-course-form.component.html',
   styleUrls: ['./add-course-form.component.scss']
 })
-export class AddCourseFormComponent implements OnInit {
+export class AddCourseFormComponent implements OnInit, OnDestroy {
  @Output() closeForm = new EventEmitter<boolean>();
  instructors$: Instructor[] = [];
  techs$:TechnologyType[] = [];
+ 
+ techSubscription: Subscription | undefined
+ instructorSubscription: Subscription | undefined
+
+
 
   constructor(
     public coursesService: CoursesService,
@@ -27,8 +33,13 @@ export class AddCourseFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.techsService.getTechnologies().subscribe(techs => {this.techs$ = techs;});
-    this.instructorsService.getInstructors().subscribe(instructor => {this.instructors$ = instructor;});  
+    this.techSubscription = this.techsService.getTechnologies().subscribe(techs => {this.techs$ = techs;});
+    this.instructorSubscription = this.instructorsService.getInstructors().subscribe(instructor => {this.instructors$ = instructor;});  
+  }
+
+  ngOnDestroy(): void {
+    this.techSubscription?.unsubscribe();
+    this.instructorSubscription?.unsubscribe();
   }
 
   courseForm: FormGroup = this.builder.group({   
