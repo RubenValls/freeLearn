@@ -19,12 +19,19 @@ export class FourthSectionMainComponent implements OnInit {
 
   ngOnInit(): void {
     this.courses$.subscribe(courses => {
-      this.courses = [...courses]
+      // Obtener 8 cursos aleatorios
+      this.courses = this.getRandomCourses(courses, 8);
     });
   }
 
   handleDescription(description: string){
-    return description.length > 100 ? description.slice(0, 100) + '...' : description
+    return description.length > 100 ? description.slice(0, 100) + '...' : description;
+  }
+
+  getRandomCourses(courses: any, count: number): Course[] {
+    const shuffledCourses = courses.slice(0).sort(() => 0.5 - Math.random());
+    return shuffledCourses.slice(0, count);
   }
 
 }
+
