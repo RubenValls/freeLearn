@@ -52,7 +52,7 @@ export class SecondSectionMainComponent implements OnInit {
     }
   }
 
-  private updateVisibleTechnologies() {
+  updateVisibleTechnologies() {
     this.technologies$.pipe(
       map(technologies => technologies.slice(this.currentIndex, this.currentIndex + 4))
     ).subscribe(visibleTechnologies => {
