@@ -44,7 +44,8 @@ export class CustomTableComponent implements OnInit, OnDestroy{
     this.dataSubscription?.unsubscribe();
   }
 
-  handleModal(element: any) {      
+  handleModal(element: any) {   
+    
      const onEdit = (element:any) =>{   
     this.onEdit.emit(element)
    }
@@ -52,7 +53,7 @@ export class CustomTableComponent implements OnInit, OnDestroy{
     this.onDelete.emit(element.id)
    }
   this.dialog.open(DetailModalComponent, {
-   
+
     width:this.modalWith,
     height: this.modalHeight,
     data: 
@@ -61,6 +62,7 @@ export class CustomTableComponent implements OnInit, OnDestroy{
       title: this.modalTitle,   
       rows: this.rows,    
       ...(element && element.courses && { totalCourses: element.courses.length }),     
+      ...(element && element.rating && { rating: element.rating.length }),
       onEdit:onEdit,
       onDelete:onDelete,    
     }

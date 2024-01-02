@@ -31,7 +31,8 @@ export class DetailModalComponent implements OnInit {
   techs: any[] = [];
   instructors: any[] = [];
   lessons: any[] = [];
-  totalLessons: string | number = '';
+  totalLessons: string |  null = null
+  rating: string | number = '';
   isCourse: boolean = false;
   course$: Observable<Course> | undefined;
   course: any;
@@ -50,11 +51,11 @@ export class DetailModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (this.data.title == "Courses") {
-      console.log(this.course)
+
+    if (this.data.title == "Courses") {     
       this.course$ = this.store.select(selectCourse);
       this.store.dispatch(CourseActions.addCourse({ course: this.data.data }))
-      this.course$.subscribe((course: Course) => {        
+      this.course$.subscribe((course: Course) => {
         this.totalLessons = course.lessons.length > 0 ? `this course has ${course.lessons.length} lessons` : "This course has 0 lessons"
         this.course = course
         this.instructors = course.instructorId
@@ -62,18 +63,21 @@ export class DetailModalComponent implements OnInit {
     }
     this.rows = this.data.rows
     this.title = this.data.title
-    this.totalCourses = this.data.totalCourses > 0 ? `This technology has ${this.data.totalCourses} associated courses` : "This technology has 0 associated courses"
     this.createDynamicForm();
     this.form.patchValue(this.course ? this.course : this.data.data);
     this.socialMediaForm = this.getFormGroup('socialMedia') as FormGroup;
     this.techsForm = this.getFormGroup('techs') as FormGroup;
     this.techs = this.data.data.techs
-    this.instructors = this.course.instructorId
-    this.lessons = this.course.lessons
-    this.totalLessons = this.course.lessons.length > 0 ? `this course has ${this.course.lessons.length} lessons` : "This course has 0 lessons"
-    this.isCourse = this.data.title == "Courses" ? true : false
+    this.instructors = this.course?.instructorId
+    this.lessons = this.course?.lessons
     this.techsService.getTechnologies().subscribe(techs => { this.techs$ = techs; });
-    this.instructorsService.getInstructors().subscribe(instructor => { this.instructors$ = instructor; });
+    this.instructorsService.getInstructors().subscribe(instructor => { this.instructors$ = instructor; });   
+
+    this.rating = this.data.rating > 0 ? `The raiting is ${this.data.rating} pounts `: "This course has no rating yet";
+    this.isCourse = this.data.title == "Courses" ? true : false
+    this.totalCourses = this.data.totalCourses > 0 ? `This technology has ${this.data.totalCourses} associated courses` : "This technology has 0 associated courses";
+    this.totalLessons = this.course.lessons.length > 0 ? `this course has ${this.course.lessons.length} lessons` : "This course has 0 lessons";
+   
   }
 
   createDynamicForm() {
@@ -216,7 +220,7 @@ export class DetailModalComponent implements OnInit {
     this.newValues = event.value as string[];
   }
 
-  onAddInstructors() {     
+  onAddInstructors() {
     const currentInstructors = this.instructors;
     const newUniqueInstructors = this.newValues.filter(newInstructor =>
       !currentInstructors.some(currentInstructor => currentInstructor.id === newInstructor.id)
@@ -225,9 +229,9 @@ export class DetailModalComponent implements OnInit {
     this.form.get('instructorId')?.setValue(updatedInstructors);
 
     if (this.data.onEdit) {
-      this.store.dispatch(CourseActions.editCourse({ course: { ...this.course, instructorId:updatedInstructors,} }))
+      this.store.dispatch(CourseActions.editCourse({ course: { ...this.course, instructorId: updatedInstructors, } }))
       this.data.onEdit(this.form.value)
-      
+
     }
 
     this.newValues = [];

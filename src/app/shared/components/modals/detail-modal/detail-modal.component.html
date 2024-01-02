@@ -17,7 +17,7 @@
             <form class="edit-form" [formGroup]="form" class="row">
                 <div *ngFor="let row of rows" class="row">
                     <mat-form-field
-                        *ngIf="row.prop !== 'courses' && row.prop !== 'description' && row.prop !== 'id' && row.prop !== 'socialMedia' && row.prop !== 'lessons' && row.prop !== 'techs' && row.prop !== 'instructorId'">
+                        *ngIf="row.prop !== 'courses' && row.prop !== 'description' && row.prop !== 'id' && row.prop !== 'socialMedia' && row.prop !== 'lessons' && row.prop !== 'techs' && row.prop !== 'instructorId' && row.prop !== 'rating'">
                         <mat-label>{{row.label}}</mat-label>
                         <input matInput formControlName="{{ row.prop }}">
                     </mat-form-field>
@@ -48,9 +48,15 @@
                             </div>
                         </div>
                     </ng-container>
+
+                    <mat-form-field *ngIf="row.prop === 'rating'">
+                        <mat-label>{{row.label}}</mat-label>
+                        <input type="text" [value]="rating" matInput readonly>
+                    </mat-form-field>
                 </div>
             </form>
 
+    
 
             <div class="row information-related" *ngIf="isCourse">
                 <div class="col-12 col-md-4 col-lg-3 box">
@@ -70,9 +76,9 @@
                             </mat-error>
                         </mat-form-field>
                         <div class="btn-select">
-                              <button (click)="onAddInstructors()">add</button>
+                            <button (click)="onAddInstructors()">add</button>
                         </div>
-                      
+
 
                     </div>
                     <ul *ngFor="let instructor of instructors">
@@ -104,7 +110,7 @@
                         </mat-form-field>
                         <div class="btn-select">
                             <button (click)="onAddTechs()">add</button>
-                        </div>                    
+                        </div>
 
                     </div>
                     <ul *ngFor="let tech of techs">
