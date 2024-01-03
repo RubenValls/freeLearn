@@ -5,18 +5,14 @@
     </button>
     <app-new-tech-form *ngIf="isFormVisible"></app-new-tech-form>
     <app-custom-table 
-[data]="technologies$" 
-[displayedColumns]="tableColumns" 
-(onModal)="onModals($event)" 
-[rows]="rows" 
-[modalWith]="modalWith"
-[modalHeight]="modalHeight"
-[modalTitle]="modalTitle"
-(onEdit)="onEdit($event)" 
-(onDelete)="onDelete($event)">
-
-
-
+    [data]="technologies$" 
+    [displayedColumns]="tableColumns" 
+    [rows]="rows" 
+    [modalWith]="modalWith"
+    [modalHeight]="modalHeight"
+    [modalTitle]="modalTitle"
+    (onEdit)="onEdit($event)" 
+    (onDelete)="onDelete($event)">
 
 </app-custom-table>
 </div>

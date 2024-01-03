@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs';
+import { Subscription, map } from 'rxjs';
 import { TechService } from 'src/app/admins/admins-dashboard/pages/technologies/service/tech.service';
 import { selectTechnologies } from 'src/app/store/technologies/tecnologies.selectors';
 
@@ -9,30 +9,36 @@ import { selectTechnologies } from 'src/app/store/technologies/tecnologies.selec
   templateUrl: './second-section-main.component.html',
   styleUrls: ['./second-section-main.component.scss']
 })
-export class SecondSectionMainComponent implements OnInit {
+export class SecondSectionMainComponent implements OnInit, OnDestroy {
   technologies$ = this.store.select(selectTechnologies);
   visibleTechnologies: any[] = [];
   currentIndex = 0;
+
+  techSubscription: Subscription | undefined
 
   constructor(
     private store: Store,
   ) { } 
 
   ngOnInit(): void {
-    this.technologies$.subscribe(technologies => {
+    this.techSubscription = this.technologies$.subscribe(technologies => {
       this.visibleTechnologies = technologies.slice(this.currentIndex, this.currentIndex + 4);
     });
   }
+
+  ngOnDestroy(): void {
+    this.techSubscription?.unsubscribe()
+  }
+  
 
   next() {
     const maxIndex = this.visibleTechnologies.length;
     if (this.currentIndex <= maxIndex) {
       this.currentIndex = this.currentIndex + 1;
       this.updateVisibleTechnologies();
-      console.log("Siguiente");
     } else {
       this.currentIndex=0
-      this.technologies$.subscribe(technologies => {
+      this.techSubscription = this.technologies$.subscribe(technologies => {
         this.visibleTechnologies = technologies.slice(this.currentIndex, this.currentIndex + 4);
       });
     }
@@ -42,9 +48,8 @@ export class SecondSectionMainComponent implements OnInit {
     if (this.currentIndex >= 1) {
       this.currentIndex = this.currentIndex - 1;
       this.updateVisibleTechnologies();
-      console.log("Prev");
     } else {
-      this.technologies$.subscribe(technologies => {
+      this.techSubscription = this.technologies$.subscribe(technologies => {
         const totalTechnologies = technologies.length;
         this.currentIndex = Math.max(0, totalTechnologies - 4);
         this.visibleTechnologies = technologies.slice(this.currentIndex, this.currentIndex + 4);
@@ -52,8 +57,9 @@ export class SecondSectionMainComponent implements OnInit {
     }
   }
 
+  
   updateVisibleTechnologies() {
-    this.technologies$.pipe(
+    this.techSubscription = this.technologies$.pipe(
       map(technologies => technologies.slice(this.currentIndex, this.currentIndex + 4))
     ).subscribe(visibleTechnologies => {
       this.visibleTechnologies = visibleTechnologies;

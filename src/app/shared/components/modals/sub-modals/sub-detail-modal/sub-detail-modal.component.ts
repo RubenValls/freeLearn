@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { UpdateModalComponent } from '../../update-modal/update-modal.component';
 import { DeleteModalComponent } from '../../delete-modal/delete-modal.component';
 import { SubModalCreateComponent } from '../sub-modal-create/sub-modal-create.component';
 import { Course, Lesson } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';
@@ -41,65 +40,60 @@ export class SubDetailModalComponent implements OnInit {
     videoUrl: [''],
   });
 
-
-  onEdit() {
-  }
-
-  onDelete() {
-  }
-
   onAddLesson() {
-    const updateDialog = this.dialog.open(SubModalCreateComponent, {
-      width: '500px',     
+    this.dialog.open(SubModalCreateComponent, {
+      width: '500px',
       data: {
+        title: 'Create Lesson',
         onEdit: this.data.onEdit,
         onDelete: this.data.onDelete,
         editForm: this.mainForm,
         lessons: this.lessons,
+        create: true
       }
     })
-
   }
+
+  deleteLesson(element: Lesson) {
+    const lessonCopy = this.lessons.filter((lesson: Lesson) => lesson.id !== element.id);
+    this.mainForm.get('lessons')?.setValue(lessonCopy);
+
+     this.dialog.open(DeleteModalComponent, {
+      width: '400px',
+      data: {
+        title: 'Delete Lesson',
+        onEdit: this.data.onEdit,
+        editData: this.mainForm,
+      }
+    })
+    
+  }
+
+  editLesson(element: Lesson, index: number) {    
+
+    const updateDialog = this.dialog.open(SubModalCreateComponent, {
+      width: '400px',
+      data: {
+        title: 'Edit Lesson',
+        onEdit: this.data.onEdit,
+        editForm: this.mainForm,
+        lesson: element,
+        lessons: this.lessons,
+        index: index,
+        create: false,
+      }
+    })
+    updateDialog.afterClosed().subscribe((result: any) => {
+      if (result) {
+        this.dialogRef.close();
+      }
+    });
+  }
+
+    
   close() {
     this.dialogRef.close();
   }
 
-  deleteLesson(element: Lesson) {
-   const lessonCopy = this.lessons.filter((lesson: Lesson) => lesson.id !== element.id);
-    this.mainForm.get('lessons')?.setValue(lessonCopy);
-    
-    const deleteDialog = this.dialog.open(DeleteModalComponent, {
-      width: '400px',          
-      data: {
-        title: 'Delete Lesson',   
-        onEdit: this.data.onEdit,        
-        editData: this.mainForm.value,            
-      }    
-    })
-    deleteDialog.afterClosed().subscribe((result: any) => {
-      if(result) {
-        this.dialogRef.close();
-      }
-    });
-  }
-
-  editLesson(element: Lesson) {
-    const lessonCopy = this.lessons.filter((lesson: Lesson) => lesson.id !== element.id);
-    this.mainForm.get('lessons')?.setValue(lessonCopy);
-
-    const updateDialog = this.dialog.open(UpdateModalComponent, {
-      width: '400px',     
-      data: {
-        title: 'Edit Lesson',   
-        onEdit: this.data.onEdit,       
-        editForm: this.mainForm.value,       
-      }
-    })
-    updateDialog.afterClosed().subscribe((result: any) => {
-      if(result) {
-        this.dialogRef.close();
-      }
-    });
-  }
-
 }
+
