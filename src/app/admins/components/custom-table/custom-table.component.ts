@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, of } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { DetailModalComponent } from 'src/app/shared/components/modals/detail-modal/detail-modal.component';
 
@@ -28,6 +28,7 @@ export class CustomTableComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.data = of(this.data);
     this.dataSubscription = this.data?.subscribe((data: any) => { this.dataSource = data })
     this.columns = this.displayedColumns.map(column => column.prop);
   }
