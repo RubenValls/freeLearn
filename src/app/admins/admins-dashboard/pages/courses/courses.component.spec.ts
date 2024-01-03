@@ -22,6 +22,8 @@ describe('CoursesComponent', () => {
     const coursesServiceSpy = jasmine.createSpyObj('CoursesService', ['updateCourse', 'deleteCourse', 'getCourseById']);
     const alertsServiceSpy = jasmine.createSpyObj('AlertsService', ['successMessage', 'errorMessage']);
 
+    coursesServiceSpy.updateCourse.and.returnValue(Promise.resolve());
+
     await TestBed.configureTestingModule({
       declarations: [ CoursesComponent ],
       imports: [ 
@@ -166,9 +168,10 @@ describe('CoursesComponent', () => {
       ],
       introductionURL: 'https://example.com/intro-to-angular-course'
     };
-    coursesService.getCourseById.and.returnValue(Promise.resolve(testCourse));
-    expect(coursesService.getCourseById.calls.count()).toBe(1, 'one call');
-    expect(coursesService.getCourseById.calls.first().args[0]).toBe(testCourse.id, 'course id');
+
+    component.onEdit(testCourse);
+    expect(coursesService.updateCourse).toHaveBeenCalledWith(testCourse.id, testCourse);
+    
   });
 });
 
