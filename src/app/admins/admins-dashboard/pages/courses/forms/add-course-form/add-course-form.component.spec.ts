@@ -61,14 +61,14 @@ describe('AddCourseFormComponent', () => {
 
   it('should update techs selection', () => {
     const selectedTechs = [{ name: 'Angular', id: '1234' }, { name: 'Typescript', id: '1234' }];
-    component.onTechsSelectionChange({ value: selectedTechs });
+    component.onSelectionChange({ value: selectedTechs }, 'techs');
 
     expect(component.courseForm.get('techs')?.value).toEqual(selectedTechs);
   });
 
   it('should update instructors selection', () => {
     const selectedInstructors = ['1', '2'];
-    component.onInstructorSelectionChange({ value: selectedInstructors });
+    component.onSelectionChange({ value: selectedInstructors }, 'instructorId');
 
     expect(component.courseForm.get('instructorId')?.value).toEqual(selectedInstructors);
   });

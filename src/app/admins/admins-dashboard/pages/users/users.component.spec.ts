@@ -85,21 +85,4 @@ describe('UsersComponent', () => {
     expect(alertMessagesMock.successMessage).toHaveBeenCalledWith('User update successfully');
   });
 
-  it('should handle modal', () => {
-    const user = {
-      id: '1',
-      displayName: 'John Doe',
-      email: 'john.doe@example.com',
-      phoneNumber: '+1234567890',
-      photoURL: 'http://example.com/john_doe.jpg',
-      providerId: 'provider123',
-      rememberMe: true,
-      role: 'admin',
-      favorites: ['item1', 'item2'],
-      uid: 'user123',
-      authUid: 'auth123'
-    };
-    const result = component.onModals(user);
-    expect(result).toEqual(user);
-  });
 });

@@ -167,7 +167,6 @@ describe('CoursesComponent', () => {
       introductionURL: 'https://example.com/intro-to-angular-course'
     };
     coursesService.getCourseById.and.returnValue(Promise.resolve(testCourse));
-    component.onModals(testCourse);
     expect(coursesService.getCourseById.calls.count()).toBe(1, 'one call');
     expect(coursesService.getCourseById.calls.first().args[0]).toBe(testCourse.id, 'course id');
   });

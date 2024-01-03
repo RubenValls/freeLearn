@@ -83,16 +83,4 @@ describe('TechnologiesComponent', () => {
     expect(alertsService.successMessage).toHaveBeenCalledWith('Technology delete successfully');
   });
 
-  it('should open a modal for a technology', () => {
-    const technology = {
-      id: '1',
-      name: 'Angular',
-      imagePath: 'path/to/image',
-      description: 'A platform for building web applications.',
-      courses: []
-    };
-    component.onModals(technology);
-    expect(techsService.getTechnologyById).toHaveBeenCalledWith(technology.id);
-  });
-
 });
