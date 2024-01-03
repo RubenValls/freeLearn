@@ -27,10 +27,10 @@ export class SubDetailModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.mainForm = this.data.editForm;
+    this.mainForm = this.data?.editForm;
     this.course$ = this.store.select(selectCourse);
     this.course$.subscribe((course: Course) => {
-      this.lessons = course.lessons
+      this.lessons = course?.lessons
     })
   }
 

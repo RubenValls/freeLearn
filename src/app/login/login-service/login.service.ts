@@ -81,9 +81,10 @@ export class LoginService {
     userCredential: UserCredential,
     isLogin: boolean
   ) {
+    let usersSubscription : Subscription;
     if (!isLogin) {
       const userInfo = this.getUserInfoData(isLogin, formValue, userCredential);
-      const usersSubscription = this.usersService
+      usersSubscription = this.usersService
         .getUsers()
         .subscribe((users) => {
           const user = users.find((user) => user.email === userInfo.email);
@@ -95,7 +96,7 @@ export class LoginService {
         });
     } else {
       const userInfo = this.getUserInfoData(isLogin, formValue, userCredential);
-      const usersSubscription = this.usersService
+      usersSubscription = this.usersService
         .getUsers()
         .subscribe((users) => {
           let user = users.find((user) => user.email === userInfo.email);
@@ -114,7 +115,9 @@ export class LoginService {
   saveUserDataAndNavigate(userInfo: User, usersSubscription: Subscription) {
     this.store.dispatch(UserActions.addUser({ user: userInfo }));
     this.usersService.saveUserInStorage(userInfo.rememberMe, userInfo);
-    usersSubscription.unsubscribe();
+    if (usersSubscription) {
+      usersSubscription.unsubscribe();
+    }
     this.router.navigate(['/students']);
     this.alertsService.successMessage('Welcome to FreeLearn.');
   }

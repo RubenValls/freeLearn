@@ -29,9 +29,9 @@ export class SubModalCreateComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.mainForm = this.data.editForm;
-    this.lessons = this.data.lessons;
-    !this.data.create && this.lessonForm.patchValue(this.data.lesson);
+    this.mainForm = this.data?.editForm;
+    this.lessons = this.data?.lessons;
+    !this.data?.create && this.lessonForm.patchValue(this.data.lesson);
   }
 
 
