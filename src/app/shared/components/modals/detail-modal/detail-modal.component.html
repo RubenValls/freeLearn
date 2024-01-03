@@ -65,9 +65,9 @@
                         <mat-form-field>
                             <mat-label>Add a instructor</mat-label>
                             <mat-select multiple (selectionChange)="onSelectionChange($event)">
-                                <mat-option *ngFor="let instructor$ of instructors$"
-                                    [value]="{id: instructor$.id, name: instructor$.name}">
-                                    {{instructor$.name}}
+                                <mat-option *ngFor="let instructor of instructorsForSelect"
+                                    [value]="{id: instructor.id, name: instructor.name}">
+                                    {{instructor.name}}
                                 </mat-option>
                             </mat-select>
                             <mat-error
@@ -100,7 +100,7 @@
                         <mat-form-field>
                             <mat-label>Add a tech</mat-label>
                             <mat-select multiple (selectionChange)="onSelectionChange($event)">
-                                <mat-option *ngFor="let tech$ of techs$" [value]="{id: tech$.id, name: tech$.name}">
+                                <mat-option *ngFor="let tech$ of techsForSelect" [value]="{id: tech$.id, name: tech$.name}">
                                     {{tech$.name}}
                                 </mat-option>
                             </mat-select>

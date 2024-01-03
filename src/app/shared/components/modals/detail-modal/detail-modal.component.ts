@@ -13,6 +13,8 @@ import { TechService } from 'src/app/admins/admins-dashboard/pages/technologies/
 import { InstructorsService } from 'src/app/admins/admins-dashboard/pages/instructors/instructors-service/instructors.service';
 import { Instructor } from 'src/app/admins/admins-dashboard/pages/instructors/instructors';
 import { TechnologyType } from 'src/app/admins/admins-dashboard/pages/technologies/types/technologies';
+import { selectInstructor } from 'src/app/store/instructors/instructors.selectors';
+import { selectTechnologies } from 'src/app/store/technologies/tecnologies.selectors';
 
 @Component({
   selector: 'app-detail-modal',
@@ -26,6 +28,10 @@ export class DetailModalComponent implements OnInit {
   rows: any[] = [];
   form!: FormGroup;
   socialMediaForm!: FormGroup;
+  instructorsForSelect$ = this.store.select(selectInstructor);
+  techsForSelect$ = this.store.select(selectTechnologies);
+  instructorsForSelect: Instructor[] | undefined;
+  techsForSelect: TechnologyType[] | undefined;
   techs: any[] = [];
   instructors: any[] = [];
   lessons: any[] = [];
@@ -34,8 +40,6 @@ export class DetailModalComponent implements OnInit {
   isCourse: boolean = false;
   course$: Observable<Course> | undefined;
   course: any;
-  instructors$: Instructor[] = [];
-  techs$: TechnologyType[] = [];
   newValues: any[] = [];
 
   constructor(
@@ -59,21 +63,25 @@ export class DetailModalComponent implements OnInit {
         this.instructors = course.instructorId
         this.techs = course.techs
       })
+      this.instructorsForSelect$.subscribe((instructors) => {
+        this.instructorsForSelect = [...instructors];
+      });
+      this.techsForSelect$.subscribe((techs) => {
+        this.techsForSelect = [...techs];
+      });
     }
-    this.rows = this.data.rows
-    this.title = this.data.title
+    this.rows = this.data?.rows
+    this.title = this.data?.title
     this.createDynamicForm();
     this.form.patchValue(this.course ? this.course : this.data.data);
     this.socialMediaForm = this.getFormGroup('socialMedia') as FormGroup;
-    this.techs = this.data.data.techs
-    this.instructors = this.course?.instructorId
-    this.lessons = this.course?.lessons
-    this.techsService.getTechnologies().subscribe(techs => { this.techs$ = techs; });
-    this.instructorsService.getInstructors().subscribe(instructor => { this.instructors$ = instructor; });
-    this.rating = this.data.rating > 0 ? `The raiting is ${this.data.rating} pounts ` : "This course has no rating yet";
-    this.isCourse = this.data.title == "Courses" ? true : false
-    this.totalCourses = this.data.totalCourses > 0 ? `This technology has ${this.data.totalCourses} associated courses` : "This technology has 0 associated courses";
-    this.totalLessons = this.course.lessons.length > 0 ? `this course has ${this.course.lessons.length} lessons` : "This course has 0 lessons";
+    this.techs = this.data.data?.techs;
+    this.instructors = this.course?.instructorId;
+    this.lessons = this.course?.lessons;    
+    this.rating = this.data?.rating > 0 ? `The raiting is ${this.data.rating} pounts ` : "This course has no rating yet";
+    this.isCourse = this.data?.title == "Courses" ? true : false
+    this.totalCourses = this.data?.totalCourses > 0 ? `This technology has ${this.data.totalCourses} associated courses` : "This technology has 0 associated courses";
+    this.totalLessons = this.course?.lessons.length > 0 ? `this course has ${this.course.lessons.length} lessons` : "This course has 0 lessons";
 
   }
 
@@ -132,7 +140,7 @@ export class DetailModalComponent implements OnInit {
     const formGroup = this.form.get(sectionName) as FormGroup;
     return formGroup || null;
   }
-  
+
 
   close() {
     this.dialogRef.close();
@@ -188,7 +196,7 @@ export class DetailModalComponent implements OnInit {
       }
     })
   }
-  
+
   onSelectionChange(event: any) {
     this.newValues = event.value as string[];
   }
@@ -199,7 +207,7 @@ export class DetailModalComponent implements OnInit {
       !currentRefence.some(currentReference => currentReference.id === newReference.id)
     );
     const updatedReference = [...currentRefence, ...newUniqueReference];
-    
+
     this.form.get(controlName)?.setValue(updatedReference);
     if (this.data.onEdit) {
       this.store.dispatch(CourseActions.editCourse({ course: { ...this.course, [controlName]: updatedReference, } }))
