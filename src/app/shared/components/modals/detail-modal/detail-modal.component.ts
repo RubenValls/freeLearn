@@ -4,7 +4,6 @@ import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UpdateModalComponent } from '../update-modal/update-modal.component';
 import { SubDetailModalComponent } from '../sub-modals/sub-detail-modal/sub-detail-modal.component';
-import { SubModalCreateComponent } from '../sub-modals/sub-modal-create/sub-modal-create.component';
 import { Store } from '@ngrx/store';
 import { selectCourse } from 'src/app/admins/admins-dashboard/pages/courses/store/course/course.selectors';
 import { Observable } from 'rxjs';
@@ -27,7 +26,6 @@ export class DetailModalComponent implements OnInit {
   rows: any[] = [];
   form!: FormGroup;
   socialMediaForm!: FormGroup;
-  techsForm!: FormGroup;
   techs: any[] = [];
   instructors: any[] = [];
   lessons: any[] = [];
@@ -67,13 +65,11 @@ export class DetailModalComponent implements OnInit {
     this.createDynamicForm();
     this.form.patchValue(this.course ? this.course : this.data.data);
     this.socialMediaForm = this.getFormGroup('socialMedia') as FormGroup;
-    this.techsForm = this.getFormGroup('techs') as FormGroup;
     this.techs = this.data.data.techs
     this.instructors = this.course?.instructorId
     this.lessons = this.course?.lessons
     this.techsService.getTechnologies().subscribe(techs => { this.techs$ = techs; });
     this.instructorsService.getInstructors().subscribe(instructor => { this.instructors$ = instructor; });
-
     this.rating = this.data.rating > 0 ? `The raiting is ${this.data.rating} pounts ` : "This course has no rating yet";
     this.isCourse = this.data.title == "Courses" ? true : false
     this.totalCourses = this.data.totalCourses > 0 ? `This technology has ${this.data.totalCourses} associated courses` : "This technology has 0 associated courses";
@@ -90,12 +86,10 @@ export class DetailModalComponent implements OnInit {
             const subFormGroup = this.createSubFormGroup(row.subFields);
             this.form.addControl(row.prop, subFormGroup);
           } else {
-
             const subFormGroup = this.createSubFormGroupFromObject(row.subFields);
             this.form.addControl(row.prop, subFormGroup);
           }
         }
-
         else {
           this.form.addControl(row.prop, this.builderForm.control('', Validators.required));
         }
@@ -138,9 +132,7 @@ export class DetailModalComponent implements OnInit {
     const formGroup = this.form.get(sectionName) as FormGroup;
     return formGroup || null;
   }
-  getSubFieldControl(controlName: string): FormControl {
-    return this.techsForm.get(controlName) as FormControl;
-  }
+  
 
   close() {
     this.dialogRef.close();
@@ -185,7 +177,6 @@ export class DetailModalComponent implements OnInit {
 
   }
 
-
   openLessons() {
     this.dialog.open(SubDetailModalComponent, {
       width: '1030px',
@@ -197,56 +188,19 @@ export class DetailModalComponent implements OnInit {
       }
     })
   }
+  
   onSelectionChange(event: any) {
     this.newValues = event.value as string[];
   }
-
-  // onAddTechs() {
-  //   const currentTechs = this.techs;
-  //   const newUniqueTechs = this.newValues.filter(newTech =>
-  //     !currentTechs.some(currentTechs => currentTechs.id === newTech.id)
-  //   );
-
-  //   const updatedTechs = [...currentTechs, ...newUniqueTechs];
-
-  //   this.form.get('techs')?.setValue(updatedTechs);
-
-  //   if (this.data.onEdit) {
-  //     this.store.dispatch(CourseActions.editCourse({ course: { ...this.course, techs: updatedTechs, } }))
-  //     this.data.onEdit(this.form.value)
-  //   }
-  //   this.newValues = [];
-  // }
-
-  // onAddInstructors() {
-  //   const currentInstructors = this.instructors;
-  //   const newUniqueInstructors = this.newValues.filter(newInstructor =>
-  //     !currentInstructors.some(currentInstructor => currentInstructor.id === newInstructor.id)
-  //   );
-  //   const updatedInstructors = [...currentInstructors, ...newUniqueInstructors];
-  //   this.form.get('instructorId')?.setValue(updatedInstructors);
-
-  //   if (this.data.onEdit) {
-  //     this.store.dispatch(CourseActions.editCourse({ course: { ...this.course, instructorId: updatedInstructors, } }))
-  //     this.data.onEdit(this.form.value)
-
-  //   }
-  //   this.newValues = [];
-  // }
 
   onAddReferences(controlName: string) {
     const currentRefence = controlName === "techs" ? this.techs : this.instructors;
     const newUniqueReference = this.newValues.filter(newReference =>
       !currentRefence.some(currentReference => currentReference.id === newReference.id)
     );
-
     const updatedReference = [...currentRefence, ...newUniqueReference];
-    if (controlName === "techs") {
-      this.form.get('techs')?.setValue(updatedReference);
-    }
-    if (controlName === "instructors") {
-      this.form.get('instructorId')?.setValue(updatedReference);
-    }
+    
+    this.form.get(controlName)?.setValue(updatedReference);
     if (this.data.onEdit) {
       this.store.dispatch(CourseActions.editCourse({ course: { ...this.course, [controlName]: updatedReference, } }))
       this.data.onEdit(this.form.value)
