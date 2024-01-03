@@ -31,7 +31,7 @@ export class DetailModalComponent implements OnInit {
   techs: any[] = [];
   instructors: any[] = [];
   lessons: any[] = [];
-  totalLessons: string |  null = null
+  totalLessons: string | null = null
   rating: string | number = '';
   isCourse: boolean = false;
   course$: Observable<Course> | undefined;
@@ -52,7 +52,7 @@ export class DetailModalComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if (this.data.title == "Courses") {     
+    if (this.data.title == "Courses") {
       this.course$ = this.store.select(selectCourse);
       this.store.dispatch(CourseActions.addCourse({ course: this.data.data }))
       this.course$.subscribe((course: Course) => {
@@ -71,13 +71,13 @@ export class DetailModalComponent implements OnInit {
     this.instructors = this.course?.instructorId
     this.lessons = this.course?.lessons
     this.techsService.getTechnologies().subscribe(techs => { this.techs$ = techs; });
-    this.instructorsService.getInstructors().subscribe(instructor => { this.instructors$ = instructor; });   
+    this.instructorsService.getInstructors().subscribe(instructor => { this.instructors$ = instructor; });
 
-    this.rating = this.data.rating > 0 ? `The raiting is ${this.data.rating} pounts `: "This course has no rating yet";
+    this.rating = this.data.rating > 0 ? `The raiting is ${this.data.rating} pounts ` : "This course has no rating yet";
     this.isCourse = this.data.title == "Courses" ? true : false
     this.totalCourses = this.data.totalCourses > 0 ? `This technology has ${this.data.totalCourses} associated courses` : "This technology has 0 associated courses";
     this.totalLessons = this.course.lessons.length > 0 ? `this course has ${this.course.lessons.length} lessons` : "This course has 0 lessons";
-   
+
   }
 
   createDynamicForm() {
@@ -186,7 +186,7 @@ export class DetailModalComponent implements OnInit {
 
 
   openLessons() {
-    const updateDialog = this.dialog.open(SubDetailModalComponent, {
+    this.dialog.open(SubDetailModalComponent, {
       width: '1030px',
       height: '650px',
       data: {
@@ -196,28 +196,25 @@ export class DetailModalComponent implements OnInit {
       }
     })
   }
-
-  onTechsSelectionChange(event: any) {
+  onSelectionChange(event: any) {
     this.newValues = event.value as string[];
   }
+
   onAddTechs() {
     const currentTechs = this.techs;
     const newUniqueTechs = this.newValues.filter(newTech =>
       !currentTechs.some(currentTechs => currentTechs.id === newTech.id)
     );
 
-    const updatedInstructors = [...currentTechs, ...newUniqueTechs];
+    const updatedTechs = [...currentTechs, ...newUniqueTechs];
 
-    this.form.get('techs')?.setValue(updatedInstructors);
+    this.form.get('techs')?.setValue(updatedTechs);
 
     if (this.data.onEdit) {
+      this.store.dispatch(CourseActions.editCourse({ course: { ...this.course, techs: updatedTechs, } }))
       this.data.onEdit(this.form.value)
     }
     this.newValues = [];
-  }
-
-  onInstructorSelectionChange(event: any) {
-    this.newValues = event.value as string[];
   }
 
   onAddInstructors() {
@@ -239,6 +236,7 @@ export class DetailModalComponent implements OnInit {
 
 
   onDeleteTech(element: any) {
+    debugger
     const techsCopy = this.techs.filter((tech: any) => tech.id !== element.id);
     this.form.get('techs')?.setValue(techsCopy);
 
@@ -247,13 +245,13 @@ export class DetailModalComponent implements OnInit {
       data: {
         title: "Delete Technology",
         onEdit: this.data.onEdit,
-        editData: this.form.value,
+        editData: this.form
       }
     });
 
     deleteDialog.afterClosed().subscribe(result => {
       if (result) {
-        this.dialogRef.close();
+        this.store.dispatch(CourseActions.editCourse({ course: this.course }))
       }
     });
   }
@@ -261,7 +259,7 @@ export class DetailModalComponent implements OnInit {
     const instructorsCopy = this.instructors.filter((instructor: any) => instructor.id !== element.id);
 
     this.form.get('instructorId')?.setValue(instructorsCopy);
-    console.log("despues", this.form.value)
+
 
     const deleteDialog = this.dialog.open(DeleteModalComponent, {
       width: '400px',
