@@ -19,7 +19,7 @@ export class DeleteModalComponent {
     if (this.data.onDelete) { this.data.onDelete(this.data.id) };
 
     if (this.data.onEdit) { 
-      this.data.onEdit(this.data.editData.value);
+      this.data.onEdit(this.data.editData.value, true);
       this.store.dispatch(CourseActions.editCourse({course: this.data.editData.value})) 
     }
     this.dialogRef.close(true);

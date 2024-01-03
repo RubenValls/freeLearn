@@ -49,8 +49,8 @@ export class CoursesComponent  {
     this.watchForm = !this.watchForm;
   }
 
-  onEdit(element:Course){
-    this.coursesService.updateCourse(element.id!, element)
+  onEdit(element:Course, editReferece: boolean = false) {
+    this.coursesService.updateCourse(element.id!, element, editReferece)
     .then((data) => {
       this.alertMessages.successMessage('Course update successfully');
     })

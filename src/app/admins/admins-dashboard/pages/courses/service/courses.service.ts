@@ -41,7 +41,8 @@ export class CoursesService {
     return (await getDoc(coursesRef)).data() as Course;
   };
 
-  updateCourse(id: string, course: Course) {
+  updateCourse(id: string, course: Course, editTechs: boolean = false,  editInstructors: boolean = false) {
+    debugger
     const coursesRef = doc(this.firestore, "courses", id);
     const courseUpdate = updateDoc(coursesRef, { ...course })
     return courseUpdate;
