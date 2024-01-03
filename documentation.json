@@ -7881,13 +7881,13 @@
         },
         {
             "name": "AppModule",
-            "id": "module-AppModule-f993fa2c0dc59e40f95cbb80bf509ea621e0bd4585b71ab59101127beddd79c79ed73dfb697274c00a090bebf69473049f5c5943cc5fa86b4458df3f2dc4a27b",
+            "id": "module-AppModule-a432bd00dd12d03eed06f5b35afcd97d30eb8fecddcfe7e34936b96a56510edec91ce38b29742d56e5be16d05c5ae7a13a552a4e918e681502879ae0af5a742c",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/app.module.ts",
             "methods": [],
-            "sourceCode": "import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';\r\nimport { BrowserModule } from '@angular/platform-browser';\r\nimport { AppRoutingModule } from './app-routing.module';\r\nimport { AppComponent } from './app.component';\r\nimport { BrowserAnimationsModule } from '@angular/platform-browser/animations';\r\nimport { NgbModule } from '@ng-bootstrap/ng-bootstrap';\r\nimport { StoreModule } from '@ngrx/store';\r\nimport { userReducer } from './login/store/user.reducer'; \r\nimport { initializeApp, provideFirebaseApp } from '@angular/fire/app';\r\nimport { getAuth, provideAuth } from '@angular/fire/auth';\r\nimport { getFirestore, provideFirestore } from '@angular/fire/firestore';\r\nimport { environment } from 'src/environments/environment';\r\nimport { coursesReducer } from './store/courses/courses.reducer';\r\nimport { EffectsModule } from '@ngrx/effects';\r\nimport { CoursesEffects } from './store/courses/courses.effects';\r\nimport { technologiesReducer } from './store/technologies/technologies.reducer';\r\nimport { TechnologiesEffects } from './store/technologies/technologies.effects';\r\nimport { instructorsReducer } from './store/instructors/instructors.reducer';\r\nimport { InstructorsEffects } from './store/instructors/instructors.effects';\r\nimport { SharedModule } from './shared/shared.module';\r\nimport { usersReducer } from './store/users/users.reducer';\r\nimport { UsersEffects } from './store/users/users.effects';\r\nimport { courseReducer } from './admins/admins-dashboard/pages/courses/store/course/course.reducer';\r\n\r\n \r\n@NgModule({\r\n  declarations: [\r\n    AppComponent,\r\n  ],\r\n  imports: [\r\n    BrowserModule,\r\n    BrowserAnimationsModule,\r\n    NgbModule,\r\n    SharedModule,\r\n    StoreModule.forRoot({\r\n      user: userReducer,\r\n      courses: coursesReducer,\r\n      technologies: technologiesReducer,\r\n      instructors: instructorsReducer,\r\n      users: usersReducer,\r\n      course: courseReducer\r\n    }),\r\n    EffectsModule.forRoot(CoursesEffects, TechnologiesEffects, InstructorsEffects, UsersEffects),\r\n    AppRoutingModule,\r\n    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),\r\n    provideFirestore(() => getFirestore()),\r\n    provideAuth(() => getAuth())\r\n  ],\r\n  providers: [],\r\n  schemas:[CUSTOM_ELEMENTS_SCHEMA],\r\n  bootstrap: [AppComponent]\r\n})\r\nexport class AppModule { }\r\n ",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { BrowserModule } from '@angular/platform-browser';\r\nimport { AppRoutingModule } from './app-routing.module';\r\nimport { AppComponent } from './app.component';\r\nimport { BrowserAnimationsModule } from '@angular/platform-browser/animations';\r\nimport { NgbModule } from '@ng-bootstrap/ng-bootstrap';\r\nimport { StoreModule } from '@ngrx/store';\r\nimport { userReducer } from './login/store/user.reducer'; \r\nimport { initializeApp, provideFirebaseApp } from '@angular/fire/app';\r\nimport { getAuth, provideAuth } from '@angular/fire/auth';\r\nimport { getFirestore, provideFirestore } from '@angular/fire/firestore';\r\nimport { environment } from 'src/environments/environment';\r\nimport { coursesReducer } from './store/courses/courses.reducer';\r\nimport { EffectsModule } from '@ngrx/effects';\r\nimport { CoursesEffects } from './store/courses/courses.effects';\r\nimport { technologiesReducer } from './store/technologies/technologies.reducer';\r\nimport { TechnologiesEffects } from './store/technologies/technologies.effects';\r\nimport { instructorsReducer } from './store/instructors/instructors.reducer';\r\nimport { InstructorsEffects } from './store/instructors/instructors.effects';\r\nimport { SharedModule } from './shared/shared.module';\r\nimport { usersReducer } from './store/users/users.reducer';\r\nimport { UsersEffects } from './store/users/users.effects';\r\nimport { courseReducer } from './admins/admins-dashboard/pages/courses/store/course/course.reducer';\r\n\r\n \r\n@NgModule({\r\n  declarations: [\r\n    AppComponent,\r\n  ],\r\n  imports: [\r\n    BrowserModule,\r\n    BrowserAnimationsModule,\r\n    NgbModule,\r\n    SharedModule,\r\n    StoreModule.forRoot({\r\n      user: userReducer,\r\n      courses: coursesReducer,\r\n      technologies: technologiesReducer,\r\n      instructors: instructorsReducer,\r\n      users: usersReducer,\r\n      course: courseReducer\r\n    }),\r\n    EffectsModule.forRoot(CoursesEffects, TechnologiesEffects, InstructorsEffects, UsersEffects),\r\n    AppRoutingModule,\r\n    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),\r\n    provideFirestore(() => getFirestore()),\r\n    provideAuth(() => getAuth())\r\n  ],\r\n  providers: [],\r\n  bootstrap: [AppComponent]\r\n})\r\nexport class AppModule { }\r\n ",
             "children": [
                 {
                     "type": "providers",
@@ -8338,6 +8338,16 @@
     "miscellaneous": {
         "variables": [
             {
+                "name": "AdminHeader",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/admins/components/header/header.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    //👇 The args you need here will depend on your component\r\n  },\r\n}"
+            },
+            {
                 "name": "CourseActions",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -8395,7 +8405,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\r\n  args: {\r\n    course: {\r\n      name: 'Example Course',\r\n      imageUrl: 'example.jpg',\r\n      description: 'This is an example course description.',\r\n      lessons: [], \r\n      techs: [{ id:\"1\", name: 'Angular' }],\r\n      rating: [],\r\n      introductionURL: \"https://example.com/introduction\",\r\n      instructorId:[]\r\n    },\r\n  },\r\n}"
+                "defaultValue": "{\r\n  args: {\r\n    course: {\r\n      name: 'Example Course',\r\n      imageUrl: 'example.jpg',\r\n      description: 'This is an example course description.',\r\n      lessons: [], \r\n      techs: [{ id:\"1\", name: 'Angular' }],\r\n      rating: [],\r\n      introductionURL: \"https://example.com/introduction\",\r\n      instructorId:[]\r\n    },\r\n  },\r\n  \r\n}"
             },
             {
                 "name": "environment",
@@ -8538,6 +8548,16 @@
                 "defaultValue": "{\r\n    args: {     \r\n      label: 'Large',\r\n      size: 'large',\r\n    \r\n    },\r\n  }"
             },
             {
+                "name": "MainPageHeader",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    //👇 The args you need here will depend on your component\r\n  },\r\n}"
+            },
+            {
                 "name": "Medium",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -8546,6 +8566,26 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\r\n    args: { \r\n      label: 'Medium',\r\n        size: 'medium',\r\n    },\r\n  }"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/admins/components/header/header.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<HeaderComponent>",
+                "defaultValue": "{\r\n    title: 'Components/Headers/AdminHeader/Default',\r\n    component: HeaderComponent,\r\n    tags: ['autodocs'],\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<MainPageHeaderComponent>",
+                "defaultValue": "{\r\n    title: 'Components/Headers/MainPageHeader/Default',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n}"
             },
             {
                 "name": "meta",
@@ -8565,7 +8605,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<CourseCardComponent>",
-                "defaultValue": "{\r\n  title: 'Components/CourseCard',\r\n  component: CourseCardComponent,\r\n  tags: ['autodocs'], \r\n}"
+                "defaultValue": "{\r\n  title: 'Components/CourseCard',\r\n  component: CourseCardComponent,\r\n  tags: ['autodocs'], \r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations:[ButtonComponent]\r\n    })\r\n  ]\r\n}"
             },
             {
                 "name": "preview",
@@ -8764,6 +8804,28 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
+                "rawtype": "StoryObj<HeaderComponent>",
+                "file": "src/app/admins/components/header/header.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<MainPageHeaderComponent>",
+                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
                 "rawtype": "StoryObj<ButtonComponent>",
                 "file": "src/app/shared/components/button/button.components.stories.ts",
                 "deprecated": false,
@@ -8785,6 +8847,28 @@
         ],
         "enumerations": [],
         "groupedVariables": {
+            "src/app/admins/components/header/header.components.stories.ts": [
+                {
+                    "name": "AdminHeader",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/admins/components/header/header.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    //👇 The args you need here will depend on your component\r\n  },\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/admins/components/header/header.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<HeaderComponent>",
+                    "defaultValue": "{\r\n    title: 'Components/Headers/AdminHeader/Default',\r\n    component: HeaderComponent,\r\n    tags: ['autodocs'],\r\n}"
+                }
+            ],
             "src/app/admins/admins-dashboard/pages/courses/store/course/course.actions.ts": [
                 {
                     "name": "CourseActions",
@@ -8974,7 +9058,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\r\n  args: {\r\n    course: {\r\n      name: 'Example Course',\r\n      imageUrl: 'example.jpg',\r\n      description: 'This is an example course description.',\r\n      lessons: [], \r\n      techs: [{ id:\"1\", name: 'Angular' }],\r\n      rating: [],\r\n      introductionURL: \"https://example.com/introduction\",\r\n      instructorId:[]\r\n    },\r\n  },\r\n}"
+                    "defaultValue": "{\r\n  args: {\r\n    course: {\r\n      name: 'Example Course',\r\n      imageUrl: 'example.jpg',\r\n      description: 'This is an example course description.',\r\n      lessons: [], \r\n      techs: [{ id:\"1\", name: 'Angular' }],\r\n      rating: [],\r\n      introductionURL: \"https://example.com/introduction\",\r\n      instructorId:[]\r\n    },\r\n  },\r\n  \r\n}"
                 },
                 {
                     "name": "meta",
@@ -8984,7 +9068,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<CourseCardComponent>",
-                    "defaultValue": "{\r\n  title: 'Components/CourseCard',\r\n  component: CourseCardComponent,\r\n  tags: ['autodocs'], \r\n}"
+                    "defaultValue": "{\r\n  title: 'Components/CourseCard',\r\n  component: CourseCardComponent,\r\n  tags: ['autodocs'], \r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations:[ButtonComponent]\r\n    })\r\n  ]\r\n}"
                 }
             ],
             "src/environments/environment.development.ts": [
@@ -9123,6 +9207,28 @@
                     "defaultValue": "createActionGroup({\r\n    source: 'Intructors',\r\n    events: {\r\n      'Retrieved Instructors List': props<{ instructors: ReadonlyArray<Instructor> }>(),\r\n    },\r\n  })"
                 }
             ],
+            "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts": [
+                {
+                    "name": "MainPageHeader",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    //👇 The args you need here will depend on your component\r\n  },\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<MainPageHeaderComponent>",
+                    "defaultValue": "{\r\n    title: 'Components/Headers/MainPageHeader/Default',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n}"
+                }
+            ],
             ".storybook/preview.ts": [
                 {
                     "name": "preview",
@@ -9259,6 +9365,32 @@
         "groupedFunctions": {},
         "groupedEnumerations": {},
         "groupedTypeAliases": {
+            "src/app/admins/components/header/header.components.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<HeaderComponent>",
+                    "file": "src/app/admins/components/header/header.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
+            "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<MainPageHeaderComponent>",
+                    "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
             "src/app/shared/components/button/button.components.stories.ts": [
                 {
                     "name": "Story",
@@ -9715,6 +9847,26 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/admins/components/header/header.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "AdminHeader",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/admins/components/header/header.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/app.component.ts",
                 "type": "component",
                 "linktype": "component",
@@ -9860,6 +10012,26 @@
                 "name": "MainPageHeaderComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "MainPageHeader",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {

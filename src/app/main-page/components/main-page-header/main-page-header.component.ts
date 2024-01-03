@@ -7,7 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./main-page-header.component.scss']
 })
 export class MainPageHeaderComponent {
-  saluda(){
-    console.log("hola")
-  }
+  
 }
