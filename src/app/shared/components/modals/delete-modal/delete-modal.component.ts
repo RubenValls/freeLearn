@@ -25,7 +25,7 @@ export class DeleteModalComponent {
     this.dialogRef.close(true);
   }
   close() {
-    this.dialogRef.close(false);
+    this.dialogRef.close();
   }
 
 
