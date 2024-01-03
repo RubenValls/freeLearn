@@ -19,7 +19,6 @@ export class CoursesService {
     private firestore: Firestore,
     private techsService: TechService,
     private instructorsService: InstructorsService,
-    private store: Store
 
   ) { }
   async addCourse(course: Course) {
@@ -56,7 +55,6 @@ export class CoursesService {
     const Techsequal = JSON.stringify(this.currentCourse!.techs) === JSON.stringify(course.techs);
     const InstructorsEqual = JSON.stringify(this.currentCourse!.instructorId) === JSON.stringify(course.instructorId);
 
-
     if (!Techsequal) {
       const { addedIds, deletedIds } = this.findIdsToEdit(this.currentCourse!.techs, course.techs);
       addedIds?.forEach(techId => { this.techsService.updateTechnologyCourses(techId, course.id!); });
@@ -71,10 +69,10 @@ export class CoursesService {
     }
 
     const courseUpdate = updateDoc(coursesRef, { ...course })
-
+    console.log(courseUpdate, "courseUpdate")
     return courseUpdate;
   };
-  private findIdsToEdit(currentTechs: Tech[], updatedTechs: Tech[]): { deletedIds: string[], addedIds: string[] } {
+  findIdsToEdit(currentTechs: Tech[], updatedTechs: Tech[]): { deletedIds: string[], addedIds: string[] } {
     const currentIds = currentTechs.map(tech => tech.id);
     const updatedIds = updatedTechs.map(tech => tech.id);
     const addedIds = updatedIds.filter(techId => !currentIds.includes(techId));

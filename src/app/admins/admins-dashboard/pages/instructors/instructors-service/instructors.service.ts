@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class InstructorsService {
-  constructor(private firestore: Firestore) {}
+  constructor(private firestore: Firestore) { }
 
   async addInstructor(instructor: Instructor) {
     const instructorsRef = collection(this.firestore, 'instructors');
@@ -21,18 +21,18 @@ export class InstructorsService {
     return collectionData(instructorsRef, { idField: 'id' }) as Observable<Instructor[]>;
   };
 
-  async getInstructorById(id: string) {  
-    const instructorsRef = doc(this.firestore, "instructors",id);    
-    return   (await getDoc(instructorsRef)).data() as Instructor;
-  };    
+  async getInstructorById(id: string) {
+    const instructorsRef = doc(this.firestore, "instructors", id);
+    return (await getDoc(instructorsRef)).data() as Instructor;
+  };
 
-  async updateInstructor(id: string, instructor: Instructor){
+  async updateInstructor(id: string, instructor: Instructor) {
     const instructorRef = doc(this.firestore, 'instructors', id);
-    const instructorUpdate = await updateDoc(instructorRef, {...instructor})
+    const instructorUpdate = await updateDoc(instructorRef, { ...instructor })
     return instructorUpdate
   }
 
-  async updateInstructorsCourses(technologyId: string, courseId: string){
+  async updateInstructorsCourses(technologyId: string, courseId: string) {
     debugger
     const instructorRef = doc(this.firestore, 'instructors', technologyId);
     const instructorData = (await getDoc(instructorRef)).data() as Instructor;
@@ -43,7 +43,7 @@ export class InstructorsService {
     return instructorUpdated;
   }
 
-  async deleteInstructorsCourses(technologyId: string, courseId: string){
+  async deleteInstructorsCourses(technologyId: string, courseId: string) {
     debugger
     const instructorRef = doc(this.firestore, 'instructors', technologyId);
     const instructorData = (await getDoc(instructorRef)).data() as Instructor;
@@ -52,9 +52,9 @@ export class InstructorsService {
       courses: courses
     });
     return instructorUpdated;
-  }  
+  }
 
-  async deleteInstructor(id: string){
+  async deleteInstructor(id: string) {
     const instructorRef = doc(this.firestore, 'instructors', id);
     await deleteDoc(instructorRef);
   }
