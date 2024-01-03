@@ -47,9 +47,7 @@ export class DetailModalComponent implements OnInit {
     public dialogRef: MatDialogRef<DetailModalComponent>,
     public dialog: MatDialog,
     public builderForm: FormBuilder,
-    private store: Store,
-    private techsService: TechService,
-    private instructorsService: InstructorsService,
+    private store: Store,   
   ) { }
 
   ngOnInit(): void {
@@ -77,7 +75,7 @@ export class DetailModalComponent implements OnInit {
     this.socialMediaForm = this.getFormGroup('socialMedia') as FormGroup;
     this.techs = this.data.data?.techs;
     this.instructors = this.course?.instructorId;
-    this.lessons = this.course?.lessons;    
+    this.lessons = this.course?.lessons;
     this.rating = this.data?.rating > 0 ? `The raiting is ${this.data.rating} pounts ` : "This course has no rating yet";
     this.isCourse = this.data?.title == "Courses" ? true : false
     this.totalCourses = this.data?.totalCourses > 0 ? `This technology has ${this.data.totalCourses} associated courses` : "This technology has 0 associated courses";

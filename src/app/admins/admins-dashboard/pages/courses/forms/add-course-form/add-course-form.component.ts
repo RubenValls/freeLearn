@@ -1,7 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CoursesService } from '../../service/courses.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { TechnologyType } from '../../../technologies/types/technologies';
 import { Instructor } from '../../../instructors/instructors';
 import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';

@@ -68,12 +68,8 @@ export class InstructorsComponent {
       this.alertMessages.successMessage('Trainer delete successfully');
     }else{
       this.alertMessages.errorMessage("You can't delete it, contains courses")
-    }
-    
-      
+    }   
   }
-  onModals(element: Instructor) {
-     this.instructorsService.getInstructorById(element.id!)
-  }
+ 
 
 }
