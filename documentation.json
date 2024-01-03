@@ -5511,7 +5511,7 @@
         },
         {
             "name": "MainPageHeaderComponent",
-            "id": "component-MainPageHeaderComponent-f6a271ac49c4da63f9a6d04b2cb51da5f30039df4caf2b09a39ba5db13aead076bc2b2ba7c2e0e278af7d2976a294890343cde6a62486cd708ccf25248e021b7",
+            "id": "component-MainPageHeaderComponent-67a11d9db28d14d40a5dc645b5d3d8dfe401b53761a8ac15158bf07b79df6edd41f287edcfc430048e1adb75f9c1ad2295f258cf59752867e120d04533df6fe4",
             "file": "src/app/main-page/components/main-page-header/main-page-header.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -5531,18 +5531,7 @@
             "inputsClass": [],
             "outputsClass": [],
             "propertiesClass": [],
-            "methodsClass": [
-                {
-                    "name": "saluda",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 10,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                }
-            ],
+            "methodsClass": [],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -5552,7 +5541,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n\r\n@Component({\r\n  selector: 'app-main-page-header',\r\n  templateUrl: './main-page-header.component.html',\r\n  styleUrls: ['./main-page-header.component.scss']\r\n})\r\nexport class MainPageHeaderComponent {\r\n  saluda(){\r\n    console.log(\"hola\")\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n\r\n@Component({\r\n  selector: 'app-main-page-header',\r\n  templateUrl: './main-page-header.component.html',\r\n  styleUrls: ['./main-page-header.component.scss']\r\n})\r\nexport class MainPageHeaderComponent {\r\n  \r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -5562,7 +5551,7 @@
             ],
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"main-header\">\r\n  <div class=\"header-container\">\r\n    <div class=\"logo\">\r\n      <img\r\n        src=\"../../../../assets/images/logo/png/Color logo - no background.png\"\r\n        alt=\"\"\r\n      />\r\n    </div>\r\n    <div class=\"content\">\r\n      <app-button\r\n        [label]=\"'Start now'\"\r\n        [type]=\"'gradient'\"\r\n        routerLink=\"/login\"\r\n      ></app-button>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+            "templateData": "<div class=\"main-header\">\r\n  <div class=\"header-container\">\r\n    <div class=\"logo\">\r\n      <img\r\n        src=\"/assets/images/logo/png/Logo_no-background.png\"\r\n        alt=\"logo-header\"\r\n      />\r\n    </div>\r\n    <div class=\"content\">\r\n      <app-button\r\n        [label]=\"'Start now'\"\r\n        [type]=\"'gradient'\"\r\n        routerLink=\"/login\"\r\n      ></app-button>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
         },
         {
             "name": "NewTechFormComponent",
@@ -8585,7 +8574,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<MainPageHeaderComponent>",
-                "defaultValue": "{\r\n    title: 'Components/Headers/MainPageHeader/Default',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n}"
+                "defaultValue": "{\r\n    title: 'Components/Headers/MainPageHeader/Default',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
             },
             {
                 "name": "meta",
@@ -9226,7 +9215,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<MainPageHeaderComponent>",
-                    "defaultValue": "{\r\n    title: 'Components/Headers/MainPageHeader/Default',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n}"
+                    "defaultValue": "{\r\n    title: 'Components/Headers/MainPageHeader/Default',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
                 }
             ],
             ".storybook/preview.ts": [
@@ -10011,7 +10000,7 @@
                 "linktype": "component",
                 "name": "MainPageHeaderComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/2",
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
