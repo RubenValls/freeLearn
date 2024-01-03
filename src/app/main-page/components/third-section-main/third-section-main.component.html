@@ -1,28 +1,33 @@
 <div class="content">
-    <div class="left-container">
-        <div class='wrapper'>
-            <div class='carousel' #carousel>
-              <div class='carousel__item' *ngFor="let trainer of trainers">
-                <div class='carousel__item-head'>
-                    <img [src]="trainer.imagePath" alt="trainer.name">
-                </div>
-                <div class='carousel__item-body'>
-                    <p class='title'>{{trainer.name}}</p>
-                    <p>Courses available: {{trainer.courses.length}}</p>
-                </div>
-              </div>
-            </div>
+  <div class="left-container">
+    <div class="wrapper">
+      <div class="carousel" #carousel>
+        <div class="carousel__item" *ngFor="let trainer of trainers">
+          <div class="carousel__item-head">
+            <img [src]="trainer.imagePath" alt="trainer.name" />
           </div>
-    </div>
-    <div class="right-container">
-        <div >
-            <h1>The <span>best trainers</span> to take your skills to the next level </h1>
-            <p>Learn at your own pace from the best with complete courses on the key technologies of the software development world.</p>
-            <app-btn-black
-            [buttonText]="'Start now'"
-            [routerLink]="'/login'"
-          ></app-btn-black>
+          <div class="carousel__item-body">
+            <p class="title">{{ trainer.name }}</p>
+            <p>Courses available: {{ trainer.courses.length }}</p>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
+  <div class="right-container">
+    <div>
+      <h1>
+        The <span>best trainers</span> to take your skills to the next level
+      </h1>
+      <p>
+        Learn at your own pace from the best with complete courses on the key
+        technologies of the software development world.
+      </p>
+      <app-button
+        [label]="'Start now'"
+        [type]="'info'"
+        routerLink="/login"
+      ></app-button>
+    </div>
+  </div>
 </div>
-
