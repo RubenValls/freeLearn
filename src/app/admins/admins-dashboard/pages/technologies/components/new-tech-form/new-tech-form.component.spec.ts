@@ -5,7 +5,7 @@ import { TechService } from '../../service/tech.service';
 import { AdminsModule } from 'src/app/admins/admins.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-describe('NewTechFormComponent', () => {
+fdescribe('NewTechFormComponent', () => {
   let component: NewTechFormComponent;
   let fixture: ComponentFixture<NewTechFormComponent>;
   let techService: TechService;
@@ -15,8 +15,9 @@ describe('NewTechFormComponent', () => {
       imports: [ReactiveFormsModule, AdminsModule, BrowserAnimationsModule],
       declarations: [NewTechFormComponent],
       providers: [
-        { provide: TechService, useValue: { addTechnology: jasmine.createSpy('addTechnology') } }
-      ]
+        { provide: TechService, useValue: { addTechnology: jasmine.createSpy('addTechnology').and.returnValue(Promise.resolve()) } }
+      ],
+      teardown: { destroyAfterEach: false }
     });
 
     fixture = TestBed.createComponent(NewTechFormComponent);
