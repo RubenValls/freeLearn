@@ -16,7 +16,7 @@ export class UpdateModalComponent implements OnInit {
     public dialog: MatDialog,    
   ) { } 
   ngOnInit(): void {
-    this.title = this.data.title
+    this.title = this.data?.title
   }
 
   onUpdate() {  
@@ -26,6 +26,6 @@ export class UpdateModalComponent implements OnInit {
     }
   }
   close() {
-    this.dialogRef.close("pizza!");
+    this.dialogRef.close();
    }
 }
