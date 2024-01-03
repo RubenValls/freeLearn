@@ -19,4 +19,19 @@ describe('FirstSectionMainComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render title in a h1 tag', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h1').textContent).toContain('The best content you decide how it fits your success');
+  });
+
+  it('should render paragraph in a p tag', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('p').textContent).toContain('Specialize in development, regardless of your level of knowledge and experience, we will tailor our approach to meet your goals.');
+  });
+
+  it('should render app-btn-black component', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('app-btn-black')).toBeTruthy();
+  });
 });
