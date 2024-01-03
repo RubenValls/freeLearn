@@ -36,12 +36,13 @@ export class TechService {
   }
 
   async updateTechnology(technologyId: string, technology: TechnologyType){
+  
     const techRef = doc(this.firestore, 'technologies', technologyId);
     const techUpdated = await updateDoc(techRef, {...technology})
     return techUpdated
   }
 
-  async updateTechnologyCourses(technologyId: string, courseId: string){
+  async updateTechnologyCourses(technologyId: string, courseId: string){   
     const techRef = doc(this.firestore, 'technologies', technologyId);
     const techData = (await getDoc(techRef)).data() as TechnologyType;      
     techData.courses.push(courseId)
@@ -50,6 +51,17 @@ export class TechService {
     });
     return techUpdated;
   }
+
+  async deleteTechnologyCourses(technologyId: string, courseId: string){   
+    const techRef = doc(this.firestore, 'technologies', technologyId);
+    const techData = (await getDoc(techRef)).data() as TechnologyType;      
+    const courses = techData.courses.filter(course => course !== courseId);
+    const techUpdated = await updateDoc(techRef, {
+      courses: courses
+    });
+    return techUpdated;
+  }
+
 
   async deleteTechDoc(technologyId: string){
     const techRef = doc(this.firestore, 'technologies', technologyId);

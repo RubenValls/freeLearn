@@ -33,6 +33,7 @@ export class InstructorsService {
   }
 
   async updateInstructorsCourses(technologyId: string, courseId: string){
+    debugger
     const instructorRef = doc(this.firestore, 'instructors', technologyId);
     const instructorData = (await getDoc(instructorRef)).data() as Instructor;
     instructorData.courses.push(courseId)
@@ -41,6 +42,17 @@ export class InstructorsService {
     });
     return instructorUpdated;
   }
+
+  async deleteInstructorsCourses(technologyId: string, courseId: string){
+    debugger
+    const instructorRef = doc(this.firestore, 'instructors', technologyId);
+    const instructorData = (await getDoc(instructorRef)).data() as Instructor;
+    const courses = instructorData.courses.filter(course => course !== courseId);
+    const instructorUpdated = await updateDoc(instructorRef, {
+      courses: courses
+    });
+    return instructorUpdated;
+  }  
 
   async deleteInstructor(id: string){
     const instructorRef = doc(this.firestore, 'instructors', id);

@@ -31,11 +31,13 @@ export class CoursesComponent  {
   rows = [
     { label: 'Id', prop: 'id' },
     { label: 'Name', prop: 'name' },
+    { label: 'Description', prop: 'description' },
     { label: 'Image', prop: 'imageUrl' },
     { label: 'Technologies', prop: 'techs'},
     { label: 'Instructor', prop: 'instructorId' },
     { label: 'Introduction', prop: 'introductionURL' },    
     { label: 'Lessons', prop: 'lessons'},    
+    { prop: 'rating', title: 'Rating'},
   ]  
 
   constructor(
@@ -49,8 +51,8 @@ export class CoursesComponent  {
     this.watchForm = !this.watchForm;
   }
 
-  onEdit(element:Course, editReferece: boolean = false) {
-    this.coursesService.updateCourse(element.id!, element, editReferece)
+  onEdit(element:Course) {
+    this.coursesService.updateCourse(element.id!, element)
     .then((data) => {
       this.alertMessages.successMessage('Course update successfully');
     })
