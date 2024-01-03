@@ -66,4 +66,8 @@ describe('LoginPageComponent', () => {
     component.onChange(changeEvent);
     expect(component.isLogIn).toBeFalse();
   });
+
+  it('should have isLogIn set to true by default', () => {
+    expect(component.isLogIn).toBeTrue();
+  });
 });
