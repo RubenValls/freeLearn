@@ -76,7 +76,7 @@
                             </mat-error>
                         </mat-form-field>
                         <div class="btn-select">
-                            <button (click)="onAddInstructors()">add</button>
+                            <button (click)="onAddReferences('instructorId')">add</button>
                         </div>
 
 
@@ -87,7 +87,7 @@
                                 {{instructor.name}}
                             </div>
                             <div class="li-element--icon">
-                                <mat-icon (click)="onDeleteInstructor(instructor)"
+                                <mat-icon (click)="onDeleteReferences(instructor.id, 'instructors')"
                                     class="delete-icon">delete_forever</mat-icon>
                             </div>
                         </li>
@@ -109,7 +109,7 @@
                             </mat-error>
                         </mat-form-field>
                         <div class="btn-select">
-                            <button (click)="onAddTechs()">add</button>
+                            <button (click)="onAddReferences('techs')">add</button>
                         </div>
 
                     </div>
@@ -119,7 +119,7 @@
                                 {{tech.name}}
                             </div>
                             <div class="li-element--icon">
-                                <mat-icon (click)="onDeleteTech(tech)" class="delete-icon">delete_forever</mat-icon>
+                                <mat-icon (click)="onDeleteReferences(tech.id,  'techs')" class="delete-icon">delete_forever</mat-icon>
                             </div>
                         </li>
                     </ul>

@@ -59,6 +59,7 @@ export class DetailModalComponent implements OnInit {
         this.totalLessons = course.lessons.length > 0 ? `this course has ${course.lessons.length} lessons` : "This course has 0 lessons"
         this.course = course
         this.instructors = course.instructorId
+        this.techs = course.techs
       })
     }
     this.rows = this.data.rows
@@ -200,71 +201,72 @@ export class DetailModalComponent implements OnInit {
     this.newValues = event.value as string[];
   }
 
-  onAddTechs() {
-    const currentTechs = this.techs;
-    const newUniqueTechs = this.newValues.filter(newTech =>
-      !currentTechs.some(currentTechs => currentTechs.id === newTech.id)
+  // onAddTechs() {
+  //   const currentTechs = this.techs;
+  //   const newUniqueTechs = this.newValues.filter(newTech =>
+  //     !currentTechs.some(currentTechs => currentTechs.id === newTech.id)
+  //   );
+
+  //   const updatedTechs = [...currentTechs, ...newUniqueTechs];
+
+  //   this.form.get('techs')?.setValue(updatedTechs);
+
+  //   if (this.data.onEdit) {
+  //     this.store.dispatch(CourseActions.editCourse({ course: { ...this.course, techs: updatedTechs, } }))
+  //     this.data.onEdit(this.form.value)
+  //   }
+  //   this.newValues = [];
+  // }
+
+  // onAddInstructors() {
+  //   const currentInstructors = this.instructors;
+  //   const newUniqueInstructors = this.newValues.filter(newInstructor =>
+  //     !currentInstructors.some(currentInstructor => currentInstructor.id === newInstructor.id)
+  //   );
+  //   const updatedInstructors = [...currentInstructors, ...newUniqueInstructors];
+  //   this.form.get('instructorId')?.setValue(updatedInstructors);
+
+  //   if (this.data.onEdit) {
+  //     this.store.dispatch(CourseActions.editCourse({ course: { ...this.course, instructorId: updatedInstructors, } }))
+  //     this.data.onEdit(this.form.value)
+
+  //   }
+  //   this.newValues = [];
+  // }
+
+  onAddReferences(controlName: string) {
+    const currentRefence = controlName === "techs" ? this.techs : this.instructors;
+    const newUniqueReference = this.newValues.filter(newReference =>
+      !currentRefence.some(currentReference => currentReference.id === newReference.id)
     );
 
-    const updatedTechs = [...currentTechs, ...newUniqueTechs];
-
-    this.form.get('techs')?.setValue(updatedTechs);
-
+    const updatedReference = [...currentRefence, ...newUniqueReference];
+    if (controlName === "techs") {
+      this.form.get('techs')?.setValue(updatedReference);
+    }
+    if (controlName === "instructors") {
+      this.form.get('instructorId')?.setValue(updatedReference);
+    }
     if (this.data.onEdit) {
-      this.store.dispatch(CourseActions.editCourse({ course: { ...this.course, techs: updatedTechs, } }))
+      this.store.dispatch(CourseActions.editCourse({ course: { ...this.course, [controlName]: updatedReference, } }))
       this.data.onEdit(this.form.value)
     }
     this.newValues = [];
   }
 
-  onAddInstructors() {
-    const currentInstructors = this.instructors;
-    const newUniqueInstructors = this.newValues.filter(newInstructor =>
-      !currentInstructors.some(currentInstructor => currentInstructor.id === newInstructor.id)
-    );
-    const updatedInstructors = [...currentInstructors, ...newUniqueInstructors];
-    this.form.get('instructorId')?.setValue(updatedInstructors);
-
-    if (this.data.onEdit) {
-      this.store.dispatch(CourseActions.editCourse({ course: { ...this.course, instructorId: updatedInstructors, } }))
-      this.data.onEdit(this.form.value)
-
+  onDeleteReferences(id: string, subForm: string) {
+    if (subForm == "instructors") {
+      const instructorsCopy = this.instructors.filter((instructor: any) => instructor.id !== id);
+      this.form.get('instructorId')?.setValue(instructorsCopy);
+    }
+    if (subForm == "techs") {
+      const techsCopy = this.techs.filter((tech: any) => tech.id !== id);
+      this.form.get('techs')?.setValue(techsCopy);
     }
 
-    this.newValues = [];
-  }
-
-
-  onDeleteTech(element: any) {
-    debugger
-    const techsCopy = this.techs.filter((tech: any) => tech.id !== element.id);
-    this.form.get('techs')?.setValue(techsCopy);
-
     const deleteDialog = this.dialog.open(DeleteModalComponent, {
       width: '400px',
       data: {
-        title: "Delete Technology",
-        onEdit: this.data.onEdit,
-        editData: this.form
-      }
-    });
-
-    deleteDialog.afterClosed().subscribe(result => {
-      if (result) {
-        this.store.dispatch(CourseActions.editCourse({ course: this.course }))
-      }
-    });
-  }
-  onDeleteInstructor(element: any) {
-    const instructorsCopy = this.instructors.filter((instructor: any) => instructor.id !== element.id);
-
-    this.form.get('instructorId')?.setValue(instructorsCopy);
-
-
-    const deleteDialog = this.dialog.open(DeleteModalComponent, {
-      width: '400px',
-      data: {
-        title: "Delete Instructor",
         onEdit: this.data.onEdit,
         editData: this.form,
       }
