@@ -4790,7 +4790,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"container-fluid\" id=\"admin-navbar\">\r\n    <img *ngIf=\"!isSmallScreen\" src=\"../../../../assets/images/logo/svg/White logo - no background.svg\" alt=\"freelearn-logo\">\r\n    <button mat-button routerLink=\"users\" routerLinkActive=\"active\">\r\n        <i class=\"bi bi-people-fill\" [ngClass]=\"{'large-icon': isSmallScreen}\"></i>\r\n      \r\n        <span *ngIf=\"!isSmallScreen\">Users</span>\r\n    </button>\r\n    <button mat-button routerLink=\"technologies\" routerLinkActive=\"active\">\r\n        <i class=\"bi bi-tools\" [ngClass]=\"{'large-icon': isSmallScreen}\"></i>\r\n        <span *ngIf=\"!isSmallScreen\">Technologies</span>\r\n    </button>\r\n    <button mat-button routerLink=\"courses\" routerLinkActive=\"active\">\r\n        <i class=\"bi bi-book-fill\" [ngClass]=\"{'large-icon': isSmallScreen}\"></i>\r\n        <span *ngIf=\"!isSmallScreen\">Courses</span>\r\n    </button>\r\n    <button mat-button routerLink=\"instructors\" routerLinkActive=\"active\">\r\n        <i class=\"bi bi-mortarboard-fill\" [ngClass]=\"{'large-icon': isSmallScreen}\"></i>\r\n        <span *ngIf=\"!isSmallScreen\">Instructors</span>\r\n    </button>\r\n    <button mat-button id=\"log-out-btn\" (click)=\"handleLogOut()\">\r\n        <i class=\"bi bi-box-arrow-right\" [ngClass]=\"{'large-icon': isSmallScreen}\"></i>\r\n    </button>\r\n</div>"
+            "templateData": "<div class=\"container-fluid\" id=\"admin-navbar\">\r\n    <img *ngIf=\"!isSmallScreen\" src=\"../../../../assets/images/logo/svg/White logo - no background.svg\" alt=\"freelearn-logo\">\r\n    <button mat-button routerLink=\"users\" routerLinkActive=\"active\">\r\n        <i class=\"bi bi-people-fill\" [ngClass]=\"{'large-icon': isSmallScreen}\"></i>\r\n      \r\n        <span *ngIf=\"!isSmallScreen\">Users</span>\r\n    </button>\r\n    <button mat-button routerLink=\"technologies\" routerLinkActive=\"active\">\r\n        <i class=\"bi bi-tools\" [ngClass]=\"{'large-icon': isSmallScreen}\"></i>\r\n        <span *ngIf=\"!isSmallScreen\">Technologies</span>\r\n    </button>\r\n    <button mat-button routerLink=\"courses\" routerLinkActive=\"active\">\r\n        <i class=\"bi bi-book-fill\" [ngClass]=\"{'large-icon': isSmallScreen}\"></i>\r\n        <span *ngIf=\"!isSmallScreen\">Courses</span>\r\n    </button>\r\n    <button mat-button routerLink=\"instructors\" routerLinkActive=\"active\">\r\n        <i class=\"bi bi-mortarboard-fill\" [ngClass]=\"{'large-icon': isSmallScreen}\"></i>\r\n        <span *ngIf=\"!isSmallScreen\">Instructors</span>\r\n    </button>\r\n    <button mat-button id=\"log-out-btn\" (click)=\"handleLogOut()\">\r\n        <i class=\"bi bi-box-arrow-right\" [ngClass]=\"{'large-icon': isSmallScreen}\"></i>\r\n    </button>\r\n</div>\r\n\r\n"
         },
         {
             "name": "HomeComponent",
@@ -8564,7 +8564,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<HeaderComponent>",
-                "defaultValue": "{\r\n    title: 'Components/Headers/AdminHeader/Default',\r\n    component: HeaderComponent,\r\n    tags: ['autodocs'],\r\n}"
+                "defaultValue": "{\r\n    title: 'Components/Headers/AdminHeader/Default',\r\n    component: HeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[],\r\n          imports: [MatButtonModule] \r\n        })\r\n      ]\r\n}"
             },
             {
                 "name": "meta",
@@ -8855,7 +8855,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<HeaderComponent>",
-                    "defaultValue": "{\r\n    title: 'Components/Headers/AdminHeader/Default',\r\n    component: HeaderComponent,\r\n    tags: ['autodocs'],\r\n}"
+                    "defaultValue": "{\r\n    title: 'Components/Headers/AdminHeader/Default',\r\n    component: HeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[],\r\n          imports: [MatButtonModule] \r\n        })\r\n      ]\r\n}"
                 }
             ],
             "src/app/admins/admins-dashboard/pages/courses/store/course/course.actions.ts": [
