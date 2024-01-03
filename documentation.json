@@ -2800,69 +2800,8 @@
             "templateData": "<button mat-flat-button>{{buttonText}}</button>\r\n"
         },
         {
-            "name": "BtnGradientComponent",
-            "id": "component-BtnGradientComponent-5c73915223921e8313afc435bb4d97d5e3c48047e634f35e32bc8d1dde476e854b115720935d256dc5756fc89d25818ca59f49eba7ad2ef9506951f7c8f99c15",
-            "file": "src/app/shared/components/btn-gradient/btn-gradient.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "app-btn-gradient",
-            "styleUrls": [
-                "./btn-gradient.component.scss"
-            ],
-            "styles": [],
-            "templateUrl": [
-                "./btn-gradient.component.html"
-            ],
-            "viewProviders": [],
-            "hostDirectives": [],
-            "inputsClass": [
-                {
-                    "name": "buttonText",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 9,
-                    "type": "string",
-                    "decorators": []
-                },
-                {
-                    "name": "routerLink",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 10,
-                    "type": "string",
-                    "decorators": []
-                }
-            ],
-            "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "standalone": false,
-            "imports": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-btn-gradient',\r\n  templateUrl: './btn-gradient.component.html',\r\n  styleUrls: ['./btn-gradient.component.scss']\r\n})\r\nexport class BtnGradientComponent {\r\n  @Input() buttonText!: string; \r\n  @Input() routerLink!: string;\r\n\r\n}\r\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": "button{\r\n    background: linear-gradient(61deg,var(--accent) 1%,#20ded3 85%,#20ded3 90%) 0 0 /100% 100% no-repeat;\r\n    color: var(--white) !important;\r\n    font-weight:600;\r\n    font-size: 14px;\r\n    letter-spacing: 1px;\r\n    padding: 1.4rem 1.4rem;\r\n}\r\n\r\nbutton:hover{\r\n    background: var(--black) !important;\r\n}",
-                    "styleUrl": "./btn-gradient.component.scss"
-                }
-            ],
-            "stylesData": "",
-            "extends": [],
-            "templateData": "<button mat-flat-button>{{buttonText}}</button>\r\n"
-        },
-        {
             "name": "ButtonComponent",
-            "id": "component-ButtonComponent-45e08042ef2a9a0315cf537b12e6574618a752bd2b8ece8b06507af94c57792095ab160f92779a10f4dddb3ed7d215da656758ae7b29c066ecf14e93632bd292",
+            "id": "component-ButtonComponent-6db0ebf7a4e17929ba4ff5b898427ce23c9fea4716248fceec69fbc22364488abe89223f7fb0a4ae259470c16b09514c9f73ffe918d822e043760f4fe4ea9538",
             "file": "src/app/shared/components/button/button.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2924,7 +2863,7 @@
                 },
                 {
                     "name": "size",
-                    "defaultValue": "'large'",
+                    "defaultValue": "'small'",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "line": 16,
@@ -2962,11 +2901,11 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, EventEmitter, Input, Output } from '@angular/core';\r\n\r\nconst getStyles = (...args: string[]) => [\"button\", ...args].filter(Boolean)\r\n\r\n\r\n@Component({\r\n  selector: 'app-button',\r\n  templateUrl: './button.component.html',\r\n  styleUrls: ['./button.component.scss']\r\n})\r\nexport class ButtonComponent {\r\n  @Input() label!: string; \r\n  @Input() routerLink!: string;\r\n  @Input() primary = false;\r\n  @Input() type: 'primary' | 'secondary' |  'gradient'  |  'info' |  'danger' |  'warning'  |  'success'= 'primary';\r\n  @Input() size: 'small' | 'medium' | 'large' = 'large'\r\n  @Input() iconName?: string;\r\n  @Input() iconPosition: 'start' | 'end' = 'end';\r\n  @Output() onClick = new EventEmitter<Event>();\r\n\r\n  public get classes(): string[] {\r\n    return getStyles(this.type, this.size);   \r\n  }\r\n\r\n}\r\n",
+            "sourceCode": "import { Component, EventEmitter, Input, Output } from '@angular/core';\r\n\r\nconst getStyles = (...args: string[]) => [\"button\", ...args].filter(Boolean)\r\n\r\n\r\n@Component({\r\n  selector: 'app-button',\r\n  templateUrl: './button.component.html',\r\n  styleUrls: ['./button.component.scss']\r\n})\r\nexport class ButtonComponent {\r\n  @Input() label!: string; \r\n  @Input() routerLink!: string;\r\n  @Input() primary = false;\r\n  @Input() type: 'primary' | 'secondary' |  'gradient'  |  'info' |  'danger' |  'warning'  |  'success'= 'primary';\r\n  @Input() size: 'small' | 'medium' | 'large' = 'small'\r\n  @Input() iconName?: string;\r\n  @Input() iconPosition: 'start' | 'end' = 'end';\r\n  @Output() onClick = new EventEmitter<Event>();\r\n\r\n  public get classes(): string[] {\r\n    return getStyles(this.type, this.size);   \r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "button {\r\n   \r\n    font-size: 14px;\r\n    letter-spacing: 1px;\r\n    padding:10px;\r\n    transition: background 0.2s;\r\n    border: none;\r\n    border-radius: 5px;\r\n\r\n}\r\n\r\n.primary {\r\n    background: var(--primary) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.primary:hover {  \r\n    background: linear-gradient(145deg, #cacaca, #f0f0f0);\r\n    box-shadow:  7px 7px 14px #a4a4a4,\r\n                 -7px -7px 14px #ffffff;\r\n}\r\n\r\n .primary:active {\r\n  \r\n    transform: translateY(10px);\r\n    transition: 100ms;\r\n  }\r\n\r\n.secondary {\r\n    background: var(--accent) !important;\r\n    color: var(--white) !important;\r\n}\r\n.success {\r\n    background: var(--succes) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.info {\r\n    background: var(--black) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.danger {\r\n    background: var(--error) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.warning {\r\n    background: var(--warning) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.gradient {\r\n    background: linear-gradient(61deg, var(--accent) 1%, #20ded3 85%, #20ded3 90%) 0 0 /100% 100% no-repeat;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.gradient:hover {\r\n    background: var(--black) !important;\r\n}\r\n\r\n.large {\r\n\r\n    font-size: 18px;\r\n}\r\n\r\n.medium {\r\n\r\n    font-size: 16px;\r\n}\r\n\r\n.small {\r\n\r\n    font-size: 14px;\r\n}",
+                    "data": "button {\r\n   \r\n    font-size: 14px;\r\n    letter-spacing: 1px;\r\n    padding:10px;\r\n    transition: background 0.2s;\r\n    border: none;\r\n    border-radius: 5px;\r\n    font-weight:600;\r\n    padding: 0.7rem 1.4rem;\r\n\r\n}\r\n\r\n.primary {\r\n    background: var(--primary) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.primary:hover {  \r\n    background: linear-gradient(145deg, #cacaca, #f0f0f0);\r\n    box-shadow:  7px 7px 14px #a4a4a4,\r\n                 -7px -7px 14px #ffffff;\r\n}\r\n\r\n .primary:active {\r\n  \r\n    transform: translateY(10px);\r\n    transition: 100ms;\r\n  }\r\n\r\n.secondary {\r\n    background: var(--accent) !important;\r\n    color: var(--white) !important;\r\n}\r\n.success {\r\n    background: var(--succes) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.info {\r\n    background: var(--black) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.danger {\r\n    background: var(--error) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.warning {\r\n    background: var(--warning) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.gradient {\r\n    background: linear-gradient(61deg, var(--accent) 1%, #20ded3 85%, #20ded3 90%) 0 0 /100% 100% no-repeat;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.gradient:hover {\r\n    background: var(--black) !important;\r\n}\r\n\r\n.large {\r\n\r\n    font-size: 18px;\r\n}\r\n\r\n.medium {\r\n\r\n    font-size: 16px;\r\n}\r\n\r\n.small {\r\n\r\n    font-size: 14px;\r\n}",
                     "styleUrl": "./button.component.scss"
                 }
             ],
@@ -3065,7 +3004,7 @@
             ],
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"a-box\">\r\n  <div class=\"img-container\">\r\n    <div class=\"img-inner\">\r\n      <div class=\"inner-skew\">\r\n        <img [src]=\"course?.imageUrl\">\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"text-container\">\r\n    <h3>{{course?.name}}</h3>\r\n    <div> \r\n      {{this.handleDescription(course?.description || '')}}\r\n    </div>\r\n    <div class=\"lessons-text\"> \r\n      Lessons: {{course?.lessons?.length}}\r\n    </div>\r\n    <app-btn-gradient\r\n          [buttonText]=\"'Learn ' + course?.techs?.[0]?.name\"\r\n          [routerLink]=\"'/login'\"\r\n    ></app-btn-gradient>\r\n</div>\r\n"
+            "templateData": "<div class=\"a-box\">\r\n  <div class=\"img-container\">\r\n    <div class=\"img-inner\">\r\n      <div class=\"inner-skew\">\r\n        <img [src]=\"course?.imageUrl\">\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"text-container\">\r\n    <h3>{{course?.name}}</h3>\r\n    <div> \r\n      {{this.handleDescription(course?.description || '')}}\r\n    </div>\r\n    <div class=\"lessons-text\"> \r\n      Lessons: {{course?.lessons?.length}}\r\n    </div>\r\n\r\n    <app-button\r\n          [label]=\"'Learn ' + course?.techs?.[0]?.name\"\r\n          [type]=\"'gradient'\"\r\n          routerLink=\"/login\"\r\n    ></app-button>\r\n\r\n    \r\n</div>\r\n"
         },
         {
             "name": "CoursesComponent",
@@ -5684,7 +5623,7 @@
             ],
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"main-header\">\r\n  <div class=\"header-container\">\r\n    <div class=\"logo\">\r\n        <img src=\"../../../../assets/images/logo/png/Color logo - no background.png\" alt=\"\">\r\n    </div>\r\n    <div class=\"content\">\r\n      <app-btn-gradient\r\n        [buttonText]=\"'Start now'\"\r\n        [routerLink]=\"'/login'\"\r\n      ></app-btn-gradient>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+            "templateData": "<div class=\"main-header\">\r\n  <div class=\"header-container\">\r\n    <div class=\"logo\">\r\n      <img\r\n        src=\"../../../../assets/images/logo/png/Color logo - no background.png\"\r\n        alt=\"\"\r\n      />\r\n    </div>\r\n    <div class=\"content\">\r\n      <app-button\r\n        [label]=\"'Start now'\"\r\n        [type]=\"'gradient'\"\r\n        routerLink=\"/login\"\r\n      ></app-button>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
         },
         {
             "name": "NewTechFormComponent",
@@ -8286,13 +8225,13 @@
         },
         {
             "name": "SharedModule",
-            "id": "module-SharedModule-00ac0e8977c6d6f9e43a0fd879eadf5e03a3ca4620e75765220326fb9578b11b224cf28909d306e1def9130632445aad074bacf10d388137c501e974366c2c6b",
+            "id": "module-SharedModule-ab7834bba69aac65aded12c5502a6f9d60fb18ee9aa2a8f458f3d9fb18fa34f36822ee47c7650c83cdfa7f593af53f72fb91dcb0ba15855faf0b45d7ceea9577",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/shared/shared.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatFormFieldModule } from '@angular/material/form-field';\r\nimport { FormsModule, ReactiveFormsModule } from '@angular/forms';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { MatSnackBarModule } from '@angular/material/snack-bar';\r\nimport { WorkingInProgressComponent } from './components/default-pages/working-in-progress/working-in-progress.component';\r\nimport { ErrorPageComponent } from './components/default-pages/error-page/error-page.component';\r\nimport { BtnGradientComponent } from './components/btn-gradient/btn-gradient.component';\r\nimport { BtnBlackComponent } from './components/btn-black/btn-black.component';\r\nimport { ButtonComponent } from './components/button/button.component';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { UpdateModalComponent } from './components/modals/update-modal/update-modal.component';\r\nimport { DeleteModalComponent } from './components/modals/delete-modal/delete-modal.component';\r\nimport { DetailModalComponent } from './components/modals/detail-modal/detail-modal.component';\r\nimport { CourseCardComponent } from './components/course-card/course-card.component';\r\nimport { SubDetailModalComponent } from './components/modals/sub-modals/sub-detail-modal/sub-detail-modal.component';\r\nimport { SubModalCreateComponent } from './components/modals/sub-modals/sub-modal-create/sub-modal-create.component';\r\n\r\n\r\n@NgModule({\r\n  declarations: [ \r\n    WorkingInProgressComponent,\r\n    ErrorPageComponent,\r\n    BtnGradientComponent,\r\n    BtnBlackComponent,\r\n    ButtonComponent,\r\n    UpdateModalComponent,\r\n    DeleteModalComponent,\r\n    DetailModalComponent,\r\n    CourseCardComponent,\r\n    SubDetailModalComponent,\r\n    SubModalCreateComponent,\r\n  ],\r\n  imports: [\r\n    CommonModule,\r\n    MatFormFieldModule,\r\n    FormsModule,\r\n    MatInputModule,\r\n    MatButtonModule,\r\n    MatSnackBarModule,\r\n    MatIconModule,\r\n    ReactiveFormsModule,\r\n\r\n  ],\r\n  exports: [   \r\n    WorkingInProgressComponent,\r\n    ErrorPageComponent,\r\n    BtnGradientComponent,\r\n    BtnBlackComponent,\r\n    ButtonComponent,\r\n    CourseCardComponent,\r\n  ]\r\n})\r\nexport class SharedModule { }\r\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatFormFieldModule } from '@angular/material/form-field';\r\nimport { FormsModule, ReactiveFormsModule } from '@angular/forms';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { MatSnackBarModule } from '@angular/material/snack-bar';\r\nimport { WorkingInProgressComponent } from './components/default-pages/working-in-progress/working-in-progress.component';\r\nimport { ErrorPageComponent } from './components/default-pages/error-page/error-page.component';\r\nimport { BtnBlackComponent } from './components/btn-black/btn-black.component';\r\nimport { ButtonComponent } from './components/button/button.component';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { UpdateModalComponent } from './components/modals/update-modal/update-modal.component';\r\nimport { DeleteModalComponent } from './components/modals/delete-modal/delete-modal.component';\r\nimport { DetailModalComponent } from './components/modals/detail-modal/detail-modal.component';\r\nimport { CourseCardComponent } from './components/course-card/course-card.component';\r\nimport { SubDetailModalComponent } from './components/modals/sub-modals/sub-detail-modal/sub-detail-modal.component';\r\nimport { SubModalCreateComponent } from './components/modals/sub-modals/sub-modal-create/sub-modal-create.component';\r\nimport { RouterModule } from '@angular/router';\r\n\r\n\r\n@NgModule({\r\n  declarations: [ \r\n    WorkingInProgressComponent,\r\n    ErrorPageComponent,\r\n    BtnBlackComponent,\r\n    ButtonComponent,\r\n    UpdateModalComponent,\r\n    DeleteModalComponent,\r\n    DetailModalComponent,\r\n    CourseCardComponent,\r\n    SubDetailModalComponent,\r\n    SubModalCreateComponent,\r\n  ],\r\n  imports: [\r\n    CommonModule,\r\n    MatFormFieldModule,\r\n    FormsModule,\r\n    MatInputModule,\r\n    MatButtonModule,\r\n    MatSnackBarModule,\r\n    MatIconModule,\r\n    ReactiveFormsModule,\r\n    RouterModule\r\n\r\n  ],\r\n  exports: [   \r\n    WorkingInProgressComponent,\r\n    ErrorPageComponent,\r\n    BtnBlackComponent,\r\n    ButtonComponent,\r\n    CourseCardComponent,\r\n  ]\r\n})\r\nexport class SharedModule { }\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -8303,9 +8242,6 @@
                     "elements": [
                         {
                             "name": "BtnBlackComponent"
-                        },
-                        {
-                            "name": "BtnGradientComponent"
                         },
                         {
                             "name": "ButtonComponent"
@@ -8345,9 +8281,6 @@
                     "elements": [
                         {
                             "name": "BtnBlackComponent"
-                        },
-                        {
-                            "name": "BtnGradientComponent"
                         },
                         {
                             "name": "ButtonComponent"
@@ -9962,15 +9895,6 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "BtnBlackComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/3",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/shared/components/btn-gradient/btn-gradient.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "BtnGradientComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/3",
                 "status": "low"

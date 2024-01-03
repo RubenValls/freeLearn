@@ -22,11 +22,10 @@ button {
                  -7px -7px 14px #ffffff;
 }
 
- .primary:active {
-  
+.primary:active {
     transform: translateY(10px);
     transition: 100ms;
-  }
+}
 
 .secondary {
     background: var(--accent) !important;
@@ -40,6 +39,9 @@ button {
 .info {
     background: var(--black) !important;
     color: var(--white) !important;
+}
+.info:hover {
+    background: var(--grey) !important;
 }
 
 .danger {

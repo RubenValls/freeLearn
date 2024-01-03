@@ -1,19 +1,11 @@
-<!-- <button
-(click)="onClick.emit($event)"
- [ngClass]="classes"
->
- {{label}}
- <mat-icon>add</mat-icon>
-</button> -->
-<!-- button.component.html -->
-<button [ngClass]="classes"(click)="onClick.emit($event)">
-    <span *ngIf="iconPosition === 'start'">
-      <mat-icon *ngIf="iconName" class="mat-icon">{{ iconName }}</mat-icon>
-    </span>
-    <span>{{ label }}</span>
-    <span >
-      <mat-icon *ngIf="iconName" iconPositionEnd class="mat-icon">{{ iconName }}</mat-icon>
-    </span>
-    
-  </button>
-  
+<button [ngClass]="classes" (click)="onClick.emit($event)">
+  <span *ngIf="iconPosition === 'start'">
+    <mat-icon *ngIf="iconName" class="mat-icon">{{ iconName }}</mat-icon>
+  </span>
+  <span>{{ label }}</span>
+  <span>
+    <mat-icon *ngIf="iconName" iconPositionEnd class="mat-icon">{{
+      iconName
+    }}</mat-icon>
+  </span>
+</button>
