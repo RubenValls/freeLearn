@@ -7,7 +7,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { WorkingInProgressComponent } from './components/default-pages/working-in-progress/working-in-progress.component';
 import { ErrorPageComponent } from './components/default-pages/error-page/error-page.component';
-import { BtnBlackComponent } from './components/btn-black/btn-black.component';
 import { ButtonComponent } from './components/button/button.component';
 import { MatIconModule } from '@angular/material/icon';
 import { UpdateModalComponent } from './components/modals/update-modal/update-modal.component';
@@ -23,7 +22,6 @@ import { RouterModule } from '@angular/router';
   declarations: [ 
     WorkingInProgressComponent,
     ErrorPageComponent,
-    BtnBlackComponent,
     ButtonComponent,
     UpdateModalComponent,
     DeleteModalComponent,
@@ -47,7 +45,6 @@ import { RouterModule } from '@angular/router';
   exports: [   
     WorkingInProgressComponent,
     ErrorPageComponent,
-    BtnBlackComponent,
     ButtonComponent,
     CourseCardComponent,
   ]
