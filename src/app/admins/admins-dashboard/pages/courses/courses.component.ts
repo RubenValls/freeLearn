@@ -13,6 +13,7 @@ import { Course } from './interface/course';
 export class CoursesComponent  {
   watchForm: boolean = false;
   courses$ = this.store.select(selectCourses);
+  
   modalWith: string = '1034';
   modalHeight: string = '650px';
   modalTitle: string = 'Courses';
@@ -38,8 +39,7 @@ export class CoursesComponent  {
   
   },
     
-  ]
-  
+  ]  
 
   constructor(
     private store: Store,
