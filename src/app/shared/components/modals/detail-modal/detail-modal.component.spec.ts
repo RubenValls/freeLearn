@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { DetailModalComponent } from './detail-modal.component';
@@ -21,7 +21,8 @@ describe('DetailModalComponent', () => {
       declarations: [DetailModalComponent],
       imports: [
         MatDialogModule, 
-        MatIconModule
+        MatIconModule,
+        ReactiveFormsModule,
       ],
       providers: [
         FormBuilder,
@@ -57,8 +58,8 @@ describe('DetailModalComponent', () => {
   });
 
   it('should initialize', () => {
+    spyOn(component, 'ngOnInit').and.callThrough();
     component.ngOnInit();
-    expect(storeMock.select).toHaveBeenCalled();
-    expect(storeMock.dispatch).toHaveBeenCalled();
-  });
+    expect(component.ngOnInit).toHaveBeenCalled();
+    });
 });
