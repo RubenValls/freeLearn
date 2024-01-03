@@ -13,8 +13,8 @@ import { selectUsers } from 'src/app/store/users/users.selectors';
 })
 export class UsersComponent{
   users$ = this.store.select(selectUsers);
-  modalWith: string = '1034';
-  modalHeight: string = '650px';
+  modalWith: string = '800px';
+  modalHeight: string = '680px';
   modalTitle: string = 'User';
 
 
@@ -47,11 +47,6 @@ export class UsersComponent{
     }).catch((error) => {
       this.alertMessages.errorMessage('Error updating user', error.message);
     })
-  }
-
-  onModals(element: User){
-    return element;
-  }
-
+  }  
   
 }

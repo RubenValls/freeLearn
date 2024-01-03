@@ -13,6 +13,7 @@ import { Course } from './interface/course';
 export class CoursesComponent  {
   watchForm: boolean = false;
   courses$ = this.store.select(selectCourses);
+  
   modalWith: string = '1034';
   modalHeight: string = '650px';
   modalTitle: string = 'Courses';
@@ -34,12 +35,8 @@ export class CoursesComponent  {
     { label: 'Technologies', prop: 'techs'},
     { label: 'Instructor', prop: 'instructorId' },
     { label: 'Introduction', prop: 'introductionURL' },    
-    { label: 'Lessons', prop: 'lessons',    
-  
-  },
-    
-  ]
-  
+    { label: 'Lessons', prop: 'lessons'},    
+  ]  
 
   constructor(
     private store: Store,
@@ -70,10 +67,6 @@ export class CoursesComponent  {
     .catch((error) => {
       this.alertMessages.errorMessage('Error deleting Course', error.message);
     })
-  }
-
-  onModals(element:Course){
-    this.coursesService.getCourseById(element.id!)
   }
 
 }

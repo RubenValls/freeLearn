@@ -17,6 +17,8 @@ import { DetailModalComponent } from './components/modals/detail-modal/detail-mo
 import { CourseCardComponent } from './components/course-card/course-card.component';
 import { SubDetailModalComponent } from './components/modals/sub-modals/sub-detail-modal/sub-detail-modal.component';
 import { SubModalCreateComponent } from './components/modals/sub-modals/sub-modal-create/sub-modal-create.component';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -42,6 +44,8 @@ import { SubModalCreateComponent } from './components/modals/sub-modals/sub-moda
     MatSnackBarModule,
     MatIconModule,
     ReactiveFormsModule,
+    MatOptionModule,
+    MatSelectModule,
 
   ],
   exports: [   
