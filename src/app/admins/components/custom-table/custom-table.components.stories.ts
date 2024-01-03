@@ -22,7 +22,17 @@ type Story = StoryObj<CustomTableComponent>;
 
 export const Default: Story = {
   args: {
-    data: [{}],
+    data: [{
+        id: "1",
+        name: "Curso Completo de REACT",
+        description: "Description",  
+        instructorId: [{id: "BHb6atXs68TPFuj4GnbP", name: "JAB"}], 
+        imageUrl: "https://i.ytimg.com/vi/VoMyUgI-5NI/maxresdefault.jpg",
+        techs: [{id: "3ZLJDtVSkLGCVMa95S0W", name: "React"}],
+        lessons: [],
+        rating: [],
+        introductionURL: "https://www.youtube.com/watch?v=VoMyUgI-5NI&list=PLRM7PpbqqStKo-NiCuzuYwewZmd9b-EZ9&index=1"
+    }],
     displayedColumns: [
       { prop: 'name', title: 'Name' },
       { prop: 'imageUrl', title: 'Image' },
