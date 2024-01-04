@@ -16,7 +16,6 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { LoginFormType, SigninFormType } from '../types/formTypes';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppModule } from 'src/app/app.module';
-import * as firebase from 'firebase/auth';
 
 describe('LoginService', () => {
   let service: LoginService;
