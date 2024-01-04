@@ -59,12 +59,16 @@ button {
     background: var(--gradient);
     color: var(--white) !important;
 }
+
+
+.gradient:hover {
+    background: var(--black) !important;
+}
 .softgradient{
     background: var(--softgradient);
     color: var(--white) !important;
 }
-
-.gradient:hover {
+.softgradient:hover {
     background: var(--black) !important;
 }
 
