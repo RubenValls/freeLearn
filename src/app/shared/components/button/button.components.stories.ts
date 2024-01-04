@@ -61,7 +61,12 @@ export const Info: Story = {
     },
   };
 
-
+  export const Close: Story = {
+    args: {
+        label: 'Close',
+          type: 'close',
+    },
+  };
   export const Danger: Story = {
     args: {
         label: 'Danger',
