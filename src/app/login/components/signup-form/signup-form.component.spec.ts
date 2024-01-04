@@ -35,4 +35,46 @@ describe('SignupFormComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have a signup form', () => {
+    expect(component.signupForm).toBeTruthy();
+  });
+
+  it('should have email, password and confirmPassword fields', () => {
+    expect(component.signupForm.contains('email')).toBeTruthy();
+    expect(component.signupForm.contains('password')).toBeTruthy();
+    expect(component.signupForm.contains('confirmPassword')).toBeTruthy();
+  });
+
+  it('should make the email field required', () => {
+    let control = component.signupForm.get('email');
+    control?.setValue('');
+    expect(control?.valid).toBeFalsy();
+  });
+
+  it('should make the password field required', () => {
+    let control = component.signupForm.get('password');
+    control?.setValue('');
+    expect(control?.valid).toBeFalsy();
+  });
+
+  it('should validate email format', () => {
+    let control = component.signupForm.get('email');
+    control?.setValue('test');
+    expect(control?.valid).toBeFalsy();
+  });
+
+  it('should validate password length', () => {
+    let control = component.signupForm.get('password');
+    control?.setValue('12345');
+    expect(control?.valid).toBeFalsy();
+  });
+
+  it('should validate password and confirmPassword match', () => {
+    let passwordControl = component.signupForm.get('password');
+    let confirmPasswordControl = component.signupForm.get('confirmPassword');
+    passwordControl?.setValue('123456');
+    confirmPasswordControl?.setValue('1234567');
+    expect(confirmPasswordControl?.valid).toBeFalsy();
+  });
 });

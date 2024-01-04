@@ -35,4 +35,37 @@ describe('LoginFormComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have a login form', () => {
+    expect(component.loginForm).toBeTruthy();
+  });
+
+  it('should have email and password fields', () => {
+    expect(component.loginForm.contains('email')).toBeTruthy();
+    expect(component.loginForm.contains('password')).toBeTruthy();
+  });
+
+  it('should make the email field required', () => {
+    let control = component.loginForm.get('email');
+    control?.setValue('');
+    expect(control?.valid).toBeFalsy();
+  });
+
+  it('should make the password field required', () => {
+    let control = component.loginForm.get('password');
+    control?.setValue('');
+    expect(control?.valid).toBeFalsy();
+  });
+
+  it('should validate email format', () => {
+    let control = component.loginForm.get('email');
+    control?.setValue('test');
+    expect(control?.valid).toBeFalsy();
+  });
+
+  it('should validate password length', () => {
+    let control = component.loginForm.get('password');
+    control?.setValue('12345');
+    expect(control?.valid).toBeFalsy();
+  });
 });

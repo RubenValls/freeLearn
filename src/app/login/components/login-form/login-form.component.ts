@@ -21,7 +21,7 @@ export class LoginFormComponent {
   constructor(private store: Store, private loginService: LoginService){
     this.loginForm = new FormGroup<LoginFormType>({
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
       rememberMe: new FormControl(true),
     });
   }
