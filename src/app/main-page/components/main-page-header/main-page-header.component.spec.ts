@@ -27,8 +27,8 @@ describe('MainPageHeaderComponent', () => {
     expect(compiled.querySelector('.logo img')).toBeTruthy();
   });
 
-  it('should render app-btn-gradient component', () => {
+  it('should render app-button component', () => {
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('app-btn-gradient')).toBeTruthy();
+    expect(compiled.querySelector('app-button')).toBeTruthy();
   });
 });

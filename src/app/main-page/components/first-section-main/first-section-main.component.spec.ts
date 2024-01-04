@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FirstSectionMainComponent } from './first-section-main.component';
-import { BtnBlackComponent } from 'src/app/shared/components/btn-black/btn-black.component';
+import { ButtonComponent } from 'src/app/shared/components/button/button.component';
 
 describe('FirstSectionMainComponent', () => {
   let component: FirstSectionMainComponent;
@@ -8,7 +8,7 @@ describe('FirstSectionMainComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FirstSectionMainComponent, BtnBlackComponent]
+      declarations: [FirstSectionMainComponent, ButtonComponent]
     });
 
     fixture = TestBed.createComponent(FirstSectionMainComponent);
@@ -30,8 +30,8 @@ describe('FirstSectionMainComponent', () => {
     expect(compiled.querySelector('p').textContent).toContain('Specialize in development, regardless of your level of knowledge and experience, we will tailor our approach to meet your goals.');
   });
 
-  it('should render app-btn-black component', () => {
+  it('should render app-button component', () => {
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('app-btn-black')).toBeTruthy();
+    expect(compiled.querySelector('app-button')).toBeTruthy();
   });
 });
