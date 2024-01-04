@@ -16,14 +16,13 @@ export class DeleteModalComponent {
   ) { }
 
   onDelete() {
-    debugger
     if (this.data.onDelete) { this.data.onDelete(this.data.id) };
 
     if (this.data.onEdit) { 
-      this.data.onEdit(this.data.editData);
-      this.store.dispatch(CourseActions.editCourse({course: this.data.editData})) 
+      this.data.onEdit(this.data.editData.value, true);
+      this.store.dispatch(CourseActions.editCourse({course: this.data.editData.value})) 
     }
-    this.dialogRef.close();
+    this.dialogRef.close(true);
   }
   close() {
     this.dialogRef.close();

@@ -11,9 +11,11 @@ import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 import { UsersService } from 'src/app/shared/services/users/users.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockStore } from '@ngrx/store/testing';
-import { Subscription } from 'rxjs';
+import { Subscription, of } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
 import { LoginFormType, SigninFormType } from '../types/formTypes';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppModule } from 'src/app/app.module';
 
 describe('LoginService', () => {
   let service: LoginService;
@@ -29,13 +31,16 @@ describe('LoginService', () => {
         provideAuth(() => getAuth()),
         MatSnackBarModule,
         RouterTestingModule,
+        BrowserAnimationsModule,
+        AppModule,
       ],
       providers: [
         LoginService,
         AlertsService,
         UsersService,
         provideMockStore(),
-      ]
+      ],
+      teardown: { destroyAfterEach: false }
     });
     service = TestBed.inject(LoginService);
     alertsService = TestBed.inject(AlertsService);
@@ -57,7 +62,8 @@ describe('LoginService', () => {
       rememberMe: true,
       role: 'admin',
       uid: 'ruben@test.com',
-      userUid: '9hiG0Tlp63YWKsSChaP049e3mwh2'
+      userUid: '9hiG0Tlp63YWKsSChaP049e3mwh2',
+      favorites: [],
     };
 
     const subscription = new Subscription;
@@ -96,7 +102,8 @@ describe('LoginService', () => {
             rememberMe: true,
             role: 'admin',
             uid: 'ruben@test.com',
-            userUid: '9hiG0Tlp63YWKsSChaP049e3mwh2'
+            userUid: '9hiG0Tlp63YWKsSChaP049e3mwh2',
+            favorites: [],
           }],
         },
       } as unknown as UserCredential;
@@ -130,7 +137,8 @@ describe('LoginService', () => {
             rememberMe: false,
             role: 'student',
             uid: 'ruben@test.com',
-            userUid: '9hiG0Tlp63YWKsSChaP049e3mwh2'
+            userUid: '9hiG0Tlp63YWKsSChaP049e3mwh2',
+            favorites: [],
           }],
         },
       } as unknown as UserCredential;
@@ -145,4 +153,98 @@ describe('LoginService', () => {
       });
     });
   });
+
+  describe('#handleUserInfo', () => {
+    it('should handle user info for new user', () => {
+      const formValue = new FormGroup<SigninFormType>({
+        email: new FormControl(''),
+        password: new FormControl(''),
+        confirmPassword: new FormControl(''),
+      });
+      const userCredential = {
+        user: {
+          uid: '123',
+          providerData: [{ 
+            authUid: 'test',
+            displayName: 'test',
+            email: 'test@test.com',
+            phoneNumber: '878347374',
+            photoURL: 'jdahfkhfjadhf',
+            providerId: 'kasdjfkj',
+            rememberMe: false,
+            role: 'student',
+            uid: 'ruben@test.com',
+            userUid: '9hiG0Tlp63YWKsSChaP049e3mwh2',
+            favorites: [],
+          }],
+        },
+      } as unknown as UserCredential;
+      const isLogin = false;
+      const testUser = { 
+        authUid: 'test',
+        displayName: 'test',
+        email: 'test@test.com',
+        phoneNumber: '878347374',
+        photoURL: 'jdahfkhfjadhf',
+        providerId: 'kasdjfkj',
+        rememberMe: false,
+        role: 'student',
+        uid: 'ruben@test.com',
+        userUid: '9hiG0Tlp63YWKsSChaP049e3mwh2',
+        favorites: [],
+      }
+  
+      const getUsersSpy = spyOn(usersService, 'getUsers').and.returnValue(of([testUser]));
+      service.handleUserInfo(formValue, userCredential, isLogin);
+
+      expect(getUsersSpy.calls.count()).toBe(1, 'getUsers called once');
+    });
+  
+    it('should handle user info for existing user', () => {
+      const formValue = new FormGroup<SigninFormType>({
+        email: new FormControl(''),
+        password: new FormControl(''),
+        confirmPassword: new FormControl(''),
+      });
+      const userCredential = {
+        user: {
+          uid: '123',
+          providerData: [{ 
+            authUid: 'test',
+            displayName: 'test',
+            email: 'test@test.com',
+            phoneNumber: '878347374',
+            photoURL: 'jdahfkhfjadhf',
+            providerId: 'kasdjfkj',
+            rememberMe: false,
+            role: 'student',
+            uid: 'ruben@test.com',
+            userUid: '9hiG0Tlp63YWKsSChaP049e3mwh2',
+            favorites: [],
+          }],
+        },
+      } as unknown as UserCredential;
+      const isLogin = true;
+      const testUser = { 
+        authUid: 'test',
+        displayName: 'test',
+        email: 'test@test.com',
+        phoneNumber: '878347374',
+        photoURL: 'jdahfkhfjadhf',
+        providerId: 'kasdjfkj',
+        rememberMe: false,
+        role: 'student',
+        uid: 'ruben@test.com',
+        userUid: '9hiG0Tlp63YWKsSChaP049e3mwh2',
+        favorites: [],
+      }
+  
+      const getUsersSpy = spyOn(usersService, 'getUsers').and.returnValue(of([testUser]));
+      const updateUserSpy = spyOn(usersService, 'updateUser').and.returnValue(Promise.resolve());
+      service.handleUserInfo(formValue, userCredential, isLogin);
+
+      expect(getUsersSpy.calls.count()).toBe(1, 'getUsers called once');
+      expect(updateUserSpy.calls.count()).toBe(1, 'updateUser called once');
+    });
+  })
 });

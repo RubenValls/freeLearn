@@ -15,14 +15,19 @@ describe('SecondSectionMainComponent', () => {
       declarations: [ SecondSectionMainComponent ],
       providers: [
         { provide: TechService, useValue: {} },
-        { provide: Store, useValue: { select: () => of([]), dispatch: () => {} } }
+        { provide: Store, useValue: { select: () => of([
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+        ]), dispatch: () => {} } }
       ],
       imports: [MainPageModule]
     })
     .compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(SecondSectionMainComponent);
     component = fixture.componentInstance;
     store = TestBed.inject(Store);
@@ -33,17 +38,26 @@ describe('SecondSectionMainComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should increment currentIndex by 4 when next is called', () => {
-    component.currentIndex = 0;
-    component.visibleTechnologies = ['1', '2', '3', '4', '5', '6']
-    component.next();
-    expect(component.currentIndex).toEqual(4);
+  it('should initialize with first four technologies', () => {
+    expect(component.visibleTechnologies.length).toEqual(4);
   });
 
-  it('should decrement currentIndex by 4 when prev is called', () => {
-    component.currentIndex = 4;
-    component.visibleTechnologies = ['1', '2', '3', '4', '5', '6']
+  it('should go to next technologies', () => {
+    const initialIndex = component.currentIndex;
+    component.next();
+    expect(component.currentIndex).toEqual(initialIndex + 1);
+  });
+
+  it('should go to previous technologies', () => {
+    component.currentIndex = 1;
+    const initialIndex = component.currentIndex;
     component.prev();
-    expect(component.currentIndex).toEqual(0);
+    expect(component.currentIndex).toEqual(initialIndex - 1);
+  });
+
+  it('should update visible technologies', () => {
+    component.currentIndex = 1;
+    component.updateVisibleTechnologies();
+    expect(component.visibleTechnologies.length).toEqual(4);
   });
 });

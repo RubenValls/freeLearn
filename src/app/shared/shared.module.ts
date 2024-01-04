@@ -16,6 +16,8 @@ import { CourseCardComponent } from './components/course-card/course-card.compon
 import { SubDetailModalComponent } from './components/modals/sub-modals/sub-detail-modal/sub-detail-modal.component';
 import { SubModalCreateComponent } from './components/modals/sub-modals/sub-modal-create/sub-modal-create.component';
 import { RouterModule } from '@angular/router';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -39,7 +41,9 @@ import { RouterModule } from '@angular/router';
     MatSnackBarModule,
     MatIconModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    MatOptionModule,
+    MatSelectModule,
 
   ],
   exports: [   

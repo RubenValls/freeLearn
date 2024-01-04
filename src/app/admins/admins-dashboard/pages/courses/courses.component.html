@@ -6,20 +6,19 @@
     [iconName]="'add'"
   >
   </app-button>
+    
+    <ng-container *ngIf="watchForm">
+        <app-add-course-form (closeForm)="addCourse()"></app-add-course-form>
+    </ng-container>
+    <app-custom-table
+        [data]="courses$" 
+        [displayedColumns]="tableColumns"        
+        [rows]="rows"
+        [modalWith]="modalWith"
+        [modalHeight]="modalHeight"
+        [modalTitle]="modalTitle"
+        (onEdit)="onEdit($event)"
+        (onDelete)="onDelete($event)">
+    </app-custom-table>
 
-  <ng-container *ngIf="watchForm">
-    <app-add-course-form (closeForm)="addCourse()"></app-add-course-form>
-  </ng-container>
-  <app-custom-table
-    [data]="courses$"
-    [displayedColumns]="tableColumns"
-    (onModal)="onModals($event)"
-    [rows]="rows"
-    [modalWith]="modalWith"
-    [modalHeight]="modalHeight"
-    [modalTitle]="modalTitle"
-    (onEdit)="onEdit($event)"
-    (onDelete)="onDelete($event)"
-  >
-  </app-custom-table>
 </div>

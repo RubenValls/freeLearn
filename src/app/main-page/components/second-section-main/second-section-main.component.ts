@@ -57,7 +57,8 @@ export class SecondSectionMainComponent implements OnInit, OnDestroy {
     }
   }
 
-  private updateVisibleTechnologies() {
+  
+  updateVisibleTechnologies() {
     this.techSubscription = this.technologies$.pipe(
       map(technologies => technologies.slice(this.currentIndex, this.currentIndex + 4))
     ).subscribe(visibleTechnologies => {

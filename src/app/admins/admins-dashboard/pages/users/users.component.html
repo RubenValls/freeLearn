@@ -1,5 +1,11 @@
 <div class="flex-container">
-    <app-custom-table [data]="users$" [displayedColumns]="tableColumns" (onModal)="onModals($event)" [rows]="rows"
-        [modalWith]="modalWith" [modalHeight]="modalHeight" [modalTitle]="modalTitle" (onEdit)="onEdit($event)">
+    <app-custom-table 
+    [data]="users$"
+    [displayedColumns]="tableColumns" 
+    [rows]="rows"
+    [modalWith]="modalWith"
+    [modalHeight]="modalHeight" 
+    [modalTitle]="modalTitle" 
+    (onEdit)="onEdit($event)">
     </app-custom-table>
 </div>

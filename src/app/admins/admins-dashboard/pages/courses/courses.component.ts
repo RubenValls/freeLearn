@@ -13,6 +13,7 @@ import { Course } from './interface/course';
 export class CoursesComponent  {
   watchForm: boolean = false;
   courses$ = this.store.select(selectCourses);
+  
   modalWith: string = '1034';
   modalHeight: string = '650px';
   modalTitle: string = 'Courses';
@@ -29,17 +30,15 @@ export class CoursesComponent  {
 
   rows = [
     { label: 'Id', prop: 'id' },
-    { label: 'Name', prop: 'name' },
+    { label: 'Name', prop: 'name' },   
+    { label: 'Description', prop: 'description'},
     { label: 'Image', prop: 'imageUrl' },
     { label: 'Technologies', prop: 'techs'},
     { label: 'Instructor', prop: 'instructorId' },
     { label: 'Introduction', prop: 'introductionURL' },    
-    { label: 'Lessons', prop: 'lessons',    
-  
-  },
-    
-  ]
-  
+    { label: 'Lessons', prop: 'lessons'},    
+    { prop: 'rating', title: 'Rating'},
+  ]  
 
   constructor(
     private store: Store,
@@ -52,7 +51,7 @@ export class CoursesComponent  {
     this.watchForm = !this.watchForm;
   }
 
-  onEdit(element:Course){
+  onEdit(element:Course) {
     this.coursesService.updateCourse(element.id!, element)
     .then((data) => {
       this.alertMessages.successMessage('Course update successfully');
@@ -70,10 +69,6 @@ export class CoursesComponent  {
     .catch((error) => {
       this.alertMessages.errorMessage('Error deleting Course', error.message);
     })
-  }
-
-  onModals(element:Course){
-    this.coursesService.getCourseById(element.id!)
   }
 
 }

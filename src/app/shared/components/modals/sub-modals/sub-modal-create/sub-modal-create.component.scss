@@ -1,29 +1,71 @@
-.create-modal{
+.create-modal {
     display: flex;
     flex-direction: column;
     justify-content: center;
-   padding: 10px;
-   background-image: url("../../../../../../assets/images/svgs/waveGreenUp.svg");
-   background-repeat: no-repeat;
-   background-size: cover;
+    padding: 10px;
+    background-image: url("../../../../../../assets/images/svgs/waveGreenUp.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
 
-    form{
+    &--content {
+        .--close-icon {
+            display: flex;
+            justify-content: flex-end;
+            cursor: pointer;
+        }
+
+        .--create-icon {
+            border-radius: 50%;
+            border: 2px var(--succes);
+            display: inline-block;
+            background-color: var(--succes-transparent);
+            padding: 10px;
+
+            mat-icon {
+                color: var(--succes);
+                font-size: 24px;
+                display: block;
+                margin: 0 auto;
+            }
+        }
+    }
+
+
+    form {
         display: flex;
         flex-direction: column;
         justify-content: center;
 
-        .btn-add{
-            display: flex;
-            justify-content: end;          
-           
-
-            button{
-                background-color: var(--primary);
-                color: white;
-                padding: 5px;
-                border: none;
-                border-radius: 5px;
-            }
-        }
     }
+
+    .btn-group {
+        display: flex;
+        justify-content: flex-end;
+        align-items: end;
+        gap: 5px;
+
+    }
+
+    button {
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+    }
+
+    .btn-add {
+        background: var(--gradient);
+        color: white;
+
+    }
+
+    .btn-edit {
+        background-color: var(--succes);
+        color: white;
+
+    }
+
+    .btn-close-container {
+        background-color: var(--gray);
+    }
+
 }
