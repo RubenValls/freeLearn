@@ -14,7 +14,7 @@ export class TechnologiesComponent {
   isFormVisible = false
   technologies$ = this.store.select(selectTechnologies);
   modalWith: string = '1034';
-  modalHeight: string = '650px';
+  modalHeight: string = '500px';
   modalTitle: string = 'Technology';
 
   constructor(
