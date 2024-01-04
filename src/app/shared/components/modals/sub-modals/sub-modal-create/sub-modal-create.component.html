@@ -1,34 +1,43 @@
 <div class="create-modal">
-
-    <div class="create-modal--content">
-        <div class="--close-icon">
-            <mat-icon (click)="close()">close</mat-icon>
-        </div>
+  <div class="create-modal--content">
+    <div class="--close-icon">
+      <mat-icon (click)="close()">close</mat-icon>
     </div>
-    <div class="--create-icon">
-        <mat-icon>create</mat-icon>
+  </div>
+  <div class="--create-icon">
+    <mat-icon>create</mat-icon>
+  </div>
+  <h5>{{ data.title }}</h5>
+  <div class="modal-body">
+    <form [formGroup]="lessonForm">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label> Video url</mat-label>
+        <input matInput formControlName="videoUrl" />
+      </mat-form-field>
+    </form>
+    <div class="btn-group">
+      <app-button
+        [label]="'Add lesson'"
+        [type]="'gradient'"
+        (onClick)="onAddLesson()"
+        *ngIf="data.create"
+      ></app-button>
+      <app-button
+        [label]="'Edit lesson'"
+        [type]="'success'"
+        (onClick)="onEditLesson()"
+        *ngIf="!data.create"
+      ></app-button>
+      <app-button
+        [label]="'Close'"
+        [type]="'close'"
+        (onClick)="close()"
+      ></app-button>
     </div>
-    <h5>{{data.title}}</h5>
-    <div class="modal-body">
-        <form [formGroup]="lessonForm">
-            <mat-form-field>
-                <mat-label>Name</mat-label>
-                <input matInput formControlName="name">
-            </mat-form-field>
-
-            <mat-form-field>
-                <mat-label> Video url</mat-label>
-                <input matInput formControlName="videoUrl">
-            </mat-form-field>
-
-        </form>
-        <div class="btn-group">
-            <button class="btn btn-add" *ngIf="data.create" (click)="onAddLesson()">Add</button>
-            <button class="btn btn-edit" *ngIf="!data.create" (click)="onEditLesson()">Edit</button>
-            <button class="btn btn-close-container " (click)="close()">Close</button>
-        </div>
-    </div>
-
-
-
+  </div>
 </div>
