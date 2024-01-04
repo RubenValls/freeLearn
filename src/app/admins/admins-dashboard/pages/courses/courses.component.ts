@@ -31,6 +31,7 @@ export class CoursesComponent  {
   rows = [
     { label: 'Id', prop: 'id' },
     { label: 'Name', prop: 'name' },
+    { label: 'Description', prop: 'description'},
     { label: 'Image', prop: 'imageUrl' },
     { label: 'Technologies', prop: 'techs'},
     { label: 'Instructor', prop: 'instructorId' },
