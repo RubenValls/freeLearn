@@ -215,7 +215,7 @@ export class DetailModalComponent implements OnInit, OnDestroy {
     this.form.get(controlName)?.setValue(updatedReference);
     if (this.data.onEdit) {
       this.store.dispatch(CourseActions.editCourse({ course: { ...this.course, [controlName]: updatedReference, } }))
-      this.data.onEdit(this.form.value)
+      this.data.onEdit(this.form.value, true)
     }
     this.newValues = [];
   }
