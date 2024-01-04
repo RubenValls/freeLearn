@@ -16,6 +16,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { LoginFormType, SigninFormType } from '../types/formTypes';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppModule } from 'src/app/app.module';
+import * as firebase from 'firebase/auth';
 
 describe('LoginService', () => {
   let service: LoginService;
@@ -247,4 +248,66 @@ describe('LoginService', () => {
       expect(updateUserSpy.calls.count()).toBe(1, 'updateUser called once');
     });
   })
+
+  describe('#signInWithEmail', () => {
+    it('should sign in with email', () => {
+      const formValue = new FormGroup<SigninFormType>({
+        email: new FormControl('testing@testing.com'),
+        password: new FormControl('testingtesting'),
+        confirmPassword: new FormControl('testingtesting'),
+      });
+  
+      spyOn(service, 'signInWithEmail').and.callFake(() => {});
+
+      service.signInWithEmail(formValue);
+  
+      expect(service.signInWithEmail).toHaveBeenCalled();
+    });
+  })
+
+  describe('#loginInWithEmail', () => {
+    it('should log in with email', () => {
+      const formValue = new FormGroup<LoginFormType>({
+        email: new FormControl('testing@testing.com'),
+        password: new FormControl('testingtesting'),
+        rememberMe: new FormControl(false),
+      });
+  
+      spyOn(service, 'loginInWithEmail').and.callFake(() => {});
+
+      service.loginInWithEmail(formValue);
+  
+      expect(service.loginInWithEmail).toHaveBeenCalled();
+    });
+  })
+
+  describe('#signInWithGoogle', () => {
+    it('should log in with google', () => {
+      const formValue = new FormGroup<LoginFormType>({
+        email: new FormControl('testing@testing.com'),
+        password: new FormControl('testingtesting'),
+        rememberMe: new FormControl(false),
+      });
+  
+      spyOn(service, 'signInWithGoogle').and.callFake(() => {});
+
+      service.signInWithGoogle(formValue, true);
+  
+      expect(service.signInWithGoogle).toHaveBeenCalled();
+    });
+  })
+
+  it('should sign in with google', () => {
+    const formValue = new FormGroup<LoginFormType>({
+      email: new FormControl('testing@testing.com'),
+      password: new FormControl('testingtesting'),
+      rememberMe: new FormControl(false),
+    });
+
+    spyOn(service, 'signInWithGoogle').and.callFake(() => {});
+
+    service.signInWithGoogle(formValue, false);
+
+    expect(service.signInWithGoogle).toHaveBeenCalled();
+  });
 });
