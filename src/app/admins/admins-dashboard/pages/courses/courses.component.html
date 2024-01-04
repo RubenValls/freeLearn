@@ -1,26 +1,25 @@
 <div class="flex-container">
-    
-    <app-button
-        [label]="'Add course'"
-        [type]="'gradient'"
-        (onClick)="addCourse()"
-        [iconName]="'add'"
-> </app-button>
+  <app-button
+    [label]="'Add course'"
+    [type]="'gradient'"
+    (onClick)="addCourse()"
+    [iconName]="'add'"
+  >
+  </app-button>
 
-    <ng-container *ngIf="watchForm">
-        <app-add-course-form (closeForm)="addCourse()"></app-add-course-form>
-    </ng-container>
-    <app-custom-table
-        [data]="courses$" 
-        [displayedColumns]="tableColumns" 
-        (onModal)="onModals($event)"
-        [rows]="rows"
-        [modalWith]="modalWith"
-        [modalHeight]="modalHeight"
-        [modalTitle]="modalTitle"
-        (onEdit)="onEdit($event)"
-        (onDelete)="onDelete($event)">
-    </app-custom-table>
-
+  <ng-container *ngIf="watchForm">
+    <app-add-course-form (closeForm)="addCourse()"></app-add-course-form>
+  </ng-container>
+  <app-custom-table
+    [data]="courses$"
+    [displayedColumns]="tableColumns"
+    (onModal)="onModals($event)"
+    [rows]="rows"
+    [modalWith]="modalWith"
+    [modalHeight]="modalHeight"
+    [modalTitle]="modalTitle"
+    (onEdit)="onEdit($event)"
+    (onDelete)="onDelete($event)"
+  >
+  </app-custom-table>
 </div>
-
