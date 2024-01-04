@@ -57,7 +57,7 @@ export class CoursesComponent  {
       this.alertMessages.successMessage('Course update successfully');
     })
     .catch((error) => {
-      this.alertMessages.errorMessage('Error updating Course', error.message);
+      this.alertMessages.errorMessage('Error updating Course: ', error.message);
     })
   }
 

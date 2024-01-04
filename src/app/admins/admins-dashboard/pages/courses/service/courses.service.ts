@@ -60,18 +60,21 @@ export class CoursesService {
       addedIds?.forEach(techId => { this.techsService.updateTechnologyCourses(techId, course.id!); });
       deletedIds?.forEach(techId => { this.techsService.deleteTechnologyCourses(techId, course.id!); });
     }
-    if (!InstructorsEqual) {
-      console.log("instructors")
+    if (!InstructorsEqual) {      
       const { addedIds, deletedIds } = this.findIdsToEdit(this.currentCourse!.instructorId, course.instructorId);
       console.log(addedIds, deletedIds, "addedIds, deletedIds")
       addedIds?.forEach(instructorId => { this.instructorsService.updateInstructorsCourses(instructorId, course.id!); });
       deletedIds?.forEach(instructorId => { this.instructorsService.deleteInstructorsCourses(instructorId, course.id!); });
     }
-
-    const courseUpdate = updateDoc(coursesRef, { ...course })
-    console.log(courseUpdate, "courseUpdate")
+    
+    if (Techsequal && InstructorsEqual) {     
+      return Promise.reject({message : "No changes were made to the course"});
+    }
+   
+    const courseUpdate = updateDoc(coursesRef, { ...course })   
     return courseUpdate;
   };
+
   findIdsToEdit(currentTechs: Tech[], updatedTechs: Tech[]): { deletedIds: string[], addedIds: string[] } {
     const currentIds = currentTechs.map(tech => tech.id);
     const updatedIds = updatedTechs.map(tech => tech.id);
