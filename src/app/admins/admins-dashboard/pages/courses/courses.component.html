@@ -1,8 +1,12 @@
 <div class="flex-container">
-    <button (click)="addCourse()" mat-raised-button>
-        Add course
-        <mat-icon iconPositionEnd>add</mat-icon>
-    </button>
+  <app-button
+    [label]="'Add course'"
+    [type]="'gradient'"
+    (onClick)="addCourse()"
+    [iconName]="'add'"
+  >
+  </app-button>
+    
     <ng-container *ngIf="watchForm">
         <app-add-course-form (closeForm)="addCourse()"></app-add-course-form>
     </ng-container>
@@ -18,4 +22,3 @@
     </app-custom-table>
 
 </div>
-

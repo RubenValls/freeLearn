@@ -1,8 +1,12 @@
 <div class="flex-container">
-    <button mat-raised-button class="button-with-icon" (click)="onToggleForm()">
-        Add technology
-        <mat-icon iconPositionEnd>add</mat-icon>
-    </button>
+  <app-button
+    [label]="'Add technology'"
+    [type]="'gradient'"
+    (onClick)="onToggleForm()"
+    [iconName]="'add'"
+  >
+  </app-button>
+
     <app-new-tech-form *ngIf="isFormVisible"></app-new-tech-form>
     <app-custom-table 
     [data]="technologies$" 
@@ -16,4 +20,3 @@
 
 </app-custom-table>
 </div>
-

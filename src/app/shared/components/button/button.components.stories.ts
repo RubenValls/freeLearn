@@ -36,10 +36,22 @@ export const Gradient: Story = {
         type: 'gradient',
   },
 };
+export const SoftGradient: Story = {
+  args: {
+      label: 'Gradient',
+        type: 'softgradient',
+  },
+};
 export const Info: Story = {
     args: {
         label: 'Info',
           type: 'info',
+    },
+  };
+  export const Light: Story = {
+    args: {
+        label: 'Light',
+          type: 'light',
     },
   };
   export const Success: Story = {

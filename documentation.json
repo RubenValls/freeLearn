@@ -2739,130 +2739,8 @@
             "templateData": "<router-outlet></router-outlet>"
         },
         {
-            "name": "BtnBlackComponent",
-            "id": "component-BtnBlackComponent-2b9abf58c916a95a1821466acff44f48a23706181fc3a146060f806b32ed1720a141651f1124b6e9a9999214c1acddb8e8efe4aea2c114e482687e3260c3c570",
-            "file": "src/app/shared/components/btn-black/btn-black.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "app-btn-black",
-            "styleUrls": [
-                "./btn-black.component.scss"
-            ],
-            "styles": [],
-            "templateUrl": [
-                "./btn-black.component.html"
-            ],
-            "viewProviders": [],
-            "hostDirectives": [],
-            "inputsClass": [
-                {
-                    "name": "buttonText",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 9,
-                    "type": "string",
-                    "decorators": []
-                },
-                {
-                    "name": "routerLink",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 10,
-                    "type": "string",
-                    "decorators": []
-                }
-            ],
-            "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "standalone": false,
-            "imports": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-btn-black',\r\n  templateUrl: './btn-black.component.html',\r\n  styleUrls: ['./btn-black.component.scss']\r\n})\r\nexport class BtnBlackComponent {\r\n  @Input() buttonText!: string; \r\n  @Input() routerLink!: string;\r\n\r\n}\r\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": "button{\r\n    background: var(--black) !important;\r\n    color: var(--white) !important;\r\n    font-weight:600;\r\n    font-size: 16px;\r\n    letter-spacing: 1px;\r\n    padding: 1.4rem 1.4rem;\r\n    transition: background 0.2s;\r\n}\r\n\r\nbutton:hover{\r\n    background: var(--grey) !important;\r\n}\r\n",
-                    "styleUrl": "./btn-black.component.scss"
-                }
-            ],
-            "stylesData": "",
-            "extends": [],
-            "templateData": "<button mat-flat-button>{{buttonText}}</button>\r\n"
-        },
-        {
-            "name": "BtnGradientComponent",
-            "id": "component-BtnGradientComponent-5c73915223921e8313afc435bb4d97d5e3c48047e634f35e32bc8d1dde476e854b115720935d256dc5756fc89d25818ca59f49eba7ad2ef9506951f7c8f99c15",
-            "file": "src/app/shared/components/btn-gradient/btn-gradient.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "app-btn-gradient",
-            "styleUrls": [
-                "./btn-gradient.component.scss"
-            ],
-            "styles": [],
-            "templateUrl": [
-                "./btn-gradient.component.html"
-            ],
-            "viewProviders": [],
-            "hostDirectives": [],
-            "inputsClass": [
-                {
-                    "name": "buttonText",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 9,
-                    "type": "string",
-                    "decorators": []
-                },
-                {
-                    "name": "routerLink",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 10,
-                    "type": "string",
-                    "decorators": []
-                }
-            ],
-            "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "standalone": false,
-            "imports": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-btn-gradient',\r\n  templateUrl: './btn-gradient.component.html',\r\n  styleUrls: ['./btn-gradient.component.scss']\r\n})\r\nexport class BtnGradientComponent {\r\n  @Input() buttonText!: string; \r\n  @Input() routerLink!: string;\r\n\r\n}\r\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": "button{\r\n    background: linear-gradient(61deg,var(--accent) 1%,#20ded3 85%,#20ded3 90%) 0 0 /100% 100% no-repeat;\r\n    color: var(--white) !important;\r\n    font-weight:600;\r\n    font-size: 14px;\r\n    letter-spacing: 1px;\r\n    padding: 1.4rem 1.4rem;\r\n}\r\n\r\nbutton:hover{\r\n    background: var(--black) !important;\r\n}",
-                    "styleUrl": "./btn-gradient.component.scss"
-                }
-            ],
-            "stylesData": "",
-            "extends": [],
-            "templateData": "<button mat-flat-button>{{buttonText}}</button>\r\n"
-        },
-        {
             "name": "ButtonComponent",
-            "id": "component-ButtonComponent-45e08042ef2a9a0315cf537b12e6574618a752bd2b8ece8b06507af94c57792095ab160f92779a10f4dddb3ed7d215da656758ae7b29c066ecf14e93632bd292",
+            "id": "component-ButtonComponent-6db0ebf7a4e17929ba4ff5b898427ce23c9fea4716248fceec69fbc22364488abe89223f7fb0a4ae259470c16b09514c9f73ffe918d822e043760f4fe4ea9538",
             "file": "src/app/shared/components/button/button.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2924,7 +2802,7 @@
                 },
                 {
                     "name": "size",
-                    "defaultValue": "'large'",
+                    "defaultValue": "'small'",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "line": 16,
@@ -2962,11 +2840,11 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, EventEmitter, Input, Output } from '@angular/core';\r\n\r\nconst getStyles = (...args: string[]) => [\"button\", ...args].filter(Boolean)\r\n\r\n\r\n@Component({\r\n  selector: 'app-button',\r\n  templateUrl: './button.component.html',\r\n  styleUrls: ['./button.component.scss']\r\n})\r\nexport class ButtonComponent {\r\n  @Input() label!: string; \r\n  @Input() routerLink!: string;\r\n  @Input() primary = false;\r\n  @Input() type: 'primary' | 'secondary' |  'gradient'  |  'info' |  'danger' |  'warning'  |  'success'= 'primary';\r\n  @Input() size: 'small' | 'medium' | 'large' = 'large'\r\n  @Input() iconName?: string;\r\n  @Input() iconPosition: 'start' | 'end' = 'end';\r\n  @Output() onClick = new EventEmitter<Event>();\r\n\r\n  public get classes(): string[] {\r\n    return getStyles(this.type, this.size);   \r\n  }\r\n\r\n}\r\n",
+            "sourceCode": "import { Component, EventEmitter, Input, Output } from '@angular/core';\r\n\r\nconst getStyles = (...args: string[]) => [\"button\", ...args].filter(Boolean)\r\n\r\n\r\n@Component({\r\n  selector: 'app-button',\r\n  templateUrl: './button.component.html',\r\n  styleUrls: ['./button.component.scss']\r\n})\r\nexport class ButtonComponent {\r\n  @Input() label!: string; \r\n  @Input() routerLink!: string;\r\n  @Input() primary = false;\r\n  @Input() type: 'primary' | 'secondary' |  'gradient'  |  'info' |  'danger' |  'warning'  |  'success'= 'primary';\r\n  @Input() size: 'small' | 'medium' | 'large' = 'small'\r\n  @Input() iconName?: string;\r\n  @Input() iconPosition: 'start' | 'end' = 'end';\r\n  @Output() onClick = new EventEmitter<Event>();\r\n\r\n  public get classes(): string[] {\r\n    return getStyles(this.type, this.size);   \r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "button {\r\n   \r\n    font-size: 16px;\r\n    letter-spacing: 1px;\r\n    padding:10px;\r\n    transition: background 0.2s;\r\n    border: none;\r\n    border-radius: 5px;\r\n\r\n}\r\n\r\n.primary {\r\n    background: var(--primary) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.primary:hover {  \r\n    background: linear-gradient(145deg, #cacaca, #f0f0f0);\r\n    box-shadow:  7px 7px 14px #a4a4a4,\r\n                 -7px -7px 14px #ffffff;\r\n}\r\n\r\n .primary:active {\r\n  \r\n    transform: translateY(10px);\r\n    transition: 100ms;\r\n  }\r\n\r\n.secondary {\r\n    background: var(--accent) !important;\r\n    color: var(--white) !important;\r\n}\r\n.success {\r\n    background: var(--succes) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.info {\r\n    background: var(--black) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.danger {\r\n    background: var(--error) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.warning {\r\n    background: var(--warning) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.gradient {\r\n    background: linear-gradient(61deg, var(--accent) 1%, #20ded3 85%, #20ded3 90%) 0 0 /100% 100% no-repeat;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.gradient:hover {\r\n    background: var(--black) !important;\r\n}\r\n\r\n.large {\r\n\r\n    font-size: 18px;\r\n}\r\n\r\n.medium {\r\n\r\n    font-size: 16px;\r\n}\r\n\r\n.small {\r\n\r\n    font-size: 14px;\r\n}",
+                    "data": "button {\r\n   \r\n    font-size: 14px;\r\n    letter-spacing: 1px;\r\n    padding:10px;\r\n    transition: background 0.2s;\r\n    border: none;\r\n    border-radius: 5px;\r\n    font-weight:600;\r\n    padding: 0.7rem 1.4rem;\r\n\r\n}\r\n\r\n.primary {\r\n    background: var(--primary) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.primary:hover {  \r\n    background: linear-gradient(145deg, #cacaca, #f0f0f0);\r\n    box-shadow:  7px 7px 14px #a4a4a4,\r\n                 -7px -7px 14px #ffffff;\r\n}\r\n\r\n.primary:active {\r\n    transform: translateY(10px);\r\n    transition: 100ms;\r\n}\r\n\r\n.secondary {\r\n    background: var(--accent) !important;\r\n    color: var(--white) !important;\r\n}\r\n.success {\r\n    background: var(--succes) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.info {\r\n    background: var(--black) !important;\r\n    color: var(--white) !important;\r\n}\r\n.info:hover {\r\n    background: var(--grey) !important;\r\n}\r\n\r\n.danger {\r\n    background: var(--error) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.warning {\r\n    background: var(--warning) !important;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.gradient {\r\n    background: linear-gradient(61deg, var(--accent) 1%, #20ded3 85%, #20ded3 90%) 0 0 /100% 100% no-repeat;\r\n    color: var(--white) !important;\r\n}\r\n\r\n.gradient:hover {\r\n    background: var(--black) !important;\r\n}\r\n\r\n.large {\r\n\r\n    font-size: 18px;\r\n}\r\n\r\n.medium {\r\n\r\n    font-size: 16px;\r\n}\r\n\r\n.small {\r\n\r\n    font-size: 14px;\r\n}",
                     "styleUrl": "./button.component.scss"
                 }
             ],
@@ -2983,7 +2861,7 @@
                     }
                 }
             },
-            "templateData": "<!-- <button\r\n(click)=\"onClick.emit($event)\"\r\n [ngClass]=\"classes\"\r\n>\r\n {{label}}\r\n <mat-icon>add</mat-icon>\r\n</button> -->\r\n<!-- button.component.html -->\r\n<button [ngClass]=\"classes\"(click)=\"onClick.emit($event)\">\r\n    <span *ngIf=\"iconPosition === 'start'\">\r\n      <mat-icon *ngIf=\"iconName\" class=\"mat-icon\">{{ iconName }}</mat-icon>\r\n    </span>\r\n    <span>{{ label }}</span>\r\n    <span >\r\n      <mat-icon *ngIf=\"iconName\" iconPositionEnd class=\"mat-icon\">{{ iconName }}</mat-icon>\r\n    </span>\r\n    \r\n  </button>\r\n  "
+            "templateData": "<button [ngClass]=\"classes\" (click)=\"onClick.emit($event)\">\r\n  <span *ngIf=\"iconPosition === 'start'\">\r\n    <mat-icon *ngIf=\"iconName\" class=\"mat-icon\">{{ iconName }}</mat-icon>\r\n  </span>\r\n  <span>{{ label }}</span>\r\n  <span>\r\n    <mat-icon *ngIf=\"iconName\" iconPositionEnd class=\"mat-icon\">{{\r\n      iconName\r\n    }}</mat-icon>\r\n  </span>\r\n</button>\r\n"
         },
         {
             "name": "CourseCardComponent",
@@ -3065,7 +2943,7 @@
             ],
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"a-box\">\r\n  <div class=\"img-container\">\r\n    <div class=\"img-inner\">\r\n      <div class=\"inner-skew\">\r\n        <img [src]=\"course?.imageUrl\">\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"text-container\">\r\n    <h3>{{course?.name}}</h3>\r\n    <div> \r\n      {{this.handleDescription(course?.description || '')}}\r\n    </div>\r\n    <div class=\"lessons-text\"> \r\n      Lessons: {{course?.lessons?.length}}\r\n    </div>\r\n    <app-btn-gradient\r\n          [buttonText]=\"'Learn ' + course?.techs?.[0]?.name\"\r\n          [routerLink]=\"'/login'\"\r\n    ></app-btn-gradient>\r\n</div>\r\n"
+            "templateData": "<div class=\"a-box\">\r\n  <div class=\"img-container\">\r\n    <div class=\"img-inner\">\r\n      <div class=\"inner-skew\">\r\n        <img [src]=\"course?.imageUrl\">\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"text-container\">\r\n    <h3>{{course?.name}}</h3>\r\n    <div> \r\n      {{this.handleDescription(course?.description || '')}}\r\n    </div>\r\n    <div class=\"lessons-text\"> \r\n      Lessons: {{course?.lessons?.length}}\r\n    </div>\r\n\r\n    <app-button\r\n          [label]=\"'Learn ' + course?.techs?.[0]?.name\"\r\n          [type]=\"'gradient'\"\r\n          routerLink=\"/login\"\r\n    ></app-button>\r\n    \r\n    \r\n</div>\r\n"
         },
         {
             "name": "CoursesComponent",
@@ -3948,7 +3826,7 @@
         },
         {
             "name": "DetailModalComponent",
-            "id": "component-DetailModalComponent-ef6c787e60695079bf3074297dfbb9912a4a58bb810319e87f902394b6b269d6bd552df5f907ea8a9adaf89867204ef4759ac4799a6e46413ff3d5ab88aa6fb3",
+            "id": "component-DetailModalComponent-1e626cfd6cfff176759a07157858f4c9a9b7d596a0d3db187ea2dddfe1f2d1b99a90436d7ce82e0653a967984f8797a9a421ca502cb10d845255cb384637ef8c",
             "file": "src/app/shared/components/modals/detail-modal/detail-modal.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -3975,7 +3853,7 @@
                     "type": "FormBuilder",
                     "optional": false,
                     "description": "",
-                    "line": 39,
+                    "line": 41,
                     "modifierKind": [
                         125
                     ]
@@ -3999,13 +3877,22 @@
                     "line": 32
                 },
                 {
+                    "name": "courseSubscription",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Subscription | undefined",
+                    "optional": false,
+                    "description": "",
+                    "line": 35
+                },
+                {
                     "name": "data",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "any",
                     "optional": false,
                     "description": "",
-                    "line": 36,
+                    "line": 38,
                     "decorators": [
                         {
                             "name": "Inject",
@@ -4024,7 +3911,7 @@
                     "type": "MatDialog",
                     "optional": false,
                     "description": "",
-                    "line": 38,
+                    "line": 40,
                     "modifierKind": [
                         125
                     ]
@@ -4036,7 +3923,7 @@
                     "type": "MatDialogRef<DetailModalComponent>",
                     "optional": false,
                     "description": "",
-                    "line": 37,
+                    "line": 39,
                     "modifierKind": [
                         125
                     ]
@@ -4156,7 +4043,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 128,
+                    "line": 134,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -4166,7 +4053,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 67,
+                    "line": 73,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -4183,7 +4070,7 @@
                     "optional": false,
                     "returnType": "FormGroup | FormControl",
                     "typeParameters": [],
-                    "line": 90,
+                    "line": 96,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -4211,7 +4098,7 @@
                     "optional": false,
                     "returnType": "FormGroup",
                     "typeParameters": [],
-                    "line": 108,
+                    "line": 114,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -4239,7 +4126,7 @@
                     "optional": false,
                     "returnType": "FormGroup | null",
                     "typeParameters": [],
-                    "line": 120,
+                    "line": 126,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -4267,7 +4154,7 @@
                     "optional": false,
                     "returnType": "FormControl",
                     "typeParameters": [],
-                    "line": 124,
+                    "line": 130,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -4283,12 +4170,22 @@
                     ]
                 },
                 {
+                    "name": "ngOnDestroy",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 69,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
                     "name": "ngOnInit",
                     "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 43,
+                    "line": 45,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -4298,7 +4195,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 132,
+                    "line": 138,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -4308,7 +4205,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 152,
+                    "line": 158,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -4325,7 +4222,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 170,
+                    "line": 176,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -4346,7 +4243,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 188,
+                    "line": 192,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -4360,7 +4257,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Inject, OnInit } from '@angular/core';\r\nimport { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';\r\nimport { DeleteModalComponent } from '../delete-modal/delete-modal.component';\r\nimport { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';\r\nimport { UpdateModalComponent } from '../update-modal/update-modal.component';\r\nimport { SubDetailModalComponent } from '../sub-modals/sub-detail-modal/sub-detail-modal.component';\r\nimport { SubModalCreateComponent } from '../sub-modals/sub-modal-create/sub-modal-create.component';\r\nimport { Store } from '@ngrx/store';\r\nimport { selectCourse } from 'src/app/admins/admins-dashboard/pages/courses/store/course/course.selectors';\r\nimport { Observable } from 'rxjs';\r\nimport { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';\r\nimport { CourseActions } from 'src/app/admins/admins-dashboard/pages/courses/store/course/course.actions';\r\n\r\n@Component({\r\n  selector: 'app-detail-modal',\r\n  templateUrl: './detail-modal.component.html',\r\n  styleUrls: ['./detail-modal.component.scss']\r\n})\r\nexport class DetailModalComponent implements OnInit {\r\n\r\n  title: string = ''\r\n  totalCourses: string | null = null\r\n  rows: any[] = [];\r\n  form!: FormGroup;\r\n  socialMediaForm!: FormGroup;\r\n  techsForm!: FormGroup;\r\n  techs: any[] = [];\r\n  instructors: any[] = [];\r\n  lessons: any[] = [];\r\n  totalLessons: string | number = '';\r\n  isCourse: boolean = false;\r\n  course$: Observable<Course> | undefined;\r\n  course: any\r\n\r\n  constructor(\r\n    @Inject(MAT_DIALOG_DATA) public data: any,\r\n    public dialogRef: MatDialogRef<DetailModalComponent>,\r\n    public dialog: MatDialog,\r\n    public builderForm: FormBuilder,\r\n    private store: Store,\r\n  ) { }\r\n\r\n  ngOnInit(): void {\r\n    if(this.data.title == \"Courses\"){\r\n      console.log(this.course)\r\n      this.course$ = this.store.select(selectCourse);\r\n      this.store.dispatch(CourseActions.addCourse({course: this.data.data}))\r\n      this.course$.subscribe((course: Course) => {\r\n        this.totalLessons = course.lessons.length > 0 ? `this course has ${course.lessons.length} lessons` : \"This course has 0 lessons\"\r\n        this.course = course\r\n      })\r\n    }\r\n    this.rows = this.data.rows\r\n    this.title = this.data.title\r\n    this.totalCourses = this.data.totalCourses > 0 ? `This technology has ${this.data.totalCourses} associated courses` : \"This technology has 0 associated courses\"\r\n    this.createDynamicForm();\r\n    this.form.patchValue(this.course ? this.course : this.data.data);\r\n    this.socialMediaForm = this.getFormGroup('socialMedia') as FormGroup;\r\n    this.techsForm = this.getFormGroup('techs') as FormGroup;\r\n    this.techs = this.data.data.techs\r\n    this.instructors = this.data.data.instructorId\r\n    this.lessons = this.course.lessons\r\n    this.totalLessons = this.course.lessons.length > 0 ? `this course has ${this.course.lessons.length} lessons` : \"This course has 0 lessons\"\r\n    this.isCourse = this.data.title == \"Courses\" ? true : false\r\n   }\r\n\r\n  createDynamicForm() {\r\n    this.form = this.builderForm.group({});\r\n    this.rows.forEach((row: any) => {\r\n      if (row.prop !== 'courses') {\r\n        if (row.subFields) {\r\n          if (row.prop !== \"socialMedia\") {\r\n            const subFormGroup = this.createSubFormGroup(row.subFields);\r\n            this.form.addControl(row.prop, subFormGroup);\r\n          } else {\r\n\r\n            const subFormGroup = this.createSubFormGroupFromObject(row.subFields);\r\n            this.form.addControl(row.prop, subFormGroup);\r\n          }\r\n        }\r\n\r\n        else {\r\n          this.form.addControl(row.prop, this.builderForm.control('', Validators.required));\r\n        }\r\n      }\r\n    });\r\n\r\n  }\r\n\r\n  createSubFormGroup(field: any): FormGroup | FormControl {\r\n    if (!field) {\r\n      return this.builderForm.control('');\r\n    }\r\n\r\n    if (field.subFields) {\r\n      const subFormGroup: { [key: string]: AbstractControl } = {};\r\n\r\n      field.subFields.forEach((subField: any) => {\r\n        subFormGroup[subField.prop] = this.createSubFormGroup(subField);\r\n      });\r\n\r\n      return this.builderForm.group(subFormGroup);\r\n    } else {\r\n      return this.builderForm.control('');\r\n    }\r\n  }\r\n\r\n  createSubFormGroupFromObject(subFields: any[]): FormGroup {\r\n    const subFormGroup: { [key: string]: AbstractControl } = {};\r\n    subFields.forEach((field: any) => {\r\n      if (field.subFields) {\r\n        subFormGroup[field.prop] = this.createSubFormGroup(field.subFields);\r\n      } else {\r\n        subFormGroup[field.prop] = this.builderForm.control('');\r\n      }\r\n    });\r\n    return this.builderForm.group(subFormGroup);\r\n  }\r\n\r\n  getFormGroup(sectionName: string): FormGroup | null {\r\n    const formGroup = this.form.get(sectionName) as FormGroup;\r\n    return formGroup || null;\r\n  }\r\n  getSubFieldControl(controlName: string): FormControl {\r\n    return this.techsForm.get(controlName) as FormControl;\r\n  }\r\n\r\n  close() {\r\n    this.dialogRef.close();\r\n  }\r\n\r\n  onDelete() {\r\n    if (this.data.onDelete) {\r\n      const deleteDialog = this.dialog.open(DeleteModalComponent, {\r\n        width: '400px',\r\n        data: {\r\n          title: this.title,\r\n          onDelete: this.data.onDelete,\r\n          id: this.form.value,\r\n          data: this.data.data\r\n        }\r\n      });\r\n\r\n      deleteDialog.afterClosed().subscribe(result => {\r\n        if (result) {\r\n          this.dialogRef.close();\r\n        }\r\n      });\r\n    }\r\n  }\r\n\r\n  onEdit() {\r\n    if (this.data.onEdit) {\r\n      const updateDialog = this.dialog.open(UpdateModalComponent, {\r\n        width: '400px',\r\n        data: {\r\n          title: this.title,\r\n          onEdit: this.data.onEdit,\r\n          editData: this.form.value\r\n        }\r\n      })\r\n      updateDialog.afterClosed().subscribe(result => {\r\n        if (result) {\r\n          this.dialogRef.close();\r\n        }\r\n      });\r\n    }\r\n\r\n  }\r\n  onEditField(field: any) {\r\n    const techsArray = this.form.get(\"instructorId\") as FormArray;\r\n    alert(techsArray.controls.values)\r\n    // Encuentra el índice del primer elemento con el id específico\r\n    const index = techsArray.controls.findIndex(control =>\r\n      control.get('id')?.value === field.id\r\n    );\r\n\r\n    if (index !== -1) {\r\n      // Aquí puedes realizar cualquier acción que necesites con el índice encontrado\r\n      console.log('Índice del primer elemento con el id específico:', index);\r\n    } else {\r\n      console.error('Elemento con el id específico no encontrado en el FormArray');\r\n    }\r\n\r\n\r\n  }\r\n\r\n  openLessons() {\r\n    const updateDialog = this.dialog.open(SubDetailModalComponent, {\r\n      width: '1030px',\r\n      height: '650px',\r\n      data: {       \r\n        onEdit: this.data.onEdit,\r\n        onDelete: this.data.onDelete,\r\n        editForm: this.form, \r\n      }\r\n    })\r\n  }\r\n\r\n\r\n}\r\n",
+            "sourceCode": "import { Component, Inject, OnDestroy, OnInit } from '@angular/core';\r\nimport { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';\r\nimport { DeleteModalComponent } from '../delete-modal/delete-modal.component';\r\nimport { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';\r\nimport { UpdateModalComponent } from '../update-modal/update-modal.component';\r\nimport { SubDetailModalComponent } from '../sub-modals/sub-detail-modal/sub-detail-modal.component';\r\nimport { SubModalCreateComponent } from '../sub-modals/sub-modal-create/sub-modal-create.component';\r\nimport { Store } from '@ngrx/store';\r\nimport { selectCourse } from 'src/app/admins/admins-dashboard/pages/courses/store/course/course.selectors';\r\nimport { Observable, Subscription } from 'rxjs';\r\nimport { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';\r\nimport { CourseActions } from 'src/app/admins/admins-dashboard/pages/courses/store/course/course.actions';\r\n\r\n@Component({\r\n  selector: 'app-detail-modal',\r\n  templateUrl: './detail-modal.component.html',\r\n  styleUrls: ['./detail-modal.component.scss']\r\n})\r\nexport class DetailModalComponent implements OnInit, OnDestroy {\r\n\r\n  title: string = ''\r\n  totalCourses: string | null = null\r\n  rows: any[] = [];\r\n  form!: FormGroup;\r\n  socialMediaForm!: FormGroup;\r\n  techsForm!: FormGroup;\r\n  techs: any[] = [];\r\n  instructors: any[] = [];\r\n  lessons: any[] = [];\r\n  totalLessons: string | number = '';\r\n  isCourse: boolean = false;\r\n  course$: Observable<Course> | undefined;\r\n  course: any\r\n\r\n  courseSubscription: Subscription | undefined\r\n\r\n  constructor(\r\n    @Inject(MAT_DIALOG_DATA) public data: any,\r\n    public dialogRef: MatDialogRef<DetailModalComponent>,\r\n    public dialog: MatDialog,\r\n    public builderForm: FormBuilder,\r\n    private store: Store,\r\n  ) { }\r\n\r\n  ngOnInit(): void {\r\n    if(this.data.title == \"Courses\"){\r\n      console.log(this.course)\r\n      this.course$ = this.store.select(selectCourse);\r\n      this.store.dispatch(CourseActions.addCourse({course: this.data.data}))\r\n      this.courseSubscription = this.course$.subscribe((course: Course) => {\r\n        this.totalLessons = course.lessons.length > 0 ? `this course has ${course.lessons.length} lessons` : \"This course has 0 lessons\"\r\n        this.course = course\r\n      })\r\n    }\r\n    this.rows = this.data.rows\r\n    this.title = this.data.title\r\n    this.totalCourses = this.data.totalCourses > 0 ? `This technology has ${this.data.totalCourses} associated courses` : \"This technology has 0 associated courses\"\r\n    this.createDynamicForm();\r\n    this.form.patchValue(this.course ? this.course : this.data.data);\r\n    this.socialMediaForm = this.getFormGroup('socialMedia') as FormGroup;\r\n    this.techsForm = this.getFormGroup('techs') as FormGroup;\r\n    this.techs = this.data.data.techs\r\n    this.instructors = this.data.data.instructorId\r\n    this.lessons = this.course.lessons\r\n    this.totalLessons = this.course.lessons.length > 0 ? `this course has ${this.course.lessons.length} lessons` : \"This course has 0 lessons\"\r\n    this.isCourse = this.data.title == \"Courses\" ? true : false\r\n   }\r\n\r\n   ngOnDestroy(): void {\r\n     this.courseSubscription?.unsubscribe()\r\n   }\r\n\r\n  createDynamicForm() {\r\n    this.form = this.builderForm.group({});\r\n    this.rows.forEach((row: any) => {\r\n      if (row.prop !== 'courses') {\r\n        if (row.subFields) {\r\n          if (row.prop !== \"socialMedia\") {\r\n            const subFormGroup = this.createSubFormGroup(row.subFields);\r\n            this.form.addControl(row.prop, subFormGroup);\r\n          } else {\r\n\r\n            const subFormGroup = this.createSubFormGroupFromObject(row.subFields);\r\n            this.form.addControl(row.prop, subFormGroup);\r\n          }\r\n        }\r\n\r\n        else {\r\n          this.form.addControl(row.prop, this.builderForm.control('', Validators.required));\r\n        }\r\n      }\r\n    });\r\n\r\n  }\r\n\r\n  createSubFormGroup(field: any): FormGroup | FormControl {\r\n    if (!field) {\r\n      return this.builderForm.control('');\r\n    }\r\n\r\n    if (field.subFields) {\r\n      const subFormGroup: { [key: string]: AbstractControl } = {};\r\n\r\n      field.subFields.forEach((subField: any) => {\r\n        subFormGroup[subField.prop] = this.createSubFormGroup(subField);\r\n      });\r\n\r\n      return this.builderForm.group(subFormGroup);\r\n    } else {\r\n      return this.builderForm.control('');\r\n    }\r\n  }\r\n\r\n  createSubFormGroupFromObject(subFields: any[]): FormGroup {\r\n    const subFormGroup: { [key: string]: AbstractControl } = {};\r\n    subFields.forEach((field: any) => {\r\n      if (field.subFields) {\r\n        subFormGroup[field.prop] = this.createSubFormGroup(field.subFields);\r\n      } else {\r\n        subFormGroup[field.prop] = this.builderForm.control('');\r\n      }\r\n    });\r\n    return this.builderForm.group(subFormGroup);\r\n  }\r\n\r\n  getFormGroup(sectionName: string): FormGroup | null {\r\n    const formGroup = this.form.get(sectionName) as FormGroup;\r\n    return formGroup || null;\r\n  }\r\n  getSubFieldControl(controlName: string): FormControl {\r\n    return this.techsForm.get(controlName) as FormControl;\r\n  }\r\n\r\n  close() {\r\n    this.dialogRef.close();\r\n  }\r\n\r\n  onDelete() {\r\n    if (this.data.onDelete) {\r\n      const deleteDialog = this.dialog.open(DeleteModalComponent, {\r\n        width: '400px',\r\n        data: {\r\n          title: this.title,\r\n          onDelete: this.data.onDelete,\r\n          id: this.form.value,\r\n          data: this.data.data\r\n        }\r\n      });\r\n\r\n      deleteDialog.afterClosed().subscribe(result => {\r\n        if (result) {\r\n          this.dialogRef.close();\r\n        }\r\n      });\r\n    }\r\n  }\r\n\r\n  onEdit() {\r\n    if (this.data.onEdit) {\r\n      const updateDialog = this.dialog.open(UpdateModalComponent, {\r\n        width: '400px',\r\n        data: {\r\n          title: this.title,\r\n          onEdit: this.data.onEdit,\r\n          editData: this.form.value\r\n        }\r\n      })\r\n      updateDialog.afterClosed().subscribe(result => {\r\n        if (result) {\r\n          this.dialogRef.close();\r\n        }\r\n      });\r\n    }\r\n\r\n  }\r\n  onEditField(field: any) {\r\n    const techsArray = this.form.get(\"instructorId\") as FormArray;\r\n    alert(techsArray.controls.values)\r\n    const index = techsArray.controls.findIndex(control =>\r\n      control.get('id')?.value === field.id\r\n    );\r\n\r\n    if (index !== -1) {\r\n      console.log('Índice del primer elemento con el id específico:', index);\r\n    } else {\r\n      console.error('Elemento con el id específico no encontrado en el FormArray');\r\n    }\r\n\r\n\r\n  }\r\n\r\n  openLessons() {\r\n    const updateDialog = this.dialog.open(SubDetailModalComponent, {\r\n      width: '1030px',\r\n      height: '650px',\r\n      data: {       \r\n        onEdit: this.data.onEdit,\r\n        onDelete: this.data.onDelete,\r\n        editForm: this.form, \r\n      }\r\n    })\r\n  }\r\n\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -4406,7 +4303,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 33,
+                "line": 35,
                 "jsdoctags": [
                     {
                         "name": "data",
@@ -4457,7 +4354,8 @@
             },
             "extends": [],
             "implements": [
-                "OnInit"
+                "OnInit",
+                "OnDestroy"
             ],
             "templateData": "<div class=\"detail-modal\">\r\n\r\n    <div class=\"detail-modal--content\">\r\n\r\n        <div class=\"--close-icon\">\r\n\r\n            <mat-icon (click)=\"close()\">close</mat-icon>\r\n        </div>\r\n        <div class=\"--detail-icon\">\r\n            <mat-icon>info</mat-icon>\r\n        </div>\r\n\r\n        <div mat-dialog-content class=\"modal-body\">\r\n\r\n            <h3 mat-dialog-title>{{title}}</h3>\r\n\r\n            <form class=\"edit-form\" [formGroup]=\"form\" class=\"row\">\r\n                <div *ngFor=\"let row of rows\" class=\"row\">\r\n                    <mat-form-field\r\n                        *ngIf=\"row.prop !== 'courses' && row.prop !== 'description' && row.prop !== 'id' && row.prop !== 'socialMedia' && row.prop !== 'lessons' && row.prop !== 'techs' && row.prop !== 'instructorId'\">\r\n                        <mat-label>{{row.label}}</mat-label>\r\n                        <input matInput formControlName=\"{{ row.prop }}\">\r\n                    </mat-form-field>\r\n\r\n                    <mat-form-field *ngIf=\"row.prop === 'id'\">\r\n                        <mat-label>{{row.label}}</mat-label>\r\n                        <input matInput formControlName=\"{{ row.prop }}\" readonly>\r\n                    </mat-form-field>\r\n\r\n                    <mat-form-field *ngIf=\"row.prop === 'courses'\">\r\n                        <mat-label>{{row.label}}</mat-label>\r\n                        <input type=\"text\" [value]=\"totalCourses\" matInput readonly>\r\n                    </mat-form-field>\r\n\r\n                    <mat-form-field *ngIf=\"row.prop === 'description'\">\r\n                        <mat-label>{{row.label}}</mat-label>\r\n                        <textarea matInput formControlName=\"{{ row.prop }}\" cdkTextareaAutosize\r\n                            cdkAutosizeMinRows=\"5\"></textarea>\r\n                    </mat-form-field>\r\n\r\n                    <ng-container *ngIf=\"row.prop === 'socialMedia' && socialMediaForm\">\r\n                        <div [formGroup]=\"socialMediaForm\">\r\n                            <div *ngFor=\"let subField of row.subFields\" class=\"row\">\r\n                                <mat-form-field>\r\n                                    <mat-label>{{subField.label}}</mat-label>\r\n                                    <input matInput formControlName=\"{{ subField.prop }}\">\r\n                                </mat-form-field>\r\n                            </div>\r\n                        </div>\r\n                    </ng-container>\r\n                </div>\r\n            </form>\r\n\r\n\r\n            <div class=\"row information-related\" *ngIf=\"isCourse\">\r\n                <div class=\"col-12 col-md-4 col-lg-3 box\">\r\n                    <h5>Trainers:</h5>\r\n                    <ul *ngFor=\"let instructor of instructors\">\r\n                        <li>{{instructor.name}}\r\n\r\n                        </li>\r\n\r\n                    </ul>\r\n\r\n\r\n                </div>\r\n                <div class=\"col-12 col-md-4 col-lg-3 box\">\r\n                    <h5>Techs:</h5>\r\n                    <ul *ngFor=\"let tech of techs\">\r\n                        <li>{{tech.name}}\r\n                        </li>\r\n                    </ul>\r\n\r\n\r\n                </div>\r\n                <div class=\"col-12 col-md-4 col-lg-3 box\">\r\n                    <h5>Lessons:</h5>\r\n                    <p>{{totalLessons}}</p>\r\n                    <div class=\"go-lessons\">\r\n                        <button class=\"btn-lessons\" (click)=\"openLessons()\">Go to lessons</button>\r\n                    </div>\r\n\r\n                </div>\r\n\r\n            </div>\r\n\r\n        </div>\r\n        <div class=\"modal-buttons\">\r\n\r\n            <div class=\"btn-left\">\r\n                <button (click)=\"onDelete()\" class=\"btn btn-delete\"> Delete</button>\r\n            </div>\r\n            <div class=\"btn-right\">\r\n                <button (click)=\"onEdit()\" class=\"btn btn-edit\"> Edit</button>\r\n                <button class=\"btn\" (click)=\"close()\">Close</button>\r\n            </div>\r\n\r\n        </div>\r\n    </div>\r\n\r\n</div>"
         },
@@ -4547,7 +4445,7 @@
             ],
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"content\">\r\n    <div class=\"left-container\">\r\n        <img src=\"../../../../assets/images/main-page/perfil-retrato-joven-feliz-portatil-aislado-blanco (1).jpg\" alt=\"\">\r\n    </div>\r\n    <div class=\"right-container\">\r\n        <div >\r\n            <h1>The <span>best content</span> you decide how it fits your success </h1>\r\n            <p>Specialize in development, regardless of your level of knowledge and experience, we will tailor our approach to meet your goals.</p>\r\n            <app-btn-black\r\n            [buttonText]=\"'Start now'\"\r\n            [routerLink]=\"'/login'\"\r\n          ></app-btn-black>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
+            "templateData": "<div class=\"content\">\r\n  <div class=\"left-container\">\r\n    <img\r\n      src=\"../../../../assets/images/main-page/perfil-retrato-joven-feliz-portatil-aislado-blanco (1).jpg\"\r\n      alt=\"\"\r\n    />\r\n  </div>\r\n  <div class=\"right-container\">\r\n    <div>\r\n      <h1>The <span>best content</span> you decide how it fits your success</h1>\r\n      <p>\r\n        Specialize in development, regardless of your level of knowledge and\r\n        experience, we will tailor our approach to meet your goals.\r\n      </p>\r\n      <app-button\r\n        [label]=\"'Start now'\"\r\n        [type]=\"'info'\"\r\n        routerLink=\"/login\"\r\n      ></app-button>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
         },
         {
             "name": "FourthSectionMainComponent",
@@ -4892,7 +4790,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"container-fluid\" id=\"admin-navbar\">\r\n    <img *ngIf=\"!isSmallScreen\" src=\"../../../../assets/images/logo/svg/White logo - no background.svg\" alt=\"freelearn-logo\">\r\n    <button mat-button routerLink=\"users\" routerLinkActive=\"active\">\r\n        <i class=\"bi bi-people-fill\" [ngClass]=\"{'large-icon': isSmallScreen}\"></i>\r\n      \r\n        <span *ngIf=\"!isSmallScreen\">Users</span>\r\n    </button>\r\n    <button mat-button routerLink=\"technologies\" routerLinkActive=\"active\">\r\n        <i class=\"bi bi-tools\" [ngClass]=\"{'large-icon': isSmallScreen}\"></i>\r\n        <span *ngIf=\"!isSmallScreen\">Technologies</span>\r\n    </button>\r\n    <button mat-button routerLink=\"courses\" routerLinkActive=\"active\">\r\n        <i class=\"bi bi-book-fill\" [ngClass]=\"{'large-icon': isSmallScreen}\"></i>\r\n        <span *ngIf=\"!isSmallScreen\">Courses</span>\r\n    </button>\r\n    <button mat-button routerLink=\"instructors\" routerLinkActive=\"active\">\r\n        <i class=\"bi bi-mortarboard-fill\" [ngClass]=\"{'large-icon': isSmallScreen}\"></i>\r\n        <span *ngIf=\"!isSmallScreen\">Instructors</span>\r\n    </button>\r\n    <button mat-button id=\"log-out-btn\" (click)=\"handleLogOut()\">\r\n        <i class=\"bi bi-box-arrow-right\" [ngClass]=\"{'large-icon': isSmallScreen}\"></i>\r\n    </button>\r\n</div>"
+            "templateData": "<div class=\"container-fluid\" id=\"admin-navbar\">\r\n    <img *ngIf=\"!isSmallScreen\" src=\"../../../../assets/images/logo/svg/White logo - no background.svg\" alt=\"freelearn-logo\">\r\n    <button mat-button routerLink=\"users\" routerLinkActive=\"active\">\r\n        <i class=\"bi bi-people-fill\" [ngClass]=\"{'large-icon': isSmallScreen}\"></i>\r\n      \r\n        <span *ngIf=\"!isSmallScreen\">Users</span>\r\n    </button>\r\n    <button mat-button routerLink=\"technologies\" routerLinkActive=\"active\">\r\n        <i class=\"bi bi-tools\" [ngClass]=\"{'large-icon': isSmallScreen}\"></i>\r\n        <span *ngIf=\"!isSmallScreen\">Technologies</span>\r\n    </button>\r\n    <button mat-button routerLink=\"courses\" routerLinkActive=\"active\">\r\n        <i class=\"bi bi-book-fill\" [ngClass]=\"{'large-icon': isSmallScreen}\"></i>\r\n        <span *ngIf=\"!isSmallScreen\">Courses</span>\r\n    </button>\r\n    <button mat-button routerLink=\"instructors\" routerLinkActive=\"active\">\r\n        <i class=\"bi bi-mortarboard-fill\" [ngClass]=\"{'large-icon': isSmallScreen}\"></i>\r\n        <span *ngIf=\"!isSmallScreen\">Instructors</span>\r\n    </button>\r\n    <button mat-button id=\"log-out-btn\" (click)=\"handleLogOut()\">\r\n        <i class=\"bi bi-box-arrow-right\" [ngClass]=\"{'large-icon': isSmallScreen}\"></i>\r\n    </button>\r\n</div>\r\n\r\n"
         },
         {
             "name": "HomeComponent",
@@ -5613,7 +5511,7 @@
         },
         {
             "name": "MainPageHeaderComponent",
-            "id": "component-MainPageHeaderComponent-f6a271ac49c4da63f9a6d04b2cb51da5f30039df4caf2b09a39ba5db13aead076bc2b2ba7c2e0e278af7d2976a294890343cde6a62486cd708ccf25248e021b7",
+            "id": "component-MainPageHeaderComponent-67a11d9db28d14d40a5dc645b5d3d8dfe401b53761a8ac15158bf07b79df6edd41f287edcfc430048e1adb75f9c1ad2295f258cf59752867e120d04533df6fe4",
             "file": "src/app/main-page/components/main-page-header/main-page-header.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -5633,18 +5531,7 @@
             "inputsClass": [],
             "outputsClass": [],
             "propertiesClass": [],
-            "methodsClass": [
-                {
-                    "name": "saluda",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 10,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                }
-            ],
+            "methodsClass": [],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -5654,7 +5541,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n\r\n@Component({\r\n  selector: 'app-main-page-header',\r\n  templateUrl: './main-page-header.component.html',\r\n  styleUrls: ['./main-page-header.component.scss']\r\n})\r\nexport class MainPageHeaderComponent {\r\n  saluda(){\r\n    console.log(\"hola\")\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n\r\n@Component({\r\n  selector: 'app-main-page-header',\r\n  templateUrl: './main-page-header.component.html',\r\n  styleUrls: ['./main-page-header.component.scss']\r\n})\r\nexport class MainPageHeaderComponent {\r\n  \r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -5664,7 +5551,7 @@
             ],
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"main-header\">\r\n  <div class=\"header-container\">\r\n    <div class=\"logo\">\r\n        <img src=\"../../../../assets/images/logo/png/Color logo - no background.png\" alt=\"\">\r\n    </div>\r\n    <div class=\"content\">\r\n      <app-btn-gradient\r\n        [buttonText]=\"'Start now'\"\r\n        [routerLink]=\"'/login'\"\r\n      ></app-btn-gradient>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+            "templateData": "<div class=\"main-header\">\r\n  <div class=\"header-container\">\r\n    <div class=\"logo\">\r\n      <img\r\n        src=\"/assets/images/logo/png/Logo_no-background.png\"\r\n        alt=\"logo-header\"\r\n      />\r\n    </div>\r\n    <div class=\"content\">\r\n      <app-button\r\n        [label]=\"'Start now'\"\r\n        [type]=\"'gradient'\"\r\n        routerLink=\"/login\"\r\n      ></app-button>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
         },
         {
             "name": "NewTechFormComponent",
@@ -5996,7 +5883,7 @@
         },
         {
             "name": "SidebarComponent",
-            "id": "component-SidebarComponent-3e7d47211d37120836d0c6f997b6f1350abf595bf16eda42d429e91bb0693bf22258e3d286766e706f0bbe5f5963f68bc957f4517f21e17f109d1b4494250d4d",
+            "id": "component-SidebarComponent-a16bef47f2bd9697b8951cc438e385d5ebaae3ddd6db18f42f928de0fdda6c005bdd12cd628c50ba250f953cdc212ab9a2e029bae47c7efe50b9c534e0624c7a",
             "file": "src/app/students/components/sidebar/sidebar.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -6024,7 +5911,16 @@
                     "type": "boolean",
                     "optional": false,
                     "description": "",
-                    "line": 11
+                    "line": 12
+                },
+                {
+                    "name": "smallScreenSubscription",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Subscription | undefined",
+                    "optional": false,
+                    "description": "",
+                    "line": 13
                 }
             ],
             "methodsClass": [
@@ -6034,7 +5930,17 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 22,
+                    "line": 28,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "ngOnDestroy",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 24,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -6044,7 +5950,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 15,
+                    "line": 17,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -6058,7 +5964,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { Router } from '@angular/router';\r\nimport { ResizeService } from 'src/app/shared/services/resize/resize.service';\r\n\r\n@Component({\r\n  selector: 'app-sidebar',\r\n  templateUrl: './sidebar.component.html',\r\n  styleUrls: ['./sidebar.component.scss']\r\n})\r\nexport class SidebarComponent implements OnInit {\r\n  isSmallScreen: boolean = false;\r\n\r\n  constructor( private router: Router, private resizeService: ResizeService ){}\r\n\r\n  ngOnInit(): void {\r\n    this.resizeService.checkScreenSize(500);\r\n    this.resizeService.isSmallScreen$.subscribe(isSmallScreen => {\r\n      this.isSmallScreen = isSmallScreen;\r\n    });\r\n  }\r\n\r\n  handleLogOut(){\r\n    localStorage.removeItem('userInfo');\r\n    sessionStorage.removeItem('userInfo')\r\n    this.router.navigate(['/login'])\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, OnDestroy, OnInit } from '@angular/core';\r\nimport { Router } from '@angular/router';\r\nimport { Subscription } from 'rxjs';\r\nimport { ResizeService } from 'src/app/shared/services/resize/resize.service';\r\n\r\n@Component({\r\n  selector: 'app-sidebar',\r\n  templateUrl: './sidebar.component.html',\r\n  styleUrls: ['./sidebar.component.scss']\r\n})\r\nexport class SidebarComponent implements OnInit, OnDestroy {\r\n  isSmallScreen: boolean = false;\r\n  smallScreenSubscription: Subscription | undefined\r\n\r\n  constructor( private router: Router, private resizeService: ResizeService ){}\r\n\r\n  ngOnInit(): void {\r\n    this.resizeService.checkScreenSize(500);\r\n    this.smallScreenSubscription = this.resizeService.isSmallScreen$.subscribe(isSmallScreen => {\r\n      this.isSmallScreen = isSmallScreen;\r\n    });\r\n  }\r\n\r\n  ngOnDestroy(): void {\r\n    this.smallScreenSubscription?.unsubscribe()\r\n  }\r\n\r\n  handleLogOut(){\r\n    localStorage.removeItem('userInfo');\r\n    sessionStorage.removeItem('userInfo')\r\n    this.router.navigate(['/login'])\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -6086,7 +5992,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 11,
+                "line": 13,
                 "jsdoctags": [
                     {
                         "name": "router",
@@ -6110,7 +6016,8 @@
             },
             "extends": [],
             "implements": [
-                "OnInit"
+                "OnInit",
+                "OnDestroy"
             ],
             "templateData": "<div [ngClass]=\"{'small-screen': isSmallScreen}\" class=\"container\">\r\n    <div class=\"logo-container\" *ngIf=\"!isSmallScreen\">\r\n        <img src=\"../../../../assets/images/logo/png/White logo without words - no background.png\" alt=\"web-logo\">\r\n    </div>\r\n    <div class=\"menu-container\">\r\n        <div class=\"navigation-links\">\r\n            <div class=\"container\" routerLink=\"home\" routerLinkActive=\"active\">\r\n                <i class=\"bi bi-house-fill\" matTooltip=\"Home\" matTooltipPosition=\"right\"></i>\r\n            </div>\r\n            <div class=\"container\" routerLink=\"courses\" routerLinkActive=\"active\">\r\n                <i class=\"bi bi-book-fill\" matTooltip=\"Courses\" matTooltipPosition=\"right\"></i>\r\n            </div>\r\n            <div class=\"container\" routerLink=\"trainers\" routerLinkActive=\"active\">\r\n                <i class=\"bi bi-mortarboard-fill\" matTooltip=\"Trainers\" matTooltipPosition=\"right\"></i>\r\n            </div>\r\n            <div class=\"container\" routerLink=\"technologies\" routerLinkActive=\"active\">\r\n                <i class=\"bi bi-tools\" matTooltip=\"Technologies\" matTooltipPosition=\"right\"></i>\r\n            </div>\r\n            <div class=\"container\" routerLink=\"settings\" routerLinkActive=\"active\">\r\n                <i class=\"bi bi-gear-wide-connected\" matTooltip=\"Settings\" matTooltipPosition=\"right\"></i>\r\n            </div>\r\n        </div>\r\n        <div class=\"logout-icons\">\r\n            <i class=\"bi bi-box-arrow-right\" (click)=\"handleLogOut()\" matTooltip=\"Log Out\" matTooltipPosition=\"right\"></i>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
         },
@@ -7215,7 +7122,7 @@
         },
         {
             "name": "ThirdSectionMainComponent",
-            "id": "component-ThirdSectionMainComponent-229989e3528c66f84fb65c0a5e8b29ce989cd1ebd57507aa5f0bd5a7cd50257aa3207aeb36209845c632dc8c91e54f61c09807596fb97022305a1f1348ed9c04",
+            "id": "component-ThirdSectionMainComponent-159481677179a4a2c7cd22a7d96cf31bf77bede2a509d085209927359948de156afa896a6efcf1586070447189c64a9a96dd3b3728d59921456194ff93df02f5",
             "file": "src/app/main-page/components/third-section-main/third-section-main.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -7242,7 +7149,7 @@
                     "type": "ElementRef | undefined",
                     "optional": false,
                     "description": "",
-                    "line": 16,
+                    "line": 19,
                     "decorators": [
                         {
                             "name": "ViewChild",
@@ -7260,7 +7167,7 @@
                     "type": "Instructor[] | undefined",
                     "optional": false,
                     "description": "",
-                    "line": 14
+                    "line": 15
                 },
                 {
                     "name": "trainers$",
@@ -7270,17 +7177,36 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 13
+                    "line": 14
+                },
+                {
+                    "name": "trainerSubscription",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Subscription | undefined",
+                    "optional": false,
+                    "description": "",
+                    "line": 17
                 }
             ],
             "methodsClass": [
+                {
+                    "name": "ngOnDestroy",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 48,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
                 {
                     "name": "ngOnInit",
                     "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 22,
+                    "line": 25,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -7294,7 +7220,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { Instructor } from 'src/app/admins/admins-dashboard/pages/instructors/instructors';\r\nimport { selectInstructor } from 'src/app/store/instructors/instructors.selectors';\r\n\r\n@Component({\r\n  selector: 'app-third-section-main',\r\n  templateUrl: './third-section-main.component.html',\r\n  styleUrls: ['./third-section-main.component.scss']\r\n})\r\nexport class ThirdSectionMainComponent implements OnInit{\r\n\r\n  trainers$ = this.store.select(selectInstructor);\r\n  trainers: Instructor[] | undefined\r\n\r\n  @ViewChild('carousel') carousel: ElementRef | undefined;\r\n\r\n  constructor(\r\n    private store: Store,\r\n  ) { } \r\n\r\n  ngOnInit(): void {\r\n    this.trainers$.subscribe(trainers => {\r\n      this.trainers = [...trainers];\r\n      const duration = trainers.length * 3 + 's';\r\n      setTimeout(() => {\r\n        const carouselItems = this.carousel?.nativeElement.querySelectorAll('.carousel__item');\r\n        carouselItems.forEach((item: any, index: any) => {\r\n          item.style.animationDuration = duration;\r\n          item.style.webkitAnimationDuration = duration;\r\n          if(index === carouselItems.length - 1){\r\n            const delay = `calc(-3s * 2)`;\r\n            item.style.animationDelay = delay;\r\n            item.style.webkitAnimationDelay = delay;\r\n          }else{\r\n            const delay = `calc(3s * ${index - 1})`;\r\n            item.style.animationDelay = delay;\r\n            item.style.webkitAnimationDelay = delay;\r\n          }\r\n        });\r\n      }, 500);\r\n    });\r\n  }\r\n}\r\n",
+            "sourceCode": "import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { Subscription } from 'rxjs';\r\nimport { Instructor } from 'src/app/admins/admins-dashboard/pages/instructors/instructors';\r\nimport { selectInstructor } from 'src/app/store/instructors/instructors.selectors';\r\n\r\n@Component({\r\n  selector: 'app-third-section-main',\r\n  templateUrl: './third-section-main.component.html',\r\n  styleUrls: ['./third-section-main.component.scss']\r\n})\r\nexport class ThirdSectionMainComponent implements OnInit, OnDestroy{\r\n\r\n  trainers$ = this.store.select(selectInstructor);\r\n  trainers: Instructor[] | undefined\r\n\r\n  trainerSubscription: Subscription | undefined\r\n\r\n  @ViewChild('carousel') carousel: ElementRef | undefined;\r\n\r\n  constructor(\r\n    private store: Store,\r\n  ) { } \r\n\r\n  ngOnInit(): void {\r\n    this.trainerSubscription = this.trainers$.subscribe(trainers => {\r\n      this.trainers = [...trainers];\r\n      const duration = trainers.length * 3 + 's';\r\n      setTimeout(() => {\r\n        const carouselItems = this.carousel?.nativeElement.querySelectorAll('.carousel__item');\r\n        carouselItems.forEach((item: any, index: any) => {\r\n          item.style.animationDuration = duration;\r\n          item.style.webkitAnimationDuration = duration;\r\n          if(index === carouselItems.length - 1){\r\n            const delay = `calc(-3s * 2)`;\r\n            item.style.animationDelay = delay;\r\n            item.style.webkitAnimationDelay = delay;\r\n          }else{\r\n            const delay = `calc(3s * ${index - 1})`;\r\n            item.style.animationDelay = delay;\r\n            item.style.webkitAnimationDelay = delay;\r\n          }\r\n        });\r\n      }, 500);\r\n    });\r\n  }\r\n\r\n  ngOnDestroy(): void {\r\n    this.trainerSubscription?.unsubscribe()\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -7316,7 +7242,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 16,
+                "line": 19,
                 "jsdoctags": [
                     {
                         "name": "store",
@@ -7331,9 +7257,10 @@
             },
             "extends": [],
             "implements": [
-                "OnInit"
+                "OnInit",
+                "OnDestroy"
             ],
-            "templateData": "<div class=\"content\">\r\n    <div class=\"left-container\">\r\n        <div class='wrapper'>\r\n            <div class='carousel' #carousel>\r\n              <div class='carousel__item' *ngFor=\"let trainer of trainers\">\r\n                <div class='carousel__item-head'>\r\n                    <img [src]=\"trainer.imagePath\" alt=\"trainer.name\">\r\n                </div>\r\n                <div class='carousel__item-body'>\r\n                    <p class='title'>{{trainer.name}}</p>\r\n                    <p>Courses available: {{trainer.courses.length}}</p>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n    </div>\r\n    <div class=\"right-container\">\r\n        <div >\r\n            <h1>The <span>best trainers</span> to take your skills to the next level </h1>\r\n            <p>Learn at your own pace from the best with complete courses on the key technologies of the software development world.</p>\r\n            <app-btn-black\r\n            [buttonText]=\"'Start now'\"\r\n            [routerLink]=\"'/login'\"\r\n          ></app-btn-black>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n"
+            "templateData": "<div class=\"content\">\r\n  <div class=\"left-container\">\r\n    <div class=\"wrapper\">\r\n      <div class=\"carousel\" #carousel>\r\n        <div class=\"carousel__item\" *ngFor=\"let trainer of trainers\">\r\n          <div class=\"carousel__item-head\">\r\n            <img [src]=\"trainer.imagePath\" alt=\"trainer.name\" />\r\n          </div>\r\n          <div class=\"carousel__item-body\">\r\n            <p class=\"title\">{{ trainer.name }}</p>\r\n            <p>Courses available: {{ trainer.courses.length }}</p>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"right-container\">\r\n    <div>\r\n      <h1>\r\n        The <span>best trainers</span> to take your skills to the next level\r\n      </h1>\r\n      <p>\r\n        Learn at your own pace from the best with complete courses on the key\r\n        technologies of the software development world.\r\n      </p>\r\n      <app-button\r\n        [label]=\"'Start now'\"\r\n        [type]=\"'info'\"\r\n        routerLink=\"/login\"\r\n      ></app-button>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
         },
         {
             "name": "TrainersComponent",
@@ -8226,13 +8153,13 @@
         },
         {
             "name": "SharedModule",
-            "id": "module-SharedModule-00ac0e8977c6d6f9e43a0fd879eadf5e03a3ca4620e75765220326fb9578b11b224cf28909d306e1def9130632445aad074bacf10d388137c501e974366c2c6b",
+            "id": "module-SharedModule-515424bf3820a7d16aa8093a1ff7ea7dd951a0a7488d7fbab917e196af6735b19e6b4a1367773f1df0c4fc01a5a309c921afb8b5a55cba3e5e31c6fde4bab10d",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/shared/shared.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatFormFieldModule } from '@angular/material/form-field';\r\nimport { FormsModule, ReactiveFormsModule } from '@angular/forms';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { MatSnackBarModule } from '@angular/material/snack-bar';\r\nimport { WorkingInProgressComponent } from './components/default-pages/working-in-progress/working-in-progress.component';\r\nimport { ErrorPageComponent } from './components/default-pages/error-page/error-page.component';\r\nimport { BtnGradientComponent } from './components/btn-gradient/btn-gradient.component';\r\nimport { BtnBlackComponent } from './components/btn-black/btn-black.component';\r\nimport { ButtonComponent } from './components/button/button.component';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { UpdateModalComponent } from './components/modals/update-modal/update-modal.component';\r\nimport { DeleteModalComponent } from './components/modals/delete-modal/delete-modal.component';\r\nimport { DetailModalComponent } from './components/modals/detail-modal/detail-modal.component';\r\nimport { CourseCardComponent } from './components/course-card/course-card.component';\r\nimport { SubDetailModalComponent } from './components/modals/sub-modals/sub-detail-modal/sub-detail-modal.component';\r\nimport { SubModalCreateComponent } from './components/modals/sub-modals/sub-modal-create/sub-modal-create.component';\r\n\r\n\r\n@NgModule({\r\n  declarations: [ \r\n    WorkingInProgressComponent,\r\n    ErrorPageComponent,\r\n    BtnGradientComponent,\r\n    BtnBlackComponent,\r\n    ButtonComponent,\r\n    UpdateModalComponent,\r\n    DeleteModalComponent,\r\n    DetailModalComponent,\r\n    CourseCardComponent,\r\n    SubDetailModalComponent,\r\n    SubModalCreateComponent,\r\n  ],\r\n  imports: [\r\n    CommonModule,\r\n    MatFormFieldModule,\r\n    FormsModule,\r\n    MatInputModule,\r\n    MatButtonModule,\r\n    MatSnackBarModule,\r\n    MatIconModule,\r\n    ReactiveFormsModule,\r\n\r\n  ],\r\n  exports: [   \r\n    WorkingInProgressComponent,\r\n    ErrorPageComponent,\r\n    BtnGradientComponent,\r\n    BtnBlackComponent,\r\n    ButtonComponent,\r\n    CourseCardComponent,\r\n  ]\r\n})\r\nexport class SharedModule { }\r\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatFormFieldModule } from '@angular/material/form-field';\r\nimport { FormsModule, ReactiveFormsModule } from '@angular/forms';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { MatSnackBarModule } from '@angular/material/snack-bar';\r\nimport { WorkingInProgressComponent } from './components/default-pages/working-in-progress/working-in-progress.component';\r\nimport { ErrorPageComponent } from './components/default-pages/error-page/error-page.component';\r\nimport { ButtonComponent } from './components/button/button.component';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { UpdateModalComponent } from './components/modals/update-modal/update-modal.component';\r\nimport { DeleteModalComponent } from './components/modals/delete-modal/delete-modal.component';\r\nimport { DetailModalComponent } from './components/modals/detail-modal/detail-modal.component';\r\nimport { CourseCardComponent } from './components/course-card/course-card.component';\r\nimport { SubDetailModalComponent } from './components/modals/sub-modals/sub-detail-modal/sub-detail-modal.component';\r\nimport { SubModalCreateComponent } from './components/modals/sub-modals/sub-modal-create/sub-modal-create.component';\r\nimport { RouterModule } from '@angular/router';\r\n\r\n\r\n@NgModule({\r\n  declarations: [ \r\n    WorkingInProgressComponent,\r\n    ErrorPageComponent,\r\n    ButtonComponent,\r\n    UpdateModalComponent,\r\n    DeleteModalComponent,\r\n    DetailModalComponent,\r\n    CourseCardComponent,\r\n    SubDetailModalComponent,\r\n    SubModalCreateComponent,\r\n  ],\r\n  imports: [\r\n    CommonModule,\r\n    MatFormFieldModule,\r\n    FormsModule,\r\n    MatInputModule,\r\n    MatButtonModule,\r\n    MatSnackBarModule,\r\n    MatIconModule,\r\n    ReactiveFormsModule,\r\n    RouterModule\r\n\r\n  ],\r\n  exports: [   \r\n    WorkingInProgressComponent,\r\n    ErrorPageComponent,\r\n    ButtonComponent,\r\n    CourseCardComponent,\r\n  ]\r\n})\r\nexport class SharedModule { }\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -8241,12 +8168,6 @@
                 {
                     "type": "declarations",
                     "elements": [
-                        {
-                            "name": "BtnBlackComponent"
-                        },
-                        {
-                            "name": "BtnGradientComponent"
-                        },
                         {
                             "name": "ButtonComponent"
                         },
@@ -8283,12 +8204,6 @@
                 {
                     "type": "exports",
                     "elements": [
-                        {
-                            "name": "BtnBlackComponent"
-                        },
-                        {
-                            "name": "BtnGradientComponent"
-                        },
                         {
                             "name": "ButtonComponent"
                         },
@@ -8462,6 +8377,46 @@
                 "defaultValue": "{\r\n    args: {\r\n        label: 'Danger',\r\n          type: 'danger',\r\n    },\r\n  }"
             },
             {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    data: [{\r\n        id: \"1\",\r\n        name: \"Curso Completo de REACT\",\r\n        description: \"Description\",  \r\n        instructorId: [{id: \"BHb6atXs68TPFuj4GnbP\", name: \"JAB\"}], \r\n        imageUrl: \"https://i.ytimg.com/vi/VoMyUgI-5NI/maxresdefault.jpg\",\r\n        techs: [{id: \"3ZLJDtVSkLGCVMa95S0W\", name: \"React\"}],\r\n        lessons: [],\r\n        rating: [],\r\n        introductionURL: \"https://www.youtube.com/watch?v=VoMyUgI-5NI&list=PLRM7PpbqqStKo-NiCuzuYwewZmd9b-EZ9&index=1\"\r\n    }],\r\n    displayedColumns: [\r\n      { prop: 'name', title: 'Name' },\r\n      { prop: 'imageUrl', title: 'Image' },\r\n      { prop: 'techs', title: 'Technologies' },\r\n      { prop: 'instructorId', title: 'Instructor' },\r\n      { prop: 'introductionURL', title: 'Introduction' },\r\n      { prop: 'lessons', title: 'NºLessons' },\r\n      { prop: 'rating', title: 'Rating' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'Name', prop: 'name' },\r\n      { label: 'Image', prop: 'imageUrl' },\r\n      { label: 'Technologies', prop: 'techs' },\r\n      { label: 'Instructor', prop: 'instructorId' },\r\n      { label: 'Introduction', prop: 'introductionURL' },\r\n      { label: 'Lessons', prop: 'lessons' },\r\n    ],\r\n  },\r\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/admins/components/header/header.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    //👇 The args you need here will depend on your component\r\n  },\r\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    //👇 The args you need here will depend on your component\r\n  },\r\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/course-card/course-card.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    course: {\r\n      name: 'Example Course',\r\n      imageUrl: 'example.jpg',\r\n      description: 'This is an example course description.',\r\n      lessons: [], \r\n      techs: [{ id:\"1\", name: 'Angular' }],\r\n      rating: [],\r\n      introductionURL: \"https://example.com/introduction\",\r\n      instructorId:[]\r\n    },\r\n  },\r\n  \r\n}"
+            },
+            {
                 "name": "environment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -8615,11 +8570,51 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<CustomTableComponent>",
+                "defaultValue": "{\r\n  title: 'Components/CustomTable',\r\n  component: CustomTableComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations: [],\r\n      imports: [MatTableModule, MatDialogModule, SharedModule],\r\n    }),\r\n  ],\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/admins/components/header/header.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<HeaderComponent>",
+                "defaultValue": "{\r\n    title: 'Components/Headers/AdminHeader',\r\n    component: HeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[],\r\n          imports: [MatButtonModule] \r\n        })\r\n      ]\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<MainPageHeaderComponent>",
+                "defaultValue": "{\r\n    title: 'Components/Headers/MainPageHeader',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/shared/components/button/button.components.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<ButtonComponent>",
                 "defaultValue": "{\r\n    title: 'Components/Button',\r\n    component: ButtonComponent,  \r\n    tags: ['autodocs'], \r\n    render: (args: ButtonComponent) => ({\r\n        props: {\r\n            backgroundColor: null,\r\n            ...args,\r\n        },\r\n    }),    \r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/course-card/course-card.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<CourseCardComponent>",
+                "defaultValue": "{\r\n  title: 'Components/CourseCard',\r\n  component: CourseCardComponent,\r\n  tags: ['autodocs'], \r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations:[ButtonComponent]\r\n    })\r\n  ]\r\n}"
             },
             {
                 "name": "preview",
@@ -8818,8 +8813,52 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
+                "rawtype": "StoryObj<CustomTableComponent>",
+                "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<HeaderComponent>",
+                "file": "src/app/admins/components/header/header.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<MainPageHeaderComponent>",
+                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
                 "rawtype": "StoryObj<ButtonComponent>",
                 "file": "src/app/shared/components/button/button.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<CourseCardComponent>",
+                "file": "src/app/shared/components/course-card/course-card.components.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -9006,6 +9045,94 @@
                     "deprecationMessage": "",
                     "type": "Story",
                     "defaultValue": "{\r\n    args: {\r\n        label: 'Warning',\r\n          type: 'warning',\r\n    },\r\n  }"
+                }
+            ],
+            "src/app/admins/components/custom-table/custom-table.components.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    data: [{\r\n        id: \"1\",\r\n        name: \"Curso Completo de REACT\",\r\n        description: \"Description\",  \r\n        instructorId: [{id: \"BHb6atXs68TPFuj4GnbP\", name: \"JAB\"}], \r\n        imageUrl: \"https://i.ytimg.com/vi/VoMyUgI-5NI/maxresdefault.jpg\",\r\n        techs: [{id: \"3ZLJDtVSkLGCVMa95S0W\", name: \"React\"}],\r\n        lessons: [],\r\n        rating: [],\r\n        introductionURL: \"https://www.youtube.com/watch?v=VoMyUgI-5NI&list=PLRM7PpbqqStKo-NiCuzuYwewZmd9b-EZ9&index=1\"\r\n    }],\r\n    displayedColumns: [\r\n      { prop: 'name', title: 'Name' },\r\n      { prop: 'imageUrl', title: 'Image' },\r\n      { prop: 'techs', title: 'Technologies' },\r\n      { prop: 'instructorId', title: 'Instructor' },\r\n      { prop: 'introductionURL', title: 'Introduction' },\r\n      { prop: 'lessons', title: 'NºLessons' },\r\n      { prop: 'rating', title: 'Rating' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'Name', prop: 'name' },\r\n      { label: 'Image', prop: 'imageUrl' },\r\n      { label: 'Technologies', prop: 'techs' },\r\n      { label: 'Instructor', prop: 'instructorId' },\r\n      { label: 'Introduction', prop: 'introductionURL' },\r\n      { label: 'Lessons', prop: 'lessons' },\r\n    ],\r\n  },\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<CustomTableComponent>",
+                    "defaultValue": "{\r\n  title: 'Components/CustomTable',\r\n  component: CustomTableComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations: [],\r\n      imports: [MatTableModule, MatDialogModule, SharedModule],\r\n    }),\r\n  ],\r\n}"
+                }
+            ],
+            "src/app/admins/components/header/header.components.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/admins/components/header/header.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    //👇 The args you need here will depend on your component\r\n  },\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/admins/components/header/header.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<HeaderComponent>",
+                    "defaultValue": "{\r\n    title: 'Components/Headers/AdminHeader',\r\n    component: HeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[],\r\n          imports: [MatButtonModule] \r\n        })\r\n      ]\r\n}"
+                }
+            ],
+            "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    //👇 The args you need here will depend on your component\r\n  },\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<MainPageHeaderComponent>",
+                    "defaultValue": "{\r\n    title: 'Components/Headers/MainPageHeader',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
+                }
+            ],
+            "src/app/shared/components/course-card/course-card.components.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/course-card/course-card.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    course: {\r\n      name: 'Example Course',\r\n      imageUrl: 'example.jpg',\r\n      description: 'This is an example course description.',\r\n      lessons: [], \r\n      techs: [{ id:\"1\", name: 'Angular' }],\r\n      rating: [],\r\n      introductionURL: \"https://example.com/introduction\",\r\n      instructorId:[]\r\n    },\r\n  },\r\n  \r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/course-card/course-card.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<CourseCardComponent>",
+                    "defaultValue": "{\r\n  title: 'Components/CourseCard',\r\n  component: CourseCardComponent,\r\n  tags: ['autodocs'], \r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations:[ButtonComponent]\r\n    })\r\n  ]\r\n}"
                 }
             ],
             "src/environments/environment.development.ts": [
@@ -9280,6 +9407,45 @@
         "groupedFunctions": {},
         "groupedEnumerations": {},
         "groupedTypeAliases": {
+            "src/app/admins/components/custom-table/custom-table.components.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<CustomTableComponent>",
+                    "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
+            "src/app/admins/components/header/header.components.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<HeaderComponent>",
+                    "file": "src/app/admins/components/header/header.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
+            "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<MainPageHeaderComponent>",
+                    "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
             "src/app/shared/components/button/button.components.stories.ts": [
                 {
                     "name": "Story",
@@ -9287,6 +9453,19 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<ButtonComponent>",
                     "file": "src/app/shared/components/button/button.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
+            "src/app/shared/components/course-card/course-card.components.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<CourseCardComponent>",
+                    "file": "src/app/shared/components/course-card/course-card.components.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -9714,12 +9893,52 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/admins/components/header/header.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "HeaderComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/7",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/admins/components/header/header.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/admins/components/header/header.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
@@ -9867,7 +10086,27 @@
                 "linktype": "component",
                 "name": "MainPageHeaderComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/2",
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
@@ -9885,7 +10124,7 @@
                 "linktype": "component",
                 "name": "ThirdSectionMainComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/6",
+                "coverageCount": "0/8",
                 "status": "low"
             },
             {
@@ -9893,24 +10132,6 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "MainPageComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/3",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/shared/components/btn-black/btn-black.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "BtnBlackComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/3",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/shared/components/btn-gradient/btn-gradient.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "BtnGradientComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/3",
                 "status": "low"
@@ -10054,6 +10275,26 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/shared/components/course-card/course-card.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/course-card/course-card.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/shared/components/default-pages/error-page/error-page.component.ts",
                 "type": "component",
                 "linktype": "component",
@@ -10086,7 +10327,7 @@
                 "linktype": "component",
                 "name": "DetailModalComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/30",
+                "coverageCount": "0/32",
                 "status": "low"
             },
             {
@@ -10355,7 +10596,7 @@
                 "linktype": "component",
                 "name": "SidebarComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/5",
+                "coverageCount": "0/7",
                 "status": "low"
             },
             {

@@ -1,13 +1,17 @@
 <div class="main-header">
   <div class="header-container">
     <div class="logo">
-        <img src="../../../../assets/images/logo/png/Color logo - no background.png" alt="">
+      <img
+        src="/assets/images/logo/png/Logo_no-background.png"
+        alt="logo-header"
+      />
     </div>
     <div class="content">
-      <app-btn-gradient
-        [buttonText]="'Start now'"
-        [routerLink]="'/login'"
-      ></app-btn-gradient>
+      <app-button
+        [label]="'Start now'"
+        [type]="'softgradient'"
+        routerLink="/login"
+      ></app-button>
     </div>
   </div>
 </div>

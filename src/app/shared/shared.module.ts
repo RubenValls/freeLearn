@@ -7,8 +7,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { WorkingInProgressComponent } from './components/default-pages/working-in-progress/working-in-progress.component';
 import { ErrorPageComponent } from './components/default-pages/error-page/error-page.component';
-import { BtnGradientComponent } from './components/btn-gradient/btn-gradient.component';
-import { BtnBlackComponent } from './components/btn-black/btn-black.component';
 import { ButtonComponent } from './components/button/button.component';
 import { MatIconModule } from '@angular/material/icon';
 import { UpdateModalComponent } from './components/modals/update-modal/update-modal.component';
@@ -17,6 +15,7 @@ import { DetailModalComponent } from './components/modals/detail-modal/detail-mo
 import { CourseCardComponent } from './components/course-card/course-card.component';
 import { SubDetailModalComponent } from './components/modals/sub-modals/sub-detail-modal/sub-detail-modal.component';
 import { SubModalCreateComponent } from './components/modals/sub-modals/sub-modal-create/sub-modal-create.component';
+import { RouterModule } from '@angular/router';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 
@@ -25,8 +24,6 @@ import { MatSelectModule } from '@angular/material/select';
   declarations: [ 
     WorkingInProgressComponent,
     ErrorPageComponent,
-    BtnGradientComponent,
-    BtnBlackComponent,
     ButtonComponent,
     UpdateModalComponent,
     DeleteModalComponent,
@@ -44,6 +41,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatSnackBarModule,
     MatIconModule,
     ReactiveFormsModule,
+    RouterModule,
     MatOptionModule,
     MatSelectModule,
 
@@ -51,8 +49,6 @@ import { MatSelectModule } from '@angular/material/select';
   exports: [   
     WorkingInProgressComponent,
     ErrorPageComponent,
-    BtnGradientComponent,
-    BtnBlackComponent,
     ButtonComponent,
     CourseCardComponent,
   ]

@@ -1,12 +1,15 @@
 button {
-   
-    font-size: 16px;
+    font-size: 14px;
     letter-spacing: 1px;
     padding:10px;
     transition: background 0.2s;
     border: none;
     border-radius: 5px;
-
+    font-weight:600;
+    padding: 0.7rem 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
 }
 
 .primary {
@@ -20,11 +23,10 @@ button {
                  -7px -7px 14px #ffffff;
 }
 
- .primary:active {
-  
+.primary:active {
     transform: translateY(10px);
     transition: 100ms;
-  }
+}
 
 .secondary {
     background: var(--accent) !important;
@@ -39,6 +41,16 @@ button {
     background: var(--black) !important;
     color: var(--white) !important;
 }
+.info:hover {
+    background: var(--grey) !important;
+}
+
+.light{
+    background-color: var(--softGrey);
+}
+.light:hover{
+    background: var(--mediumGrey) !important;
+}
 
 .danger {
     background: var(--error) !important;
@@ -51,25 +63,33 @@ button {
 }
 
 .gradient {
-    background: linear-gradient(61deg, var(--accent) 1%, #20ded3 85%, #20ded3 90%) 0 0 /100% 100% no-repeat;
+    background: var(--gradient);
     color: var(--white) !important;
 }
 
 .gradient:hover {
     background: var(--black) !important;
 }
+.softgradient{
+    background: var(--softgradient);
+    color: var(--white) !important;
+}
+.softgradient:hover {
+    background: var(--black) !important;
+}
 
 .large {
-
     font-size: 18px;
 }
 
 .medium {
-
     font-size: 16px;
 }
 
 .small {
 
     font-size: 14px;
+}
+.xsmall {
+    font-size: 12px;
 }
