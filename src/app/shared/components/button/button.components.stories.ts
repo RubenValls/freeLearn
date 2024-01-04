@@ -48,6 +48,12 @@ export const Info: Story = {
           type: 'info',
     },
   };
+  export const Light: Story = {
+    args: {
+        label: 'Light',
+          type: 'light',
+    },
+  };
   export const Success: Story = {
     args: {
         label: 'Success',

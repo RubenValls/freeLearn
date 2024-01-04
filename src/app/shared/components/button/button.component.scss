@@ -45,6 +45,13 @@ button {
     background: var(--grey) !important;
 }
 
+.light{
+    background-color: var(--softGrey);
+}
+.light:hover{
+    background: var(--mediumGrey) !important;
+}
+
 .danger {
     background: var(--error) !important;
     color: var(--white) !important;
@@ -60,7 +67,6 @@ button {
     color: var(--white) !important;
 }
 
-
 .gradient:hover {
     background: var(--black) !important;
 }
@@ -73,12 +79,10 @@ button {
 }
 
 .large {
-
     font-size: 18px;
 }
 
 .medium {
-
     font-size: 16px;
 }
 
