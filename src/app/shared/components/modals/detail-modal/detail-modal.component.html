@@ -68,7 +68,7 @@
 
       <div class="row information-related" *ngIf="isCourse">
         <div class="col-12 col-md-4 col-lg-3 box">
-          <h5>Trainers:</h5>
+          <h5>Instructors:</h5>
           <div class="select-container">
             <mat-form-field>
               <mat-label>Add a instructor</mat-label>
@@ -93,7 +93,12 @@
               </mat-error>
             </mat-form-field>
             <div class="btn-select">
-              <button (click)="onAddReferences('instructorId')">add</button>
+                <app-button
+                [label]="'Add instructor'"
+                [type]="'gradient'"
+                (onClick)="onAddReferences('techs')"
+                iconName="add"
+              ></app-button>
             </div>
           </div>
           <ul *ngFor="let instructor of instructors">
@@ -137,7 +142,12 @@
               </mat-error>
             </mat-form-field>
             <div class="btn-select">
-              <button (click)="onAddReferences('techs')">add</button>
+              <app-button
+                [label]="'Add tech'"
+                [type]="'gradient'"
+                (onClick)="onAddReferences('techs')"
+                iconName="add"
+              ></app-button>
             </div>
           </div>
           <ul *ngFor="let tech of techs">
@@ -159,9 +169,11 @@
           <h5>Lessons:</h5>
           <p>{{ totalLessons }}</p>
           <div class="go-lessons">
-            <button class="btn-lessons" (click)="openLessons()">
-              Go to lessons
-            </button>
+            <app-button
+              [label]="'Go to lessons'"
+              [type]="'gradient'"
+              (onClick)="openLessons()"
+            ></app-button>
           </div>
         </div>
       </div>
