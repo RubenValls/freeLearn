@@ -97,29 +97,31 @@
         display: flex;
         flex-direction: column;
         justify-content: start;
-        
+
         margin: 20px 10px;
 
-        .select-container{
+        .select-container {
             display: flex;
             flex-direction: column;
-            justify-content: start;  
-            margin: 5px;                        
+            justify-content: start;
+            margin: 5px;
 
         }
-        .btn-select {                           
-            text-align: right;
 
-            button{
-                border:none;
+        .btn-select {
+            display: flex;
+            justify-content: right;
+
+            button {
+                border: none;
                 background: var(--gradient);
                 padding: 10px;
                 border-radius: 5px;
-               
+
             }
         }
-        
-      
+
+
 
         ul {
             list-style: none;
@@ -137,16 +139,18 @@
 
         .li-element {
             display: flex;
-            justify-content: space-between;         
+            justify-content: space-between;
             width: 100%;
             gap: 1rem;
-            &--element {           
+
+            &--element {
                 padding: 0px 10px;
                 min-width: 20px;
             }
 
-            &--icon {               
+            &--icon {
                 min-width: 20px;
+
                 .delete-icon {
                     color: red;
                     cursor: pointer;
@@ -178,7 +182,7 @@
         }
     }
 
-    .box-lessons{
+    .box-lessons {
         display: flex;
         justify-content: space-between;
     }

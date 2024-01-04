@@ -1,153 +1,204 @@
 <div class="detail-modal">
-
-    <div class="detail-modal--content">
-
-        <div class="--close-icon">
-
-            <mat-icon (click)="close()">close</mat-icon>
-        </div>
-        <div class="--detail-icon">
-            <mat-icon>info</mat-icon>
-        </div>
-
-        <div mat-dialog-content class="modal-body">
-
-            <h3 mat-dialog-title>{{title}}</h3>
-
-            <form class="edit-form" [formGroup]="form" class="row">
-                <div *ngFor="let row of rows" class="row">
-                    <mat-form-field
-                        *ngIf="row.prop !== 'courses' && row.prop !== 'description' && row.prop !== 'id' && row.prop !== 'socialMedia' && row.prop !== 'lessons' && row.prop !== 'techs' && row.prop !== 'instructorId' && row.prop !== 'rating'">
-                        <mat-label>{{row.label}}</mat-label>
-                        <input matInput formControlName="{{ row.prop }}">
-                    </mat-form-field>
-
-                    <mat-form-field *ngIf="row.prop === 'id'">
-                        <mat-label>{{row.label}}</mat-label>
-                        <input matInput formControlName="{{ row.prop }}" readonly>
-                    </mat-form-field>
-
-                    <mat-form-field *ngIf="row.prop === 'courses'">
-                        <mat-label>{{row.label}}</mat-label>
-                        <input type="text" [value]="totalCourses" matInput readonly>
-                    </mat-form-field>
-
-                    <mat-form-field *ngIf="row.prop === 'description'">
-                        <mat-label>{{row.label}}</mat-label>
-                        <textarea matInput formControlName="{{ row.prop }}" cdkTextareaAutosize
-                            cdkAutosizeMinRows="5"></textarea>
-                    </mat-form-field>
-
-                    <ng-container *ngIf="row.prop === 'socialMedia' && socialMediaForm">
-                        <div [formGroup]="socialMediaForm">
-                            <div *ngFor="let subField of row.subFields" class="row">
-                                <mat-form-field>
-                                    <mat-label>{{subField.label}}</mat-label>
-                                    <input matInput formControlName="{{ subField.prop }}">
-                                </mat-form-field>
-                            </div>
-                        </div>
-                    </ng-container>
-
-                    <mat-form-field *ngIf="row.prop === 'rating'">
-                        <mat-label>{{row.label}}</mat-label>
-                        <input type="text" [value]="rating" matInput readonly>
-                    </mat-form-field>
-                </div>
-            </form>
-
-    
-
-            <div class="row information-related" *ngIf="isCourse">
-                <div class="col-12 col-md-4 col-lg-3 box">
-                    <h5>Trainers:</h5>
-                    <div class="select-container">
-                        <mat-form-field>
-                            <mat-label>Add a instructor</mat-label>
-                            <mat-select multiple (selectionChange)="onSelectionChange($event)">
-                                <mat-option *ngFor="let instructor of instructorsForSelect"
-                                    [value]="{id: instructor.id, name: instructor.name}">
-                                    {{instructor.name}}
-                                </mat-option>
-                            </mat-select>
-                            <mat-error
-                                *ngIf="form.controls['instructorId'].touched && form.controls['instructorId'].invalid">
-                                Please, assign instructor name
-                            </mat-error>
-                        </mat-form-field>
-                        <div class="btn-select">
-                            <button (click)="onAddReferences('instructorId')">add</button>
-                        </div>
-
-
-                    </div>
-                    <ul *ngFor="let instructor of instructors">
-                        <li class="li-element">
-                            <div class="li-element--element">
-                                {{instructor.name}}
-                            </div>
-                            <div class="li-element--icon">
-                                <mat-icon (click)="onDeleteReferences(instructor.id, 'instructors')"
-                                    class="delete-icon">delete_forever</mat-icon>
-                            </div>
-                        </li>
-                    </ul>
-
-                </div>
-                <div class="col-12 col-md-4 col-lg-3 box">
-                    <h5>Techs:</h5>
-                    <div class="select-container">
-                        <mat-form-field>
-                            <mat-label>Add a tech</mat-label>
-                            <mat-select multiple (selectionChange)="onSelectionChange($event)">
-                                <mat-option *ngFor="let tech$ of techsForSelect" [value]="{id: tech$.id, name: tech$.name}">
-                                    {{tech$.name}}
-                                </mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="form.controls['techs'].touched && form.controls['techs'].invalid">
-                                Please, assign a tech name
-                            </mat-error>
-                        </mat-form-field>
-                        <div class="btn-select">
-                            <button (click)="onAddReferences('techs')">add</button>
-                        </div>
-
-                    </div>
-                    <ul *ngFor="let tech of techs">
-                        <li class="li-element">
-                            <div class="li-element--element">
-                                {{tech.name}}
-                            </div>
-                            <div class="li-element--icon">
-                                <mat-icon (click)="onDeleteReferences(tech.id,  'techs')" class="delete-icon">delete_forever</mat-icon>
-                            </div>
-                        </li>
-                    </ul>
-
-
-                </div>
-                <div class="col-12 col-md-4 col-lg-3 box box-lessons">
-                    <h5>Lessons:</h5>
-                    <p>{{totalLessons}}</p>
-                    <div class="go-lessons">
-                        <button class="btn-lessons" (click)="openLessons()">Go to lessons</button>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-        <div class="modal-buttons">
-
-            <div class="btn-left">
-                <button (click)="onDelete()" class="btn btn-delete"> Delete</button>
-            </div>
-            <div class="btn-right">
-                <button (click)="onEdit()" class="btn btn-edit"> Edit</button>
-                <button class="btn" (click)="close()">Close</button>
-            </div>
-
-        </div>
+  <div class="detail-modal--content">
+    <div class="--close-icon">
+      <mat-icon (click)="close()">close</mat-icon>
+    </div>
+    <div class="--detail-icon">
+      <mat-icon>info</mat-icon>
     </div>
 
+    <div mat-dialog-content class="modal-body">
+      <h3 mat-dialog-title>{{ title }}</h3>
+
+      <form class="edit-form" [formGroup]="form" class="row">
+        <div *ngFor="let row of rows" class="row">
+          <mat-form-field
+            *ngIf="
+              row.prop !== 'courses' &&
+              row.prop !== 'description' &&
+              row.prop !== 'id' &&
+              row.prop !== 'socialMedia' &&
+              row.prop !== 'lessons' &&
+              row.prop !== 'techs' &&
+              row.prop !== 'instructorId' &&
+              row.prop !== 'rating'
+            "
+          >
+            <mat-label>{{ row.label }}</mat-label>
+            <input matInput formControlName="{{ row.prop }}" />
+          </mat-form-field>
+
+          <mat-form-field *ngIf="row.prop === 'id'">
+            <mat-label>{{ row.label }}</mat-label>
+            <input matInput formControlName="{{ row.prop }}" readonly />
+          </mat-form-field>
+
+          <mat-form-field *ngIf="row.prop === 'courses'">
+            <mat-label>{{ row.label }}</mat-label>
+            <input type="text" [value]="totalCourses" matInput readonly />
+          </mat-form-field>
+
+          <mat-form-field *ngIf="row.prop === 'description'">
+            <mat-label>{{ row.label }}</mat-label>
+            <textarea
+              matInput
+              formControlName="{{ row.prop }}"
+              cdkTextareaAutosize
+              cdkAutosizeMinRows="5"
+            ></textarea>
+          </mat-form-field>
+
+          <ng-container *ngIf="row.prop === 'socialMedia' && socialMediaForm">
+            <div [formGroup]="socialMediaForm">
+              <div *ngFor="let subField of row.subFields" class="row">
+                <mat-form-field>
+                  <mat-label>{{ subField.label }}</mat-label>
+                  <input matInput formControlName="{{ subField.prop }}" />
+                </mat-form-field>
+              </div>
+            </div>
+          </ng-container>
+
+          <mat-form-field *ngIf="row.prop === 'rating'">
+            <mat-label>{{ row.label }}</mat-label>
+            <input type="text" [value]="rating" matInput readonly />
+          </mat-form-field>
+        </div>
+      </form>
+
+      <div class="row information-related" *ngIf="isCourse">
+        <div class="col-12 col-md-4 col-lg-3 box">
+          <h5>Instructors:</h5>
+          <div class="select-container">
+            <mat-form-field>
+              <mat-label>Add a instructor</mat-label>
+              <mat-select
+                multiple
+                (selectionChange)="onSelectionChange($event)"
+              >
+                <mat-option
+                  *ngFor="let instructor of instructorsForSelect"
+                  [value]="{ id: instructor.id, name: instructor.name }"
+                >
+                  {{ instructor.name }}
+                </mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="
+                  form.controls['instructorId'].touched &&
+                  form.controls['instructorId'].invalid
+                "
+              >
+                Please, assign instructor name
+              </mat-error>
+            </mat-form-field>
+            <div class="btn-select">
+                <app-button
+                [label]="'Add instructor'"
+                [type]="'gradient'"
+                (onClick)="onAddReferences('techs')"
+                iconName="add"
+              ></app-button>
+            </div>
+          </div>
+          <ul *ngFor="let instructor of instructors">
+            <li class="li-element">
+              <div class="li-element--element">
+                {{ instructor.name }}
+              </div>
+              <div class="li-element--icon">
+                <mat-icon
+                  (click)="onDeleteReferences(instructor.id, 'instructors')"
+                  class="delete-icon"
+                  >delete_forever</mat-icon
+                >
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="col-12 col-md-4 col-lg-3 box">
+          <h5>Techs:</h5>
+          <div class="select-container">
+            <mat-form-field>
+              <mat-label>Add a tech</mat-label>
+              <mat-select
+                multiple
+                (selectionChange)="onSelectionChange($event)"
+              >
+                <mat-option
+                  *ngFor="let tech$ of techsForSelect"
+                  [value]="{ id: tech$.id, name: tech$.name }"
+                >
+                  {{ tech$.name }}
+                </mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="
+                  form.controls['techs'].touched &&
+                  form.controls['techs'].invalid
+                "
+              >
+                Please, assign a tech name
+              </mat-error>
+            </mat-form-field>
+            <div class="btn-select">
+              <app-button
+                [label]="'Add tech'"
+                [type]="'gradient'"
+                (onClick)="onAddReferences('techs')"
+                iconName="add"
+              ></app-button>
+            </div>
+          </div>
+          <ul *ngFor="let tech of techs">
+            <li class="li-element">
+              <div class="li-element--element">
+                {{ tech.name }}
+              </div>
+              <div class="li-element--icon">
+                <mat-icon
+                  (click)="onDeleteReferences(tech.id, 'techs')"
+                  class="delete-icon"
+                  >delete_forever</mat-icon
+                >
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="col-12 col-md-4 col-lg-3 box box-lessons">
+          <h5>Lessons:</h5>
+          <p>{{ totalLessons }}</p>
+          <div class="go-lessons">
+            <app-button
+              [label]="'Go to lessons'"
+              [type]="'gradient'"
+              (onClick)="openLessons()"
+            ></app-button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-buttons">
+      <div class="btn-left">
+        <app-button
+          [label]="'Delete'"
+          [type]="'danger'"
+          (onClick)="onDelete()"
+        ></app-button>
+      </div>
+      <div class="btn-right">
+        <app-button
+          [label]="'Edit'"
+          [type]="'success'"
+          (onClick)="onEdit()"
+        ></app-button>
+
+        <app-button
+          [label]="'Close'"
+          [type]="'close'"
+          (onClick)="close()"
+        ></app-button>
+      </div>
+    </div>
+  </div>
 </div>
