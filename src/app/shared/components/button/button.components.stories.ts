@@ -36,6 +36,12 @@ export const Gradient: Story = {
         type: 'gradient',
   },
 };
+export const SoftGradient: Story = {
+  args: {
+      label: 'Gradient',
+        type: 'softgradient',
+  },
+};
 export const Info: Story = {
     args: {
         label: 'Info',

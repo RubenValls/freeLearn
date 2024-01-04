@@ -12,7 +12,7 @@ export class ButtonComponent {
   @Input() label!: string; 
   @Input() routerLink!: string;
   @Input() primary = false;
-  @Input() type: 'primary' | 'secondary' |  'gradient'  |  'info' |  'danger' |  'warning'  |  'success'= 'primary';
+  @Input() type: 'primary' | 'secondary' |  'gradient'  | 'softgradient' | 'info' |  'danger' |  'warning'  |  'success'= 'primary';
   @Input() size: 'xsmall' | 'small' | 'medium' | 'large' = 'small'
   @Input() iconName?: string;
   @Input() iconPosition: 'start' | 'end' = 'end';
