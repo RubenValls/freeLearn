@@ -13,7 +13,7 @@ export class ButtonComponent {
   @Input() routerLink!: string;
   @Input() primary = false;
   @Input() type: 'primary' | 'secondary' |  'gradient'  |  'info' |  'danger' |  'warning'  |  'success'= 'primary';
-  @Input() size: 'small' | 'medium' | 'large' = 'small'
+  @Input() size: 'xsmall' | 'small' | 'medium' | 'large' = 'small'
   @Input() iconName?: string;
   @Input() iconPosition: 'start' | 'end' = 'end';
   @Output() onClick = new EventEmitter<Event>();

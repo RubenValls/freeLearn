@@ -8384,7 +8384,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\r\n  args: {\r\n    data: [{}],\r\n    displayedColumns: [\r\n      { prop: 'name', title: 'Name' },\r\n      { prop: 'imageUrl', title: 'Image' },\r\n      { prop: 'techs', title: 'Technologies' },\r\n      { prop: 'instructorId', title: 'Instructor' },\r\n      { prop: 'introductionURL', title: 'Introduction' },\r\n      { prop: 'lessons', title: 'NºLessons' },\r\n      { prop: 'rating', title: 'Rating' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'Name', prop: 'name' },\r\n      { label: 'Image', prop: 'imageUrl' },\r\n      { label: 'Technologies', prop: 'techs' },\r\n      { label: 'Instructor', prop: 'instructorId' },\r\n      { label: 'Introduction', prop: 'introductionURL' },\r\n      { label: 'Lessons', prop: 'lessons' },\r\n    ],\r\n  },\r\n}"
+                "defaultValue": "{\r\n  args: {\r\n    data: [{\r\n        id: \"1\",\r\n        name: \"Curso Completo de REACT\",\r\n        description: \"Description\",  \r\n        instructorId: [{id: \"BHb6atXs68TPFuj4GnbP\", name: \"JAB\"}], \r\n        imageUrl: \"https://i.ytimg.com/vi/VoMyUgI-5NI/maxresdefault.jpg\",\r\n        techs: [{id: \"3ZLJDtVSkLGCVMa95S0W\", name: \"React\"}],\r\n        lessons: [],\r\n        rating: [],\r\n        introductionURL: \"https://www.youtube.com/watch?v=VoMyUgI-5NI&list=PLRM7PpbqqStKo-NiCuzuYwewZmd9b-EZ9&index=1\"\r\n    }],\r\n    displayedColumns: [\r\n      { prop: 'name', title: 'Name' },\r\n      { prop: 'imageUrl', title: 'Image' },\r\n      { prop: 'techs', title: 'Technologies' },\r\n      { prop: 'instructorId', title: 'Instructor' },\r\n      { prop: 'introductionURL', title: 'Introduction' },\r\n      { prop: 'lessons', title: 'NºLessons' },\r\n      { prop: 'rating', title: 'Rating' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'Name', prop: 'name' },\r\n      { label: 'Image', prop: 'imageUrl' },\r\n      { label: 'Technologies', prop: 'techs' },\r\n      { label: 'Instructor', prop: 'instructorId' },\r\n      { label: 'Introduction', prop: 'introductionURL' },\r\n      { label: 'Lessons', prop: 'lessons' },\r\n    ],\r\n  },\r\n}"
             },
             {
                 "name": "Default",
@@ -8400,21 +8400,21 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/shared/components/course-card/course-card.components.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\r\n  args: {\r\n    course: {\r\n      name: 'Example Course',\r\n      imageUrl: 'example.jpg',\r\n      description: 'This is an example course description.',\r\n      lessons: [], \r\n      techs: [{ id:\"1\", name: 'Angular' }],\r\n      rating: [],\r\n      introductionURL: \"https://example.com/introduction\",\r\n      instructorId:[]\r\n    },\r\n  },\r\n  \r\n}"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\r\n  args: {\r\n    //👇 The args you need here will depend on your component\r\n  },\r\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/course-card/course-card.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    course: {\r\n      name: 'Example Course',\r\n      imageUrl: 'example.jpg',\r\n      description: 'This is an example course description.',\r\n      lessons: [], \r\n      techs: [{ id:\"1\", name: 'Angular' }],\r\n      rating: [],\r\n      introductionURL: \"https://example.com/introduction\",\r\n      instructorId:[]\r\n    },\r\n  },\r\n  \r\n}"
             },
             {
                 "name": "environment",
@@ -8470,6 +8470,16 @@
                 "name": "initialState",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/login/store/user.reducer.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "any",
+                "defaultValue": "{}"
+            },
+            {
+                "name": "initialState",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/store/courses/courses.reducer.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -8505,16 +8515,6 @@
                 "deprecationMessage": "",
                 "type": "ReadonlyArray<User>",
                 "defaultValue": "[]"
-            },
-            {
-                "name": "initialState",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/login/store/user.reducer.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "any",
-                "defaultValue": "{}"
             },
             {
                 "name": "initialState",
@@ -8574,7 +8574,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<CustomTableComponent>",
-                "defaultValue": "{\r\n  title: 'Components/CustomTable',\r\n  component: CustomTableComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations: [],\r\n      imports: [MatTableModule],\r\n    }),\r\n  ],\r\n}"
+                "defaultValue": "{\r\n  title: 'Components/CustomTable',\r\n  component: CustomTableComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations: [],\r\n      imports: [MatTableModule, MatDialogModule, SharedModule],\r\n    }),\r\n  ],\r\n}"
             },
             {
                 "name": "meta",
@@ -8585,6 +8585,16 @@
                 "deprecationMessage": "",
                 "type": "Meta<HeaderComponent>",
                 "defaultValue": "{\r\n    title: 'Components/Headers/AdminHeader',\r\n    component: HeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[],\r\n          imports: [MatButtonModule] \r\n        })\r\n      ]\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<MainPageHeaderComponent>",
+                "defaultValue": "{\r\n    title: 'Components/Headers/MainPageHeader',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
             },
             {
                 "name": "meta",
@@ -8605,16 +8615,6 @@
                 "deprecationMessage": "",
                 "type": "Meta<CourseCardComponent>",
                 "defaultValue": "{\r\n  title: 'Components/CourseCard',\r\n  component: CourseCardComponent,\r\n  tags: ['autodocs'], \r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations:[ButtonComponent]\r\n    })\r\n  ]\r\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<MainPageHeaderComponent>",
-                "defaultValue": "{\r\n    title: 'Components/Headers/MainPageHeader',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
             },
             {
                 "name": "preview",
@@ -8835,6 +8835,17 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
+                "rawtype": "StoryObj<MainPageHeaderComponent>",
+                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
                 "rawtype": "StoryObj<ButtonComponent>",
                 "file": "src/app/shared/components/button/button.components.stories.ts",
                 "deprecated": false,
@@ -8848,17 +8859,6 @@
                 "subtype": "typealias",
                 "rawtype": "StoryObj<CourseCardComponent>",
                 "file": "src/app/shared/components/course-card/course-card.components.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 183
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
-                "rawtype": "StoryObj<MainPageHeaderComponent>",
-                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -9056,7 +9056,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\r\n  args: {\r\n    data: [{}],\r\n    displayedColumns: [\r\n      { prop: 'name', title: 'Name' },\r\n      { prop: 'imageUrl', title: 'Image' },\r\n      { prop: 'techs', title: 'Technologies' },\r\n      { prop: 'instructorId', title: 'Instructor' },\r\n      { prop: 'introductionURL', title: 'Introduction' },\r\n      { prop: 'lessons', title: 'NºLessons' },\r\n      { prop: 'rating', title: 'Rating' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'Name', prop: 'name' },\r\n      { label: 'Image', prop: 'imageUrl' },\r\n      { label: 'Technologies', prop: 'techs' },\r\n      { label: 'Instructor', prop: 'instructorId' },\r\n      { label: 'Introduction', prop: 'introductionURL' },\r\n      { label: 'Lessons', prop: 'lessons' },\r\n    ],\r\n  },\r\n}"
+                    "defaultValue": "{\r\n  args: {\r\n    data: [{\r\n        id: \"1\",\r\n        name: \"Curso Completo de REACT\",\r\n        description: \"Description\",  \r\n        instructorId: [{id: \"BHb6atXs68TPFuj4GnbP\", name: \"JAB\"}], \r\n        imageUrl: \"https://i.ytimg.com/vi/VoMyUgI-5NI/maxresdefault.jpg\",\r\n        techs: [{id: \"3ZLJDtVSkLGCVMa95S0W\", name: \"React\"}],\r\n        lessons: [],\r\n        rating: [],\r\n        introductionURL: \"https://www.youtube.com/watch?v=VoMyUgI-5NI&list=PLRM7PpbqqStKo-NiCuzuYwewZmd9b-EZ9&index=1\"\r\n    }],\r\n    displayedColumns: [\r\n      { prop: 'name', title: 'Name' },\r\n      { prop: 'imageUrl', title: 'Image' },\r\n      { prop: 'techs', title: 'Technologies' },\r\n      { prop: 'instructorId', title: 'Instructor' },\r\n      { prop: 'introductionURL', title: 'Introduction' },\r\n      { prop: 'lessons', title: 'NºLessons' },\r\n      { prop: 'rating', title: 'Rating' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'Name', prop: 'name' },\r\n      { label: 'Image', prop: 'imageUrl' },\r\n      { label: 'Technologies', prop: 'techs' },\r\n      { label: 'Instructor', prop: 'instructorId' },\r\n      { label: 'Introduction', prop: 'introductionURL' },\r\n      { label: 'Lessons', prop: 'lessons' },\r\n    ],\r\n  },\r\n}"
                 },
                 {
                     "name": "meta",
@@ -9066,7 +9066,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<CustomTableComponent>",
-                    "defaultValue": "{\r\n  title: 'Components/CustomTable',\r\n  component: CustomTableComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations: [],\r\n      imports: [MatTableModule],\r\n    }),\r\n  ],\r\n}"
+                    "defaultValue": "{\r\n  title: 'Components/CustomTable',\r\n  component: CustomTableComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations: [],\r\n      imports: [MatTableModule, MatDialogModule, SharedModule],\r\n    }),\r\n  ],\r\n}"
                 }
             ],
             "src/app/admins/components/header/header.components.stories.ts": [
@@ -9091,28 +9091,6 @@
                     "defaultValue": "{\r\n    title: 'Components/Headers/AdminHeader',\r\n    component: HeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[],\r\n          imports: [MatButtonModule] \r\n        })\r\n      ]\r\n}"
                 }
             ],
-            "src/app/shared/components/course-card/course-card.components.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/shared/components/course-card/course-card.components.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\r\n  args: {\r\n    course: {\r\n      name: 'Example Course',\r\n      imageUrl: 'example.jpg',\r\n      description: 'This is an example course description.',\r\n      lessons: [], \r\n      techs: [{ id:\"1\", name: 'Angular' }],\r\n      rating: [],\r\n      introductionURL: \"https://example.com/introduction\",\r\n      instructorId:[]\r\n    },\r\n  },\r\n  \r\n}"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/shared/components/course-card/course-card.components.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta<CourseCardComponent>",
-                    "defaultValue": "{\r\n  title: 'Components/CourseCard',\r\n  component: CourseCardComponent,\r\n  tags: ['autodocs'], \r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations:[ButtonComponent]\r\n    })\r\n  ]\r\n}"
-                }
-            ],
             "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts": [
                 {
                     "name": "Default",
@@ -9133,6 +9111,28 @@
                     "deprecationMessage": "",
                     "type": "Meta<MainPageHeaderComponent>",
                     "defaultValue": "{\r\n    title: 'Components/Headers/MainPageHeader',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
+                }
+            ],
+            "src/app/shared/components/course-card/course-card.components.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/course-card/course-card.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    course: {\r\n      name: 'Example Course',\r\n      imageUrl: 'example.jpg',\r\n      description: 'This is an example course description.',\r\n      lessons: [], \r\n      techs: [{ id:\"1\", name: 'Angular' }],\r\n      rating: [],\r\n      introductionURL: \"https://example.com/introduction\",\r\n      instructorId:[]\r\n    },\r\n  },\r\n  \r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/course-card/course-card.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<CourseCardComponent>",
+                    "defaultValue": "{\r\n  title: 'Components/CourseCard',\r\n  component: CourseCardComponent,\r\n  tags: ['autodocs'], \r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations:[ButtonComponent]\r\n    })\r\n  ]\r\n}"
                 }
             ],
             "src/environments/environment.development.ts": [
@@ -9169,6 +9169,28 @@
                     "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "(...args: string[]) => [\"button\", ...args].filter(Boolean)"
+                }
+            ],
+            "src/app/login/store/user.reducer.ts": [
+                {
+                    "name": "initialState",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/login/store/user.reducer.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "defaultValue": "{}"
+                },
+                {
+                    "name": "userReducer",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/login/store/user.reducer.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createReducer(\r\n    initialState,\r\n    on(UserActions.addUser, (_state, { user }) => user)\r\n)"
                 }
             ],
             "src/app/store/instructors/instructors.reducer.ts": [
@@ -9235,28 +9257,6 @@
                     "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "createReducer(\r\n  initialState,\r\n  on(UsersActions.retrievedUsersList, (_state, { users }) => users)\r\n)"
-                }
-            ],
-            "src/app/login/store/user.reducer.ts": [
-                {
-                    "name": "initialState",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/login/store/user.reducer.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "any",
-                    "defaultValue": "{}"
-                },
-                {
-                    "name": "userReducer",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/login/store/user.reducer.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "createReducer(\r\n    initialState,\r\n    on(UserActions.addUser, (_state, { user }) => user)\r\n)"
                 }
             ],
             "src/app/store/instructors/instructors.actions.ts": [
@@ -9433,6 +9433,19 @@
                     "kind": 183
                 }
             ],
+            "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<MainPageHeaderComponent>",
+                    "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
             "src/app/shared/components/button/button.components.stories.ts": [
                 {
                     "name": "Story",
@@ -9453,19 +9466,6 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<CourseCardComponent>",
                     "file": "src/app/shared/components/course-card/course-card.components.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 183
-                }
-            ],
-            "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<MainPageHeaderComponent>",
-                    "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
