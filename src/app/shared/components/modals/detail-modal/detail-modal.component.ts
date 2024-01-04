@@ -65,10 +65,15 @@ export class DetailModalComponent implements OnInit, OnDestroy {
       })
       this.instructorsForSelect$.subscribe((instructors) => {
         const allInstructors = [...instructors]      
-        this.instructorsForSelect = allInstructors?.filter(instrutorId =>!this.instructors.includes(instrutorId))
+        this.instructorsForSelect = allInstructors.filter(instructor => 
+          !this.instructors.some(existingInstructor => existingInstructor.id === instructor.id)
+        );
       });
       this.techsForSelect$.subscribe((techs) => {
-        this.techsForSelect = [...techs];
+        const allTechs = [...techs];
+        this.techsForSelect = allTechs.filter(techs => 
+          !this.techs.some(existingTech => existingTech.id === techs.id)
+        );
       });
     }
     this.rows = this.data?.rows

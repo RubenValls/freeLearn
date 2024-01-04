@@ -14,7 +14,7 @@ export class InstructorsComponent {
   showForm: boolean = false;
   instructors$ = this.store.select(selectInstructor);
   modalWith: string = '1034';
-  modalHeight: string = '650px';
+  modalHeight: string = '600px';
   modalTitle: string = 'Trainer';
 
   tableColumns = [
