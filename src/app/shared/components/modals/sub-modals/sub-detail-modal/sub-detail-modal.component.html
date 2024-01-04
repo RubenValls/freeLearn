@@ -11,8 +11,12 @@
     <h2>Lessons</h2>
 
     <div class="add-lessons">
-      <button class="btn-add-lessons" (click)="onAddLesson()" mat-raised-button>Add lesson</button>
-    </div>
+      <app-button
+      [label]="'Add lesson'"
+      [type]="'primary'"
+      (onClick)="onAddLesson()"
+      iconName="add"
+    ></app-button>    </div>
 
     <div class="lessons-list">
 
