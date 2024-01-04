@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { DetailModalComponent } from './detail-modal.component';
 import { MatIconModule } from '@angular/material/icon';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 describe('DetailModalComponent', () => {
   let component: DetailModalComponent;
@@ -20,6 +21,7 @@ describe('DetailModalComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [DetailModalComponent],
       imports: [
+        SharedModule,
         MatDialogModule, 
         MatIconModule,
         ReactiveFormsModule,
