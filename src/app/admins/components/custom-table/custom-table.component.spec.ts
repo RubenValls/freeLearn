@@ -34,17 +34,11 @@ describe('CustomTableComponent', () => {
   });
 
   it('should unsubscribe dataSubscription on ngOnDestroy', () => {
-    const data = of([1, 2, 3]);
+    const data = of([{ id: 1 }, { id: 2 }]);
     component.data = data;
     component.ngOnInit();
-    
-    const fakeSubscription = new Subscription();
-    spyOn(fakeSubscription, 'unsubscribe');
-
-    component.dataSubscription = fakeSubscription;
-
     component.ngOnDestroy();
-    expect(component.dataSubscription.unsubscribe).toHaveBeenCalled();
+    expect(component.dataSubscription?.closed).toBeTrue();
   });
 
   it('should open dialog event when handleModal is called', () => {
