@@ -52,7 +52,7 @@ export class DetailModalComponent implements OnInit, OnDestroy {
     private store: Store,   
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
 
     if (this.data.title == "Courses") {
       this.course$ = this.store.select(selectCourse);
@@ -86,7 +86,7 @@ export class DetailModalComponent implements OnInit, OnDestroy {
     this.lessons = this.course?.lessons;
     this.rating = this.data?.rating > 0 ? `The raiting is ${this.data.rating} pounts ` : "This course has no rating yet";
     this.isCourse = this.data?.title == "Courses" ? true : false
-    this.totalCourses = this.data?.totalCourses > 0 ? `This technology has ${this.data.totalCourses} associated courses` : "This technology has 0 associated courses";
+    this.totalCourses = this.data?.totalCourses > 0 ? `It has ${this.data.totalCourses} associated courses` : "It has 0 associated courses";
     this.totalLessons = this.course?.lessons.length > 0 ? `this course has ${this.course.lessons.length} lessons` : "This course has 0 lessons";
 
   }
