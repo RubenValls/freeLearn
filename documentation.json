@@ -745,7 +745,7 @@
         },
         {
             "name": "CoursesService",
-            "id": "injectable-CoursesService-b112af6ae75507c6e000898c71e64955dbfa0ec714c607762899ba400a91541ed14563bae5da0692148f51d87bd2871b8839ae2165b28a7e006d0e903fe0955e",
+            "id": "injectable-CoursesService-97a65b0e17bf85baa047441a5c2a9be1f6c60a4136fc31b619b0e208b474dda73b3836bc1e30dabb4765f4ba08a25ec2e5c644e3a7f362af3e0404515fc13b03",
             "file": "src/app/admins/admins-dashboard/pages/courses/service/courses.service.ts",
             "properties": [
                 {
@@ -801,11 +801,14 @@
                         }
                     ],
                     "optional": false,
-                    "returnType": "any",
+                    "returnType": "unknown",
                     "typeParameters": [],
-                    "line": 84,
+                    "line": 94,
                     "deprecated": false,
                     "deprecationMessage": "",
+                    "modifierKind": [
+                        134
+                    ],
                     "jsdoctags": [
                         {
                             "name": "id",
@@ -837,7 +840,7 @@
                     "optional": false,
                     "returnType": "literal type",
                     "typeParameters": [],
-                    "line": 75,
+                    "line": 85,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -953,7 +956,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { Firestore, collectionData } from '@angular/fire/firestore';\r\nimport { Course, Tech } from '../interface/course';\r\nimport { addDoc, collection, deleteDoc, doc, getDoc, updateDoc } from '@angular/fire/firestore';\r\nimport { Observable } from 'rxjs';\r\nimport { TechService } from '../../technologies/service/tech.service';\r\nimport { InstructorsService } from '../../instructors/instructors-service/instructors.service';\r\nimport { Store } from '@ngrx/store';\r\nimport { CoursesEffects } from 'src/app/store/courses/courses.effects';\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class CoursesService {\r\n  currentCourse: Course | undefined;\r\n\r\n\r\n  constructor(\r\n    private firestore: Firestore,\r\n    private techsService: TechService,\r\n    private instructorsService: InstructorsService,\r\n\r\n  ) { }\r\n  async addCourse(course: Course) {\r\n    const coursesRef = collection(this.firestore, 'courses')\r\n    const docRef = await addDoc(coursesRef, course);\r\n    const techsIds = course.techs.map(tech => tech);\r\n    const instructorsIds = course.instructorId.map(instructor => instructor);\r\n\r\n    techsIds.forEach(techId => {\r\n      this.techsService.updateTechnologyCourses(techId.id, docRef.id);\r\n    });\r\n    instructorsIds.forEach(instructorId => {\r\n      this.instructorsService.updateInstructorsCourses(instructorId.id, docRef.id);\r\n    });\r\n\r\n    return docRef;\r\n  };\r\n  getCourses() {\r\n    const coursesRef = collection(this.firestore, 'courses')\r\n    return collectionData(coursesRef, { idField: 'id' }) as Observable<Course[]>;\r\n  };\r\n\r\n  async getCourseById(id: string) {\r\n    const coursesRef = doc(this.firestore, `courses/${id}`);\r\n    const snapshot = await getDoc(coursesRef);\r\n    const data = snapshot.data();\r\n    return data as Course;\r\n  };\r\n\r\n  async updateCourse(id: string, course: Course) {\r\n    const coursesRef = doc(this.firestore, \"courses\", id);\r\n    await this.getCourseById(id).then((currentCourse) => this.currentCourse = currentCourse);\r\n\r\n    const Techsequal = JSON.stringify(this.currentCourse!.techs) === JSON.stringify(course.techs);\r\n    const InstructorsEqual = JSON.stringify(this.currentCourse!.instructorId) === JSON.stringify(course.instructorId);\r\n\r\n    if (!Techsequal) {\r\n      const { addedIds, deletedIds } = this.findIdsToEdit(this.currentCourse!.techs, course.techs);\r\n      addedIds?.forEach(techId => { this.techsService.updateTechnologyCourses(techId, course.id!); });\r\n      deletedIds?.forEach(techId => { this.techsService.deleteTechnologyCourses(techId, course.id!); });\r\n    }\r\n    if (!InstructorsEqual) {\r\n      console.log(\"instructors\")\r\n      const { addedIds, deletedIds } = this.findIdsToEdit(this.currentCourse!.instructorId, course.instructorId);\r\n      console.log(addedIds, deletedIds, \"addedIds, deletedIds\")\r\n      addedIds?.forEach(instructorId => { this.instructorsService.updateInstructorsCourses(instructorId, course.id!); });\r\n      deletedIds?.forEach(instructorId => { this.instructorsService.deleteInstructorsCourses(instructorId, course.id!); });\r\n    }\r\n\r\n    const courseUpdate = updateDoc(coursesRef, { ...course })\r\n    console.log(courseUpdate, \"courseUpdate\")\r\n    return courseUpdate;\r\n  };\r\n  findIdsToEdit(currentTechs: Tech[], updatedTechs: Tech[]): { deletedIds: string[], addedIds: string[] } {\r\n    const currentIds = currentTechs.map(tech => tech.id);\r\n    const updatedIds = updatedTechs.map(tech => tech.id);\r\n    const addedIds = updatedIds.filter(techId => !currentIds.includes(techId));\r\n    const deletedIds = currentIds.filter(techId => !updatedIds.includes(techId));\r\n    return { addedIds, deletedIds };\r\n  };\r\n\r\n\r\n  deleteCourse(id: string) {\r\n    console.log(id, \"delete service\")\r\n    const coursesRef = doc(this.firestore, \"courses\", id);\r\n    return deleteDoc(coursesRef);\r\n  };\r\n\r\n\r\n}\r\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { Firestore, collectionData } from '@angular/fire/firestore';\r\nimport { Course, Tech } from '../interface/course';\r\nimport { addDoc, collection, deleteDoc, doc, getDoc, updateDoc } from '@angular/fire/firestore';\r\nimport { Observable } from 'rxjs';\r\nimport { TechService } from '../../technologies/service/tech.service';\r\nimport { InstructorsService } from '../../instructors/instructors-service/instructors.service';\r\nimport { Store } from '@ngrx/store';\r\nimport { CoursesEffects } from 'src/app/store/courses/courses.effects';\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class CoursesService {\r\n  currentCourse: Course | undefined;\r\n\r\n\r\n  constructor(\r\n    private firestore: Firestore,\r\n    private techsService: TechService,\r\n    private instructorsService: InstructorsService,\r\n\r\n  ) { }\r\n  async addCourse(course: Course) {\r\n    const coursesRef = collection(this.firestore, 'courses')\r\n    const docRef = await addDoc(coursesRef, course);\r\n    const techsIds = course.techs.map(tech => tech);\r\n    const instructorsIds = course.instructorId.map(instructor => instructor);\r\n\r\n    techsIds.forEach(techId => {\r\n      this.techsService.updateTechnologyCourses(techId.id, docRef.id);\r\n    });\r\n    instructorsIds.forEach(instructorId => {\r\n      this.instructorsService.updateInstructorsCourses(instructorId.id, docRef.id);\r\n    });\r\n\r\n    return docRef;\r\n  };\r\n  getCourses() {\r\n    const coursesRef = collection(this.firestore, 'courses')\r\n    return collectionData(coursesRef, { idField: 'id' }) as Observable<Course[]>;\r\n  };\r\n\r\n  async getCourseById(id: string) {\r\n    const coursesRef = doc(this.firestore, `courses/${id}`);\r\n    const snapshot = await getDoc(coursesRef);\r\n    const data = snapshot.data();\r\n    return data as Course;\r\n  };\r\n\r\n  async updateCourse(id: string, course: Course) {\r\n    debugger\r\n    const coursesRef = doc(this.firestore, \"courses\", id);\r\n    await this.getCourseById(id).then((currentCourse) => this.currentCourse = currentCourse);\r\n\r\n    const Techsequal = JSON.stringify(this.currentCourse!.techs) === JSON.stringify(course.techs);\r\n    const InstructorsEqual = JSON.stringify(this.currentCourse!.instructorId) === JSON.stringify(course.instructorId);\r\n\r\n    if (!Techsequal) {\r\n      const { addedIds, deletedIds } = this.findIdsToEdit(this.currentCourse!.techs, course.techs);\r\n      addedIds?.forEach(techId => { this.techsService.updateTechnologyCourses(techId, course.id!); });\r\n      deletedIds?.forEach(techId => { this.techsService.deleteTechnologyCourses(techId, course.id!); });\r\n    }\r\n    if (!InstructorsEqual) {\r\n      const { addedIds, deletedIds } = this.findIdsToEdit(this.currentCourse!.instructorId, course.instructorId);     \r\n      addedIds?.forEach(instructorId => { this.instructorsService.updateInstructorsCourses(instructorId, course.id!); });\r\n      deletedIds?.forEach(instructorId => { this.instructorsService.deleteInstructorsCourses(instructorId, course.id!); });\r\n    }\r\n\r\n    if (this.currentCourse && course && Techsequal && InstructorsEqual) {        \r\n\r\n      const sortedCurrentCourse = JSON.parse(JSON.stringify(this.currentCourse, Object.keys(this.currentCourse).sort()));\r\n      const sortedCourse = JSON.parse(JSON.stringify(course, Object.keys(course).sort()));\r\n      const courseEqual = JSON.stringify(sortedCurrentCourse) === JSON.stringify(sortedCourse);\r\n\r\n      if (courseEqual ) {\r\n        return Promise.reject({ message: \"No changes were made to the course\" });\r\n      }\r\n    }\r\n\r\n    const courseUpdate = updateDoc(coursesRef, { ...course })\r\n    return courseUpdate;\r\n  };\r\n\r\n  findIdsToEdit(currentTechs: Tech[], updatedTechs: Tech[]): { deletedIds: string[], addedIds: string[] } {\r\n    const currentIds = currentTechs.map(tech => tech.id);\r\n    const updatedIds = updatedTechs.map(tech => tech.id);\r\n    const addedIds = updatedIds.filter(techId => !currentIds.includes(techId));\r\n    const deletedIds = currentIds.filter(techId => !updatedIds.includes(techId));\r\n    return { addedIds, deletedIds };\r\n  };\r\n\r\n\r\n  async deleteCourse(id: string) {    \r\n    const coursesRef = doc(this.firestore, \"courses\", id);\r\n    if(coursesRef){\r\n      await this.getCourseById(id).then((currentCourse) => this.currentCourse = currentCourse);\r\n      const techsIds = this.currentCourse!.techs.map(tech => tech.id);\r\n      const instructorsIds = this.currentCourse!.instructorId.map(instructor => instructor.id);\r\n      techsIds.forEach(techId => {\r\n        this.techsService.deleteTechnologyCourses(techId, id);\r\n      });\r\n      instructorsIds.forEach(instructorId => {\r\n        this.instructorsService.deleteInstructorsCourses(instructorId, id);\r\n      });\r\n    }\r\n    return deleteDoc(coursesRef);\r\n  };\r\n\r\n\r\n}\r\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -1081,7 +1084,7 @@
         },
         {
             "name": "InstructorsService",
-            "id": "injectable-InstructorsService-bb43c7125c6764d2986df658bf5e065a0fbcf6a2bc07bf6a4fcc8136efb13c80f94d847fabf2a38fa3a6be30a1a7e676af406ba55cf662d46930059604dcc867",
+            "id": "injectable-InstructorsService-6e943e8ff998c4aa693fd85439d1f64658bdde4d49e1cfddbb1caef1c0aac50c2e70f1b8b75b90a333f58c9b57a67dd1761646d4b79d2f50ded09a041bee9613",
             "file": "src/app/admins/admins-dashboard/pages/instructors/instructors-service/instructors.service.ts",
             "properties": [],
             "methods": [
@@ -1129,7 +1132,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 57,
+                    "line": 55,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -1166,7 +1169,7 @@
                     "optional": false,
                     "returnType": "unknown",
                     "typeParameters": [],
-                    "line": 46,
+                    "line": 45,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -1331,7 +1334,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { Firestore, collectionData } from '@angular/fire/firestore';\r\nimport { addDoc, collection, deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore';\r\nimport { Instructor } from '../instructors';\r\nimport { Observable } from 'rxjs';\r\n\r\n@Injectable({\r\n  providedIn: 'root',\r\n})\r\nexport class InstructorsService {\r\n  constructor(private firestore: Firestore) { }\r\n\r\n  async addInstructor(instructor: Instructor) {\r\n    const instructorsRef = collection(this.firestore, 'instructors');\r\n    const docRef = await addDoc(instructorsRef, instructor);\r\n    return docRef;\r\n  }\r\n\r\n  getInstructors() {\r\n    const instructorsRef = collection(this.firestore, 'instructors')\r\n    return collectionData(instructorsRef, { idField: 'id' }) as Observable<Instructor[]>;\r\n  };\r\n\r\n  async getInstructorById(id: string) {\r\n    const instructorsRef = doc(this.firestore, \"instructors\", id);\r\n    return (await getDoc(instructorsRef)).data() as Instructor;\r\n  };\r\n\r\n  async updateInstructor(id: string, instructor: Instructor) {\r\n    const instructorRef = doc(this.firestore, 'instructors', id);\r\n    const instructorUpdate = await updateDoc(instructorRef, { ...instructor })\r\n    return instructorUpdate\r\n  }\r\n\r\n  async updateInstructorsCourses(technologyId: string, courseId: string) {\r\n    debugger\r\n    const instructorRef = doc(this.firestore, 'instructors', technologyId);\r\n    const instructorData = (await getDoc(instructorRef)).data() as Instructor;\r\n    instructorData.courses.push(courseId)\r\n    const instructorUpdated = await updateDoc(instructorRef, {\r\n      courses: instructorData.courses\r\n    });\r\n    return instructorUpdated;\r\n  }\r\n\r\n  async deleteInstructorsCourses(technologyId: string, courseId: string) {\r\n    debugger\r\n    const instructorRef = doc(this.firestore, 'instructors', technologyId);\r\n    const instructorData = (await getDoc(instructorRef)).data() as Instructor;\r\n    const courses = instructorData.courses.filter(course => course !== courseId);\r\n    const instructorUpdated = await updateDoc(instructorRef, {\r\n      courses: courses\r\n    });\r\n    return instructorUpdated;\r\n  }\r\n\r\n  async deleteInstructor(id: string) {\r\n    const instructorRef = doc(this.firestore, 'instructors', id);\r\n    await deleteDoc(instructorRef);\r\n  }\r\n\r\n}\r\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { Firestore, collectionData } from '@angular/fire/firestore';\r\nimport { addDoc, collection, deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore';\r\nimport { Instructor } from '../instructors';\r\nimport { Observable } from 'rxjs';\r\n\r\n@Injectable({\r\n  providedIn: 'root',\r\n})\r\nexport class InstructorsService {\r\n  constructor(private firestore: Firestore) { }\r\n\r\n  async addInstructor(instructor: Instructor) {\r\n    const instructorsRef = collection(this.firestore, 'instructors');\r\n    const docRef = await addDoc(instructorsRef, instructor);\r\n    return docRef;\r\n  }\r\n\r\n  getInstructors() {\r\n    const instructorsRef = collection(this.firestore, 'instructors')\r\n    return collectionData(instructorsRef, { idField: 'id' }) as Observable<Instructor[]>;\r\n  };\r\n\r\n  async getInstructorById(id: string) {\r\n    const instructorsRef = doc(this.firestore, \"instructors\", id);\r\n    return (await getDoc(instructorsRef)).data() as Instructor;\r\n  };\r\n\r\n  async updateInstructor(id: string, instructor: Instructor) {\r\n    const instructorRef = doc(this.firestore, 'instructors', id);\r\n    const instructorUpdate = await updateDoc(instructorRef, { ...instructor })\r\n    return instructorUpdate\r\n  }\r\n\r\n  async updateInstructorsCourses(technologyId: string, courseId: string) { \r\n    const instructorRef = doc(this.firestore, 'instructors', technologyId);\r\n    const instructorData = (await getDoc(instructorRef)).data() as Instructor;\r\n    instructorData.courses.push(courseId)\r\n    const instructorUpdated = await updateDoc(instructorRef, {\r\n      courses: instructorData.courses\r\n    });\r\n    return instructorUpdated;\r\n  }\r\n\r\n  async deleteInstructorsCourses(technologyId: string, courseId: string) {  \r\n    const instructorRef = doc(this.firestore, 'instructors', technologyId);\r\n    const instructorData = (await getDoc(instructorRef)).data() as Instructor;\r\n    const courses = instructorData.courses.filter(course => course !== courseId);\r\n    const instructorUpdated = await updateDoc(instructorRef, {\r\n      courses: courses\r\n    });\r\n    return instructorUpdated;\r\n  }\r\n\r\n  async deleteInstructor(id: string) {\r\n    const instructorRef = doc(this.firestore, 'instructors', id);\r\n    await deleteDoc(instructorRef);\r\n  }\r\n\r\n}\r\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -2699,7 +2702,7 @@
         },
         {
             "name": "AdminsDashboardComponent",
-            "id": "component-AdminsDashboardComponent-3be766d4c95a3552d994728422a94472a39e84019b59d5747b54e0ce5222eefb4b3574e0390ee7595150f5933c571b6c7cf862cb26dfb9d533c45df234363991",
+            "id": "component-AdminsDashboardComponent-0bb741f352d962d5e317d24d163795ec65ce1bc8ad5a2d1709828f4ef31f458460f8944ab3846939828153dfa3144b760334c8dc29dccde991cf47606b0d53c5",
             "file": "src/app/admins/admins-dashboard/admins-dashboard.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2726,7 +2729,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 16,
+                    "line": 17,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -2740,7 +2743,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\n\r\n\r\n\r\n@Component({\r\n  selector: 'app-admins-dashboard',\r\n  templateUrl: './admins-dashboard.component.html',\r\n  styleUrls: ['./admins-dashboard.component.scss']\r\n})\r\nexport class AdminsDashboardComponent {\r\n  constructor(\r\n    private store: Store,\r\n  ) { } \r\n\r\n  ngOnInit(): void {\r\n    this.store.dispatch({ type: 'Fetch Technologies' });\r\n    this.store.dispatch({ type: 'Fetch Instructors' });\r\n    this.store.dispatch({ type: 'Fetch Courses' });\r\n    this.store.dispatch({ type: 'Fetch Users' });\r\n  }\r\n\r\n}\r\n",
+            "sourceCode": "import { effectsActions } from './../../store/effectsActions';\r\nimport { Component } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\n\r\n\r\n\r\n@Component({\r\n  selector: 'app-admins-dashboard',\r\n  templateUrl: './admins-dashboard.component.html',\r\n  styleUrls: ['./admins-dashboard.component.scss']\r\n})\r\nexport class AdminsDashboardComponent {\r\n  constructor(\r\n    private store: Store,\r\n  ) { } \r\n\r\n  ngOnInit(): void {\r\n    this.store.dispatch(effectsActions.fetchTechnologies);\r\n    this.store.dispatch(effectsActions.fetchInstructors);\r\n    this.store.dispatch(effectsActions.fetchCourses);\r\n    this.store.dispatch(effectsActions.fetchUsers);\r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -2762,7 +2765,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 11,
+                "line": 12,
                 "jsdoctags": [
                     {
                         "name": "store",
@@ -3056,7 +3059,7 @@
         },
         {
             "name": "CoursesComponent",
-            "id": "component-CoursesComponent-6365c97224a0927fcf65fa7216ba45d1198f45623bfbaeae8f5185fb24e40aa18c3ac87bc32902520ea907f674e75d1c4903ab02f1f6129f5b272e56dbc670ab",
+            "id": "component-CoursesComponent-4a39d669630659f131255515fbf33c7728824397ecd09cd8a77512e1ce94e688e0205884797036a11fddb127fe65ec84dd8f5bde737f53bc1a0663d49e8d655d",
             "file": "src/app/admins/admins-dashboard/pages/courses/courses.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -3088,7 +3091,7 @@
                 },
                 {
                     "name": "modalHeight",
-                    "defaultValue": "'650px'",
+                    "defaultValue": "'600px'",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "string",
@@ -3224,7 +3227,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { CoursesService } from './service/courses.service';\r\nimport { Store } from '@ngrx/store';\r\nimport { selectCourses } from 'src/app/store/courses/courses.selectors';\r\nimport { AlertsService } from 'src/app/shared/services/alerts/alerts.service';\r\nimport { Course } from './interface/course';\r\n\r\n@Component({\r\n  selector: 'app-courses',\r\n  templateUrl: './courses.component.html',\r\n  styleUrls: ['./courses.component.scss']\r\n})\r\nexport class CoursesComponent  {\r\n  watchForm: boolean = false;\r\n  courses$ = this.store.select(selectCourses);\r\n  \r\n  modalWith: string = '1034';\r\n  modalHeight: string = '650px';\r\n  modalTitle: string = 'Courses';\r\n\r\n  tableColumns = [\r\n    { prop: 'name', title: 'Name' },   \r\n    { prop: 'imageUrl', title: 'Image' },\r\n    { prop: 'techs', title: 'Technologies' },\r\n    { prop: 'instructorId', title: 'Instructor' },\r\n    { prop: 'introductionURL', title: 'Introduction' },\r\n    { prop: 'lessons', title: 'NºLessons'},\r\n    { prop: 'rating', title: 'Rating'},\r\n  ];\r\n\r\n  rows = [\r\n    { label: 'Id', prop: 'id' },\r\n    { label: 'Name', prop: 'name' },   \r\n    { label: 'Description', prop: 'description'},\r\n    { label: 'Image', prop: 'imageUrl' },\r\n    { label: 'Technologies', prop: 'techs'},\r\n    { label: 'Instructor', prop: 'instructorId' },\r\n    { label: 'Introduction', prop: 'introductionURL' },    \r\n    { label: 'Lessons', prop: 'lessons'},    \r\n    { prop: 'rating', title: 'Rating'},\r\n  ]  \r\n\r\n  constructor(\r\n    private store: Store,\r\n    private coursesService: CoursesService,\r\n    private alertMessages: AlertsService,\r\n  ) { } \r\n\r\n\r\n  addCourse() {\r\n    this.watchForm = !this.watchForm;\r\n  }\r\n\r\n  onEdit(element:Course) {\r\n    this.coursesService.updateCourse(element.id!, element)\r\n    .then((data) => {\r\n      this.alertMessages.successMessage('Course update successfully');\r\n    })\r\n    .catch((error) => {\r\n      this.alertMessages.errorMessage('Error updating Course', error.message);\r\n    })\r\n  }\r\n\r\n  onDelete(id:string){ \r\n    this.coursesService.deleteCourse(id)\r\n    .then((data) => {\r\n      this.alertMessages.successMessage('Course delete successfully');\r\n    })\r\n    .catch((error) => {\r\n      this.alertMessages.errorMessage('Error deleting Course', error.message);\r\n    })\r\n  }\r\n\r\n}\r\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { CoursesService } from './service/courses.service';\r\nimport { Store } from '@ngrx/store';\r\nimport { selectCourses } from 'src/app/store/courses/courses.selectors';\r\nimport { AlertsService } from 'src/app/shared/services/alerts/alerts.service';\r\nimport { Course } from './interface/course';\r\n\r\n@Component({\r\n  selector: 'app-courses',\r\n  templateUrl: './courses.component.html',\r\n  styleUrls: ['./courses.component.scss']\r\n})\r\nexport class CoursesComponent  {\r\n  watchForm: boolean = false;\r\n  courses$ = this.store.select(selectCourses);\r\n  \r\n  modalWith: string = '1034';\r\n  modalHeight: string = '600px';\r\n  modalTitle: string = 'Courses';\r\n\r\n  tableColumns = [\r\n    { prop: 'name', title: 'Name' },   \r\n    { prop: 'imageUrl', title: 'Image' },\r\n    { prop: 'techs', title: 'Technologies' },\r\n    { prop: 'instructorId', title: 'Instructor' },\r\n    { prop: 'introductionURL', title: 'Introduction' },\r\n    { prop: 'lessons', title: 'NºLessons'},\r\n    { prop: 'rating', title: 'Rating'},\r\n  ];\r\n\r\n  rows = [\r\n    { label: 'Id', prop: 'id' },\r\n    { label: 'Name', prop: 'name' },   \r\n    { label: 'Description', prop: 'description'},\r\n    { label: 'Image', prop: 'imageUrl' },\r\n    { label: 'Technologies', prop: 'techs'},\r\n    { label: 'Instructor', prop: 'instructorId' },\r\n    { label: 'Introduction', prop: 'introductionURL' },    \r\n    { label: 'Lessons', prop: 'lessons'},    \r\n    { prop: 'rating', title: 'Rating'},\r\n  ]  \r\n\r\n  constructor(\r\n    private store: Store,\r\n    private coursesService: CoursesService,\r\n    private alertMessages: AlertsService,\r\n  ) { } \r\n\r\n\r\n  addCourse() {\r\n    this.watchForm = !this.watchForm;\r\n  }\r\n\r\n  onEdit(element:Course) {\r\n    this.coursesService.updateCourse(element.id!, element)\r\n    .then((data) => {\r\n      this.alertMessages.successMessage('Course update successfully');\r\n    })\r\n    .catch((error) => {\r\n      this.alertMessages.errorMessage('Error updating Course: ', error.message);\r\n    })\r\n  }\r\n\r\n  onDelete(id:string){ \r\n    this.coursesService.deleteCourse(id)\r\n    .then((data) => {\r\n      this.alertMessages.successMessage('Course delete successfully');\r\n    })\r\n    .catch((error) => {\r\n      this.alertMessages.errorMessage('Error deleting Course', error.message);\r\n    })\r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -3415,7 +3418,7 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "form {\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    margin: auto;\r\n    margin-top: 20px;\r\n    width: 50%;\r\n\r\n    .input-name {\r\n        width: 100%;\r\n    }\r\n\r\n    .social {\r\n        mat-form-field {\r\n            width: 48%;\r\n\r\n            @media (width < 768px) {\r\n                width: 100%;\r\n            }\r\n        }\r\n\r\n        width: 100%;\r\n        display: flex;\r\n        flex-wrap: wrap;\r\n        justify-content: space-between;\r\n\r\n        @media (width < 768px) {\r\n            flex-direction: column;\r\n        }\r\n    }\r\n\r\n    .btn-container {\r\n        width: 100%;\r\n        display: flex;\r\n        justify-content: end;\r\n    }\r\n}",
+                    "data": "form {\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    margin: auto;\r\n    margin-top: 20px;\r\n    width: 50%;\r\n\r\n    .input-name {\r\n        width: 100%;\r\n    }\r\n\r\n    .social {\r\n        mat-form-field {\r\n            width: 48%;\r\n\r\n            @media (width < 768px) {\r\n                width: 100%;\r\n            }\r\n        }\r\n\r\n        width: 100%;\r\n        display: flex;\r\n        flex-wrap: wrap;\r\n        justify-content: space-between;\r\n\r\n        @media (width < 768px) {\r\n            flex-direction: column;\r\n        }\r\n    }\r\n\r\n    .btn-container {\r\n        width: 100%;\r\n        display: flex;\r\n        justify-content: flex-end;\r\n    }\r\n}",
                     "styleUrl": "./create-instructors-form.component.scss"
                 }
             ],
@@ -3481,7 +3484,7 @@
         },
         {
             "name": "CustomTableComponent",
-            "id": "component-CustomTableComponent-f7cc36bbec33dfca254d9487d108ea964a02ea991b005bffc148d03cad305f2fbf7fdc9fabf7d25ff9697a2975c3a43f6c800aa07f29d50f353efcf775468491",
+            "id": "component-CustomTableComponent-4f1771d4ffd1225b4d2d4d87028c2be698ece94182d55cedfa3459c66590bacec48d699791c3b470ca772a9179a707b1fd1f3d58b035b581d19163df81351f0e",
             "file": "src/app/admins/components/custom-table/custom-table.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -3629,7 +3632,7 @@
                     "optional": false,
                     "returnType": "number",
                     "typeParameters": [],
-                    "line": 63,
+                    "line": 64,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -3657,7 +3660,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 39,
+                    "line": 40,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -3678,7 +3681,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 35,
+                    "line": 36,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -3702,7 +3705,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, } from '@angular/core';\r\nimport { Subscription } from 'rxjs';\r\nimport { MatDialog } from '@angular/material/dialog';\r\nimport { DetailModalComponent } from 'src/app/shared/components/modals/detail-modal/detail-modal.component';\r\n\r\n@Component({\r\n  selector: 'app-custom-table',\r\n  templateUrl: './custom-table.component.html',\r\n  styleUrls: ['./custom-table.component.scss']\r\n})\r\nexport class CustomTableComponent implements OnInit, OnDestroy {\r\n  @Input() displayedColumns: any[] = [];\r\n  @Input() data: any | null = [];\r\n  @Input() rows: any[] = [];\r\n  @Output() onEdit: EventEmitter<any> = new EventEmitter();\r\n  @Output() onDelete: EventEmitter<any> = new EventEmitter();\r\n  @Input() modalWith: string = '';\r\n  @Input() modalHeight: string = '';\r\n  @Input() modalTitle: string = '';\r\n\r\n  dataSubscription: Subscription | undefined\r\n  dataSource = []\r\n  columns = this.displayedColumns.map(column => column.prop);\r\n\r\n  constructor(\r\n    public dialog: MatDialog,\r\n\r\n  ) { }\r\n\r\n  ngOnInit(): void {\r\n    this.dataSubscription = this.data?.subscribe((data: any) => { this.dataSource = data })\r\n    this.columns = this.displayedColumns.map(column => column.prop);\r\n  }\r\n\r\n  ngOnDestroy(): void {\r\n    this.dataSubscription?.unsubscribe();\r\n  }\r\n\r\n  handleModal(element: any) {\r\n    const onEdit = (element: any) => {\r\n      this.onEdit.emit(element)\r\n    }\r\n    const onDelete = (element: any) => {\r\n      this.onDelete.emit(element.id)\r\n    }\r\n    this.dialog.open(DetailModalComponent, {\r\n\r\n      width: this.modalWith,\r\n      height: this.modalHeight,\r\n      data:\r\n      {\r\n        data: element,\r\n        title: this.modalTitle,\r\n        rows: this.rows,\r\n        ...(element && element.courses && { totalCourses: element.courses.length }),\r\n        ...(element && element.rating && { rating: element.rating.length }),\r\n        onEdit: onEdit,\r\n        onDelete: onDelete,\r\n      }\r\n    });\r\n  }\r\n\r\n  getRatingAverage(ratings: any[]): number {\r\n    const sum = ratings.reduce((total, item) => total + item.rating, 0);\r\n    const average = sum / ratings.length;\r\n    const roundedAverage = Math.round(average);\r\n\r\n    return roundedAverage;\r\n  }\r\n\r\n}\r\n",
+            "sourceCode": "import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, } from '@angular/core';\r\nimport { Subscription, of } from 'rxjs';\r\nimport { MatDialog } from '@angular/material/dialog';\r\nimport { DetailModalComponent } from 'src/app/shared/components/modals/detail-modal/detail-modal.component';\r\n\r\n@Component({\r\n  selector: 'app-custom-table',\r\n  templateUrl: './custom-table.component.html',\r\n  styleUrls: ['./custom-table.component.scss']\r\n})\r\nexport class CustomTableComponent implements OnInit, OnDestroy {\r\n  @Input() displayedColumns: any[] = [];\r\n  @Input() data: any | null = [];\r\n  @Input() rows: any[] = [];\r\n  @Output() onEdit: EventEmitter<any> = new EventEmitter();\r\n  @Output() onDelete: EventEmitter<any> = new EventEmitter();\r\n  @Input() modalWith: string = '';\r\n  @Input() modalHeight: string = '';\r\n  @Input() modalTitle: string = '';\r\n\r\n  dataSubscription: Subscription | undefined\r\n  dataSource = []\r\n  columns = this.displayedColumns.map(column => column.prop);\r\n\r\n  constructor(\r\n    public dialog: MatDialog,\r\n\r\n  ) { }\r\n\r\n  ngOnInit(): void {\r\n    this.data = of(this.data);\r\n    this.dataSubscription = this.data?.subscribe((data: any) => { this.dataSource = data })\r\n    this.columns = this.displayedColumns.map(column => column.prop);\r\n  }\r\n\r\n  ngOnDestroy(): void {\r\n    this.dataSubscription?.unsubscribe();\r\n  }\r\n\r\n  handleModal(element: any) {\r\n    const onEdit = (element: any) => {\r\n      this.onEdit.emit(element)\r\n    }\r\n    const onDelete = (element: any) => {\r\n      this.onDelete.emit(element.id)\r\n    }\r\n    this.dialog.open(DetailModalComponent, {\r\n\r\n      width: this.modalWith,\r\n      height: this.modalHeight,\r\n      data:\r\n      {\r\n        data: element,\r\n        title: this.modalTitle,\r\n        rows: this.rows,\r\n        ...(element && element.courses && { totalCourses: element.courses.length }),\r\n        ...(element && element.rating && { rating: element.rating.length }),\r\n        onEdit: onEdit,\r\n        onDelete: onDelete,\r\n      }\r\n    });\r\n  }\r\n\r\n  getRatingAverage(ratings: any[]): number {\r\n    const sum = ratings.reduce((total, item) => total + item.rating, 0);\r\n    const average = sum / ratings.length;\r\n    const roundedAverage = Math.round(average);\r\n\r\n    return roundedAverage;\r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -3895,11 +3898,11 @@
                 ]
             },
             "extends": [],
-            "templateData": "<div class=\"delete-modal\">\r\n  <div class=\"delete-modal--content\">\r\n    <div class=\"--close-icon\">\r\n      <mat-icon (click)=\"close()\">close</mat-icon>\r\n    </div>\r\n\r\n    <div class=\"--delete-icon\">\r\n      <mat-icon>delete_forever</mat-icon>\r\n    </div>\r\n    <div class=\"modal-body\">\r\n      <h5 class=\"title\">Permanently delete file</h5>\r\n      <p class=\"text\">Are you sure you want to permanently delete this file?</p>\r\n      <p class=\"text-advise\">This action cannot be undone</p>\r\n    </div>\r\n\r\n    <div class=\"modal-buttons\">\r\n      <app-button\r\n        [label]=\"'Close'\"\r\n        [type]=\"'light'\"\r\n        (onClick)=\"close()\"\r\n      ></app-button>\r\n      <app-button\r\n        [label]=\"'Danger'\"\r\n        [type]=\"'danger'\"\r\n        (onClick)=\"onDelete()\"\r\n      ></app-button>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+            "templateData": "<div class=\"delete-modal\">\r\n  <div class=\"delete-modal--content\">\r\n    <div class=\"--close-icon\">\r\n      <mat-icon (click)=\"close()\">close</mat-icon>\r\n    </div>\r\n\r\n    <div class=\"--delete-icon\">\r\n      <mat-icon>delete_forever</mat-icon>\r\n    </div>\r\n    <div class=\"modal-body\">\r\n      <h5 class=\"title\">Permanently delete file</h5>\r\n      <p class=\"text\">Are you sure you want to permanently delete this file?</p>\r\n      <p class=\"text-advise\">This action cannot be undone</p>\r\n    </div>\r\n\r\n    <div class=\"modal-buttons\">\r\n      <app-button\r\n        [label]=\"'Close'\"\r\n        [type]=\"'light'\"\r\n        (onClick)=\"close()\"\r\n      ></app-button>\r\n      <app-button\r\n        [label]=\"'Delete'\"\r\n        [type]=\"'danger'\"\r\n        (onClick)=\"onDelete()\"\r\n      ></app-button>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
         },
         {
             "name": "DetailModalComponent",
-            "id": "component-DetailModalComponent-d659e281878f179701cabacc8dcf366f7406ab8ba9a0760bb14e4f50e9ec7b2deb243f27821223354043a4130444d0b364064b0bad1619fa65f59fef024455cb",
+            "id": "component-DetailModalComponent-6e899d1b106b4c0265e382e8934d7748d2c86a47814b4ef3bdd6d1fac6692c7b1d8c84ed3dd8d9fc4371bad7539dc4843da089b4fd758db5a5f5eb46083002a2",
             "file": "src/app/shared/components/modals/detail-modal/detail-modal.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -4165,7 +4168,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 149,
+                    "line": 155,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -4175,7 +4178,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 92,
+                    "line": 98,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -4192,7 +4195,7 @@
                     "optional": false,
                     "returnType": "FormGroup | FormControl",
                     "typeParameters": [],
-                    "line": 113,
+                    "line": 119,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -4220,7 +4223,7 @@
                     "optional": false,
                     "returnType": "FormGroup",
                     "typeParameters": [],
-                    "line": 131,
+                    "line": 137,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -4248,7 +4251,7 @@
                     "optional": false,
                     "returnType": "FormGroup | null",
                     "typeParameters": [],
-                    "line": 143,
+                    "line": 149,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -4269,7 +4272,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 88,
+                    "line": 94,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -4296,7 +4299,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 208,
+                    "line": 214,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -4317,7 +4320,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 153,
+                    "line": 159,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -4340,7 +4343,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 223,
+                    "line": 229,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -4370,7 +4373,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 173,
+                    "line": 179,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -4387,7 +4390,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 204,
+                    "line": 210,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -4408,7 +4411,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 192,
+                    "line": 198,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -4422,11 +4425,11 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Inject, OnDestroy, OnInit } from '@angular/core';\r\nimport { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';\r\nimport { DeleteModalComponent } from '../delete-modal/delete-modal.component';\r\nimport { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';\r\nimport { UpdateModalComponent } from '../update-modal/update-modal.component';\r\nimport { SubDetailModalComponent } from '../sub-modals/sub-detail-modal/sub-detail-modal.component';\r\nimport { Store } from '@ngrx/store';\r\nimport { selectCourse } from 'src/app/admins/admins-dashboard/pages/courses/store/course/course.selectors';\r\nimport { Observable, Subscription } from 'rxjs';\r\nimport { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';\r\nimport { CourseActions } from 'src/app/admins/admins-dashboard/pages/courses/store/course/course.actions';\r\nimport { TechService } from 'src/app/admins/admins-dashboard/pages/technologies/service/tech.service';\r\nimport { InstructorsService } from 'src/app/admins/admins-dashboard/pages/instructors/instructors-service/instructors.service';\r\nimport { Instructor } from 'src/app/admins/admins-dashboard/pages/instructors/instructors';\r\nimport { TechnologyType } from 'src/app/admins/admins-dashboard/pages/technologies/types/technologies';\r\nimport { selectInstructor } from 'src/app/store/instructors/instructors.selectors';\r\nimport { selectTechnologies } from 'src/app/store/technologies/tecnologies.selectors';\r\n\r\n@Component({\r\n  selector: 'app-detail-modal',\r\n  templateUrl: './detail-modal.component.html',\r\n  styleUrls: ['./detail-modal.component.scss']\r\n})\r\nexport class DetailModalComponent implements OnInit, OnDestroy {\r\n\r\n  title: string = ''\r\n  totalCourses: string | null = null\r\n  rows: any[] = [];\r\n  form!: FormGroup;\r\n  socialMediaForm!: FormGroup;\r\n  instructorsForSelect$ = this.store.select(selectInstructor);\r\n  techsForSelect$ = this.store.select(selectTechnologies);\r\n  instructorsForSelect: Instructor[] | undefined;\r\n  techsForSelect: TechnologyType[] | undefined;\r\n  techs: any[] = [];\r\n  instructors: any[] = [];\r\n  lessons: any[] = [];\r\n  totalLessons: string | null = null\r\n  rating: string | number = '';\r\n  isCourse: boolean = false;\r\n  course$: Observable<Course> | undefined;\r\n  course: any;\r\n  newValues: any[] = [];\r\n\r\n  courseSubscription: Subscription | undefined\r\n\r\n  constructor(\r\n    @Inject(MAT_DIALOG_DATA) public data: any,\r\n    public dialogRef: MatDialogRef<DetailModalComponent>,\r\n    public dialog: MatDialog,\r\n    public builderForm: FormBuilder,\r\n    private store: Store,   \r\n  ) { }\r\n\r\n  ngOnInit(): void {\r\n\r\n    if (this.data.title == \"Courses\") {\r\n      this.course$ = this.store.select(selectCourse);\r\n      this.store.dispatch(CourseActions.addCourse({ course: this.data.data }))\r\n      this.course$.subscribe((course: Course) => {\r\n        this.totalLessons = course.lessons.length > 0 ? `this course has ${course.lessons.length} lessons` : \"This course has 0 lessons\"\r\n        this.course = course\r\n        this.instructors = course.instructorId\r\n        this.techs = course.techs\r\n      })\r\n      this.instructorsForSelect$.subscribe((instructors) => {\r\n        this.instructorsForSelect = [...instructors];\r\n      });\r\n      this.techsForSelect$.subscribe((techs) => {\r\n        this.techsForSelect = [...techs];\r\n      });\r\n    }\r\n    this.rows = this.data?.rows\r\n    this.title = this.data?.title\r\n    this.createDynamicForm();\r\n    this.form.patchValue(this.course ? this.course : this.data.data);\r\n    this.socialMediaForm = this.getFormGroup('socialMedia') as FormGroup;\r\n    this.techs = this.data.data?.techs;\r\n    this.instructors = this.course?.instructorId;\r\n    this.lessons = this.course?.lessons;\r\n    this.rating = this.data?.rating > 0 ? `The raiting is ${this.data.rating} pounts ` : \"This course has no rating yet\";\r\n    this.isCourse = this.data?.title == \"Courses\" ? true : false\r\n    this.totalCourses = this.data?.totalCourses > 0 ? `This technology has ${this.data.totalCourses} associated courses` : \"This technology has 0 associated courses\";\r\n    this.totalLessons = this.course?.lessons.length > 0 ? `this course has ${this.course.lessons.length} lessons` : \"This course has 0 lessons\";\r\n\r\n  }\r\n\r\n   ngOnDestroy(): void {\r\n     this.courseSubscription?.unsubscribe()\r\n   }\r\n\r\n  createDynamicForm() {\r\n    this.form = this.builderForm.group({});\r\n    this.rows.forEach((row: any) => {\r\n      if (row.prop !== 'courses') {\r\n        if (row.subFields) {\r\n          if (row.prop !== \"socialMedia\") {\r\n            const subFormGroup = this.createSubFormGroup(row.subFields);\r\n            this.form.addControl(row.prop, subFormGroup);\r\n          } else {\r\n            const subFormGroup = this.createSubFormGroupFromObject(row.subFields);\r\n            this.form.addControl(row.prop, subFormGroup);\r\n          }\r\n        }\r\n        else {\r\n          this.form.addControl(row.prop, this.builderForm.control('', Validators.required));\r\n        }\r\n      }\r\n    });\r\n\r\n  }\r\n\r\n  createSubFormGroup(field: any): FormGroup | FormControl {\r\n    if (!field) {\r\n      return this.builderForm.control('');\r\n    }\r\n\r\n    if (field.subFields) {\r\n      const subFormGroup: { [key: string]: AbstractControl } = {};\r\n\r\n      field.subFields.forEach((subField: any) => {\r\n        subFormGroup[subField.prop] = this.createSubFormGroup(subField);\r\n      });\r\n\r\n      return this.builderForm.group(subFormGroup);\r\n    } else {\r\n      return this.builderForm.control('');\r\n    }\r\n  }\r\n\r\n  createSubFormGroupFromObject(subFields: any[]): FormGroup {\r\n    const subFormGroup: { [key: string]: AbstractControl } = {};\r\n    subFields.forEach((field: any) => {\r\n      if (field.subFields) {\r\n        subFormGroup[field.prop] = this.createSubFormGroup(field.subFields);\r\n      } else {\r\n        subFormGroup[field.prop] = this.builderForm.control('');\r\n      }\r\n    });\r\n    return this.builderForm.group(subFormGroup);\r\n  }\r\n\r\n  getFormGroup(sectionName: string): FormGroup | null {\r\n    const formGroup = this.form.get(sectionName) as FormGroup;\r\n    return formGroup || null;\r\n  }\r\n\r\n\r\n  close() {\r\n    this.dialogRef.close();\r\n  }\r\n\r\n  onDelete() {\r\n    if (this.data.onDelete) {\r\n      const deleteDialog = this.dialog.open(DeleteModalComponent, {\r\n        width: '400px',\r\n        data: {\r\n          title: this.title,\r\n          onDelete: this.data.onDelete,\r\n          id: this.form.value,\r\n          data: this.data.data\r\n        }\r\n      });\r\n\r\n      deleteDialog.afterClosed().subscribe(result => {\r\n        if (result) {\r\n          this.dialogRef.close();\r\n        }\r\n      });\r\n    }\r\n  }\r\n\r\n  onEdit() {\r\n    if (this.data.onEdit) {\r\n      const updateDialog = this.dialog.open(UpdateModalComponent, {\r\n        width: '400px',\r\n        data: {\r\n          title: this.title,\r\n          onEdit: this.data.onEdit,\r\n          editData: this.form.value\r\n        }\r\n      })\r\n      updateDialog.afterClosed().subscribe(result => {\r\n        if (result) {\r\n          this.dialogRef.close();\r\n        }\r\n      });\r\n    }\r\n\r\n  }\r\n\r\n  openLessons() {\r\n    this.dialog.open(SubDetailModalComponent, {\r\n      width: '1030px',\r\n      height: '650px',\r\n      data: {\r\n        onEdit: this.data.onEdit,\r\n        onDelete: this.data.onDelete,\r\n        editForm: this.form,\r\n      }\r\n    })\r\n  }\r\n\r\n  onSelectionChange(event: any) {\r\n    this.newValues = event.value as string[];\r\n  }\r\n\r\n  onAddReferences(controlName: string) {\r\n    const currentRefence = controlName === \"techs\" ? this.techs : this.instructors;\r\n    const newUniqueReference = this.newValues.filter(newReference =>\r\n      !currentRefence.some(currentReference => currentReference.id === newReference.id)\r\n    );\r\n    const updatedReference = [...currentRefence, ...newUniqueReference];\r\n\r\n    this.form.get(controlName)?.setValue(updatedReference);\r\n    if (this.data.onEdit) {\r\n      this.store.dispatch(CourseActions.editCourse({ course: { ...this.course, [controlName]: updatedReference, } }))\r\n      this.data.onEdit(this.form.value, true)\r\n    }\r\n    this.newValues = [];\r\n  }\r\n\r\n  onDeleteReferences(id: string, subForm: string) {\r\n    if (subForm == \"instructors\") {\r\n      const instructorsCopy = this.instructors.filter((instructor: any) => instructor.id !== id);\r\n      this.form.get('instructorId')?.setValue(instructorsCopy);\r\n    }\r\n    if (subForm == \"techs\") {\r\n      const techsCopy = this.techs.filter((tech: any) => tech.id !== id);\r\n      this.form.get('techs')?.setValue(techsCopy);\r\n    }\r\n\r\n    const deleteDialog = this.dialog.open(DeleteModalComponent, {\r\n      width: '400px',\r\n      data: {\r\n        onEdit: this.data.onEdit,\r\n        editData: this.form,\r\n      }\r\n    });\r\n\r\n    deleteDialog.afterClosed().subscribe(result => {\r\n      if (result) {\r\n        this.store.dispatch(CourseActions.editCourse({ course: this.course }))\r\n      }\r\n    });\r\n\r\n  }\r\n\r\n\r\n}\r\n",
+            "sourceCode": "import { Component, Inject, OnDestroy, OnInit } from '@angular/core';\r\nimport { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';\r\nimport { DeleteModalComponent } from '../delete-modal/delete-modal.component';\r\nimport { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';\r\nimport { UpdateModalComponent } from '../update-modal/update-modal.component';\r\nimport { SubDetailModalComponent } from '../sub-modals/sub-detail-modal/sub-detail-modal.component';\r\nimport { Store } from '@ngrx/store';\r\nimport { selectCourse } from 'src/app/admins/admins-dashboard/pages/courses/store/course/course.selectors';\r\nimport { Observable, Subscription } from 'rxjs';\r\nimport { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';\r\nimport { CourseActions } from 'src/app/admins/admins-dashboard/pages/courses/store/course/course.actions';\r\nimport { TechService } from 'src/app/admins/admins-dashboard/pages/technologies/service/tech.service';\r\nimport { InstructorsService } from 'src/app/admins/admins-dashboard/pages/instructors/instructors-service/instructors.service';\r\nimport { Instructor } from 'src/app/admins/admins-dashboard/pages/instructors/instructors';\r\nimport { TechnologyType } from 'src/app/admins/admins-dashboard/pages/technologies/types/technologies';\r\nimport { selectInstructor } from 'src/app/store/instructors/instructors.selectors';\r\nimport { selectTechnologies } from 'src/app/store/technologies/tecnologies.selectors';\r\n\r\n@Component({\r\n  selector: 'app-detail-modal',\r\n  templateUrl: './detail-modal.component.html',\r\n  styleUrls: ['./detail-modal.component.scss']\r\n})\r\nexport class DetailModalComponent implements OnInit, OnDestroy {\r\n\r\n  title: string = ''\r\n  totalCourses: string | null = null\r\n  rows: any[] = [];\r\n  form!: FormGroup;\r\n  socialMediaForm!: FormGroup;\r\n  instructorsForSelect$ = this.store.select(selectInstructor);\r\n  techsForSelect$ = this.store.select(selectTechnologies);\r\n  instructorsForSelect: Instructor[] | undefined;\r\n  techsForSelect: TechnologyType[] | undefined;\r\n  techs: any[] = [];\r\n  instructors: any[] = [];\r\n  lessons: any[] = [];\r\n  totalLessons: string | null = null\r\n  rating: string | number = '';\r\n  isCourse: boolean = false;\r\n  course$: Observable<Course> | undefined;\r\n  course: any;\r\n  newValues: any[] = [];\r\n\r\n  courseSubscription: Subscription | undefined\r\n\r\n  constructor(\r\n    @Inject(MAT_DIALOG_DATA) public data: any,\r\n    public dialogRef: MatDialogRef<DetailModalComponent>,\r\n    public dialog: MatDialog,\r\n    public builderForm: FormBuilder,\r\n    private store: Store,   \r\n  ) { }\r\n\r\n  ngOnInit(): void {    \r\n\r\n    if (this.data.title == \"Courses\") {\r\n      this.course$ = this.store.select(selectCourse);\r\n      this.store.dispatch(CourseActions.addCourse({ course: this.data.data }))\r\n      this.course$.subscribe((course: Course) => {\r\n        this.totalLessons = course.lessons.length > 0 ? `this course has ${course.lessons.length} lessons` : \"This course has 0 lessons\"\r\n        this.course = course\r\n        this.instructors = course.instructorId\r\n        this.techs = course.techs\r\n      })\r\n      this.instructorsForSelect$.subscribe((instructors) => {\r\n        const allInstructors = [...instructors]      \r\n        this.instructorsForSelect = allInstructors.filter(instructor => \r\n          !this.instructors.some(existingInstructor => existingInstructor.id === instructor.id)\r\n        );\r\n      });\r\n      this.techsForSelect$.subscribe((techs) => {\r\n        const allTechs = [...techs];\r\n        this.techsForSelect = allTechs.filter(techs => \r\n          !this.techs.some(existingTech => existingTech.id === techs.id)\r\n        );\r\n      });\r\n    }\r\n    this.rows = this.data?.rows\r\n    this.title = this.data?.title\r\n    this.createDynamicForm();\r\n    this.form.patchValue(this.course ? this.course : this.data.data);\r\n    this.socialMediaForm = this.getFormGroup('socialMedia') as FormGroup;\r\n    this.techs = this.data.data?.techs;\r\n    this.instructors = this.course?.instructorId;\r\n    this.lessons = this.course?.lessons;\r\n    this.rating = this.data?.rating > 0 ? `The raiting is ${this.data.rating} pounts ` : \"This course has no rating yet\";\r\n    this.isCourse = this.data?.title == \"Courses\" ? true : false\r\n    this.totalCourses = this.data?.totalCourses > 0 ? `It has ${this.data.totalCourses} associated courses` : \"It has 0 associated courses\";\r\n    this.totalLessons = this.course?.lessons.length > 0 ? `this course has ${this.course.lessons.length} lessons` : \"This course has 0 lessons\";\r\n\r\n  }\r\n\r\n   ngOnDestroy(): void {\r\n     this.courseSubscription?.unsubscribe()\r\n   }\r\n\r\n  createDynamicForm() {\r\n    this.form = this.builderForm.group({});\r\n    this.rows.forEach((row: any) => {\r\n      if (row.prop !== 'courses') {\r\n        if (row.subFields) {\r\n          if (row.prop !== \"socialMedia\") {\r\n            const subFormGroup = this.createSubFormGroup(row.subFields);\r\n            this.form.addControl(row.prop, subFormGroup);\r\n          } else {\r\n            const subFormGroup = this.createSubFormGroupFromObject(row.subFields);\r\n            this.form.addControl(row.prop, subFormGroup);\r\n          }\r\n        }\r\n        else {\r\n          this.form.addControl(row.prop, this.builderForm.control('', Validators.required));\r\n        }\r\n      }\r\n    });\r\n\r\n  }\r\n\r\n  createSubFormGroup(field: any): FormGroup | FormControl {\r\n    if (!field) {\r\n      return this.builderForm.control('');\r\n    }\r\n\r\n    if (field.subFields) {\r\n      const subFormGroup: { [key: string]: AbstractControl } = {};\r\n\r\n      field.subFields.forEach((subField: any) => {\r\n        subFormGroup[subField.prop] = this.createSubFormGroup(subField);\r\n      });\r\n\r\n      return this.builderForm.group(subFormGroup);\r\n    } else {\r\n      return this.builderForm.control('');\r\n    }\r\n  }\r\n\r\n  createSubFormGroupFromObject(subFields: any[]): FormGroup {\r\n    const subFormGroup: { [key: string]: AbstractControl } = {};\r\n    subFields.forEach((field: any) => {\r\n      if (field.subFields) {\r\n        subFormGroup[field.prop] = this.createSubFormGroup(field.subFields);\r\n      } else {\r\n        subFormGroup[field.prop] = this.builderForm.control('');\r\n      }\r\n    });\r\n    return this.builderForm.group(subFormGroup);\r\n  }\r\n\r\n  getFormGroup(sectionName: string): FormGroup | null {\r\n    const formGroup = this.form.get(sectionName) as FormGroup;\r\n    return formGroup || null;\r\n  }\r\n\r\n\r\n  close() {\r\n    this.dialogRef.close();\r\n  }\r\n\r\n  onDelete() {\r\n    if (this.data.onDelete) {\r\n      const deleteDialog = this.dialog.open(DeleteModalComponent, {\r\n        width: '400px',\r\n        data: {\r\n          title: this.title,\r\n          onDelete: this.data.onDelete,\r\n          id: this.form.value,\r\n          data: this.data.data\r\n        }\r\n      });\r\n\r\n      deleteDialog.afterClosed().subscribe(result => {\r\n        if (result) {\r\n          this.dialogRef.close();\r\n        }\r\n      });\r\n    }\r\n  }\r\n\r\n  onEdit() {\r\n    if (this.data.onEdit) {\r\n      const updateDialog = this.dialog.open(UpdateModalComponent, {\r\n        width: '400px',\r\n        data: {\r\n          title: this.title,\r\n          onEdit: this.data.onEdit,\r\n          editData: this.form.value\r\n        }\r\n      })\r\n      updateDialog.afterClosed().subscribe(result => {\r\n        if (result) {\r\n          this.dialogRef.close();\r\n        }\r\n      });\r\n    }\r\n\r\n  }\r\n\r\n  openLessons() {\r\n    this.dialog.open(SubDetailModalComponent, {\r\n      width: '1030px',\r\n      height: '650px',\r\n      data: {\r\n        onEdit: this.data.onEdit,\r\n        onDelete: this.data.onDelete,\r\n        editForm: this.form,\r\n      }\r\n    })\r\n  }\r\n\r\n  onSelectionChange(event: any) {\r\n    this.newValues = event.value as string[];\r\n  }\r\n\r\n  onAddReferences(controlName: string) {\r\n    const currentRefence = controlName === \"techs\" ? this.techs : this.instructors;\r\n    const newUniqueReference = this.newValues.filter(newReference =>\r\n      !currentRefence.some(currentReference => currentReference.id === newReference.id)\r\n    );\r\n    const updatedReference = [...currentRefence, ...newUniqueReference];\r\n\r\n    this.form.get(controlName)?.setValue(updatedReference);\r\n    if (this.data.onEdit) {\r\n      this.store.dispatch(CourseActions.editCourse({ course: { ...this.course, [controlName]: updatedReference, } }))\r\n      this.data.onEdit(this.form.value, true)\r\n    }\r\n    this.newValues = [];\r\n  }\r\n\r\n  onDeleteReferences(id: string, subForm: string) {\r\n    if (subForm == \"instructors\") {\r\n      const instructorsCopy = this.instructors.filter((instructor: any) => instructor.id !== id);\r\n      this.form.get('instructorId')?.setValue(instructorsCopy);\r\n    }\r\n    if (subForm == \"techs\") {\r\n      const techsCopy = this.techs.filter((tech: any) => tech.id !== id);\r\n      this.form.get('techs')?.setValue(techsCopy);\r\n    }\r\n\r\n    const deleteDialog = this.dialog.open(DeleteModalComponent, {\r\n      width: '400px',\r\n      data: {\r\n        onEdit: this.data.onEdit,\r\n        editData: this.form,\r\n      }\r\n    });\r\n\r\n    deleteDialog.afterClosed().subscribe(result => {\r\n      if (result) {\r\n        this.store.dispatch(CourseActions.editCourse({ course: this.course }))\r\n      }\r\n    });\r\n\r\n  }\r\n\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".detail-modal {\r\n    overflow-x: hidden;\r\n    max-width: 1034px;\r\n    padding: 10px;\r\n    background-image: url(\"../../../../../assets/images/svgs/waveGreenUp.svg\");\r\n    background-repeat: no-repeat;\r\n    background-size: contain;\r\n\r\n\r\n    &--content {\r\n        .--close-icon {\r\n            display: flex;\r\n            justify-content: flex-end;\r\n            cursor: pointer;\r\n        }\r\n\r\n        .--detail-icon {\r\n            border-radius: 50%;\r\n            border: 2px var(--primary);\r\n\r\n            display: inline-block;\r\n            background-color: var(--primary-transparent);\r\n            padding: 10px;\r\n\r\n            mat-icon {\r\n                color: var(--primary);\r\n                display: block;\r\n                margin: 0 auto;\r\n            }\r\n        }\r\n\r\n        .modal-body {\r\n\r\n            display: flex;\r\n            flex-direction: column;\r\n            gap: 5px;\r\n\r\n        }\r\n    }\r\n\r\n    .modal-buttons {\r\n        display: flex;\r\n        justify-content: space-between;\r\n\r\n\r\n        .btn-right {\r\n            display: flex;\r\n            justify-content: flex-end;\r\n            gap: 5px;\r\n\r\n        }\r\n\r\n        button {\r\n\r\n            background-color: var(--primary-transparent);\r\n            padding: 10px;\r\n        }\r\n\r\n        .btn-delete {\r\n            background-color: var(--error);\r\n            color: white;\r\n        }\r\n\r\n        .btn-delete:hover {\r\n            background-color: var(--error-hover);\r\n\r\n        }\r\n\r\n        .btn-edit {\r\n            background-color: var(--succes);\r\n            color: white;\r\n        }\r\n\r\n        .btn-edit:hover {\r\n            background-color: var(--succes-hover);\r\n\r\n        }\r\n\r\n\r\n    }\r\n}\r\n\r\n.information-related {\r\n    margin: 10px;\r\n\r\n    display: flex;\r\n    align-content: center;\r\n    justify-content: center;\r\n\r\n    .box {\r\n        box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);\r\n        background-image: url(\"../../../../../assets/images/svgs/waveGreenUp.svg\");\r\n        background-repeat: no-repeat;\r\n        border-radius: 5px;\r\n        padding: 5px;\r\n        display: flex;\r\n        flex-direction: column;\r\n        justify-content: start;\r\n\r\n        margin: 20px 10px;\r\n\r\n        .select-container {\r\n            display: flex;\r\n            flex-direction: column;\r\n            justify-content: start;\r\n            margin: 5px;\r\n\r\n        }\r\n\r\n        .btn-select {\r\n            display: flex;\r\n            justify-content: right;\r\n\r\n            button {\r\n                border: none;\r\n                background: var(--gradient);\r\n                padding: 10px;\r\n                border-radius: 5px;\r\n\r\n            }\r\n        }\r\n\r\n\r\n\r\n        ul {\r\n            list-style: none;\r\n            display: flex;\r\n            justify-content: start;\r\n            gap: .5rem;\r\n            margin-block-start: 0;\r\n            margin-block-end: 0;\r\n            margin-inline-start: 0px;\r\n            margin-inline-end: 0px;\r\n            padding-inline-start: 0;\r\n        }\r\n\r\n\r\n\r\n        .li-element {\r\n            display: flex;\r\n            justify-content: space-between;\r\n            width: 100%;\r\n            gap: 1rem;\r\n\r\n            &--element {\r\n                padding: 0px 10px;\r\n                min-width: 20px;\r\n            }\r\n\r\n            &--icon {\r\n                min-width: 20px;\r\n\r\n                .delete-icon {\r\n                    color: red;\r\n                    cursor: pointer;\r\n                }\r\n            }\r\n\r\n\r\n\r\n        }\r\n\r\n        .go-lessons {\r\n            display: flex;\r\n            justify-content: end;\r\n            background-color: transparent;\r\n\r\n            button {\r\n                background: var(--gradient);\r\n                color: white;\r\n                border: none;\r\n                border-radius: 5px;\r\n                padding: 10px;\r\n            }\r\n\r\n            button:hover {\r\n                background: var(--gradient);\r\n            }\r\n\r\n\r\n        }\r\n    }\r\n\r\n    .box-lessons {\r\n        display: flex;\r\n        justify-content: space-between;\r\n    }\r\n}",
+                    "data": ".detail-modal {\r\n    overflow-x: hidden;\r\n    max-width: 1034px;\r\n    padding: 10px;\r\n    background-image: url(\"../../../../../assets/images/svgs/waveGreenUp.svg\");\r\n    background-repeat: no-repeat;\r\n    background-size: contain;\r\n\r\n\r\n    &--content {\r\n        .--close-icon {\r\n            display: flex;\r\n            justify-content: flex-end;\r\n            cursor: pointer;\r\n        }\r\n\r\n        .--detail-icon {\r\n            border-radius: 50%;\r\n            border: 2px var(--primary);\r\n\r\n            display: inline-block;\r\n            background-color: var(--primary-transparent);\r\n            padding: 10px;\r\n\r\n            mat-icon {\r\n                color: var(--primary);\r\n                display: block;\r\n                margin: 0 auto;\r\n            }\r\n        }\r\n\r\n        .modal-body {\r\n\r\n            display: flex;\r\n            flex-direction: column;\r\n            gap: 5px;\r\n\r\n        }\r\n    }\r\n\r\n    .modal-buttons {\r\n        display: flex;\r\n        justify-content: space-between;\r\n\r\n\r\n        .btn-right {\r\n            display: flex;\r\n            justify-content: flex-end;\r\n            gap: 5px;\r\n\r\n        }\r\n\r\n        button {\r\n\r\n            background-color: var(--primary-transparent);\r\n            padding: 10px;\r\n        }\r\n\r\n        .btn-delete {\r\n            background-color: var(--error);\r\n            color: white;\r\n        }\r\n\r\n        .btn-delete:hover {\r\n            background-color: var(--error-hover);\r\n\r\n        }\r\n\r\n        .btn-edit {\r\n            background-color: var(--succes);\r\n            color: white;\r\n        }\r\n\r\n        .btn-edit:hover {\r\n            background-color: var(--succes-hover);\r\n\r\n        }\r\n\r\n\r\n    }\r\n}\r\n\r\n.information-related {\r\n    margin: 10px;\r\n\r\n    display: flex;\r\n    align-content: center;\r\n    justify-content: center;\r\n\r\n    .box {\r\n        box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);\r\n        background-image: url(\"../../../../../assets/images/svgs/waveGreenUpOpacity.svg\");\r\n      \r\n        background-repeat: no-repeat;\r\n        border-radius: 5px;\r\n        padding: 5px;\r\n        display: flex;\r\n        flex-direction: column;\r\n        justify-content: flex-start;\r\n\r\n        margin: 20px 10px;\r\n\r\n        .select-container {\r\n            display: flex;\r\n            flex-direction: column;\r\n            justify-content: flex-start;\r\n            margin: 5px;\r\n\r\n        }\r\n\r\n        .btn-select {\r\n            display: flex;\r\n            justify-content: right;\r\n\r\n            button {\r\n                border: none;\r\n                background: var(--gradient);\r\n                padding: 10px;\r\n                border-radius: 5px;\r\n\r\n            }\r\n        }\r\n\r\n\r\n\r\n        ul {\r\n            list-style: none;\r\n            display: flex;\r\n            justify-content: flex-start;\r\n            gap: .5rem;\r\n            margin-block-start: 0;\r\n            margin-block-end: 0;\r\n            margin-inline-start: 0px;\r\n            margin-inline-end: 0px;\r\n            padding-inline-start: 0;\r\n        }\r\n\r\n\r\n\r\n        .li-element {\r\n            display: flex;\r\n            justify-content: space-between;\r\n            width: 100%;\r\n            gap: 1rem;\r\n\r\n            &--element {\r\n                padding: 0px 10px;\r\n                min-width: 20px;\r\n            }\r\n\r\n            &--icon {\r\n                min-width: 20px;\r\n\r\n                .delete-icon {\r\n                    color: red;\r\n                    cursor: pointer;\r\n                }\r\n            }\r\n\r\n\r\n\r\n        }\r\n\r\n        .go-lessons {\r\n            display: flex;\r\n            justify-content: flex-end;\r\n            background-color: transparent;\r\n\r\n            button {\r\n                background: var(--gradient);\r\n                color: white;\r\n                border: none;\r\n                border-radius: 5px;\r\n                padding: 10px;\r\n            }\r\n\r\n            button:hover {\r\n                background: var(--gradient);\r\n            }\r\n\r\n\r\n        }\r\n    }\r\n\r\n    .box-lessons {\r\n        display: flex;\r\n        justify-content: space-between;\r\n    }\r\n}",
                     "styleUrl": "./detail-modal.component.scss"
                 }
             ],
@@ -4522,7 +4525,7 @@
                 "OnInit",
                 "OnDestroy"
             ],
-            "templateData": "<div class=\"detail-modal\">\r\n  <div class=\"detail-modal--content\">\r\n    <div class=\"--close-icon\">\r\n      <mat-icon (click)=\"close()\">close</mat-icon>\r\n    </div>\r\n    <div class=\"--detail-icon\">\r\n      <mat-icon>info</mat-icon>\r\n    </div>\r\n\r\n    <div mat-dialog-content class=\"modal-body\">\r\n      <h3 mat-dialog-title>{{ title }}</h3>\r\n\r\n      <form class=\"edit-form\" [formGroup]=\"form\" class=\"row\">\r\n        <div *ngFor=\"let row of rows\" class=\"row\">\r\n          <mat-form-field\r\n            *ngIf=\"\r\n              row.prop !== 'courses' &&\r\n              row.prop !== 'description' &&\r\n              row.prop !== 'id' &&\r\n              row.prop !== 'socialMedia' &&\r\n              row.prop !== 'lessons' &&\r\n              row.prop !== 'techs' &&\r\n              row.prop !== 'instructorId' &&\r\n              row.prop !== 'rating'\r\n            \"\r\n          >\r\n            <mat-label>{{ row.label }}</mat-label>\r\n            <input matInput formControlName=\"{{ row.prop }}\" />\r\n          </mat-form-field>\r\n\r\n          <mat-form-field *ngIf=\"row.prop === 'id'\">\r\n            <mat-label>{{ row.label }}</mat-label>\r\n            <input matInput formControlName=\"{{ row.prop }}\" readonly />\r\n          </mat-form-field>\r\n\r\n          <mat-form-field *ngIf=\"row.prop === 'courses'\">\r\n            <mat-label>{{ row.label }}</mat-label>\r\n            <input type=\"text\" [value]=\"totalCourses\" matInput readonly />\r\n          </mat-form-field>\r\n\r\n          <mat-form-field *ngIf=\"row.prop === 'description'\">\r\n            <mat-label>{{ row.label }}</mat-label>\r\n            <textarea\r\n              matInput\r\n              formControlName=\"{{ row.prop }}\"\r\n              cdkTextareaAutosize\r\n              cdkAutosizeMinRows=\"5\"\r\n            ></textarea>\r\n          </mat-form-field>\r\n\r\n          <ng-container *ngIf=\"row.prop === 'socialMedia' && socialMediaForm\">\r\n            <div [formGroup]=\"socialMediaForm\">\r\n              <div *ngFor=\"let subField of row.subFields\" class=\"row\">\r\n                <mat-form-field>\r\n                  <mat-label>{{ subField.label }}</mat-label>\r\n                  <input matInput formControlName=\"{{ subField.prop }}\" />\r\n                </mat-form-field>\r\n              </div>\r\n            </div>\r\n          </ng-container>\r\n\r\n          <mat-form-field *ngIf=\"row.prop === 'rating'\">\r\n            <mat-label>{{ row.label }}</mat-label>\r\n            <input type=\"text\" [value]=\"rating\" matInput readonly />\r\n          </mat-form-field>\r\n        </div>\r\n      </form>\r\n\r\n      <div class=\"row information-related\" *ngIf=\"isCourse\">\r\n        <div class=\"col-12 col-md-4 col-lg-3 box\">\r\n          <h5>Instructors:</h5>\r\n          <div class=\"select-container\">\r\n            <mat-form-field>\r\n              <mat-label>Add a instructor</mat-label>\r\n              <mat-select\r\n                multiple\r\n                (selectionChange)=\"onSelectionChange($event)\"\r\n              >\r\n                <mat-option\r\n                  *ngFor=\"let instructor of instructorsForSelect\"\r\n                  [value]=\"{ id: instructor.id, name: instructor.name }\"\r\n                >\r\n                  {{ instructor.name }}\r\n                </mat-option>\r\n              </mat-select>\r\n              <mat-error\r\n                *ngIf=\"\r\n                  form.controls['instructorId'].touched &&\r\n                  form.controls['instructorId'].invalid\r\n                \"\r\n              >\r\n                Please, assign instructor name\r\n              </mat-error>\r\n            </mat-form-field>\r\n            <div class=\"btn-select\">\r\n                <app-button\r\n                [label]=\"'Add instructor'\"\r\n                [type]=\"'gradient'\"\r\n                (onClick)=\"onAddReferences('techs')\"\r\n                iconName=\"add\"\r\n              ></app-button>\r\n            </div>\r\n          </div>\r\n          <ul *ngFor=\"let instructor of instructors\">\r\n            <li class=\"li-element\">\r\n              <div class=\"li-element--element\">\r\n                {{ instructor.name }}\r\n              </div>\r\n              <div class=\"li-element--icon\">\r\n                <mat-icon\r\n                  (click)=\"onDeleteReferences(instructor.id, 'instructors')\"\r\n                  class=\"delete-icon\"\r\n                  >delete_forever</mat-icon\r\n                >\r\n              </div>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n        <div class=\"col-12 col-md-4 col-lg-3 box\">\r\n          <h5>Techs:</h5>\r\n          <div class=\"select-container\">\r\n            <mat-form-field>\r\n              <mat-label>Add a tech</mat-label>\r\n              <mat-select\r\n                multiple\r\n                (selectionChange)=\"onSelectionChange($event)\"\r\n              >\r\n                <mat-option\r\n                  *ngFor=\"let tech$ of techsForSelect\"\r\n                  [value]=\"{ id: tech$.id, name: tech$.name }\"\r\n                >\r\n                  {{ tech$.name }}\r\n                </mat-option>\r\n              </mat-select>\r\n              <mat-error\r\n                *ngIf=\"\r\n                  form.controls['techs'].touched &&\r\n                  form.controls['techs'].invalid\r\n                \"\r\n              >\r\n                Please, assign a tech name\r\n              </mat-error>\r\n            </mat-form-field>\r\n            <div class=\"btn-select\">\r\n              <app-button\r\n                [label]=\"'Add tech'\"\r\n                [type]=\"'gradient'\"\r\n                (onClick)=\"onAddReferences('techs')\"\r\n                iconName=\"add\"\r\n              ></app-button>\r\n            </div>\r\n          </div>\r\n          <ul *ngFor=\"let tech of techs\">\r\n            <li class=\"li-element\">\r\n              <div class=\"li-element--element\">\r\n                {{ tech.name }}\r\n              </div>\r\n              <div class=\"li-element--icon\">\r\n                <mat-icon\r\n                  (click)=\"onDeleteReferences(tech.id, 'techs')\"\r\n                  class=\"delete-icon\"\r\n                  >delete_forever</mat-icon\r\n                >\r\n              </div>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n        <div class=\"col-12 col-md-4 col-lg-3 box box-lessons\">\r\n          <h5>Lessons:</h5>\r\n          <p>{{ totalLessons }}</p>\r\n          <div class=\"go-lessons\">\r\n            <app-button\r\n              [label]=\"'Go to lessons'\"\r\n              [type]=\"'gradient'\"\r\n              (onClick)=\"openLessons()\"\r\n            ></app-button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"modal-buttons\">\r\n      <div class=\"btn-left\">\r\n        <app-button\r\n          [label]=\"'Delete'\"\r\n          [type]=\"'danger'\"\r\n          (onClick)=\"onDelete()\"\r\n        ></app-button>\r\n      </div>\r\n      <div class=\"btn-right\">\r\n        <app-button\r\n          [label]=\"'Edit'\"\r\n          [type]=\"'success'\"\r\n          (onClick)=\"onEdit()\"\r\n        ></app-button>\r\n\r\n        <app-button\r\n          [label]=\"'Close'\"\r\n          [type]=\"'close'\"\r\n          (onClick)=\"close()\"\r\n        ></app-button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+            "templateData": "<div class=\"detail-modal\">\r\n  <div class=\"detail-modal--content\">\r\n    <div class=\"--close-icon\">\r\n      <mat-icon (click)=\"close()\">close</mat-icon>\r\n    </div>\r\n    <div class=\"--detail-icon\">\r\n      <mat-icon>info</mat-icon>\r\n    </div>\r\n\r\n    <div mat-dialog-content class=\"modal-body\">\r\n      <h3 mat-dialog-title>{{ title }}</h3>\r\n\r\n      <form class=\"edit-form\" [formGroup]=\"form\" class=\"row\">\r\n        <div *ngFor=\"let row of rows\" class=\"row\">\r\n          <mat-form-field\r\n            *ngIf=\"\r\n              row.prop !== 'courses' &&\r\n              row.prop !== 'description' &&\r\n              row.prop !== 'id' &&\r\n              row.prop !== 'socialMedia' &&\r\n              row.prop !== 'lessons' &&\r\n              row.prop !== 'techs' &&\r\n              row.prop !== 'instructorId' &&\r\n              row.prop !== 'rating'\r\n            \"\r\n          >\r\n            <mat-label>{{ row.label }}</mat-label>\r\n            <input matInput formControlName=\"{{ row.prop }}\" />\r\n          </mat-form-field>\r\n\r\n          <mat-form-field *ngIf=\"row.prop === 'id'\">\r\n            <mat-label>{{ row.label }}</mat-label>\r\n            <input matInput formControlName=\"{{ row.prop }}\" readonly />\r\n          </mat-form-field>\r\n\r\n          <mat-form-field *ngIf=\"row.prop === 'courses'\">\r\n            <mat-label>{{ row.label }}</mat-label>\r\n            <input type=\"text\" [value]=\"totalCourses\" matInput readonly />\r\n          </mat-form-field>\r\n\r\n          <mat-form-field *ngIf=\"row.prop === 'description'\">\r\n            <mat-label>{{ row.label }}</mat-label>\r\n            <textarea\r\n              matInput\r\n              formControlName=\"{{ row.prop }}\"\r\n              cdkTextareaAutosize\r\n              cdkAutosizeMinRows=\"5\"\r\n            ></textarea>\r\n          </mat-form-field>\r\n\r\n          <ng-container *ngIf=\"row.prop === 'socialMedia' && socialMediaForm\">\r\n            <div [formGroup]=\"socialMediaForm\">\r\n              <div *ngFor=\"let subField of row.subFields\" class=\"row\">\r\n                <mat-form-field>\r\n                  <mat-label>{{ subField.label }}</mat-label>\r\n                  <input matInput formControlName=\"{{ subField.prop }}\" />\r\n                </mat-form-field>\r\n              </div>\r\n            </div>\r\n          </ng-container>\r\n\r\n          <mat-form-field *ngIf=\"row.prop === 'rating'\">\r\n            <mat-label>{{ row.label }}</mat-label>\r\n            <input type=\"text\" [value]=\"rating\" matInput readonly />\r\n          </mat-form-field>\r\n        </div>\r\n      </form>\r\n\r\n      <div class=\"row information-related\" *ngIf=\"isCourse\">\r\n        <div class=\"col-12 col-md-4 col-lg-3 box\">\r\n          <h5>Instructors:</h5>\r\n          <div class=\"select-container\">\r\n            <mat-form-field>\r\n              <mat-label>Add a instructor</mat-label>\r\n              <mat-select\r\n                multiple\r\n                (selectionChange)=\"onSelectionChange($event)\"\r\n              >\r\n                <mat-option\r\n                  *ngFor=\"let instructor of instructorsForSelect\"\r\n                  [value]=\"{ id: instructor.id, name: instructor.name }\"\r\n                >\r\n                  {{ instructor.name }}\r\n                </mat-option>\r\n              </mat-select>\r\n              <mat-error\r\n                *ngIf=\"\r\n                  form.controls['instructorId'].touched &&\r\n                  form.controls['instructorId'].invalid\r\n                \"\r\n              >\r\n                Please, assign instructor name\r\n              </mat-error>\r\n            </mat-form-field>\r\n            <div class=\"btn-select\">\r\n                <app-button\r\n                [label]=\"'Add instructor'\"\r\n                [type]=\"'gradient'\"\r\n                (onClick)=\"onAddReferences('instructorId')\"\r\n                iconName=\"add\"\r\n              ></app-button>\r\n            </div>\r\n          </div>\r\n          <ul *ngFor=\"let instructor of instructors\">\r\n            <li class=\"li-element\">\r\n              <div class=\"li-element--element\">\r\n                {{ instructor.name }}\r\n              </div>\r\n              <div class=\"li-element--icon\">\r\n                <mat-icon\r\n                  (click)=\"onDeleteReferences(instructor.id, 'instructors')\"\r\n                  class=\"delete-icon\"\r\n                  >delete_forever</mat-icon\r\n                >\r\n              </div>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n        <div class=\"col-12 col-md-4 col-lg-3 box\">\r\n          <h5>Techs:</h5>\r\n          <div class=\"select-container\">\r\n            <mat-form-field>\r\n              <mat-label>Add a tech</mat-label>\r\n              <mat-select\r\n                multiple\r\n                (selectionChange)=\"onSelectionChange($event)\"\r\n              >\r\n                <mat-option\r\n                  *ngFor=\"let tech$ of techsForSelect\"\r\n                  [value]=\"{ id: tech$.id, name: tech$.name }\"\r\n                >\r\n                  {{ tech$.name }}\r\n                </mat-option>\r\n              </mat-select>\r\n              <mat-error\r\n                *ngIf=\"\r\n                  form.controls['techs'].touched &&\r\n                  form.controls['techs'].invalid\r\n                \"\r\n              >\r\n                Please, assign a tech name\r\n              </mat-error>\r\n            </mat-form-field>\r\n            <div class=\"btn-select\">\r\n              <app-button\r\n                [label]=\"'Add tech'\"\r\n                [type]=\"'gradient'\"\r\n                (onClick)=\"onAddReferences('techs')\"\r\n                iconName=\"add\"\r\n              ></app-button>\r\n            </div>\r\n          </div>\r\n          <ul *ngFor=\"let tech of techs\">\r\n            <li class=\"li-element\">\r\n              <div class=\"li-element--element\">\r\n                {{ tech.name }}\r\n              </div>\r\n              <div class=\"li-element--icon\">\r\n                <mat-icon\r\n                  (click)=\"onDeleteReferences(tech.id, 'techs')\"\r\n                  class=\"delete-icon\"\r\n                  >delete_forever</mat-icon\r\n                >\r\n              </div>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n        <div class=\"col-12 col-md-4 col-lg-3 box box-lessons\">\r\n          <h5>Lessons:</h5>\r\n          <p>{{ totalLessons }}</p>\r\n          <div class=\"go-lessons\">\r\n            <app-button\r\n              [label]=\"'Go to lessons'\"\r\n              [type]=\"'gradient'\"\r\n              (onClick)=\"openLessons()\"\r\n            ></app-button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"modal-buttons\">\r\n      <div class=\"btn-left\">\r\n        <app-button\r\n          [label]=\"'Delete'\"\r\n          [type]=\"'danger'\"\r\n          (onClick)=\"onDelete()\"\r\n        ></app-button>\r\n      </div>\r\n      <div class=\"btn-right\">\r\n        <app-button\r\n          [label]=\"'Edit'\"\r\n          [type]=\"'success'\"\r\n          (onClick)=\"onEdit()\"\r\n        ></app-button>\r\n\r\n        <app-button\r\n          [label]=\"'Close'\"\r\n          [type]=\"'close'\"\r\n          (onClick)=\"close()\"\r\n        ></app-button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
         },
         {
             "name": "ErrorPageComponent",
@@ -5003,7 +5006,7 @@
         },
         {
             "name": "InstructorsComponent",
-            "id": "component-InstructorsComponent-4c7e7764c69647cc175d9bc0d3708703769cc225aae4e4c3b3364834c0a95ce800e4dccf0319a29a5e0ff01fe8c3d37a1de0259d0b28195663e497cb2aec6a67",
+            "id": "component-InstructorsComponent-352aea7c588fc71b01103b2bc98a122222f97ec9260dfe8d3351e10c8a8de7d0451dd777d628130be2b3f20b4b49a9b5864039ec438c77988afd27799b90b9d5",
             "file": "src/app/admins/admins-dashboard/pages/instructors/instructors.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -5035,7 +5038,7 @@
                 },
                 {
                     "name": "modalHeight",
-                    "defaultValue": "'650px'",
+                    "defaultValue": "'600px'",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "string",
@@ -5174,7 +5177,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { selectInstructor } from 'src/app/store/instructors/instructors.selectors';\r\nimport { InstructorsService } from './instructors-service/instructors.service';\r\nimport { AlertsService } from 'src/app/shared/services/alerts/alerts.service';\r\nimport { Instructor } from './instructors';\r\n\r\n@Component({\r\n  selector: 'app-instructors',\r\n  templateUrl: './instructors.component.html',\r\n  styleUrls: ['./instructors.component.scss']\r\n})\r\nexport class InstructorsComponent {\r\n  showForm: boolean = false;\r\n  instructors$ = this.store.select(selectInstructor);\r\n  modalWith: string = '1034';\r\n  modalHeight: string = '650px';\r\n  modalTitle: string = 'Trainer';\r\n\r\n  tableColumns = [\r\n    { prop: 'name', title: 'Name' },\r\n    { prop: 'imagePath', title: 'Image' },\r\n    { prop: 'courses', title: 'NºCourses' },\r\n    { prop: 'rating', title: 'Rating' },\r\n    { prop: 'socialMedia', title: 'SocialMedia' }\r\n  ];\r\n  rows = [\r\n    { label: 'Id', prop: 'id' },\r\n    { label: 'Name', prop: 'name' },\r\n    { label: 'Image', prop: 'imagePath' },\r\n    { label: 'Courses', prop: 'courses' },\r\n    { label: 'Rating', prop: 'rating' },\r\n    {\r\n      label: 'SocialMedia', prop: 'socialMedia',\r\n      subFields: [\r\n        { label: 'Web', prop: 'web' },\r\n        { label: 'YouTube', prop: 'youtube' },\r\n        { label: 'Twitter', prop: 'twitter' },\r\n        { label: 'LinkedIn', prop: 'linkedin' },\r\n      ],\r\n\r\n    },\r\n  ]\r\n\r\n\r\n  constructor(\r\n    private store: Store,\r\n    private instructorsService: InstructorsService,\r\n    private alertMessages: AlertsService\r\n  ) {\r\n  }\r\n\r\n  toggleForm() {\r\n    this.showForm = !this.showForm;\r\n  }\r\n\r\n  onEdit(element: Instructor) {\r\n    this.instructorsService.updateInstructor(element.id!, element).then((data) => {\r\n      this.alertMessages.successMessage('Trainer update successfully');\r\n    }).catch((error) => {\r\n      this.alertMessages.errorMessage('Error updating Trainer', error.message);\r\n    })\r\n  }\r\n  async onDelete(id: string) {\r\n    const instructor = this.instructorsService.getInstructorById(id)\r\n    if((await instructor).courses.length == 0){\r\n      this.instructorsService.deleteInstructor(id)\r\n      this.alertMessages.successMessage('Trainer delete successfully');\r\n    }else{\r\n      this.alertMessages.errorMessage(\"You can't delete it, contains courses\")\r\n    }   \r\n  }\r\n \r\n\r\n}\r\n",
+            "sourceCode": "import { Component } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { selectInstructor } from 'src/app/store/instructors/instructors.selectors';\r\nimport { InstructorsService } from './instructors-service/instructors.service';\r\nimport { AlertsService } from 'src/app/shared/services/alerts/alerts.service';\r\nimport { Instructor } from './instructors';\r\n\r\n@Component({\r\n  selector: 'app-instructors',\r\n  templateUrl: './instructors.component.html',\r\n  styleUrls: ['./instructors.component.scss']\r\n})\r\nexport class InstructorsComponent {\r\n  showForm: boolean = false;\r\n  instructors$ = this.store.select(selectInstructor);\r\n  modalWith: string = '1034';\r\n  modalHeight: string = '600px';\r\n  modalTitle: string = 'Trainer';\r\n\r\n  tableColumns = [\r\n    { prop: 'name', title: 'Name' },\r\n    { prop: 'imagePath', title: 'Image' },\r\n    { prop: 'courses', title: 'NºCourses' },\r\n    { prop: 'rating', title: 'Rating' },\r\n    { prop: 'socialMedia', title: 'SocialMedia' }\r\n  ];\r\n  rows = [\r\n    { label: 'Id', prop: 'id' },\r\n    { label: 'Name', prop: 'name' },\r\n    { label: 'Image', prop: 'imagePath' },\r\n    { label: 'Courses', prop: 'courses' },\r\n    { label: 'Rating', prop: 'rating' },\r\n    {\r\n      label: 'SocialMedia', prop: 'socialMedia',\r\n      subFields: [\r\n        { label: 'Web', prop: 'web' },\r\n        { label: 'YouTube', prop: 'youtube' },\r\n        { label: 'Twitter', prop: 'twitter' },\r\n        { label: 'LinkedIn', prop: 'linkedin' },\r\n      ],\r\n\r\n    },\r\n  ]\r\n\r\n\r\n  constructor(\r\n    private store: Store,\r\n    private instructorsService: InstructorsService,\r\n    private alertMessages: AlertsService\r\n  ) {\r\n  }\r\n\r\n  toggleForm() {\r\n    this.showForm = !this.showForm;\r\n  }\r\n\r\n  onEdit(element: Instructor) {\r\n    this.instructorsService.updateInstructor(element.id!, element).then((data) => {\r\n      this.alertMessages.successMessage('Trainer update successfully');\r\n    }).catch((error) => {\r\n      this.alertMessages.errorMessage('Error updating Trainer', error.message);\r\n    })\r\n  }\r\n  async onDelete(id: string) {\r\n    const instructor = this.instructorsService.getInstructorById(id)\r\n    if((await instructor).courses.length == 0){\r\n      this.instructorsService.deleteInstructor(id)\r\n      this.alertMessages.successMessage('Trainer delete successfully');\r\n    }else{\r\n      this.alertMessages.errorMessage(\"You can't delete it, contains courses\")\r\n    }   \r\n  }\r\n \r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -5244,7 +5247,7 @@
         },
         {
             "name": "LoginFormComponent",
-            "id": "component-LoginFormComponent-60f606118dac296814f6d7639f693906eac1ce02411c7b1953d3ed44088afa19949b46d316629b224039ef81506918867d6063769a48437c3c6cb4cf0e0ef882",
+            "id": "component-LoginFormComponent-5a0276567357b30836cb80334aba5e48d357aa7f53491e33fd87ae4e847055a60ad0c57d583b702ec2d4e9b600f7d8e9ce58b015aa2f732897688a130b09db5a",
             "file": "src/app/login/components/login-form/login-form.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -5345,7 +5348,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\nimport { FormControl, FormGroup, Validators } from '@angular/forms';\r\nimport { Store } from '@ngrx/store';\r\nimport { GoogleAuthProvider, getAuth, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';\r\nimport { UserActions } from '../../store/user.actions';\r\nimport { LoginFormType } from '../../types/formTypes';\r\nimport { LoginService } from '../../login-service/login.service';\r\n\r\n@Component({\r\n  selector: 'app-login-form',\r\n  templateUrl: './login-form.component.html',\r\n  styleUrls: ['./login-form.component.scss']\r\n})\r\nexport class LoginFormComponent {\r\n  loginForm: FormGroup;\r\n  hidePassword = true;\r\n  hideConfirmPassword = true;\r\n  isLoading = false;\r\n  isGoogleLoading = false;\r\n\r\n  constructor(private store: Store, private loginService: LoginService){\r\n    this.loginForm = new FormGroup<LoginFormType>({\r\n      email: new FormControl('', [Validators.required, Validators.email]),\r\n      password: new FormControl('', [Validators.required]),\r\n      rememberMe: new FormControl(true),\r\n    });\r\n  }\r\n\r\n  onSubmit() {\r\n    if (this.loginForm.valid) {\r\n      this.isLoading = true;\r\n      this.loginService.loginInWithEmail(this.loginForm)\r\n      setTimeout(() => {\r\n        this.isLoading = false;\r\n      }, 3000);\r\n    }\r\n  }\r\n\r\n  onGoogleSubmit() {\r\n    this.isGoogleLoading = true;\r\n    this.loginService.signInWithGoogle(this.loginForm, true);\r\n    setTimeout(() => {\r\n      this.isLoading = false;\r\n    }, 3000);\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component } from '@angular/core';\r\nimport { FormControl, FormGroup, Validators } from '@angular/forms';\r\nimport { Store } from '@ngrx/store';\r\nimport { GoogleAuthProvider, getAuth, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';\r\nimport { UserActions } from '../../store/user.actions';\r\nimport { LoginFormType } from '../../types/formTypes';\r\nimport { LoginService } from '../../login-service/login.service';\r\n\r\n@Component({\r\n  selector: 'app-login-form',\r\n  templateUrl: './login-form.component.html',\r\n  styleUrls: ['./login-form.component.scss']\r\n})\r\nexport class LoginFormComponent {\r\n  loginForm: FormGroup;\r\n  hidePassword = true;\r\n  hideConfirmPassword = true;\r\n  isLoading = false;\r\n  isGoogleLoading = false;\r\n\r\n  constructor(private store: Store, private loginService: LoginService){\r\n    this.loginForm = new FormGroup<LoginFormType>({\r\n      email: new FormControl('', [Validators.required, Validators.email]),\r\n      password: new FormControl('', [Validators.required, Validators.minLength(6)]),\r\n      rememberMe: new FormControl(true),\r\n    });\r\n  }\r\n\r\n  onSubmit() {\r\n    if (this.loginForm.valid) {\r\n      this.isLoading = true;\r\n      this.loginService.loginInWithEmail(this.loginForm)\r\n      setTimeout(() => {\r\n        this.isLoading = false;\r\n      }, 3000);\r\n    }\r\n  }\r\n\r\n  onGoogleSubmit() {\r\n    this.isGoogleLoading = true;\r\n    this.loginService.signInWithGoogle(this.loginForm, true);\r\n    setTimeout(() => {\r\n      this.isLoading = false;\r\n    }, 3000);\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -5520,7 +5523,7 @@
         },
         {
             "name": "MainPageComponent",
-            "id": "component-MainPageComponent-7e89e7d657e1c0ae7daa4417934a87c78c97fe73b3f2ccbb10a8362b301d6b57009cfe2a0bdbba350c7d313127cae8c7f6b80e1fe46e6f737bba193cacd8ee30",
+            "id": "component-MainPageComponent-39995e979c7247b78d12de0cea626072488ac47df11f202db51884e12ed791e3dede0fb7445e2eb242866f6da00ce2b574455dadeddf9ba08a3f046f4d759d98",
             "file": "src/app/main-page/main-page/main-page.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -5547,7 +5550,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 15,
+                    "line": 16,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -5561,7 +5564,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\n\r\n@Component({\r\n  selector: 'app-main-page',\r\n  templateUrl: './main-page.component.html',\r\n  styleUrls: ['./main-page.component.scss']\r\n})\r\nexport class MainPageComponent implements OnInit{\r\n\r\n  constructor(\r\n    private store: Store,\r\n  ) { } \r\n\r\n  ngOnInit(): void {\r\n    this.store.dispatch({ type: 'Fetch Technologies' });\r\n    this.store.dispatch({ type: 'Fetch Instructors' });\r\n    this.store.dispatch({ type: 'Fetch Courses' });\r\n  }\r\n\r\n}\r\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { effectsActions } from 'src/app/store/effectsActions';\r\n\r\n@Component({\r\n  selector: 'app-main-page',\r\n  templateUrl: './main-page.component.html',\r\n  styleUrls: ['./main-page.component.scss']\r\n})\r\nexport class MainPageComponent implements OnInit{\r\n\r\n  constructor(\r\n    private store: Store,\r\n  ) { } \r\n\r\n  ngOnInit(): void {\r\n    this.store.dispatch(effectsActions.fetchTechnologies);\r\n    this.store.dispatch(effectsActions.fetchInstructors);\r\n    this.store.dispatch(effectsActions.fetchCourses);\r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -5583,7 +5586,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 9,
+                "line": 10,
                 "jsdoctags": [
                     {
                         "name": "store",
@@ -5648,7 +5651,7 @@
         },
         {
             "name": "MainPageHeaderComponent",
-            "id": "component-MainPageHeaderComponent-67a11d9db28d14d40a5dc645b5d3d8dfe401b53761a8ac15158bf07b79df6edd41f287edcfc430048e1adb75f9c1ad2295f258cf59752867e120d04533df6fe4",
+            "id": "component-MainPageHeaderComponent-2056ab3e924152213b2ceab0af2e8c75119057c30412ad17e907f224cf9af3ba5da6b7d18cc85f7dec23210de15f4324417807d219dfbf9aedd8ed6ba4cd7a39",
             "file": "src/app/main-page/components/main-page-header/main-page-header.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -5678,7 +5681,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n\r\n@Component({\r\n  selector: 'app-main-page-header',\r\n  templateUrl: './main-page-header.component.html',\r\n  styleUrls: ['./main-page-header.component.scss']\r\n})\r\nexport class MainPageHeaderComponent {\r\n  \r\n}\r\n",
+            "sourceCode": "import { Component } from '@angular/core';\r\n@Component({\r\n  selector: 'app-main-page-header',\r\n  templateUrl: './main-page-header.component.html',\r\n  styleUrls: ['./main-page-header.component.scss']\r\n})\r\nexport class MainPageHeaderComponent {\r\n  \r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -5689,6 +5692,50 @@
             "stylesData": "",
             "extends": [],
             "templateData": "<div class=\"main-header\">\r\n  <div class=\"header-container\">\r\n    <div class=\"logo\">\r\n      <img\r\n        src=\"/assets/images/logo/png/Logo_no-background.png\"\r\n        alt=\"logo-header\"\r\n      />\r\n    </div>\r\n    <div class=\"content\">\r\n      <app-button\r\n        [label]=\"'Start now'\"\r\n        [type]=\"'softgradient'\"\r\n        routerLink=\"/login\"\r\n      ></app-button>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+        },
+        {
+            "name": "MenuSettingsComponent",
+            "id": "component-MenuSettingsComponent-4edcc9ae825f7ca0a16473b329efa409e2c6417d7069474658c14595fc02b97bcc9fd4804d9f3c5a8782e9c2c56c06254faf6e040b639015085a44b36bc2fd6f",
+            "file": "src/app/students/students-dashboard/pages/settings/components/menu-settings/menu-settings.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-menu-settings",
+            "styleUrls": [
+                "./menu-settings.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./menu-settings.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-menu-settings',\n  templateUrl: './menu-settings.component.html',\n  styleUrls: ['./menu-settings.component.scss']\n})\nexport class MenuSettingsComponent {\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".main-settings {\r\n    .menu {\r\n        display: flex;\r\n        flex-direction: column;\r\n        gap: 0.5rem;\r\n\r\n        hr {\r\n            margin: 0;\r\n        }\r\n\r\n        .item {\r\n            display: flex;\r\n            align-items: center;\r\n            justify-content: space-between;\r\n            gap: 3rem;\r\n            height: 30px;\r\n            cursor: pointer;\r\n\r\n            .data {\r\n                display: flex;\r\n                gap: 1rem;\r\n                align-items: center;\r\n            }\r\n            \r\n\r\n            span {\r\n                padding: 2px 6px;\r\n                margin-left: 0.5rem;\r\n                border-radius: 5px;\r\n            }\r\n\r\n        }\r\n\r\n        .active {\r\n            height: 30px;\r\n            border-left: 2px solid;\r\n            border-image: linear-gradient(to bottom, #4defa7, #2d71fa) 1;\r\n\r\n            span {\r\n                background: var(--gradient);\r\n                padding: 2px 6px;\r\n                margin-left: 0.5rem;\r\n                border-radius: 5px;\r\n            }\r\n\r\n            .data {\r\n                color: transparent;\r\n                background: var(--gradient);\r\n                -webkit-background-clip: text;\r\n            }\r\n\r\n            .arrow{\r\n                i{\r\n                    color: var(--black) !important;\r\n                }\r\n                \r\n            }\r\n            i {\r\n                color: white;\r\n            }\r\n        }\r\n\r\n    }\r\n\r\n\r\n\r\n}",
+                    "styleUrl": "./menu-settings.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<div class=\"main-settings\">\n    <div class=\"menu\">\n       <div class=\"item\" routerLink=\"profile\" routerLinkActive=\"active\">\n        <div class=\"data\">\n            <span class=\"logo\"><i class=\"bi bi-person-fill\"></i></span>\n            Profile base\n        </div>\n        <div class=\"arrow\">\n            <i class=\"bi bi-chevron-right\"></i>\n        </div>\n        \n       </div>\n       <hr>\n       <div class=\"item\" routerLink=\"password\" routerLinkActive=\"active\">\n        <div class=\"data\">\n            <span class=\"logo\"><i class=\"bi bi-lock-fill\"></i></span>\n            Password\n        </div>\n        <div class=\"arrow\">\n            <i class=\"bi bi-chevron-right\"></i>\n\n        </div>\n    </div>  \n    </div>\n</div>\n"
         },
         {
             "name": "NewTechFormComponent",
@@ -5805,6 +5852,179 @@
             },
             "extends": [],
             "templateData": "<form [formGroup]=\"newTechForm\" (ngSubmit)=\"onSubmit()\">\r\n\r\n    <div class=\"container\">\r\n        <mat-form-field appearance=\"fill\">\r\n            <mat-label>Name</mat-label>\r\n            <input matInput formControlName=\"name\">\r\n            <mat-error *ngIf=\"newTechForm.touched && newTechForm.controls['name'].errors?.['required']\">\r\n                Name is required.\r\n            </mat-error>\r\n        </mat-form-field>\r\n        \r\n        <mat-form-field appearance=\"fill\">\r\n            <mat-label>Image Path</mat-label>\r\n            <input matInput formControlName=\"imagePath\">\r\n            <mat-error *ngIf=\"newTechForm.touched && newTechForm.controls['imagePath'].errors?.['required']\">\r\n                Image Path is required.\r\n            </mat-error>\r\n        </mat-form-field>\r\n    </div>\r\n  \r\n    <mat-form-field appearance=\"fill\" id=\"tech-textarea\">\r\n      <mat-label>Description</mat-label>\r\n      <textarea matInput formControlName=\"description\" cdkTextareaAutosize\r\n      cdkAutosizeMinRows=\"10\"\r\n      ></textarea>\r\n      <mat-error *ngIf=\"newTechForm.touched && newTechForm.controls['description'].errors?.['required']\">\r\n        Description is required.\r\n      </mat-error>\r\n    </mat-form-field>\r\n  \r\n    <div class=\"button-container\">\r\n        <button mat-raised-button color=\"primary\" type=\"submit\" [disabled]=\"!newTechForm.valid\">Add technology</button>\r\n    </div>\r\n</form>\r\n"
+        },
+        {
+            "name": "PasswordComponent",
+            "id": "component-PasswordComponent-86efde4457b95d25f7b4d70ad87fdf0dfa9e7e9a5fddd9cafe7aa82833677bb28ef63a286e7309de6d7aa7f7ef615b0aa937ca7a9afd9d1b1af57fae3380cbbb",
+            "file": "src/app/students/students-dashboard/pages/settings/components/password/password.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-password",
+            "styleUrls": [
+                "./password.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./password.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-password',\n  templateUrl: './password.component.html',\n  styleUrls: ['./password.component.scss']\n})\nexport class PasswordComponent {\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./password.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<p>password works!</p>\n"
+        },
+        {
+            "name": "ProfileBaseComponent",
+            "id": "component-ProfileBaseComponent-bcf03547842957a33cd3685759d85e56c5113fcab64bdae1c5f0187fe4bcc60e0cef170d952a1721bb34b20d1994214c5ed3db00a3990a19f62f594f8573904f",
+            "file": "src/app/students/students-dashboard/pages/settings/components/profile-base/profile-base.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-profile-base",
+            "styleUrls": [
+                "./profile-base.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./profile-base.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "profileForm",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "FormGroup",
+                    "optional": false,
+                    "description": "",
+                    "line": 13
+                },
+                {
+                    "name": "user$",
+                    "defaultValue": "this.store.select(selectUser)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 12
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 23,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "onSubmit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 31,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { FormBuilder, FormGroup, Validators } from '@angular/forms';\nimport { Store } from '@ngrx/store';\nimport { selectUser } from 'src/app/login/store/user.selectors';\n\n@Component({\n  selector: 'app-profile-base',\n  templateUrl: './profile-base.component.html',\n  styleUrls: ['./profile-base.component.scss']\n})\nexport class ProfileBaseComponent implements OnInit {\n  user$ = this.store.select(selectUser);\n  profileForm: FormGroup;  // Quita el tipo `undefined` aquí\n\n  constructor(private store: Store, private fb: FormBuilder) {\n    this.profileForm = this.fb.group({\n      email: ['', Validators.required],\n      phoneNumber: [''],\n      displayName: [''],\n    });\n  }\n\n  ngOnInit() {\n    this.user$.subscribe(user => {\n      if (user) {\n        this.profileForm.patchValue(user);  // Puedes utilizar patchValue para establecer los valores del usuario\n      }\n    });\n  }\n\n  onSubmit() {\n    if (this.profileForm.valid) {\n      // Realiza acciones con los datos del formulario, por ejemplo, enviar al servidor\n      // this.profileForm.value contiene los valores del formulario\n      console.log(this.profileForm.value);\n    }\n  }\n}\n\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./profile-base.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "store",
+                        "type": "Store",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "fb",
+                        "type": "FormBuilder",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 13,
+                "jsdoctags": [
+                    {
+                        "name": "store",
+                        "type": "Store",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "fb",
+                        "type": "FormBuilder",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "extends": [],
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<form [formGroup]=\"profileForm\">\n  <mat-form-field class=\"input-name\">\n    <mat-label>Name</mat-label>\n    <input matInput formControlName=\"displayName\" type=\"string\">\n  </mat-form-field>\n\n  <mat-form-field class=\"input-name\">\n    <mat-label>Email</mat-label>\n    <input matInput formControlName=\"email\" type=\"string\">\n    <!-- <mat-error *ngIf=\"instructorForm.get('name')?.hasError('required') && instructorForm.touched\">\n        Name is required\n    </mat-error> -->\n  </mat-form-field>\n  \n  \n  <mat-form-field class=\"input-name\">\n    <mat-label>Phone Number</mat-label>\n    <input matInput formControlName=\"phoneNumber\" type=\"string\">\n  </mat-form-field>\n\n  <div class=\"btn-container\">\n    <button mat-raised-button color=\"primary\" type=\"submit\" >Add Instructor</button>\n</div>\n  \n  \n    <button type=\"submit\">Save</button>\n  </form>"
         },
         {
             "name": "SecondSectionMainComponent",
@@ -5973,7 +6193,7 @@
         },
         {
             "name": "SettingsComponent",
-            "id": "component-SettingsComponent-c1638b58dbcf8550ece07ab2ba58bb6fe0158247eac32d66280f3fc0403505fd156d7451b51f54249ed389c8e8377c7d908ba22c26a5a18604a4e747e86a2ff5",
+            "id": "component-SettingsComponent-de5d50129e381e52ef45272289f81e637ad37cde7a7a51249b32d7201dc9c92df0e72d4b341f29670fc007d0ee208eae085bc0c11010703c197b33ce490f5126",
             "file": "src/app/students/students-dashboard/pages/settings/settings.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -5992,7 +6212,18 @@
             "hostDirectives": [],
             "inputsClass": [],
             "outputsClass": [],
-            "propertiesClass": [],
+            "propertiesClass": [
+                {
+                    "name": "user$",
+                    "defaultValue": "this.store.select(selectUser)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 12
+                }
+            ],
             "methodsClass": [],
             "deprecated": false,
             "deprecationMessage": "",
@@ -6003,17 +6234,43 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-settings',\r\n  templateUrl: './settings.component.html',\r\n  styleUrls: ['./settings.component.scss']\r\n})\r\nexport class SettingsComponent {\r\n\r\n}\r\n",
+            "sourceCode": "import { Component } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { selectUser } from 'src/app/login/store/user.selectors';\r\n\r\n@Component({\r\n  selector: 'app-settings',\r\n  templateUrl: './settings.component.html',\r\n  styleUrls: ['./settings.component.scss']\r\n})\r\nexport class SettingsComponent {\r\n\r\n  user$ = this.store.select(selectUser);\r\n\r\n  constructor(private store: Store) {}\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "",
+                    "data": ".main-container{\r\n    width: 100%;\r\n    display: flex;\r\n    flex-direction: column;\r\n    gap: 1.5rem;\r\n}\r\n.main-settings{\r\n    display: flex;\r\n    gap: 4rem;\r\n    width: 100%;\r\n    .menu{\r\n    }\r\n    .router{\r\n    }\r\n}",
                     "styleUrl": "./settings.component.scss"
                 }
             ],
             "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "store",
+                        "type": "Store",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 12,
+                "jsdoctags": [
+                    {
+                        "name": "store",
+                        "type": "Store",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
             "extends": [],
-            "templateData": "<p>settings works!</p>\r\n"
+            "templateData": "<p>{{user$ | async | json}}</p>\r\n<div class=\"main-container\">\r\n<h3>Account Settings</h3>\r\n<div class=\"main-settings\">\r\n    <div class=\"menu\">\r\n        <app-menu-settings></app-menu-settings>\r\n    </div>\r\n    <div class=\"router\"> \r\n        <router-outlet></router-outlet>\r\n    </div>\r\n</div>\r\n</div>"
         },
         {
             "name": "SidebarComponent",
@@ -6323,7 +6580,7 @@
         },
         {
             "name": "StudentsDashboardComponent",
-            "id": "component-StudentsDashboardComponent-de6e7dda16c5504221366090d6a8b90c55734aeb35842e15611a65a57667e929a53f768b1ac88e616b815dd4c3679c5f33f69396887305d05acde9eeba9edf19",
+            "id": "component-StudentsDashboardComponent-6e919208fa2525af12ed78c08e17bceb2107fa537b217693e62d72d52f271f8d6348efa846ea8d949882d3f6d0d3acd01704e9b9dcacd77cf5ac4146ab8d94c9",
             "file": "src/app/students/students-dashboard/students-dashboard.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -6343,7 +6600,18 @@
             "inputsClass": [],
             "outputsClass": [],
             "propertiesClass": [],
-            "methodsClass": [],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 16,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -6353,7 +6621,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\nimport { MatDialog } from '@angular/material/dialog';\r\nimport { DeleteModalComponent } from 'src/app/shared/components/modals/delete-modal/delete-modal.component';\r\nimport { DetailModalComponent } from 'src/app/shared/components/modals/detail-modal/detail-modal.component';\r\n\r\n@Component({\r\n  selector: 'app-students-dashboard',\r\n  templateUrl: './students-dashboard.component.html',\r\n  styleUrls: ['./students-dashboard.component.scss']\r\n})\r\nexport class StudentsDashboardComponent {\r\n\r\n  \r\n}\r\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { effectsActions } from 'src/app/store/effectsActions';\r\n\r\n@Component({\r\n  selector: 'app-students-dashboard',\r\n  templateUrl: './students-dashboard.component.html',\r\n  styleUrls: ['./students-dashboard.component.scss']\r\n})\r\nexport class StudentsDashboardComponent implements OnInit{\r\n\r\n  constructor(\r\n    private store: Store,\r\n  ) { } \r\n\r\n  ngOnInit(): void {\r\n    this.store.dispatch(effectsActions.fetchTechnologies);\r\n    this.store.dispatch(effectsActions.fetchInstructors);\r\n    this.store.dispatch(effectsActions.fetchCourses);\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -6362,7 +6630,36 @@
                 }
             ],
             "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "store",
+                        "type": "Store",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 10,
+                "jsdoctags": [
+                    {
+                        "name": "store",
+                        "type": "Store",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
             "extends": [],
+            "implements": [
+                "OnInit"
+            ],
             "templateData": "<div class=\"container-fluid\">\r\n    <app-sidebar></app-sidebar>\r\n    <div class=\"container-fluid\">\r\n        <div class=\"container-fluid\">\r\n            <router-outlet></router-outlet>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
         },
         {
@@ -6955,7 +7252,7 @@
         },
         {
             "name": "TechnologiesComponent",
-            "id": "component-TechnologiesComponent-f555d9f2f44257d91105f8393f34a34179ba940420e4b0ab3cd45d0a01ad4cded8c876ac44e85c71ccb304ef1b4fd0276b7ce2c0cc4e4033a9ff2e39e908f013",
+            "id": "component-TechnologiesComponent-7a9a7f0305b114b8e1db651a09dbbfc45d4f5d3bc57b6299920fd9cc8c6449c4786a871fca0250e340728249378a08676c1ffa545156c94d689e1d3e0f71a515",
             "file": "src/app/admins/admins-dashboard/pages/technologies/technologies.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -6987,7 +7284,7 @@
                 },
                 {
                     "name": "modalHeight",
-                    "defaultValue": "'650px'",
+                    "defaultValue": "'600px'",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "string",
@@ -7126,7 +7423,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { selectTechnologies } from 'src/app/store/technologies/tecnologies.selectors';\r\nimport { TechnologyType } from './types/technologies';\r\nimport { TechService } from './service/tech.service';\r\nimport { AlertsService } from 'src/app/shared/services/alerts/alerts.service';\r\n\r\n@Component({\r\n  selector: 'app-technologies',\r\n  templateUrl: './technologies.component.html',\r\n  styleUrls: ['./technologies.component.scss']\r\n})\r\nexport class TechnologiesComponent {\r\n  isFormVisible = false\r\n  technologies$ = this.store.select(selectTechnologies);\r\n  modalWith: string = '1034';\r\n  modalHeight: string = '650px';\r\n  modalTitle: string = 'Technology';\r\n\r\n  constructor(\r\n    private store: Store,\r\n    private techsService: TechService,\r\n    private alertMessages: AlertsService\r\n\r\n  ) { }\r\n\r\n  tableColumns = [\r\n    { prop: 'name', title: 'Name' },\r\n    { prop: 'imagePath', title: 'Image' },\r\n    { prop: 'courses', title: 'NºCourses' },\r\n    { prop: 'description', title: 'Description' }\r\n\r\n  ];\r\n\r\n  rows = [\r\n    { label: 'Id', prop: 'id' },\r\n    { label: 'Name', prop: 'name' },\r\n    { label: 'Image', prop: 'imagePath' },\r\n    { label: 'Description', prop: 'description' },\r\n    { label: 'Courses', prop: 'courses' },\r\n\r\n  ]\r\n\r\n  onToggleForm() {\r\n    this.isFormVisible = !this.isFormVisible\r\n  }\r\n\r\n  onEdit(element: TechnologyType) {\r\n    this.techsService.updateTechnology(element.id!, element).then((data) => {\r\n      this.alertMessages.successMessage('Technology update successfully');\r\n    }).catch((error) => {\r\n      this.alertMessages.errorMessage('Error updating technology', error.message);\r\n    })\r\n  }\r\n\r\n  async onDelete(id: string) {\r\n    const tech = this.techsService.getTechnologyById(id)\r\n    if((await tech).courses.length == 0){\r\n      this.techsService.deleteTechDoc(id)\r\n      this.alertMessages.successMessage('Technology delete successfully');\r\n    }else{\r\n      this.alertMessages.errorMessage(\"You can't delete it, contains courses\")\r\n    }\r\n  }\r\n\r\n  \r\n\r\n}\r\n",
+            "sourceCode": "import { Component } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { selectTechnologies } from 'src/app/store/technologies/tecnologies.selectors';\r\nimport { TechnologyType } from './types/technologies';\r\nimport { TechService } from './service/tech.service';\r\nimport { AlertsService } from 'src/app/shared/services/alerts/alerts.service';\r\n\r\n@Component({\r\n  selector: 'app-technologies',\r\n  templateUrl: './technologies.component.html',\r\n  styleUrls: ['./technologies.component.scss']\r\n})\r\nexport class TechnologiesComponent {\r\n  isFormVisible = false\r\n  technologies$ = this.store.select(selectTechnologies);\r\n  modalWith: string = '1034';\r\n  modalHeight: string = '600px';\r\n  modalTitle: string = 'Technology';\r\n\r\n  constructor(\r\n    private store: Store,\r\n    private techsService: TechService,\r\n    private alertMessages: AlertsService\r\n\r\n  ) { }\r\n\r\n  tableColumns = [\r\n    { prop: 'name', title: 'Name' },\r\n    { prop: 'imagePath', title: 'Image' },\r\n    { prop: 'courses', title: 'NºCourses' },\r\n    { prop: 'description', title: 'Description' }\r\n\r\n  ];\r\n\r\n  rows = [\r\n    { label: 'Id', prop: 'id' },\r\n    { label: 'Name', prop: 'name' },\r\n    { label: 'Image', prop: 'imagePath' },\r\n    { label: 'Description', prop: 'description' },\r\n    { label: 'Courses', prop: 'courses' },\r\n\r\n  ]\r\n\r\n  onToggleForm() {\r\n    this.isFormVisible = !this.isFormVisible\r\n  }\r\n\r\n  onEdit(element: TechnologyType) {\r\n    this.techsService.updateTechnology(element.id!, element).then((data) => {\r\n      this.alertMessages.successMessage('Technology update successfully');\r\n    }).catch((error) => {\r\n      this.alertMessages.errorMessage('Error updating technology', error.message);\r\n    })\r\n  }\r\n\r\n  async onDelete(id: string) {\r\n    const tech = this.techsService.getTechnologyById(id)\r\n    if((await tech).courses.length == 0){\r\n      this.techsService.deleteTechDoc(id)\r\n      this.alertMessages.successMessage('Technology delete successfully');\r\n    }else{\r\n      this.alertMessages.errorMessage(\"You can't delete it, contains courses\")\r\n    }\r\n  }\r\n\r\n  \r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -7617,7 +7914,7 @@
         },
         {
             "name": "UsersComponent",
-            "id": "component-UsersComponent-c649fb02c4b2f0dcaa94f78dd212899720cfeabf67db6c5a9e454d9bad8abdaab05b7fc7c904cc7d4bcafa7afe7d4df5e2f59cb9fdfc47b662190a5057f24b27",
+            "id": "component-UsersComponent-4a3b06021d6713639cfe6569144de979a46a6146358752e66d793d29f0fade88b69f4dce590299b97e55575280fb793e22ed2ded9984eb01898d2be390f12f26",
             "file": "src/app/admins/admins-dashboard/pages/users/users.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -7639,7 +7936,7 @@
             "propertiesClass": [
                 {
                     "name": "modalHeight",
-                    "defaultValue": "'680px'",
+                    "defaultValue": "'500px'",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "string",
@@ -7737,7 +8034,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { User } from 'src/app/login/types/user';\r\nimport { AlertsService } from 'src/app/shared/services/alerts/alerts.service';\r\nimport { UsersService } from 'src/app/shared/services/users/users.service';\r\n\r\nimport { selectUsers } from 'src/app/store/users/users.selectors';\r\n\r\n@Component({\r\n  selector: 'app-users',\r\n  templateUrl: './users.component.html',\r\n  styleUrls: ['./users.component.scss']\r\n})\r\nexport class UsersComponent{\r\n  users$ = this.store.select(selectUsers);\r\n  modalWith: string = '800px';\r\n  modalHeight: string = '680px';\r\n  modalTitle: string = 'User';\r\n\r\n\r\n  tableColumns = [\r\n    { prop: 'displayName', title: 'User' },\r\n    { prop: 'photoURL', title: 'Img' },\r\n    { prop: 'email', title: 'Email' },\r\n    { prop: 'phoneNumber', title: 'Phone' },\r\n    { prop: 'role', title: 'Role' },  \r\n    \r\n  ];\r\n  rows = [\r\n    { label: 'Id', prop: 'id' },\r\n    { label: 'User', prop: 'displayName' },\r\n    { label: 'Img', prop: 'photoURL' },\r\n    { label: 'Email', prop: 'email' },\r\n    { label: 'Phone', prop: 'phoneNumber' },\r\n    { label: 'role', prop: 'role' },\r\n  ];\r\n\r\n  constructor(\r\n    private store: Store,\r\n    private alertMessages: AlertsService,\r\n    private userService: UsersService\r\n  ) {} \r\n\r\n  onEdit(element: User) {\r\n    this.userService.updateUser(element.id!, element).then((data) => {\r\n      this.alertMessages.successMessage('User update successfully');\r\n    }).catch((error) => {\r\n      this.alertMessages.errorMessage('Error updating user', error.message);\r\n    })\r\n  }  \r\n  \r\n}\r\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { User } from 'src/app/login/types/user';\r\nimport { AlertsService } from 'src/app/shared/services/alerts/alerts.service';\r\nimport { UsersService } from 'src/app/shared/services/users/users.service';\r\n\r\nimport { selectUsers } from 'src/app/store/users/users.selectors';\r\n\r\n@Component({\r\n  selector: 'app-users',\r\n  templateUrl: './users.component.html',\r\n  styleUrls: ['./users.component.scss']\r\n})\r\nexport class UsersComponent{\r\n  users$ = this.store.select(selectUsers);\r\n  modalWith: string = '800px';\r\n  modalHeight: string = '500px';\r\n  modalTitle: string = 'User';\r\n\r\n\r\n  tableColumns = [\r\n    { prop: 'displayName', title: 'User' },\r\n    { prop: 'photoURL', title: 'Img' },\r\n    { prop: 'email', title: 'Email' },\r\n    { prop: 'phoneNumber', title: 'Phone' },\r\n    { prop: 'role', title: 'Role' },  \r\n    \r\n  ];\r\n  rows = [\r\n    { label: 'Id', prop: 'id' },\r\n    { label: 'User', prop: 'displayName' },\r\n    { label: 'Img', prop: 'photoURL' },\r\n    { label: 'Email', prop: 'email' },\r\n    { label: 'Phone', prop: 'phoneNumber' },\r\n    { label: 'role', prop: 'role' },\r\n  ];\r\n\r\n  constructor(\r\n    private store: Store,\r\n    private alertMessages: AlertsService,\r\n    private userService: UsersService\r\n  ) {} \r\n\r\n  onEdit(element: User) {\r\n    this.userService.updateUser(element.id!, element).then((data) => {\r\n      this.alertMessages.successMessage('User update successfully');\r\n    }).catch((error) => {\r\n      this.alertMessages.errorMessage('Error updating user', error.message);\r\n    })\r\n  }  \r\n  \r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -7927,13 +8224,13 @@
         },
         {
             "name": "AdminsRoutingModule",
-            "id": "module-AdminsRoutingModule-ce580bd92ea91a0677e718f05f6b415750d959280910eb64a335c96ed86acc0a1e0ba782de809cd89d3f50b1f64c6faba155cee099ab8d0745631a7385c0ffb0",
+            "id": "module-AdminsRoutingModule-95b09916b5378bdc1139f567c6b2ccd1c3622c3dd62012fbd7a6af00e669847de8bd07336aa2d1d4104e3eee9ae814d506c34df3ad02b35b77aeb177948ce1bb",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/admins/admins-routing.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RouterModule, Routes } from '@angular/router';\r\nimport { AdminsDashboardComponent } from './admins-dashboard/admins-dashboard.component';\r\nimport { UsersComponent } from './admins-dashboard/pages/users/users.component';\r\nimport { TechnologiesComponent } from './admins-dashboard/pages/technologies/technologies.component';\r\nimport { CoursesComponent } from './admins-dashboard/pages/courses/courses.component';\r\nimport { InstructorsComponent } from './admins-dashboard/pages/instructors/instructors.component';\r\nimport { RoleGuard } from '../shared/guards/role.guard';\r\nimport { ErrorPageComponent } from '../shared/components/default-pages/error-page/error-page.component';\r\nimport { WorkingInProgressComponent } from '../shared/components/default-pages/working-in-progress/working-in-progress.component';\r\n\r\nconst routes: Routes = [\r\n    { path: '', component: AdminsDashboardComponent, canActivate:[RoleGuard], data: {expectedRole: 'admin'}, children: [\r\n      { path: '', redirectTo: 'users', pathMatch: 'full' },\r\n      // { path: 'users', component: UsersComponent },\r\n      { path: 'users', component: UsersComponent },\r\n      { path: 'technologies', component: TechnologiesComponent },\r\n      { path: 'courses', component: CoursesComponent },\r\n      { path: 'instructors', component: InstructorsComponent },\r\n      { path: '**', component: ErrorPageComponent},\r\n\r\n    ] },\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class AdminsRoutingModule { }\r\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RouterModule, Routes } from '@angular/router';\r\nimport { AdminsDashboardComponent } from './admins-dashboard/admins-dashboard.component';\r\nimport { UsersComponent } from './admins-dashboard/pages/users/users.component';\r\nimport { TechnologiesComponent } from './admins-dashboard/pages/technologies/technologies.component';\r\nimport { CoursesComponent } from './admins-dashboard/pages/courses/courses.component';\r\nimport { InstructorsComponent } from './admins-dashboard/pages/instructors/instructors.component';\r\nimport { ErrorPageComponent } from '../shared/components/default-pages/error-page/error-page.component';\r\nimport { WorkingInProgressComponent } from '../shared/components/default-pages/working-in-progress/working-in-progress.component';\r\nimport { RoleGuard } from '../shared/guards/role/role.guard';\r\n\r\nconst routes: Routes = [\r\n    { path: '', component: AdminsDashboardComponent, canActivate:[RoleGuard], data: {expectedRole: 'admin'}, children: [\r\n      { path: '', redirectTo: 'users', pathMatch: 'full' },\r\n      // { path: 'users', component: UsersComponent },\r\n      { path: 'users', component: UsersComponent },\r\n      { path: 'technologies', component: TechnologiesComponent },\r\n      { path: 'courses', component: CoursesComponent },\r\n      { path: 'instructors', component: InstructorsComponent },\r\n      { path: '**', component: ErrorPageComponent},\r\n\r\n    ] },\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class AdminsRoutingModule { }\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -8109,13 +8406,13 @@
         },
         {
             "name": "LoginRoutingModule",
-            "id": "module-LoginRoutingModule-9e41362a7a5b0ad6ec315187ebe3be12fd66fb68dec1c01cb039c4b6aa08adb4d92312dd4edba82bfed4f0c0a78dbb69d85d82493bf8a8d20e74c0832b64c420",
+            "id": "module-LoginRoutingModule-9a87ecdeb61956c428b749e4889c4a3e4a1d819e7bd8f8946794a76a240d0394ef0f3924988a9f2ffd67b39245dabb9256e0515419acd8fe7569c0338b1dc5c1",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/login/login-routing.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RouterModule, Routes } from '@angular/router';\r\nimport { LoginPageComponent } from './login-page/login-page.component';\r\nimport { RoleGuard } from '../shared/guards/role.guard';\r\n\r\nconst routes: Routes = [\r\n    { path: '', component: LoginPageComponent, canActivate:[RoleGuard] },\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class LoginRoutingModule { }",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RouterModule, Routes } from '@angular/router';\r\nimport { LoginPageComponent } from './login-page/login-page.component';\r\nimport { RoleGuard } from '../shared/guards/role/role.guard';\r\n\r\nconst routes: Routes = [\r\n    { path: '', component: LoginPageComponent, canActivate:[RoleGuard] },\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class LoginRoutingModule { }",
             "children": [
                 {
                     "type": "providers",
@@ -8323,13 +8620,13 @@
         },
         {
             "name": "StudentsModule",
-            "id": "module-StudentsModule-d3153b928a478437ca39636fc3cdc0892407de789a39ac33ec752e8e8484601bdd23e12b1023bdec5a4a830848dba2bf149ea9a93fef6bfae7c3082f13d0f3a7",
+            "id": "module-StudentsModule-c8213770a9e72e788f4c449edebef42926802f8bdd8a9dbcba5a61484b1f3f5892abc5d4676fb829f502f57f733d11571a8154c5e40421282d0126e4d1d23201",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/students/students.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { StudentsDashboardComponent } from './students-dashboard/students-dashboard.component';\r\nimport { StudentsRoutingModule } from './students-routing.module';\r\nimport { SharedModule } from '../shared/shared.module';\r\nimport { SidebarComponent } from './components/sidebar/sidebar.component';\r\nimport { MatDialogModule } from '@angular/material/dialog';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { HomeComponent } from './students-dashboard/pages/home/home.component';\r\nimport { CoursesComponent } from './students-dashboard/pages/courses/courses.component';\r\nimport { TrainersComponent } from './students-dashboard/pages/trainers/trainers.component';\r\nimport { TechnologiesComponent } from './students-dashboard/pages/technologies/technologies.component';\r\nimport { SettingsComponent } from './students-dashboard/pages/settings/settings.component';\r\nimport {MatTooltipModule} from '@angular/material/tooltip';\r\n\r\n\r\n\r\n@NgModule({\r\n  declarations: [\r\n    StudentsDashboardComponent,\r\n    SidebarComponent,\r\n    HomeComponent,\r\n    CoursesComponent,\r\n    TrainersComponent,\r\n    TechnologiesComponent,\r\n    SettingsComponent\r\n  ],\r\n  imports: [\r\n    CommonModule,\r\n    StudentsRoutingModule,\r\n    SharedModule,\r\n    MatDialogModule,\r\n    MatIconModule,\r\n    MatTooltipModule\r\n  ]\r\n})\r\nexport class StudentsModule { }\r\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { StudentsDashboardComponent } from './students-dashboard/students-dashboard.component';\r\nimport { StudentsRoutingModule } from './students-routing.module';\r\nimport { SharedModule } from '../shared/shared.module';\r\nimport { SidebarComponent } from './components/sidebar/sidebar.component';\r\nimport { MatDialogModule } from '@angular/material/dialog';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { HomeComponent } from './students-dashboard/pages/home/home.component';\r\nimport { CoursesComponent } from './students-dashboard/pages/courses/courses.component';\r\nimport { TrainersComponent } from './students-dashboard/pages/trainers/trainers.component';\r\nimport { TechnologiesComponent } from './students-dashboard/pages/technologies/technologies.component';\r\nimport { SettingsComponent } from './students-dashboard/pages/settings/settings.component';\r\nimport {MatTooltipModule} from '@angular/material/tooltip';\r\nimport { MenuSettingsComponent } from './students-dashboard/pages/settings/components/menu-settings/menu-settings.component';\r\nimport { ProfileBaseComponent } from './students-dashboard/pages/settings/components/profile-base/profile-base.component';\r\nimport { PasswordComponent } from './students-dashboard/pages/settings/components/password/password.component';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { MatFormFieldModule } from '@angular/material/form-field';\r\nimport { ReactiveFormsModule } from '@angular/forms';\r\n\r\n\r\n\r\n@NgModule({\r\n  declarations: [\r\n    StudentsDashboardComponent,\r\n    SidebarComponent,\r\n    HomeComponent,\r\n    CoursesComponent,\r\n    TrainersComponent,\r\n    TechnologiesComponent,\r\n    SettingsComponent,\r\n    MenuSettingsComponent,\r\n    ProfileBaseComponent,\r\n    PasswordComponent\r\n  ],\r\n  imports: [\r\n    CommonModule,\r\n    StudentsRoutingModule,\r\n    SharedModule,\r\n    MatDialogModule,\r\n    MatIconModule,\r\n    MatTooltipModule,\r\n    MatInputModule,\r\n    MatFormFieldModule,\r\n    ReactiveFormsModule\r\n  ]\r\n})\r\nexport class StudentsModule { }\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -8340,6 +8637,15 @@
                     "elements": [
                         {
                             "name": "HomeComponent"
+                        },
+                        {
+                            "name": "MenuSettingsComponent"
+                        },
+                        {
+                            "name": "PasswordComponent"
+                        },
+                        {
+                            "name": "ProfileBaseComponent"
                         },
                         {
                             "name": "SettingsComponent"
@@ -8382,13 +8688,13 @@
         },
         {
             "name": "StudentsRoutingModule",
-            "id": "module-StudentsRoutingModule-a962df87d8cadc31f708bb1a1f7892c16fa5354c498916ba15ebcb005e4473abadf59db33e524bb5cad4110f42cae495e8c871bc8274a8293db76f4fbbb21662",
+            "id": "module-StudentsRoutingModule-8e0893794d295db7ae677d269207538bdb371362b0c090c3708b8b6d805dd20830d7c0c21326d5748f93b647349a8fd126f00dd68bc38d849c3601fb4e069de6",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/students/students-routing.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RouterModule, Routes } from '@angular/router';\r\nimport { StudentsDashboardComponent } from './students-dashboard/students-dashboard.component';\r\nimport { RoleGuard } from '../shared/guards/role.guard';\r\nimport { HomeComponent } from './students-dashboard/pages/home/home.component';\r\nimport { CoursesComponent } from './students-dashboard/pages/courses/courses.component';\r\nimport { TrainersComponent } from './students-dashboard/pages/trainers/trainers.component';\r\nimport { TechnologiesComponent } from './students-dashboard/pages/technologies/technologies.component';\r\nimport { SettingsComponent } from './students-dashboard/pages/settings/settings.component';\r\n\r\nconst routes: Routes = [\r\n    { path: '', component: StudentsDashboardComponent, canActivate:[RoleGuard], data: {expectedRole: 'student'}, children: [\r\n      { path: '', redirectTo: 'home', pathMatch: 'full' },\r\n      { path: 'home', component: HomeComponent },\r\n      { path: 'courses', component: CoursesComponent },\r\n      { path: 'trainers', component: TrainersComponent },\r\n      { path: 'technologies', component: TechnologiesComponent },\r\n      { path: 'settings', component: SettingsComponent },\r\n    ] },\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class StudentsRoutingModule { }",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RouterModule, Routes } from '@angular/router';\r\nimport { StudentsDashboardComponent } from './students-dashboard/students-dashboard.component';\r\nimport { HomeComponent } from './students-dashboard/pages/home/home.component';\r\nimport { CoursesComponent } from './students-dashboard/pages/courses/courses.component';\r\nimport { TrainersComponent } from './students-dashboard/pages/trainers/trainers.component';\r\nimport { TechnologiesComponent } from './students-dashboard/pages/technologies/technologies.component';\r\nimport { SettingsComponent } from './students-dashboard/pages/settings/settings.component';\r\nimport { ProfileBaseComponent } from './students-dashboard/pages/settings/components/profile-base/profile-base.component';\r\nimport { PasswordComponent } from './students-dashboard/pages/settings/components/password/password.component';\r\nimport { RoleGuard } from '../shared/guards/role/role.guard';\r\n\r\nconst routes: Routes = [\r\n    { path: '', component: StudentsDashboardComponent, canActivate:[RoleGuard], data: {expectedRole: 'student'}, children: [\r\n      { path: '', redirectTo: 'home', pathMatch: 'full' },\r\n      { path: 'home', component: HomeComponent },\r\n      { path: 'courses', component: CoursesComponent },\r\n      { path: 'trainers', component: TrainersComponent },\r\n      { path: 'technologies', component: TechnologiesComponent },\r\n      { path: 'settings', component: SettingsComponent, children:[\r\n        { path: '', redirectTo: 'profile', pathMatch: 'full' },\r\n        { path: 'profile', component: ProfileBaseComponent },\r\n        { path: 'password', component: PasswordComponent },\r\n      ] },\r\n    ] },\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class StudentsRoutingModule { }",
             "children": [
                 {
                     "type": "providers",
@@ -8518,6 +8824,16 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\r\n  args: {\r\n    course: {\r\n      name: 'Example Course',\r\n      imageUrl: 'example.jpg',\r\n      description: 'This is an example course description.',\r\n      lessons: [], \r\n      techs: [{ id:\"1\", name: 'Angular' }],\r\n      rating: [],\r\n      introductionURL: \"https://example.com/introduction\",\r\n      instructorId:[]\r\n    },\r\n  },\r\n  \r\n}"
+            },
+            {
+                "name": "effectsActions",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/store/effectsActions.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\r\n    fetchCourses: { type: 'Fetch Courses' },\r\n    fetchInstructors: { type: 'Fetch Instructors' },\r\n    fetchTechnologies: { type: 'Fetch Technologies' },\r\n    fetchUsers: { type: 'Fetch Users' }\r\n}"
             },
             {
                 "name": "environment",
@@ -8753,11 +9069,11 @@
                 "name": "RoleGuard",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/shared/guards/role.guard.ts",
+                "file": "src/app/shared/guards/role/role.guard.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "CanActivateFn",
-                "defaultValue": "(route, state) => {\r\n  \r\n  const usersService = inject(UsersService)\r\n  const user = usersService.getUserFromStorage()\r\n  const role = user?.role\r\n  const expectedRole = route.data['expectedRole'];\r\n\r\n\r\n  if (role === expectedRole) {\r\n    return true;\r\n  } else {\r\n    const router = inject(Router)\r\n    if(role === 'student'){\r\n      router.navigate(['/students']);\r\n    }else if(role === 'admin'){\r\n      router.navigate(['/admin']);\r\n    }else{\r\n      router.navigate(['/login']);\r\n    }\r\n    return false;\r\n  }\r\n\r\n}"
+                "defaultValue": "(route, state) => {\r\n  \r\n\r\n  const usersService = inject(UsersService)\r\n  const store = inject(Store)\r\n  const user = usersService.getUserFromStorage()\r\n  if(user){\r\n    store.dispatch(UserActions.addUser({ user: user }));\r\n  }\r\n  const role = user?.role\r\n  const expectedRole = route.data['expectedRole'];\r\n\r\n\r\n  if (role === expectedRole) {\r\n    return true;\r\n  } else {\r\n    const router = inject(Router)\r\n    if(role === 'student'){\r\n      router.navigate(['/students']);\r\n    }else if(role === 'admin'){\r\n      router.navigate(['/admin']);\r\n    }else{\r\n      router.navigate(['/login']);\r\n    }\r\n    return false;\r\n  }\r\n\r\n}"
             },
             {
                 "name": "Secondary",
@@ -9288,6 +9604,18 @@
                     "defaultValue": "{\r\n  title: 'Components/CourseCard',\r\n  component: CourseCardComponent,\r\n  tags: ['autodocs'], \r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations:[ButtonComponent]\r\n    })\r\n  ]\r\n}"
                 }
             ],
+            "src/app/store/effectsActions.ts": [
+                {
+                    "name": "effectsActions",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/store/effectsActions.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\r\n    fetchCourses: { type: 'Fetch Courses' },\r\n    fetchInstructors: { type: 'Fetch Instructors' },\r\n    fetchTechnologies: { type: 'Fetch Technologies' },\r\n    fetchUsers: { type: 'Fetch Users' }\r\n}"
+                }
+            ],
             "src/environments/environment.development.ts": [
                 {
                     "name": "environment",
@@ -9436,16 +9764,16 @@
                     "defaultValue": "{\r\n  parameters: {\r\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/i,\r\n      },\r\n    },\r\n  },\r\n}"
                 }
             ],
-            "src/app/shared/guards/role.guard.ts": [
+            "src/app/shared/guards/role/role.guard.ts": [
                 {
                     "name": "RoleGuard",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/shared/guards/role.guard.ts",
+                    "file": "src/app/shared/guards/role/role.guard.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "CanActivateFn",
-                    "defaultValue": "(route, state) => {\r\n  \r\n  const usersService = inject(UsersService)\r\n  const user = usersService.getUserFromStorage()\r\n  const role = user?.role\r\n  const expectedRole = route.data['expectedRole'];\r\n\r\n\r\n  if (role === expectedRole) {\r\n    return true;\r\n  } else {\r\n    const router = inject(Router)\r\n    if(role === 'student'){\r\n      router.navigate(['/students']);\r\n    }else if(role === 'admin'){\r\n      router.navigate(['/admin']);\r\n    }else{\r\n      router.navigate(['/login']);\r\n    }\r\n    return false;\r\n  }\r\n\r\n}"
+                    "defaultValue": "(route, state) => {\r\n  \r\n\r\n  const usersService = inject(UsersService)\r\n  const store = inject(Store)\r\n  const user = usersService.getUserFromStorage()\r\n  if(user){\r\n    store.dispatch(UserActions.addUser({ user: user }));\r\n  }\r\n  const role = user?.role\r\n  const expectedRole = route.data['expectedRole'];\r\n\r\n\r\n  if (role === expectedRole) {\r\n    return true;\r\n  } else {\r\n    const router = inject(Router)\r\n    if(role === 'student'){\r\n      router.navigate(['/students']);\r\n    }else if(role === 'admin'){\r\n      router.navigate(['/admin']);\r\n    }else{\r\n      router.navigate(['/login']);\r\n    }\r\n    return false;\r\n  }\r\n\r\n}"
                 }
             ],
             "src/app/admins/admins-dashboard/pages/courses/store/course/course.selectors.ts": [
@@ -9733,7 +10061,22 @@
                                                     },
                                                     {
                                                         "path": "settings",
-                                                        "component": "SettingsComponent"
+                                                        "component": "SettingsComponent",
+                                                        "children": [
+                                                            {
+                                                                "path": "",
+                                                                "redirectTo": "profile",
+                                                                "pathMatch": "full"
+                                                            },
+                                                            {
+                                                                "path": "profile",
+                                                                "component": "ProfileBaseComponent"
+                                                            },
+                                                            {
+                                                                "path": "password",
+                                                                "component": "PasswordComponent"
+                                                            }
+                                                        ]
                                                     }
                                                 ]
                                             }
@@ -10541,7 +10884,7 @@
                 "status": "low"
             },
             {
-                "filePath": "src/app/shared/guards/role.guard.ts",
+                "filePath": "src/app/shared/guards/role/role.guard.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -10622,6 +10965,16 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "selectCourses",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/store/effectsActions.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "effectsActions",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -10801,12 +11154,39 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/students/students-dashboard/pages/settings/components/menu-settings/menu-settings.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "MenuSettingsComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/students/students-dashboard/pages/settings/components/password/password.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "PasswordComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/students/students-dashboard/pages/settings/components/profile-base/profile-base.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ProfileBaseComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/6",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/students/students-dashboard/pages/settings/settings.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "SettingsComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/1",
+                "coverageCount": "0/3",
                 "status": "low"
             },
             {
@@ -10833,7 +11213,7 @@
                 "linktype": "component",
                 "name": "StudentsDashboardComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/1",
+                "coverageCount": "0/3",
                 "status": "low"
             },
             {

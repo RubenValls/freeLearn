@@ -41,9 +41,8 @@ export class LoginService {
           this.handleUserInfo(formValue, userCredential, false);
         })
         .catch((error) => {
-          error.message === "Firebase: Error (auth/email-already-in-use)."
-          &&
-          this.alertsService.errorMessage("Email already exist");
+          error.message === 'Firebase: Error (auth/email-already-in-use).' &&
+            this.alertsService.errorMessage('Email already exist');
         });
     }
   }
@@ -81,34 +80,36 @@ export class LoginService {
     userCredential: UserCredential,
     isLogin: boolean
   ) {
-    let usersSubscription : Subscription;
+    let usersSubscription: Subscription;
     if (!isLogin) {
       const userInfo = this.getUserInfoData(isLogin, formValue, userCredential);
-      usersSubscription = this.usersService
-        .getUsers()
-        .subscribe((users) => {
-          const user = users.find((user) => user.email === userInfo.email);
-          if (!user) {
-            const usersRef = collection(this.firestore, 'users');
-            addDoc(usersRef, userInfo);
-          }
-          this.saveUserDataAndNavigate(userInfo, usersSubscription);
-        });
+      usersSubscription = this.usersService.getUsers().subscribe((users) => {
+        const user = users.find((user) => user.email === userInfo.email);
+        if (!user) {
+          const usersRef = collection(this.firestore, 'users');
+          addDoc(usersRef, userInfo);
+        }
+        this.saveUserDataAndNavigate(userInfo, usersSubscription);
+      });
     } else {
       const userInfo = this.getUserInfoData(isLogin, formValue, userCredential);
-      usersSubscription = this.usersService
-        .getUsers()
-        .subscribe((users) => {
-          let user = users.find((user) => user.email === userInfo.email);
-          this.usersService
-            .updateUser(user?.id ? user?.id : '', userInfo)
-            .then(() => {
-              user = users.find((user) => user.email === userInfo.email);
-              if (user) {
-                this.saveUserDataAndNavigate(user, usersSubscription);
-              }
-            });
-        });
+      usersSubscription = this.usersService.getUsers().subscribe((users) => {
+        let user = users.find((user) => user.email === userInfo.email);
+        this.usersService
+          .updateUser(user?.id ? user?.id : '', {
+            ...userInfo,
+            displayName: user?.displayName || '',
+            phoneNumber: user?.phoneNumber || '',
+            photoURL: user?.photoURL || '',
+            favorites: user?.favorites || [],
+          })
+          .then(() => {
+            user = users.find((user) => user.email === userInfo.email);
+            if (user) {
+              this.saveUserDataAndNavigate(user, usersSubscription);
+            }
+          });
+      });
     }
   }
 

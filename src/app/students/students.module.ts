@@ -16,6 +16,10 @@ import { MenuSettingsComponent } from './students-dashboard/pages/settings/compo
 import { ProfileBaseComponent } from './students-dashboard/pages/settings/components/profile-base/profile-base.component';
 import { PasswordComponent } from './students-dashboard/pages/settings/components/password/password.component';
 import { CourseCardsComponent } from './students-dashboard/pages/courses/components/course-cards/course-cards.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -38,7 +42,10 @@ import { CourseCardsComponent } from './students-dashboard/pages/courses/compone
     SharedModule,
     MatDialogModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatInputModule,
+    MatFormFieldModule,
+    ReactiveFormsModule
   ]
 })
 export class StudentsModule { }

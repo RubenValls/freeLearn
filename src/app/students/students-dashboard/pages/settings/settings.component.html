@@ -1,4 +1,11 @@
-<p>{{user$ | async | json}}</p>
-
-<app-menu-settings></app-menu-settings>
-<router-outlet></router-outlet>
+<div class="main-container">
+<h3>Account Settings</h3>
+<div class="main-settings">
+    <div class="menu">
+        <app-menu-settings></app-menu-settings>
+    </div>
+    <div class="router"> 
+        <router-outlet></router-outlet>
+    </div>
+</div>
+</div>

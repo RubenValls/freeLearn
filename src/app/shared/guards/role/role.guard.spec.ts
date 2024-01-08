@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
-import { RoleGuard } from './role.guard';
-import { UsersService } from '../services/users/users.service';
-import { SharedModule } from '../shared.module';
+import { UsersService } from '../../services/users/users.service';
+import { SharedModule } from '../../shared.module';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { RoleGuard } from './role.guard';
 import { UserActions } from 'src/app/login/store/user.actions';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Component } from '@angular/core';

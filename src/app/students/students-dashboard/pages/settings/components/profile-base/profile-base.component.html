@@ -1,1 +1,36 @@
-<p>profile-base works!</p>
+<form [formGroup]="profileForm" class="form">
+  <div class="img-container" >
+      <div class="photo">
+        <img [src]="profileForm.get('photoURL')?.value" alt="User Photo" />
+      </div>
+
+      <mat-form-field class="input-name input-photo">
+        <mat-label>Photo Url</mat-label>
+        <input matInput formControlName="photoURL" type="string" />
+      </mat-form-field>
+  </div>
+<div class="data">
+  <mat-form-field class="input-name">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="displayName" type="string" />
+  </mat-form-field>
+
+  
+
+  <mat-form-field class="input-name">
+    <mat-label>Phone Number</mat-label>
+    <input matInput formControlName="phoneNumber" type="string" />
+  </mat-form-field>
+
+  <mat-form-field class="input-name">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" type="string" />
+    <!-- <mat-error *ngIf="instructorForm.get('name')?.hasError('required') && instructorForm.touched">
+        Name is required
+    </mat-error> -->
+  </mat-form-field>
+</div>
+
+</form>
+<app-button [label]="'Update profile'" [type]="'gradient'"></app-button>
+

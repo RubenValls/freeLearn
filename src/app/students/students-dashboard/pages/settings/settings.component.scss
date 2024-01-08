@@ -1,0 +1,15 @@
+.main-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.main-settings{
+    display: flex;
+    gap: 4rem;
+    width: 100%;
+    .menu{
+    }
+    .router{
+    }
+}
