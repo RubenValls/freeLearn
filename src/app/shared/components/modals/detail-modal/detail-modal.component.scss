@@ -96,14 +96,14 @@
         padding: 5px;
         display: flex;
         flex-direction: column;
-        justify-content: start;
+        justify-content: flex-start;
 
         margin: 20px 10px;
 
         .select-container {
             display: flex;
             flex-direction: column;
-            justify-content: start;
+            justify-content: flex-start;
             margin: 5px;
 
         }
@@ -126,7 +126,7 @@
         ul {
             list-style: none;
             display: flex;
-            justify-content: start;
+            justify-content: flex-start;
             gap: .5rem;
             margin-block-start: 0;
             margin-block-end: 0;
@@ -163,7 +163,7 @@
 
         .go-lessons {
             display: flex;
-            justify-content: end;
+            justify-content: flex-end;
             background-color: transparent;
 
             button {
