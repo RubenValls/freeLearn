@@ -11,6 +11,7 @@ import { TechService } from '../../../technologies/service/tech.service';
 import { InstructorsService } from '../../../instructors/instructors-service/instructors.service';
 import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 import { of } from 'rxjs';
+import { provideMockStore } from '@ngrx/store/testing';
 
 
 describe('AddCourseFormComponent', () => {
@@ -27,9 +28,6 @@ describe('AddCourseFormComponent', () => {
     instructorsService = jasmine.createSpyObj('InstructorsService', ['getInstructors']);
     alertsService = jasmine.createSpyObj('AlertsService', ['successMessage']);
 
-    techsService.getTechnologies.and.returnValue(of([]));
-    instructorsService.getInstructors.and.returnValue(of([]));
-
     TestBed.configureTestingModule({
       imports: [
         AdminsModule,
@@ -39,6 +37,7 @@ describe('AddCourseFormComponent', () => {
         provideAuth(() => getAuth()),
       ],
       providers: [
+        provideMockStore(),
         { provide: TechService, useValue: techsService },
         { provide: CoursesService, useValue: coursesService },
         { provide: InstructorsService, useValue: instructorsService },
@@ -47,7 +46,6 @@ describe('AddCourseFormComponent', () => {
     });
     fixture = TestBed.createComponent(AddCourseFormComponent);
     component = fixture.componentInstance;
-    component.ngOnInit();
   });
 
   it('should create', () => {
@@ -55,8 +53,13 @@ describe('AddCourseFormComponent', () => {
   });
   
   it('should initialize with technologies and instructors', () => {
-    expect(techsService.getTechnologies).toHaveBeenCalled();
-    expect(instructorsService.getInstructors).toHaveBeenCalled();
+    const techsSpy = spyOn(component.techs$, 'subscribe');
+    const instructorsSpy = spyOn(component.instructors$, 'subscribe');
+
+    component.ngOnInit();
+
+    expect(techsSpy).toHaveBeenCalled();
+    expect(instructorsSpy).toHaveBeenCalled();
   });
 
   it('should update techs selection', () => {

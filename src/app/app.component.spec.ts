@@ -28,4 +28,8 @@ describe('AppComponent', () => {
     component.ngOnInit();
     expect(firebase.initializeApp).toHaveBeenCalledWith(environment.firebaseConfig);
   });
+
+  it('should have title set to freeLearn', () => {
+    expect(component.title).toEqual('freeLearn');
+  });
 });

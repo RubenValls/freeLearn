@@ -21,4 +21,14 @@ describe('MainPageHeaderComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render logo in an img tag', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('.logo img')).toBeTruthy();
+  });
+
+  it('should render app-button component', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('app-button')).toBeTruthy();
+  });
 });

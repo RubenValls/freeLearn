@@ -26,7 +26,7 @@ describe('InstructorsFormComponent', () => {
       linkedin: 'https://www.linkedin.com/in/instructor1',
     },
     courses: [],
-    imagePath: 'path/to/image', // Add this property
+    imagePath: 'path/to/image',
     rating: [{
       userId: '1',
       rating: 4

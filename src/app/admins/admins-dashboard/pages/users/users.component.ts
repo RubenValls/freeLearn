@@ -14,7 +14,7 @@ import { selectUsers } from 'src/app/store/users/users.selectors';
 export class UsersComponent{
   users$ = this.store.select(selectUsers);
   modalWith: string = '800px';
-  modalHeight: string = '680px';
+  modalHeight: string = '500px';
   modalTitle: string = 'User';
 
 

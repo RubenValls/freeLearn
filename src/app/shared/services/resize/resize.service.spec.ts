@@ -1,16 +1,36 @@
 import { TestBed } from '@angular/core/testing';
 
 import { ResizeService } from './resize.service';
+import { first } from 'rxjs';
+import { NgZone } from '@angular/core';
 
 describe('ResizeService', () => {
   let service: ResizeService;
+  let ngZone: NgZone;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(ResizeService);
+    ngZone = TestBed.inject(NgZone);
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
+  });
+
+  it('should update isSmallScreen$ when window size is less than width', () => {
+    spyOnProperty(window, 'innerWidth').and.returnValue(500);
+    service.checkScreenSize(700);
+    service.isSmallScreen$.subscribe(isSmallScreen => {
+      expect(isSmallScreen).toBe(true);
+    });
+  });
+
+  it('should update isSmallScreen$ when window size is greater than width', () => {
+    spyOnProperty(window, 'innerWidth').and.returnValue(800);
+    service.checkScreenSize(700);
+    service.isSmallScreen$.subscribe(isSmallScreen => {
+      expect(isSmallScreen).toBe(false);
+    });
   });
 });

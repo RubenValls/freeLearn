@@ -49,6 +49,7 @@ export class CoursesService {
   };
 
   async updateCourse(id: string, course: Course) {
+    debugger
     const coursesRef = doc(this.firestore, "courses", id);
     await this.getCourseById(id).then((currentCourse) => this.currentCourse = currentCourse);
 
@@ -61,17 +62,26 @@ export class CoursesService {
       deletedIds?.forEach(techId => { this.techsService.deleteTechnologyCourses(techId, course.id!); });
     }
     if (!InstructorsEqual) {
-      console.log("instructors")
-      const { addedIds, deletedIds } = this.findIdsToEdit(this.currentCourse!.instructorId, course.instructorId);
-      console.log(addedIds, deletedIds, "addedIds, deletedIds")
+      const { addedIds, deletedIds } = this.findIdsToEdit(this.currentCourse!.instructorId, course.instructorId);     
       addedIds?.forEach(instructorId => { this.instructorsService.updateInstructorsCourses(instructorId, course.id!); });
       deletedIds?.forEach(instructorId => { this.instructorsService.deleteInstructorsCourses(instructorId, course.id!); });
     }
 
+    if (this.currentCourse && course && Techsequal && InstructorsEqual) {        
+
+      const sortedCurrentCourse = JSON.parse(JSON.stringify(this.currentCourse, Object.keys(this.currentCourse).sort()));
+      const sortedCourse = JSON.parse(JSON.stringify(course, Object.keys(course).sort()));
+      const courseEqual = JSON.stringify(sortedCurrentCourse) === JSON.stringify(sortedCourse);
+
+      if (courseEqual ) {
+        return Promise.reject({ message: "No changes were made to the course" });
+      }
+    }
+
     const courseUpdate = updateDoc(coursesRef, { ...course })
-    console.log(courseUpdate, "courseUpdate")
     return courseUpdate;
   };
+
   findIdsToEdit(currentTechs: Tech[], updatedTechs: Tech[]): { deletedIds: string[], addedIds: string[] } {
     const currentIds = currentTechs.map(tech => tech.id);
     const updatedIds = updatedTechs.map(tech => tech.id);
@@ -79,7 +89,6 @@ export class CoursesService {
     const deletedIds = currentIds.filter(techId => !updatedIds.includes(techId));
     return { addedIds, deletedIds };
   };
-
 
   deleteCourse(id: string) {
     console.log(id, "delete service")

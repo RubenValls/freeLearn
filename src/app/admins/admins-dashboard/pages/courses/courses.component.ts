@@ -15,7 +15,7 @@ export class CoursesComponent  {
   courses$ = this.store.select(selectCourses);
   
   modalWith: string = '1034';
-  modalHeight: string = '650px';
+  modalHeight: string = '600px';
   modalTitle: string = 'Courses';
 
   tableColumns = [
@@ -57,7 +57,7 @@ export class CoursesComponent  {
       this.alertMessages.successMessage('Course update successfully');
     })
     .catch((error) => {
-      this.alertMessages.errorMessage('Error updating Course', error.message);
+      this.alertMessages.errorMessage('Error updating Course: ', error.message);
     })
   }
 

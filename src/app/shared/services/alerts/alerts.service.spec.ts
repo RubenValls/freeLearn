@@ -53,4 +53,34 @@ describe('AlertsService', () => {
 
     expect(snackBarSpy.open).toHaveBeenCalledWith(message, action, { duration, panelClass: 'warning-snackbar' });
   });
+
+  it('should display an error message using the errorMessage method', () => {
+    const message = 'Error message';
+    const action = 'Close';
+    const duration = 2000;
+
+    service.errorMessage(message, action, duration);
+
+    expect(snackBarSpy.open).toHaveBeenCalledWith(message, action, { duration, panelClass: 'error-snackbar' });
+  });
+
+  it('should display a success message using the successMessage method', () => {
+    const message = 'Success message';
+    const action = 'Close';
+    const duration = 2000;
+
+    service.successMessage(message, action, duration);
+
+    expect(snackBarSpy.open).toHaveBeenCalledWith(message, action, { duration, panelClass: 'success-snackbar' });
+  });
+
+  it('should display a warning message using the warningMessage method', () => {
+    const message = 'Warning message';
+    const action = 'Close';
+    const duration = 2000;
+
+    service.warningMessage(message, action, duration);
+
+    expect(snackBarSpy.open).toHaveBeenCalledWith(message, action, { duration, panelClass: 'warning-snackbar' });
+  });
 });

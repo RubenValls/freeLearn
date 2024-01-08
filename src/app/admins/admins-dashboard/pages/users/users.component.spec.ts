@@ -13,6 +13,7 @@ describe('UsersComponent', () => {
   let storeMock: any;
   let alertMessagesMock: any;
   let userServiceMock: any;
+  let store: Store;
 
   beforeEach(async () => {
     const usersMock: User[] = [
@@ -58,6 +59,7 @@ describe('UsersComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(UsersComponent);
     component = fixture.componentInstance;
+    store = TestBed.inject(Store);
     fixture.detectChanges();
   });
 
@@ -65,7 +67,11 @@ describe('UsersComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should edit user', async () => {
+  it('should select users from store on init', () => {
+    expect(storeMock.select).toHaveBeenCalled();
+  });
+
+  it('should update user and show success message on edit', async () => {
     const user = {
       id: '1',
       displayName: 'John Doe',
@@ -83,6 +89,29 @@ describe('UsersComponent', () => {
     await component.onEdit(user);
     expect(userServiceMock.updateUser).toHaveBeenCalledWith(user.id, user);
     expect(alertMessagesMock.successMessage).toHaveBeenCalledWith('User update successfully');
+  });
+
+  it('should show error message if update fails', async () => {
+    const user = {
+      id: '1',
+      displayName: 'John Doe',
+      email: 'john.doe@example.com',
+      phoneNumber: '+1234567890',
+      photoURL: 'http://example.com/john_doe.jpg',
+      providerId: 'provider123',
+      rememberMe: true,
+      role: 'admin',
+      favorites: ['item1', 'item2'],
+      uid: 'user123',
+      authUid: 'auth123'
+    };
+    userServiceMock.updateUser.and.returnValue(Promise.reject({ message: 'Error' }));
+    await component.onEdit(user);
+
+    fixture.whenStable().then(() => {
+      expect(userServiceMock.updateUser).toHaveBeenCalledWith(user.id, user);
+      expect(alertMessagesMock.errorMessage).toHaveBeenCalledWith('Error updating user', 'Error');
+    });
   });
 
 });
