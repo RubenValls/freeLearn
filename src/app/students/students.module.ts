@@ -12,6 +12,9 @@ import { TrainersComponent } from './students-dashboard/pages/trainers/trainers.
 import { TechnologiesComponent } from './students-dashboard/pages/technologies/technologies.component';
 import { SettingsComponent } from './students-dashboard/pages/settings/settings.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { MenuSettingsComponent } from './students-dashboard/pages/settings/components/menu-settings/menu-settings.component';
+import { ProfileBaseComponent } from './students-dashboard/pages/settings/components/profile-base/profile-base.component';
+import { PasswordComponent } from './students-dashboard/pages/settings/components/password/password.component';
 
 
 
@@ -23,7 +26,10 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     CoursesComponent,
     TrainersComponent,
     TechnologiesComponent,
-    SettingsComponent
+    SettingsComponent,
+    MenuSettingsComponent,
+    ProfileBaseComponent,
+    PasswordComponent
   ],
   imports: [
     CommonModule,
