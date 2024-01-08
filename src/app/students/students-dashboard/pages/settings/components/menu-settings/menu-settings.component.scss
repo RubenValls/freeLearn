@@ -1,11 +1,39 @@
-.active{
-    height: 50px;
-    border-left: 2px solid;
-    border-image: linear-gradient(to bottom, #4defa7, #2d71fa) 1;
+.main-settings {
+    .menu {
+        display: flex;
+        flex-direction: column;
+        .item {
+            display: flex;
+            align-items: center;
+            height: 30px;
+            
+            span{
+                padding: 2px 6px;
+                margin-left: 0.5rem;
+                border-radius: 5px;
+            }
+            
+        }
+        .active {
+            height: 30px;
+            border-left: 2px solid;
+            border-image: linear-gradient(to bottom, #4defa7, #2d71fa) 1;
+            span{
+                background: var(--gradient);
+                padding: 2px 6px;
+                margin-left: 0.5rem;
+                border-radius: 5px;
+            }
 
-    i{
-        color: transparent;
-        background: var(--gradient);
-        -webkit-background-clip: text;
+            i {
+                color: white;
+                background: var(--gradient);
+                -webkit-background-clip: text;
+            }
+        }
+
     }
+
+
+
 }
