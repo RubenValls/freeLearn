@@ -15,7 +15,10 @@ const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
       { path: 'courses', component: CoursesComponent },
-      { path: 'trainers', component: TrainersComponent },
+      { path: 'trainers', component: TrainersComponent, children: [
+        { path: '', component: TrainersComponent },
+        { path: ':id', component: TrainersComponent }
+      ] },
       { path: 'technologies', component: TechnologiesComponent },
       { path: 'settings', component: SettingsComponent, children:[
         { path: '', component: ProfileBaseComponent },

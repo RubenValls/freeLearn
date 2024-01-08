@@ -1,1 +1,3 @@
-<app-instructor-card></app-instructor-card>
+<div *ngFor="let instructor of instructors">
+    <app-instructor-card [instructor]="instructor"></app-instructor-card>
+</div>
