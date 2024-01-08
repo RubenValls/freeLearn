@@ -7,5 +7,18 @@ import { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/
   styleUrls: ['./course-cards.component.scss']
 })
 export class CourseCardsComponent {
-@Input() course: Course | undefined;
+  @Input() course: Course | undefined;
+
+
+  getRatingAverage(ratings: any[] | undefined): number {
+    const sum = ratings?.reduce((total, item) => total + item.rating, 0);
+    let average = 0;
+    let roundedAverage = 0;
+    if (ratings?.length) {
+      average = sum / ratings?.length;
+      roundedAverage = Math.round(average);
+    }
+    return roundedAverage;
+  }
+
 }
