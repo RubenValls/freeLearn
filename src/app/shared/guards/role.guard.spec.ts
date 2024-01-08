@@ -7,9 +7,11 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
 
 describe('RoleGuard', () => {
+  let store: MockStore;
   const executeGuard: CanActivateFn = (...guardParameters) => 
       TestBed.runInInjectionContext(() => RoleGuard(...guardParameters));
 
@@ -20,8 +22,12 @@ describe('RoleGuard', () => {
         provideFirestore(() => getFirestore()),
         provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
         provideAuth(() => getAuth()),
-      ]
+      ],
+      providers: [
+        provideMockStore(),
+      ],
     });
+    store = TestBed.inject(MockStore);
   });
 
   it('should be created', () => {
