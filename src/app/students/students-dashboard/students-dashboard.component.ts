@@ -7,10 +7,15 @@ import { effectsActions } from 'src/app/store/effectsActions';
   templateUrl: './students-dashboard.component.html',
   styleUrls: ['./students-dashboard.component.scss']
 })
-export class StudentsDashboardComponent {
+export class StudentsDashboardComponent implements OnInit{
 
   constructor(
     private store: Store,
   ) { } 
 
+  ngOnInit(): void {
+    this.store.dispatch(effectsActions.fetchTechnologies);
+    this.store.dispatch(effectsActions.fetchInstructors);
+    this.store.dispatch(effectsActions.fetchCourses);
+  }
 }

@@ -1,11 +1,18 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { UsersService } from '../services/users/users.service';
+import { UserActions } from 'src/app/login/store/user.actions';
+import { Store } from '@ngrx/store';
 
 export const RoleGuard: CanActivateFn = (route, state) => {
   
+
   const usersService = inject(UsersService)
+  const store = inject(Store)
   const user = usersService.getUserFromStorage()
+  if(user){
+    store.dispatch(UserActions.addUser({ user: user }));
+  }
   const role = user?.role
   const expectedRole = route.data['expectedRole'];
 
