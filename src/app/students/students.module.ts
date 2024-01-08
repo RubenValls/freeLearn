@@ -15,7 +15,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { MenuSettingsComponent } from './students-dashboard/pages/settings/components/menu-settings/menu-settings.component';
 import { ProfileBaseComponent } from './students-dashboard/pages/settings/components/profile-base/profile-base.component';
 import { PasswordComponent } from './students-dashboard/pages/settings/components/password/password.component';
-
+import { CourseCardsComponent } from './students-dashboard/pages/courses/components/course-cards/course-cards.component';
 
 
 @NgModule({
@@ -29,7 +29,8 @@ import { PasswordComponent } from './students-dashboard/pages/settings/component
     SettingsComponent,
     MenuSettingsComponent,
     ProfileBaseComponent,
-    PasswordComponent
+    PasswordComponent,
+    CourseCardsComponent
   ],
   imports: [
     CommonModule,
