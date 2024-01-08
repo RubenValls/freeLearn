@@ -12,6 +12,8 @@ import { TrainersComponent } from './students-dashboard/pages/trainers/trainers.
 import { TechnologiesComponent } from './students-dashboard/pages/technologies/technologies.component';
 import { SettingsComponent } from './students-dashboard/pages/settings/settings.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { CourseCardsComponent } from './students-dashboard/pages/courses/components/course-cards/course-cards.component';
+
 
 
 
@@ -23,7 +25,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     CoursesComponent,
     TrainersComponent,
     TechnologiesComponent,
-    SettingsComponent
+    SettingsComponent,
+    CourseCardsComponent
   ],
   imports: [
     CommonModule,
