@@ -8,13 +8,10 @@ import { TechnologiesComponent } from './students-dashboard/pages/technologies/t
 import { SettingsComponent } from './students-dashboard/pages/settings/settings.component';
 import { ProfileBaseComponent } from './students-dashboard/pages/settings/components/profile-base/profile-base.component';
 import { PasswordComponent } from './students-dashboard/pages/settings/components/password/password.component';
-<<<<<<< HEAD
 import { RoleGuard } from '../shared/guards/role/role.guard';
-=======
 import { InstructorPageComponent } from './students-dashboard/pages/trainers/components/instructor-page/instructor-page.component';
 import { InstructorsMainPageComponent } from './students-dashboard/pages/trainers/components/instructors-main-page/instructors-main-page.component';
 import { instructorResolver } from './students-dashboard/pages/trainers/resolver/instructor.resolver';
->>>>>>> dev-stu-instructors
 
 const routes: Routes = [
     { path: '', component: StudentsDashboardComponent, canActivate:[RoleGuard], data: {expectedRole: 'student'}, children: [
