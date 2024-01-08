@@ -29,7 +29,7 @@ import { PasswordComponent } from './students-dashboard/pages/settings/component
     SettingsComponent,
     MenuSettingsComponent,
     ProfileBaseComponent,
-    PasswordComponent
+    PasswordComponent,
   ],
   imports: [
     CommonModule,
