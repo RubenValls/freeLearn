@@ -9,6 +9,9 @@ import { TechnologiesComponent } from './students-dashboard/pages/technologies/t
 import { SettingsComponent } from './students-dashboard/pages/settings/settings.component';
 import { ProfileBaseComponent } from './students-dashboard/pages/settings/components/profile-base/profile-base.component';
 import { PasswordComponent } from './students-dashboard/pages/settings/components/password/password.component';
+import { InstructorPageComponent } from './students-dashboard/pages/trainers/components/instructor-page/instructor-page.component';
+import { InstructorsMainPageComponent } from './students-dashboard/pages/trainers/components/instructors-main-page/instructors-main-page.component';
+import { instructorResolver } from './students-dashboard/pages/trainers/resolver/instructor.resolver';
 
 const routes: Routes = [
     { path: '', component: StudentsDashboardComponent, canActivate:[RoleGuard], data: {expectedRole: 'student'}, children: [
@@ -16,8 +19,10 @@ const routes: Routes = [
       { path: 'home', component: HomeComponent },
       { path: 'courses', component: CoursesComponent },
       { path: 'trainers', component: TrainersComponent, children: [
-        { path: '', component: TrainersComponent },
-        { path: ':id', component: TrainersComponent }
+        { path: '', component: InstructorsMainPageComponent },
+        { path: ':id', component: InstructorPageComponent, resolve: {
+          data: instructorResolver
+        } }
       ] },
       { path: 'technologies', component: TechnologiesComponent },
       { path: 'settings', component: SettingsComponent, children:[

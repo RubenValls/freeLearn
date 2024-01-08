@@ -9,21 +9,6 @@ import { selectInstructor } from 'src/app/store/instructors/instructors.selector
   templateUrl: './trainers.component.html',
   styleUrls: ['./trainers.component.scss']
 })
-export class TrainersComponent implements OnInit, OnDestroy{
-  instructors$ = this.store.select(selectInstructor);
-  instructorsSubscription: Subscription | undefined;
-  instructors: Instructor[] = []
+export class TrainersComponent {
 
-  constructor(private store: Store) {}
-
-  ngOnInit(): void {
-    this.instructorsSubscription = this.instructors$.subscribe((data) => {
-      this.instructors = [...data]
-      console.log(data)
-    })
-  }
-
-  ngOnDestroy(): void {
-    this.instructorsSubscription?.unsubscribe()
-  }
 }
