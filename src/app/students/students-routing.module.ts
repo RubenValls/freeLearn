@@ -7,6 +7,8 @@ import { CoursesComponent } from './students-dashboard/pages/courses/courses.com
 import { TrainersComponent } from './students-dashboard/pages/trainers/trainers.component';
 import { TechnologiesComponent } from './students-dashboard/pages/technologies/technologies.component';
 import { SettingsComponent } from './students-dashboard/pages/settings/settings.component';
+import { ProfileBaseComponent } from './students-dashboard/pages/settings/components/profile-base/profile-base.component';
+import { PasswordComponent } from './students-dashboard/pages/settings/components/password/password.component';
 
 const routes: Routes = [
     { path: '', component: StudentsDashboardComponent, canActivate:[RoleGuard], data: {expectedRole: 'student'}, children: [
@@ -15,7 +17,10 @@ const routes: Routes = [
       { path: 'courses', component: CoursesComponent },
       { path: 'trainers', component: TrainersComponent },
       { path: 'technologies', component: TechnologiesComponent },
-      { path: 'settings', component: SettingsComponent },
+      { path: 'settings', component: SettingsComponent, children:[
+        { path: '', component: ProfileBaseComponent },
+        { path: 'password', component: PasswordComponent },
+      ] },
     ] },
 ];
 
