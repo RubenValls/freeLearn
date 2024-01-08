@@ -11,7 +11,7 @@ export class InstructorPageComponent {
   instructor: Instructor | undefined
   constructor(private route: ActivatedRoute) {
     this.route.data.subscribe(data => {
-      this.instructor = data['data'][0]
+      this.instructor = data['data']
     });
   }
 }
