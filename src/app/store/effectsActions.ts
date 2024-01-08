@@ -1,6 +1,6 @@
 export const effectsActions = {
-    fetchCourses: { type: 'Fetch Courses' },
-    fetchInstructors: { type: 'Fetch Instructors' },
-    fetchTechnologies: { type: 'Fetch Technologies' },
-    fetchUsers: { type: 'Fetch Users' }
+    fetchCourses: 'Fetch Courses',
+    fetchInstructors: 'Fetch Instructors',
+    fetchTechnologies: 'Fetch Technologies' ,
+    fetchUsers: 'Fetch Users'
 }

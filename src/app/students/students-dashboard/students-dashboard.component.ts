@@ -14,8 +14,8 @@ export class StudentsDashboardComponent implements OnInit{
   ) { } 
 
   ngOnInit(): void {
-    this.store.dispatch(effectsActions.fetchTechnologies);
-    this.store.dispatch(effectsActions.fetchInstructors);
-    this.store.dispatch(effectsActions.fetchCourses);
+    this.store.dispatch({type: effectsActions.fetchTechnologies});
+    this.store.dispatch({type: effectsActions.fetchInstructors});
+    this.store.dispatch({type: effectsActions.fetchCourses});
   }
 }
