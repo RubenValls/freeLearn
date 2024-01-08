@@ -10,28 +10,27 @@ import { selectUser } from 'src/app/login/store/user.selectors';
 })
 export class ProfileBaseComponent implements OnInit {
   user$ = this.store.select(selectUser);
-  profileForm: FormGroup;  // Quita el tipo `undefined` aquí
+  profileForm: FormGroup;  
 
   constructor(private store: Store, private fb: FormBuilder) {
     this.profileForm = this.fb.group({
       email: ['', Validators.required],
       phoneNumber: [''],
       displayName: [''],
+      photoURL: ['']
     });
   }
 
   ngOnInit() {
     this.user$.subscribe(user => {
       if (user) {
-        this.profileForm.patchValue(user);  // Puedes utilizar patchValue para establecer los valores del usuario
+        this.profileForm.patchValue(user);  
       }
     });
   }
 
   onSubmit() {
     if (this.profileForm.valid) {
-      // Realiza acciones con los datos del formulario, por ejemplo, enviar al servidor
-      // this.profileForm.value contiene los valores del formulario
       console.log(this.profileForm.value);
     }
   }
