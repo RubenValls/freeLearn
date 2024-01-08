@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { selectUser } from 'src/app/login/store/user.selectors';
 
 @Component({
   selector: 'app-settings',
@@ -7,4 +9,7 @@ import { Component } from '@angular/core';
 })
 export class SettingsComponent {
 
+  user$ = this.store.select(selectUser);
+
+  constructor(private store: Store) {}
 }
