@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginPageComponent } from './login-page/login-page.component';
-import { RoleGuard } from '../shared/guards/role.guard';
+import { RoleGuard } from '../shared/guards/role/role.guard';
 
 const routes: Routes = [
     { path: '', component: LoginPageComponent, canActivate:[RoleGuard] },
