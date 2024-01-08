@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { effectsActions } from 'src/app/store/effectsActions';
 
 @Component({
   selector: 'app-main-page',
@@ -13,9 +14,9 @@ export class MainPageComponent implements OnInit{
   ) { } 
 
   ngOnInit(): void {
-    this.store.dispatch({ type: 'Fetch Technologies' });
-    this.store.dispatch({ type: 'Fetch Instructors' });
-    this.store.dispatch({ type: 'Fetch Courses' });
+    this.store.dispatch(effectsActions.fetchTechnologies);
+    this.store.dispatch(effectsActions.fetchInstructors);
+    this.store.dispatch(effectsActions.fetchCourses);
   }
 
 }

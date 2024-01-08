@@ -1,3 +1,4 @@
+import { effectsActions } from './../../store/effectsActions';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 
@@ -14,10 +15,10 @@ export class AdminsDashboardComponent {
   ) { } 
 
   ngOnInit(): void {
-    this.store.dispatch({ type: 'Fetch Technologies' });
-    this.store.dispatch({ type: 'Fetch Instructors' });
-    this.store.dispatch({ type: 'Fetch Courses' });
-    this.store.dispatch({ type: 'Fetch Users' });
+    this.store.dispatch(effectsActions.fetchTechnologies);
+    this.store.dispatch(effectsActions.fetchInstructors);
+    this.store.dispatch(effectsActions.fetchCourses);
+    this.store.dispatch(effectsActions.fetchUsers);
   }
 
 }
