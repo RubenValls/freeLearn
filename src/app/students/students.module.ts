@@ -15,6 +15,9 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { MenuSettingsComponent } from './students-dashboard/pages/settings/components/menu-settings/menu-settings.component';
 import { ProfileBaseComponent } from './students-dashboard/pages/settings/components/profile-base/profile-base.component';
 import { PasswordComponent } from './students-dashboard/pages/settings/components/password/password.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -37,7 +40,10 @@ import { PasswordComponent } from './students-dashboard/pages/settings/component
     SharedModule,
     MatDialogModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatInputModule,
+    MatFormFieldModule,
+    ReactiveFormsModule
   ]
 })
 export class StudentsModule { }
