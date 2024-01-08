@@ -1,0 +1,41 @@
+<div class="flex-container" [routerLink]="instructor?.id">
+    <section class="circle-section">
+     <img [src]="instructor?.imagePath"/>
+    </section>
+  
+    <section class="block-section">
+      <div class="text-section">
+        <h3 class="role">{{instructor?.name}}</h3>
+      </div>
+      <div class="image-section">
+        <a *ngIf="instructor?.socialMedia?.twitter" href="{{ instructor?.socialMedia?.twitter }}" target="_blank">
+            <i class="bi bi-twitter-x"></i>
+        </a>
+        <a
+            *ngIf="instructor?.socialMedia?.youtube"
+            class="youtube"
+            href="{{ instructor?.socialMedia?.youtube }}"
+            target="_blank"
+            >
+                <i class="bi bi-youtube"></i>
+        </a>
+        <a
+            *ngIf="instructor?.socialMedia?.linkedin"
+            class="linkedin"
+            href="{{ instructor?.socialMedia?.linkedin }}"
+            target="_blank"
+            >
+                <i class="bi bi-linkedin"></i>
+        </a>
+        <a
+            *ngIf="instructor?.socialMedia?.web"
+            class="web"
+            href="{{ instructor?.socialMedia?.web }}"
+            target="_blank"
+            >
+                <i class="bi bi-browser-chrome"></i>
+        </a>
+      </div>
+    </section>
+</div>
+  

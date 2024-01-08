@@ -19,6 +19,8 @@ import { CourseCardsComponent } from './students-dashboard/pages/courses/compone
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
+import { InstructorPageComponent } from './students-dashboard/pages/trainers/components/instructor-page/instructor-page.component';
+import { InstructorsMainPageComponent } from './students-dashboard/pages/trainers/components/instructors-main-page/instructors-main-page.component';
 
 
 
@@ -34,7 +36,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MenuSettingsComponent,
     ProfileBaseComponent,
     PasswordComponent,
-    CourseCardsComponent
+    CourseCardsComponent,
+    InstructorPageComponent,
+    InstructorsMainPageComponent,
   ],
   imports: [
     CommonModule,

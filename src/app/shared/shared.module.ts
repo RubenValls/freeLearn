@@ -18,6 +18,7 @@ import { SubModalCreateComponent } from './components/modals/sub-modals/sub-moda
 import { RouterModule } from '@angular/router';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { InstructorCardComponent } from './components/instructor-card/instructor-card.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { MatSelectModule } from '@angular/material/select';
     CourseCardComponent,
     SubDetailModalComponent,
     SubModalCreateComponent,
+    InstructorCardComponent,
   ],
   imports: [
     CommonModule,
@@ -51,6 +53,7 @@ import { MatSelectModule } from '@angular/material/select';
     ErrorPageComponent,
     ButtonComponent,
     CourseCardComponent,
+    InstructorCardComponent,
   ]
 })
 export class SharedModule { }
