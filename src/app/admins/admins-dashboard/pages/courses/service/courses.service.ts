@@ -90,9 +90,20 @@ export class CoursesService {
     return { addedIds, deletedIds };
   };
 
-  deleteCourse(id: string) {
-    console.log(id, "delete service")
+
+  async deleteCourse(id: string) {    
     const coursesRef = doc(this.firestore, "courses", id);
+    if(coursesRef){
+      await this.getCourseById(id).then((currentCourse) => this.currentCourse = currentCourse);
+      const techsIds = this.currentCourse!.techs.map(tech => tech.id);
+      const instructorsIds = this.currentCourse!.instructorId.map(instructor => instructor.id);
+      techsIds.forEach(techId => {
+        this.techsService.deleteTechnologyCourses(techId, id);
+      });
+      instructorsIds.forEach(instructorId => {
+        this.instructorsService.deleteInstructorsCourses(instructorId, id);
+      });
+    }
     return deleteDoc(coursesRef);
   };
 
