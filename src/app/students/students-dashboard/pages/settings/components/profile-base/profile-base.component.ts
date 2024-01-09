@@ -6,8 +6,8 @@ import { UserActions } from 'src/app/login/store/user.actions';
 import { selectUser } from 'src/app/login/store/user.selectors';
 import { User } from 'src/app/login/types/user';
 import { UpdateModalComponent } from 'src/app/shared/components/modals/update-modal/update-modal.component';
+import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 import { UsersService } from 'src/app/shared/services/users/users.service';
-import { effectsActions } from 'src/app/store/effectsActions';
 
 @Component({
   selector: 'app-profile-base',
@@ -23,7 +23,8 @@ export class ProfileBaseComponent implements OnInit {
     private store: Store,
     private fb: FormBuilder,
     public dialog: MatDialog,
-    private userService: UsersService
+    private userService: UsersService,
+    private alertMessage: AlertsService
   ) {
     this.profileForm = this.fb.group({
       email: ['', Validators.required],
@@ -43,8 +44,7 @@ export class ProfileBaseComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    if (this.profileForm.valid) {
+  editUser() {
       const userUpdated = {
         ...this.user,
         ...this.profileForm.value,
@@ -52,15 +52,23 @@ export class ProfileBaseComponent implements OnInit {
       this.userService
         .updateUser(userUpdated.id, userUpdated)
         .then(() => {
-          this.store.dispatch(UserActions.updateUser({user:userUpdated}))
-          this.userService.saveUserInStorage(userUpdated.rememberMe, userUpdated)
+          this.alertMessage.successMessage('User update successfully');
+          this.store.dispatch(UserActions.updateUser({ user: userUpdated }));
+          this.userService.saveUserInStorage(
+            userUpdated.rememberMe,
+            userUpdated
+          );
         })
         .catch((error) => console.log(error));
-
-      
-      // this.dialog.open(UpdateModalComponent, {data:{
-      //   data: this.profileForm.value
-      // }})
-    }
   }
+
+  onSubmit() {
+      this.dialog.open(UpdateModalComponent, {
+        data: {
+          data: this.profileForm.value,
+          onEdit: this.editUser
+        },
+      });
+    }
+  
 }

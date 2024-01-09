@@ -9,13 +9,13 @@
     </div>
     <div mat-dialog-content class="modal-body">
       <h5 mat-dialog-title class="title">Update {{ title }}</h5>
-      <p class="text">Are you sure you want to permanently update this file?</p>
+      <p class="text">Are you sure you want to permanently update ?</p>
       <p class="text-advise">This action cannot be undone</p>
     </div>
 
     <div class="modal-buttons">
         <app-button
-        [label]="'Update file'"
+        [label]="'Update'"
         [type]="'success'"
         (onClick)="onUpdate()"
       ></app-button>

@@ -1,5 +1,4 @@
 .main-container{
-
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -8,12 +7,14 @@
     max-height: 97%;
     padding-right: 2rem;
     box-sizing: content-box;
+    h3{
+      margin-top: 1rem;
+    }
 }
 .main-settings{
     display: flex;
     gap: 4rem;
     width: 100%;
-    
 
     @media (width < 750px) {
         flex-direction: column;
@@ -39,6 +40,4 @@
     background: var(--gradient);   
     border-radius: 20px;
     
-       
-
-  }
+}
