@@ -23,6 +23,7 @@ import { InstructorPageComponent } from './students-dashboard/pages/trainers/com
 import { InstructorsMainPageComponent } from './students-dashboard/pages/trainers/components/instructors-main-page/instructors-main-page.component';
 import { CoursePageComponent } from './students-dashboard/pages/courses/components/course-page/course-page.component';
 import { CoursesMainPageComponent } from './students-dashboard/pages/courses/components/courses-main-page/courses-main-page.component';
+import { HeaderComponent } from './students-dashboard/pages/trainers/components/instructor-page/components/header/header.component';
 
 
 
@@ -43,6 +44,7 @@ import { CoursesMainPageComponent } from './students-dashboard/pages/courses/com
     InstructorsMainPageComponent,
     CoursePageComponent,
     CoursesMainPageComponent,
+    HeaderComponent,
   ],
   imports: [
     CommonModule,

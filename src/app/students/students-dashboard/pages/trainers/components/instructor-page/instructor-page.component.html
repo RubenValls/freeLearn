@@ -1,43 +1,4 @@
 <div class="instructors-page row p-3">
-    <div class="row">
-        <div class="col-xs-12 col-md-6 mt-3" id="instructor-image">
-            <img class="image" [src]="instructor?.imagePath"/>
-        </div>
-        <div class="col-xs-12 col-md-6 mt-3">
-            <div class="row">
-                <h3 id="instructor-name">{{instructor?.name}}</h3>
-                <div class="socialmedia-section mx-2">
-                    <h4>Social Media: </h4>
-                    <a *ngIf="instructor?.socialMedia?.twitter" href="{{ instructor?.socialMedia?.twitter }}" target="_blank">
-                        <i class="bi bi-twitter-x"></i>
-                    </a>
-                    <a
-                        *ngIf="instructor?.socialMedia?.youtube"
-                        class="youtube"
-                        href="{{ instructor?.socialMedia?.youtube }}"
-                        target="_blank"
-                        >
-                            <i class="bi bi-youtube"></i>
-                    </a>
-                    <a
-                        *ngIf="instructor?.socialMedia?.linkedin"
-                        class="linkedin"
-                        href="{{ instructor?.socialMedia?.linkedin }}"
-                        target="_blank"
-                        >
-                            <i class="bi bi-linkedin"></i>
-                    </a>
-                    <a
-                        *ngIf="instructor?.socialMedia?.web"
-                        class="web"
-                        href="{{ instructor?.socialMedia?.web }}"
-                        target="_blank"
-                        >
-                            <i class="bi bi-browser-chrome"></i>
-                    </a>
-                  </div>
-            </div>
-        </div>
-    </div>
+    <app-header [instructor]="instructor"></app-header>
 </div>
 
