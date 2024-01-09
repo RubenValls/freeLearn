@@ -12,12 +12,20 @@ import { RoleGuard } from '../shared/guards/role/role.guard';
 import { InstructorPageComponent } from './students-dashboard/pages/trainers/components/instructor-page/instructor-page.component';
 import { InstructorsMainPageComponent } from './students-dashboard/pages/trainers/components/instructors-main-page/instructors-main-page.component';
 import { instructorResolver } from './students-dashboard/pages/trainers/resolver/instructor.resolver';
+import { CoursesMainPageComponent } from './students-dashboard/pages/courses/components/courses-main-page/courses-main-page.component';
+import { CoursePageComponent } from './students-dashboard/pages/courses/components/course-page/course-page.component';
+import { courseResolver } from './students-dashboard/pages/courses/resolver/course.resolver';
 
 const routes: Routes = [
     { path: '', component: StudentsDashboardComponent, canActivate:[RoleGuard], data: {expectedRole: 'student'}, children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
-      { path: 'courses', component: CoursesComponent },
+      { path: 'courses', component: CoursesComponent, children:[
+        {path: '', component: CoursesMainPageComponent},
+        {path: ':id', component: CoursePageComponent, resolve: {
+          data: courseResolver
+        }}
+      ] },
       { path: 'trainers', component: TrainersComponent, children: [
         { path: '', component: InstructorsMainPageComponent },
         { path: ':id', component: InstructorPageComponent, resolve: {
