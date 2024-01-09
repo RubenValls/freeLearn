@@ -1,25 +1,33 @@
 <div class="main-settings">
-    <div class="menu">
-       <div class="item" routerLink="profile" routerLinkActive="active">
-        <div class="data">
-            <span class="logo"><i class="bi bi-person-fill"></i></span>
-            Profile base
-        </div>
-        <div class="arrow">
-            <i class="bi bi-chevron-right"></i>
-        </div>
-        
-       </div>
-       <hr>
-       <div class="item" routerLink="password" routerLinkActive="active">
-        <div class="data">
-            <span class="logo"><i class="bi bi-lock-fill"></i></span>
-            Password
-        </div>
-        <div class="arrow">
-            <i class="bi bi-chevron-right"></i>
-
-        </div>
-    </div>  
+  <div class="menu">
+    <div class="item" routerLink="profile" routerLinkActive="active">
+      <div class="data">
+        <span class="logo"><i class="bi bi-person-fill"></i></span>
+        Profile base
+      </div>
+      <div class="arrow">
+        <i class="bi bi-chevron-right"></i>
+      </div>
     </div>
+    <hr />
+    <div class="item" routerLink="password" routerLinkActive="active">
+      <div class="data">
+        <span class="logo"><i class="bi bi-lock-fill"></i></span>
+        Password
+      </div>
+      <div class="arrow">
+        <i class="bi bi-chevron-right"></i>
+      </div>
+    </div>
+    <hr>
+    <div class="item logout" (click)="handleLogOut()">
+      <div class="data">
+        <span class="logo"><i class="bi bi-person-walking"></i></span>
+        Logout
+      </div>
+      <div class="arrow">
+        <i class="bi bi-chevron-right"></i>
+      </div>
+    </div>
+  </div>
 </div>

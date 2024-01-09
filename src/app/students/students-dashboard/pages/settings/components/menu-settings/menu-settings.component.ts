@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu-settings',
@@ -6,5 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./menu-settings.component.scss']
 })
 export class MenuSettingsComponent {
+
+  constructor(private router: Router){
+
+  }
+
+  handleLogOut(){
+    localStorage.removeItem('userInfo');
+    sessionStorage.removeItem('userInfo')
+    this.router.navigate(['/login'])
+  }
+
 
 }
