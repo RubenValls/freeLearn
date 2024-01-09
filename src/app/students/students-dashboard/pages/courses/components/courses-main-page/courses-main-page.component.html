@@ -1,1 +1,6 @@
-<p>courses-main-page works!</p>
+<div class="course row">
+    <div class="courses-cards col-sm-12 col-md-6 col-lg-6  " *ngFor="let course of courses">       
+             <app-course-cards [course]="course"></app-course-cards>  
+       
+    </div>
+</div> 
