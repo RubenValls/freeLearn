@@ -49,7 +49,6 @@ export class CoursesService {
   };
 
   async updateCourse(id: string, course: Course) {
-    debugger
     const coursesRef = doc(this.firestore, "courses", id);
     await this.getCourseById(id).then((currentCourse) => this.currentCourse = currentCourse);
 

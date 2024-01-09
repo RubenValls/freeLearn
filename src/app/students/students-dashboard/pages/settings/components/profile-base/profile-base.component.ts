@@ -36,7 +36,8 @@ export class ProfileBaseComponent implements OnInit {
 
   ngOnInit() {
     this.user$.subscribe((user) => {
-      console.log(user);
+      console.log('User$: ', this.user$);
+      console.log('User: ', user);
       if (user) {
         this.user = user;
         this.profileForm.patchValue(user);
@@ -44,29 +45,30 @@ export class ProfileBaseComponent implements OnInit {
     });
   }
 
-  editUser() {
-      const userUpdated = {
-        ...this.user,
-        ...this.profileForm.value,
-      };
-      this.userService
-        .updateUser(userUpdated.id, userUpdated)
+  onEdit(userUpdated: User) {
+    console.log("hola" ,userUpdated);
+    
+      this.userService.updateUser(userUpdated.id ? userUpdated.id : "", userUpdated)
         .then(() => {
-          this.alertMessage.successMessage('User update successfully');
           this.store.dispatch(UserActions.updateUser({ user: userUpdated }));
-          this.userService.saveUserInStorage(
-            userUpdated.rememberMe,
-            userUpdated
-          );
+          this.userService.saveUserInStorage(userUpdated.rememberMe, userUpdated);
         })
         .catch((error) => console.log(error));
+    
+      
   }
 
+
   onSubmit() {
+    const userUpdated = {
+      ...this.user,
+      ...this.profileForm?.value,
+    };
+
       this.dialog.open(UpdateModalComponent, {
         data: {
-          data: this.profileForm.value,
-          onEdit: this.editUser
+          editData: userUpdated,
+          onEdit: this.onEdit.bind(this)
         },
       });
     }
