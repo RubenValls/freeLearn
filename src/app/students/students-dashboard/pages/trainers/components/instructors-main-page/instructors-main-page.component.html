@@ -1,3 +1,20 @@
-<div *ngFor="let instructor of instructors">
-    <app-instructor-card [instructor]="instructor"></app-instructor-card>
+<div class="instructors-page">
+    <h3>Trainers</h3>
+    <h5>Most rated trainers</h5>
+    <div class="instructors-cards">
+        <app-instructor-card [instructor]="instructor" *ngFor="let instructor of topInstructors"></app-instructor-card>
+    </div>
+    <div class="all-instructors-container">
+        <h5>All trainers</h5>
+        <div class="filter-container">
+            <mat-form-field>
+                <mat-label>Filter by name</mat-label>
+                <input matInput [formControl]="name">
+            </mat-form-field>
+        </div>
+        <div class="instructors-cards">
+            <app-instructor-card [instructor]="instructor" *ngFor="let instructor of getInstructors()"></app-instructor-card>
+        </div>
+    </div>
 </div>
+

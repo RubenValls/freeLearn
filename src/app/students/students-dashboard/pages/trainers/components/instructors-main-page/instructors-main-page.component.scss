@@ -1,0 +1,40 @@
+$bg: white;
+$barsize: 15px;
+
+.instructors-page{
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    max-width: 100vw;
+    height: auto;
+    overflow: scroll;
+    overflow-x: hidden;
+    border-radius: 20px; 
+
+    .instructors-cards{
+        width: 80%;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(325px, 1fr));
+        gap: 5px;
+    }
+
+    .all-instructors-container{
+        margin-top: 20px;
+        
+        .filter-container{
+            display: flex;
+        }
+    }
+}
+
+@media (max-width: 500px) {
+    
+    .instructors-page{
+        padding: 5px;
+
+        .instructors-cards {
+            grid-template-columns: 1fr;
+          }
+    }
+}
