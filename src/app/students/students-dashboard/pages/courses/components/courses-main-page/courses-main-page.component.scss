@@ -1,24 +1,30 @@
-.instructors-page{
-    width: 98%;
-    max-height: 97%;
+.course{
+    width: 100%;
+    height: 100%;
     box-sizing: content-box;  
     overflow: scroll;
     overflow-x: hidden;
     border-radius: 20px;   
+   
 }
 
 
-.instructors-page::-webkit-scrollbar {
+.course::-webkit-scrollbar {
     width: 5px;    
     border-radius: 20px;  
   }
   
-  .instructors-page::-webkit-scrollbar-track {
+  .course::-webkit-scrollbar-track {
     height: 10px;    
   }
   
-  .instructors-page::-webkit-scrollbar-thumb { 
+  .course::-webkit-scrollbar-thumb { 
     background: var(--gradient);   
     border-radius: 20px;      
 
+  }
+
+  .course {
+   
+    scrollbar-color:var(--gradient);
   }
