@@ -21,6 +21,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InstructorPageComponent } from './students-dashboard/pages/trainers/components/instructor-page/instructor-page.component';
 import { InstructorsMainPageComponent } from './students-dashboard/pages/trainers/components/instructors-main-page/instructors-main-page.component';
+import { CoursePageComponent } from './students-dashboard/pages/courses/components/course-page/course-page.component';
+import { CoursesMainPageComponent } from './students-dashboard/pages/courses/components/courses-main-page/courses-main-page.component';
 
 
 
@@ -39,6 +41,8 @@ import { InstructorsMainPageComponent } from './students-dashboard/pages/trainer
     CourseCardsComponent,
     InstructorPageComponent,
     InstructorsMainPageComponent,
+    CoursePageComponent,
+    CoursesMainPageComponent,
   ],
   imports: [
     CommonModule,
