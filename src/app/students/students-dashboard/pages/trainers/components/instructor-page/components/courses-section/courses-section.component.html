@@ -1,4 +1,6 @@
 <div class="row mt-5">
     <h4>Courses: </h4>
-    {{instructorCourses | json}}
+    <div class="courses-cards col-sm-12 col-md-6 col-lg-6  " *ngFor="let course of instructorCourses">       
+        <app-course-cards [course]="course"></app-course-cards>  
+    </div>
 </div>
