@@ -15,8 +15,6 @@
     <input matInput formControlName="displayName" type="string" />
   </mat-form-field>
 
-  
-
   <mat-form-field class="input-name">
     <mat-label>Phone Number</mat-label>
     <input matInput formControlName="phoneNumber" type="string" />
@@ -32,5 +30,5 @@
 </div>
 
 </form>
-<app-button [label]="'Update profile'" [type]="'gradient'"></app-button>
+<app-button [label]="'Update profile'" [type]="'gradient'" (onClick)="onSubmit()"></app-button>
 
