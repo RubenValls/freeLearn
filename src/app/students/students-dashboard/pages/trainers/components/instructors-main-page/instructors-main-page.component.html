@@ -1,20 +1,23 @@
-<div class="instructors-page">
-    <h3>Trainers</h3>
-    <h5>Most rated trainers</h5>
-    <div class="instructors-cards">
-        <app-instructor-card [instructor]="instructor" *ngFor="let instructor of topInstructors"></app-instructor-card>
+<div class="instructors-page row p-3">
+    <div class="row">
+        <h3>Trainers</h3>
+        <h5>Most rated trainers</h5>
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mt-2" *ngFor="let instructor of topInstructors">
+            <app-instructor-card [instructor]="instructor"></app-instructor-card>
+        </div>
     </div>
-    <div class="all-instructors-container">
+    <div class="row mt-5 p-3">
         <h5>All trainers</h5>
-        <div class="filter-container">
+        <div>
             <mat-form-field>
                 <mat-label>Filter by name</mat-label>
                 <input matInput [formControl]="name">
             </mat-form-field>
         </div>
-        <div class="instructors-cards">
-            <app-instructor-card [instructor]="instructor" *ngFor="let instructor of getInstructors()"></app-instructor-card>
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mt-2" *ngFor="let instructor of getInstructors()">
+            <app-instructor-card [instructor]="instructor"></app-instructor-card>
         </div>
     </div>
 </div>
+
 
