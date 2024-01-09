@@ -9,10 +9,11 @@
         height: 100%;
         padding: 20px;
         
-        .container-fluid{
+        .container{
             border-radius: 20px;
             background-color: var(--white);
             color: var(--black);
+            min-width: 100%;
         }
     }
 }

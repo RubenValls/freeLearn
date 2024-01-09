@@ -1,12 +1,12 @@
 .main-container{
-    width: 100%;
+
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
     overflow: scroll;
     overflow-x: hidden;
-    max-height: 100%;
-    padding-right: 0.8rem;
+    max-height: 97%;
+    padding-right: 2rem;
     box-sizing: content-box;
 }
 .main-settings{
@@ -24,14 +24,18 @@
 .main-container::-webkit-scrollbar {
     width: 5px;    
     border-radius: 20px;  
+   
   }
   
 .main-container::-webkit-scrollbar-track {
-    height: 10px;    
+    height: 10px;  
+    margin: 40px;
   }
   
 .main-container::-webkit-scrollbar-thumb { 
     background: var(--gradient);   
-    border-radius: 20px;      
+    border-radius: 20px;
+    
+       
 
   }
