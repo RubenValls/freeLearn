@@ -1,32 +1,37 @@
 <div class="card ">
     <div class="card-img"> <img [src]="course?.imageUrl" class="img-fluid" alt="">
     </div>
-    <div class="card-content">
-        <div class="card-title">
-            <p>
-                {{course?.name}}
-            </p>
-        </div>
+    <div class="main">
 
-        <div class="card-list ">
-            <div *ngIf="course?.instructorId?.length !== 0"> <i class="bi bi-mortarboard-fill"></i> <span
-                    *ngFor="let instructor of course?.instructorId"> {{instructor.name}}</span></div>
-            <div *ngIf="course?.techs?.length !== 0"> <i class="bi bi-tools"></i> <span
-                    *ngFor="let tech of course?.techs">{{tech.name}}</span> </div>
-        </div>
+        <div class="card-content">
+            <div class="card-title">
+                <p>
+                    {{course?.name}}
+                </p>
+            </div>
 
+            <div class="card-list ">
+                <div *ngIf="course?.instructorId?.length !== 0"> <i class="bi bi-mortarboard-fill"></i> <span
+                        *ngFor="let instructor of course?.instructorId"> {{instructor.name}}</span></div>
+                <div *ngIf="course?.techs?.length !== 0"> <i class="bi bi-tools"></i> <span
+                        *ngFor="let tech of course?.techs">{{tech.name}}</span> </div>
+            </div>
+
+
+        </div>
+        <div class="card-rating">
+
+            <div class="rating-stars" *ngIf="course?.rating">
+
+                <ng-container *ngFor="let i of [].constructor(5); let j = index">
+                    <i class="bi stars"
+                        [ngClass]="{'bi-star-fill': j < getRatingAverage(course?.rating), 'bi-star': j >= getRatingAverage(course?.rating)}"></i>
+                </ng-container>
+
+
+            </div>
+        </div>
 
     </div>
-    <div class="card-rating">
 
-        <div class="rating-stars" *ngIf="course?.rating">
-
-            <ng-container *ngFor="let i of [].constructor(5); let j = index">
-                <i class="bi stars"
-                    [ngClass]="{'bi-star-fill': j < getRatingAverage(course?.rating), 'bi-star': j >= getRatingAverage(course?.rating)}"></i>
-            </ng-container>
-        
-
-        </div>
-    </div>
 </div>
