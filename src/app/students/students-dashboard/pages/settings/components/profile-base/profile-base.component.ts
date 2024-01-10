@@ -36,8 +36,6 @@ export class ProfileBaseComponent implements OnInit {
 
   ngOnInit() {
     this.user$.subscribe((user) => {
-      console.log('User$: ', this.user$);
-      console.log('User: ', user);
       if (user) {
         this.user = user;
         this.profileForm.patchValue(user);
@@ -46,31 +44,31 @@ export class ProfileBaseComponent implements OnInit {
   }
 
   onEdit(userUpdated: User) {
-    console.log("hola" ,userUpdated);
-    
-      this.userService.updateUser(userUpdated.id ? userUpdated.id : "", userUpdated)
-        .then(() => {
-          this.store.dispatch(UserActions.updateUser({ user: userUpdated }));
-          this.userService.saveUserInStorage(userUpdated.rememberMe, userUpdated);
-        })
-        .catch((error) => console.log(error));
-    
-      
+    this.userService
+      .updateUser(userUpdated.id ? userUpdated.id : '', userUpdated)
+      .then(() => {
+        this.alertMessage.successMessage('Profile update succesfully');
+        this.store.dispatch(UserActions.updateUser({ user: userUpdated }));
+        this.userService.saveUserInStorage(userUpdated.rememberMe, userUpdated);
+      })
+      .catch((error) => console.log(error));
   }
 
-
   onSubmit() {
-    const userUpdated = {
-      ...this.user,
-      ...this.profileForm?.value,
-    };
+    if (this.profileForm.valid) {
+      const userUpdated = {
+        ...this.user,
+        ...this.profileForm?.value,
+      };
 
       this.dialog.open(UpdateModalComponent, {
         data: {
           editData: userUpdated,
-          onEdit: this.onEdit.bind(this)
+          onEdit: this.onEdit.bind(this),
         },
       });
+    } else{
+      this.alertMessage.errorMessage("Fill in the required fields")
     }
-  
+  }
 }
