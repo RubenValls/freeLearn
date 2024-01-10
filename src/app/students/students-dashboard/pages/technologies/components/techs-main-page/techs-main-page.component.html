@@ -2,9 +2,13 @@
 
 <div class="main-container">
   <h3>Technologies</h3>
+  <mat-form-field>
+    <mat-label>Filter by name</mat-label>
+    <input matInput [formControl]="name">
+</mat-form-field>
   <div class="main-tech">
     <div class="techs">
-      <div *ngFor="let tech of techs">
+      <div *ngFor="let tech of getTech()">
         <app-card-tech [tech]="tech"></app-card-tech>
       </div>
     </div>
