@@ -10,17 +10,6 @@ import { selectTechnologies } from 'src/app/store/technologies/tecnologies.selec
 })
 export class TechnologiesComponent {
 
-  tech$ = this.store.select(selectTechnologies);
-  techs: any
-
-  constructor(private store: Store){
-
-  }
-
-  ngOnInit() {
-    this.tech$.subscribe((tech) => {
-      this.techs = tech; 
-    });
-  }
+  
 
 }

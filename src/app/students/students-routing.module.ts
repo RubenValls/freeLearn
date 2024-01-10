@@ -15,34 +15,76 @@ import { instructorResolver } from './students-dashboard/pages/trainers/resolver
 import { CoursesMainPageComponent } from './students-dashboard/pages/courses/components/courses-main-page/courses-main-page.component';
 import { CoursePageComponent } from './students-dashboard/pages/courses/components/course-page/course-page.component';
 import { courseResolver } from './students-dashboard/pages/courses/resolver/course.resolver';
+import { TechsMainPageComponent } from './students-dashboard/pages/technologies/components/techs-main-page/techs-main-page.component';
+import { TechPageComponent } from './students-dashboard/pages/technologies/components/tech-page/tech-page.component';
+import { technologiesResolver } from './students-dashboard/pages/technologies/resolver/technologies.resolver';
 
 const routes: Routes = [
-    { path: '', component: StudentsDashboardComponent, canActivate:[RoleGuard], data: {expectedRole: 'student'}, children: [
+  {
+    path: '',
+    component: StudentsDashboardComponent,
+    canActivate: [RoleGuard],
+    data: { expectedRole: 'student' },
+    children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
-      { path: 'courses', component: CoursesComponent, children:[
-        {path: '', component: CoursesMainPageComponent},
-        {path: ':id', component: CoursePageComponent, resolve: {
-          data: courseResolver
-        }}
-      ] },
-      { path: 'trainers', component: TrainersComponent, children: [
-        { path: '', component: InstructorsMainPageComponent },
-        { path: ':id', component: InstructorPageComponent, resolve: {
-          data: instructorResolver
-        } }
-      ] },
-      { path: 'technologies', component: TechnologiesComponent },
-      { path: 'settings', component: SettingsComponent, children:[
-        { path: '', redirectTo: 'profile', pathMatch: 'full' },
-        { path: 'profile', component: ProfileBaseComponent },
-        { path: 'password', component: PasswordComponent },
-      ] },
-    ] },
+      {
+        path: 'courses',
+        component: CoursesComponent,
+        children: [
+          { path: '', component: CoursesMainPageComponent },
+          {
+            path: ':id',
+            component: CoursePageComponent,
+            resolve: {
+              data: courseResolver,
+            },
+          },
+        ],
+      },
+      {
+        path: 'trainers',
+        component: TrainersComponent,
+        children: [
+          { path: '', component: InstructorsMainPageComponent },
+          {
+            path: ':id',
+            component: InstructorPageComponent,
+            resolve: {
+              data: instructorResolver,
+            },
+          },
+        ],
+      },
+      {
+        path: 'technologies',
+        component: TechnologiesComponent,
+        children: [
+          { path: '', component: TechsMainPageComponent },
+          {
+            path: ':id',
+            component: TechPageComponent,
+            resolve: {
+              data: technologiesResolver,
+            },
+          },
+        ],
+      },
+      {
+        path: 'settings',
+        component: SettingsComponent,
+        children: [
+          { path: '', redirectTo: 'profile', pathMatch: 'full' },
+          { path: 'profile', component: ProfileBaseComponent },
+          { path: 'password', component: PasswordComponent },
+        ],
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class StudentsRoutingModule { }
+export class StudentsRoutingModule {}
