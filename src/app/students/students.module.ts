@@ -31,6 +31,7 @@ import { HeaderComponent } from './students-dashboard/pages/trainers/components/
 import { CoursesSectionComponent } from './students-dashboard/pages/trainers/components/instructor-page/components/courses-section/courses-section.component';
 import { StarRatingComponent } from './components/star-rating/star-rating.component';
 import { MatButtonModule } from '@angular/material/button';
+import { CardTechComponent } from './students-dashboard/pages/technologies/components/card-tech/card-tech.component';
 
 
 
@@ -57,6 +58,7 @@ import { MatButtonModule } from '@angular/material/button';
     HeaderComponent,
     CoursesSectionComponent,
     StarRatingComponent,
+    CardTechComponent
   ],
   imports: [
     CommonModule,
