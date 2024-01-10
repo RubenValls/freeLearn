@@ -745,7 +745,7 @@
         },
         {
             "name": "CoursesService",
-            "id": "injectable-CoursesService-97a65b0e17bf85baa047441a5c2a9be1f6c60a4136fc31b619b0e208b474dda73b3836bc1e30dabb4765f4ba08a25ec2e5c644e3a7f362af3e0404515fc13b03",
+            "id": "injectable-CoursesService-70fa00656e90159134923bc0b47809de69a7e2becc74a70d8169c95d7424833d21dfcacb82118f3a13b07f353253a606c6f844f9a1c6c175b34f6f3aef2001b2",
             "file": "src/app/admins/admins-dashboard/pages/courses/service/courses.service.ts",
             "properties": [
                 {
@@ -803,7 +803,7 @@
                     "optional": false,
                     "returnType": "unknown",
                     "typeParameters": [],
-                    "line": 94,
+                    "line": 93,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -840,7 +840,7 @@
                     "optional": false,
                     "returnType": "literal type",
                     "typeParameters": [],
-                    "line": 85,
+                    "line": 84,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -956,7 +956,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { Firestore, collectionData } from '@angular/fire/firestore';\r\nimport { Course, Tech } from '../interface/course';\r\nimport { addDoc, collection, deleteDoc, doc, getDoc, updateDoc } from '@angular/fire/firestore';\r\nimport { Observable } from 'rxjs';\r\nimport { TechService } from '../../technologies/service/tech.service';\r\nimport { InstructorsService } from '../../instructors/instructors-service/instructors.service';\r\nimport { Store } from '@ngrx/store';\r\nimport { CoursesEffects } from 'src/app/store/courses/courses.effects';\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class CoursesService {\r\n  currentCourse: Course | undefined;\r\n\r\n\r\n  constructor(\r\n    private firestore: Firestore,\r\n    private techsService: TechService,\r\n    private instructorsService: InstructorsService,\r\n\r\n  ) { }\r\n  async addCourse(course: Course) {\r\n    const coursesRef = collection(this.firestore, 'courses')\r\n    const docRef = await addDoc(coursesRef, course);\r\n    const techsIds = course.techs.map(tech => tech);\r\n    const instructorsIds = course.instructorId.map(instructor => instructor);\r\n\r\n    techsIds.forEach(techId => {\r\n      this.techsService.updateTechnologyCourses(techId.id, docRef.id);\r\n    });\r\n    instructorsIds.forEach(instructorId => {\r\n      this.instructorsService.updateInstructorsCourses(instructorId.id, docRef.id);\r\n    });\r\n\r\n    return docRef;\r\n  };\r\n  getCourses() {\r\n    const coursesRef = collection(this.firestore, 'courses')\r\n    return collectionData(coursesRef, { idField: 'id' }) as Observable<Course[]>;\r\n  };\r\n\r\n  async getCourseById(id: string) {\r\n    const coursesRef = doc(this.firestore, `courses/${id}`);\r\n    const snapshot = await getDoc(coursesRef);\r\n    const data = snapshot.data();\r\n    return data as Course;\r\n  };\r\n\r\n  async updateCourse(id: string, course: Course) {\r\n    debugger\r\n    const coursesRef = doc(this.firestore, \"courses\", id);\r\n    await this.getCourseById(id).then((currentCourse) => this.currentCourse = currentCourse);\r\n\r\n    const Techsequal = JSON.stringify(this.currentCourse!.techs) === JSON.stringify(course.techs);\r\n    const InstructorsEqual = JSON.stringify(this.currentCourse!.instructorId) === JSON.stringify(course.instructorId);\r\n\r\n    if (!Techsequal) {\r\n      const { addedIds, deletedIds } = this.findIdsToEdit(this.currentCourse!.techs, course.techs);\r\n      addedIds?.forEach(techId => { this.techsService.updateTechnologyCourses(techId, course.id!); });\r\n      deletedIds?.forEach(techId => { this.techsService.deleteTechnologyCourses(techId, course.id!); });\r\n    }\r\n    if (!InstructorsEqual) {\r\n      const { addedIds, deletedIds } = this.findIdsToEdit(this.currentCourse!.instructorId, course.instructorId);     \r\n      addedIds?.forEach(instructorId => { this.instructorsService.updateInstructorsCourses(instructorId, course.id!); });\r\n      deletedIds?.forEach(instructorId => { this.instructorsService.deleteInstructorsCourses(instructorId, course.id!); });\r\n    }\r\n\r\n    if (this.currentCourse && course && Techsequal && InstructorsEqual) {        \r\n\r\n      const sortedCurrentCourse = JSON.parse(JSON.stringify(this.currentCourse, Object.keys(this.currentCourse).sort()));\r\n      const sortedCourse = JSON.parse(JSON.stringify(course, Object.keys(course).sort()));\r\n      const courseEqual = JSON.stringify(sortedCurrentCourse) === JSON.stringify(sortedCourse);\r\n\r\n      if (courseEqual ) {\r\n        return Promise.reject({ message: \"No changes were made to the course\" });\r\n      }\r\n    }\r\n\r\n    const courseUpdate = updateDoc(coursesRef, { ...course })\r\n    return courseUpdate;\r\n  };\r\n\r\n  findIdsToEdit(currentTechs: Tech[], updatedTechs: Tech[]): { deletedIds: string[], addedIds: string[] } {\r\n    const currentIds = currentTechs.map(tech => tech.id);\r\n    const updatedIds = updatedTechs.map(tech => tech.id);\r\n    const addedIds = updatedIds.filter(techId => !currentIds.includes(techId));\r\n    const deletedIds = currentIds.filter(techId => !updatedIds.includes(techId));\r\n    return { addedIds, deletedIds };\r\n  };\r\n\r\n\r\n  async deleteCourse(id: string) {    \r\n    const coursesRef = doc(this.firestore, \"courses\", id);\r\n    if(coursesRef){\r\n      await this.getCourseById(id).then((currentCourse) => this.currentCourse = currentCourse);\r\n      const techsIds = this.currentCourse!.techs.map(tech => tech.id);\r\n      const instructorsIds = this.currentCourse!.instructorId.map(instructor => instructor.id);\r\n      techsIds.forEach(techId => {\r\n        this.techsService.deleteTechnologyCourses(techId, id);\r\n      });\r\n      instructorsIds.forEach(instructorId => {\r\n        this.instructorsService.deleteInstructorsCourses(instructorId, id);\r\n      });\r\n    }\r\n    return deleteDoc(coursesRef);\r\n  };\r\n\r\n\r\n}\r\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { Firestore, collectionData } from '@angular/fire/firestore';\r\nimport { Course, Tech } from '../interface/course';\r\nimport { addDoc, collection, deleteDoc, doc, getDoc, updateDoc } from '@angular/fire/firestore';\r\nimport { Observable } from 'rxjs';\r\nimport { TechService } from '../../technologies/service/tech.service';\r\nimport { InstructorsService } from '../../instructors/instructors-service/instructors.service';\r\nimport { Store } from '@ngrx/store';\r\nimport { CoursesEffects } from 'src/app/store/courses/courses.effects';\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class CoursesService {\r\n  currentCourse: Course | undefined;\r\n\r\n\r\n  constructor(\r\n    private firestore: Firestore,\r\n    private techsService: TechService,\r\n    private instructorsService: InstructorsService,\r\n\r\n  ) { }\r\n  async addCourse(course: Course) {\r\n    const coursesRef = collection(this.firestore, 'courses')\r\n    const docRef = await addDoc(coursesRef, course);\r\n    const techsIds = course.techs.map(tech => tech);\r\n    const instructorsIds = course.instructorId.map(instructor => instructor);\r\n\r\n    techsIds.forEach(techId => {\r\n      this.techsService.updateTechnologyCourses(techId.id, docRef.id);\r\n    });\r\n    instructorsIds.forEach(instructorId => {\r\n      this.instructorsService.updateInstructorsCourses(instructorId.id, docRef.id);\r\n    });\r\n\r\n    return docRef;\r\n  };\r\n  getCourses() {\r\n    const coursesRef = collection(this.firestore, 'courses')\r\n    return collectionData(coursesRef, { idField: 'id' }) as Observable<Course[]>;\r\n  };\r\n\r\n  async getCourseById(id: string) {\r\n    const coursesRef = doc(this.firestore, `courses/${id}`);\r\n    const snapshot = await getDoc(coursesRef);\r\n    const data = snapshot.data();\r\n    return data as Course;\r\n  };\r\n\r\n  async updateCourse(id: string, course: Course) {\r\n    const coursesRef = doc(this.firestore, \"courses\", id);\r\n    await this.getCourseById(id).then((currentCourse) => this.currentCourse = currentCourse);\r\n\r\n    const Techsequal = JSON.stringify(this.currentCourse!.techs) === JSON.stringify(course.techs);\r\n    const InstructorsEqual = JSON.stringify(this.currentCourse!.instructorId) === JSON.stringify(course.instructorId);\r\n\r\n    if (!Techsequal) {\r\n      const { addedIds, deletedIds } = this.findIdsToEdit(this.currentCourse!.techs, course.techs);\r\n      addedIds?.forEach(techId => { this.techsService.updateTechnologyCourses(techId, course.id!); });\r\n      deletedIds?.forEach(techId => { this.techsService.deleteTechnologyCourses(techId, course.id!); });\r\n    }\r\n    if (!InstructorsEqual) {\r\n      const { addedIds, deletedIds } = this.findIdsToEdit(this.currentCourse!.instructorId, course.instructorId);     \r\n      addedIds?.forEach(instructorId => { this.instructorsService.updateInstructorsCourses(instructorId, course.id!); });\r\n      deletedIds?.forEach(instructorId => { this.instructorsService.deleteInstructorsCourses(instructorId, course.id!); });\r\n    }\r\n\r\n    if (this.currentCourse && course && Techsequal && InstructorsEqual) {        \r\n\r\n      const sortedCurrentCourse = JSON.parse(JSON.stringify(this.currentCourse, Object.keys(this.currentCourse).sort()));\r\n      const sortedCourse = JSON.parse(JSON.stringify(course, Object.keys(course).sort()));\r\n      const courseEqual = JSON.stringify(sortedCurrentCourse) === JSON.stringify(sortedCourse);\r\n\r\n      if (courseEqual ) {\r\n        return Promise.reject({ message: \"No changes were made to the course\" });\r\n      }\r\n    }\r\n\r\n    const courseUpdate = updateDoc(coursesRef, { ...course })\r\n    return courseUpdate;\r\n  };\r\n\r\n  findIdsToEdit(currentTechs: Tech[], updatedTechs: Tech[]): { deletedIds: string[], addedIds: string[] } {\r\n    const currentIds = currentTechs.map(tech => tech.id);\r\n    const updatedIds = updatedTechs.map(tech => tech.id);\r\n    const addedIds = updatedIds.filter(techId => !currentIds.includes(techId));\r\n    const deletedIds = currentIds.filter(techId => !updatedIds.includes(techId));\r\n    return { addedIds, deletedIds };\r\n  };\r\n\r\n\r\n  async deleteCourse(id: string) {    \r\n    const coursesRef = doc(this.firestore, \"courses\", id);\r\n    if(coursesRef){\r\n      await this.getCourseById(id).then((currentCourse) => this.currentCourse = currentCourse);\r\n      const techsIds = this.currentCourse!.techs.map(tech => tech.id);\r\n      const instructorsIds = this.currentCourse!.instructorId.map(instructor => instructor.id);\r\n      techsIds.forEach(techId => {\r\n        this.techsService.deleteTechnologyCourses(techId, id);\r\n      });\r\n      instructorsIds.forEach(instructorId => {\r\n        this.instructorsService.deleteInstructorsCourses(instructorId, id);\r\n      });\r\n    }\r\n    return deleteDoc(coursesRef);\r\n  };\r\n\r\n\r\n}\r\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -1366,7 +1366,7 @@
         },
         {
             "name": "LoginService",
-            "id": "injectable-LoginService-d14dc8da7191450a7a39abc402f2a375333bf4397446040686fb3c7c9c4480e7a61b4e796a70bb8febf06c20012796b362003d1effe782d926183f49f1ccadb9",
+            "id": "injectable-LoginService-6143121bc5530e616b58213477619fb68b49806467f1cb7032bfd43608399431834f4c369bea3147b2da1b799d07c9f6ac83dd19bd2e4a4278e73706799e54b2",
             "file": "src/app/login/login-service/login.service.ts",
             "properties": [],
             "methods": [
@@ -1395,7 +1395,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 125,
+                    "line": 126,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1453,7 +1453,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 79,
+                    "line": 78,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1499,7 +1499,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 51,
+                    "line": 50,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1533,7 +1533,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 115,
+                    "line": 116,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1604,7 +1604,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 67,
+                    "line": 66,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1633,7 +1633,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport {\r\n  GoogleAuthProvider,\r\n  UserCredential,\r\n  createUserWithEmailAndPassword,\r\n  getAuth,\r\n  signInWithEmailAndPassword,\r\n  signInWithPopup,\r\n} from 'firebase/auth';\r\nimport { LoginFormType, SigninFormType } from '../types/formTypes';\r\nimport { UserActions } from '../store/user.actions';\r\nimport { FormGroup } from '@angular/forms';\r\nimport { Firestore } from '@angular/fire/firestore';\r\nimport { addDoc, collection } from 'firebase/firestore';\r\nimport { AlertsService } from 'src/app/shared/services/alerts/alerts.service';\r\nimport { User } from '../types/user';\r\nimport { UsersService } from 'src/app/shared/services/users/users.service';\r\nimport { Router } from '@angular/router';\r\nimport { Subscription } from 'rxjs';\r\n\r\n@Injectable({\r\n  providedIn: 'root',\r\n})\r\nexport class LoginService {\r\n  constructor(\r\n    private store: Store,\r\n    private firestore: Firestore,\r\n    private alertsService: AlertsService,\r\n    private usersService: UsersService,\r\n    private router: Router\r\n  ) {}\r\n\r\n  signInWithEmail(formValue: FormGroup<SigninFormType>) {\r\n    const auth = getAuth();\r\n    const email = formValue.value.email;\r\n    const password = formValue.value.password;\r\n    if (typeof email === 'string' && typeof password === 'string') {\r\n      createUserWithEmailAndPassword(auth, email, password)\r\n        .then((userCredential) => {\r\n          this.handleUserInfo(formValue, userCredential, false);\r\n        })\r\n        .catch((error) => {\r\n          error.message === \"Firebase: Error (auth/email-already-in-use).\"\r\n          &&\r\n          this.alertsService.errorMessage(\"Email already exist\");\r\n        });\r\n    }\r\n  }\r\n\r\n  loginInWithEmail(formValue: FormGroup<LoginFormType>) {\r\n    const auth = getAuth();\r\n    const email = formValue.value.email;\r\n    const password = formValue.value.password;\r\n    if (typeof email === 'string' && typeof password === 'string') {\r\n      signInWithEmailAndPassword(auth, email, password)\r\n        .then((userCredential) => {\r\n          this.handleUserInfo(formValue, userCredential, true);\r\n        })\r\n        .catch((error) => {\r\n          error.message === 'Firebase: Error (auth/invalid-credential).' &&\r\n            this.alertsService.errorMessage('Invalid credentials');\r\n        });\r\n    }\r\n  }\r\n\r\n  signInWithGoogle(formValue: FormGroup<LoginFormType>, isLogin: boolean) {\r\n    const provider = new GoogleAuthProvider();\r\n    const auth = getAuth();\r\n    signInWithPopup(auth, provider)\r\n      .then((result) => {\r\n        this.handleUserInfo(formValue, result, isLogin);\r\n      })\r\n      .catch((error) => {\r\n        this.alertsService.errorMessage(error.message);\r\n      });\r\n  }\r\n\r\n  handleUserInfo(\r\n    formValue: FormGroup,\r\n    userCredential: UserCredential,\r\n    isLogin: boolean\r\n  ) {\r\n    let usersSubscription : Subscription;\r\n    if (!isLogin) {\r\n      const userInfo = this.getUserInfoData(isLogin, formValue, userCredential);\r\n      usersSubscription = this.usersService\r\n        .getUsers()\r\n        .subscribe((users) => {\r\n          const user = users.find((user) => user.email === userInfo.email);\r\n          if (!user) {\r\n            const usersRef = collection(this.firestore, 'users');\r\n            addDoc(usersRef, userInfo);\r\n          }\r\n          this.saveUserDataAndNavigate(userInfo, usersSubscription);\r\n        });\r\n    } else {\r\n      const userInfo = this.getUserInfoData(isLogin, formValue, userCredential);\r\n      usersSubscription = this.usersService\r\n        .getUsers()\r\n        .subscribe((users) => {\r\n          let user = users.find((user) => user.email === userInfo.email);\r\n          this.usersService\r\n            .updateUser(user?.id ? user?.id : '', userInfo)\r\n            .then(() => {\r\n              user = users.find((user) => user.email === userInfo.email);\r\n              if (user) {\r\n                this.saveUserDataAndNavigate(user, usersSubscription);\r\n              }\r\n            });\r\n        });\r\n    }\r\n  }\r\n\r\n  saveUserDataAndNavigate(userInfo: User, usersSubscription: Subscription) {\r\n    this.store.dispatch(UserActions.addUser({ user: userInfo }));\r\n    this.usersService.saveUserInStorage(userInfo.rememberMe, userInfo);\r\n    if (usersSubscription) {\r\n      usersSubscription.unsubscribe();\r\n    }\r\n    this.router.navigate(['/students']);\r\n    this.alertsService.successMessage('Welcome to FreeLearn.');\r\n  }\r\n\r\n  getUserInfoData(\r\n    isLogin: boolean,\r\n    formValue: FormGroup,\r\n    userCredential: UserCredential\r\n  ) {\r\n    if (isLogin) {\r\n      return {\r\n        authUid: userCredential.user.uid,\r\n        rememberMe: formValue.value?.rememberMe\r\n          ? formValue.value.rememberMe\r\n          : false,\r\n        ...userCredential.user.providerData[0],\r\n      };\r\n    } else {\r\n      return {\r\n        authUid: userCredential.user.uid,\r\n        ...userCredential.user.providerData[0],\r\n        rememberMe: formValue.value?.rememberMe\r\n          ? formValue.value.rememberMe\r\n          : false,\r\n        role: 'student',\r\n        favorites: [],\r\n      };\r\n    }\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport {\r\n  GoogleAuthProvider,\r\n  UserCredential,\r\n  createUserWithEmailAndPassword,\r\n  getAuth,\r\n  signInWithEmailAndPassword,\r\n  signInWithPopup,\r\n} from 'firebase/auth';\r\nimport { LoginFormType, SigninFormType } from '../types/formTypes';\r\nimport { UserActions } from '../store/user.actions';\r\nimport { FormGroup } from '@angular/forms';\r\nimport { Firestore } from '@angular/fire/firestore';\r\nimport { addDoc, collection } from 'firebase/firestore';\r\nimport { AlertsService } from 'src/app/shared/services/alerts/alerts.service';\r\nimport { User } from '../types/user';\r\nimport { UsersService } from 'src/app/shared/services/users/users.service';\r\nimport { Router } from '@angular/router';\r\nimport { Subscription } from 'rxjs';\r\n\r\n@Injectable({\r\n  providedIn: 'root',\r\n})\r\nexport class LoginService {\r\n  constructor(\r\n    private store: Store,\r\n    private firestore: Firestore,\r\n    private alertsService: AlertsService,\r\n    private usersService: UsersService,\r\n    private router: Router\r\n  ) {}\r\n\r\n  signInWithEmail(formValue: FormGroup<SigninFormType>) {\r\n    const auth = getAuth();\r\n    const email = formValue.value.email;\r\n    const password = formValue.value.password;\r\n    if (typeof email === 'string' && typeof password === 'string') {\r\n      createUserWithEmailAndPassword(auth, email, password)\r\n        .then((userCredential) => {\r\n          this.handleUserInfo(formValue, userCredential, false);\r\n        })\r\n        .catch((error) => {\r\n          error.message === 'Firebase: Error (auth/email-already-in-use).' &&\r\n            this.alertsService.errorMessage('Email already exist');\r\n        });\r\n    }\r\n  }\r\n\r\n  loginInWithEmail(formValue: FormGroup<LoginFormType>) {\r\n    const auth = getAuth();\r\n    const email = formValue.value.email;\r\n    const password = formValue.value.password;\r\n    if (typeof email === 'string' && typeof password === 'string') {\r\n      signInWithEmailAndPassword(auth, email, password)\r\n        .then((userCredential) => {\r\n          this.handleUserInfo(formValue, userCredential, true);\r\n        })\r\n        .catch((error) => {\r\n          error.message === 'Firebase: Error (auth/invalid-credential).' &&\r\n            this.alertsService.errorMessage('Invalid credentials');\r\n        });\r\n    }\r\n  }\r\n\r\n  signInWithGoogle(formValue: FormGroup<LoginFormType>, isLogin: boolean) {\r\n    const provider = new GoogleAuthProvider();\r\n    const auth = getAuth();\r\n    signInWithPopup(auth, provider)\r\n      .then((result) => {\r\n        this.handleUserInfo(formValue, result, isLogin);\r\n      })\r\n      .catch((error) => {\r\n        this.alertsService.errorMessage(error.message);\r\n      });\r\n  }\r\n\r\n  handleUserInfo(\r\n    formValue: FormGroup,\r\n    userCredential: UserCredential,\r\n    isLogin: boolean\r\n  ) {\r\n    let usersSubscription: Subscription;\r\n    if (!isLogin) {\r\n      const userInfo = this.getUserInfoData(isLogin, formValue, userCredential);\r\n      usersSubscription = this.usersService.getUsers().subscribe((users) => {\r\n        const user = users.find((user) => user.email === userInfo.email);\r\n        if (!user) {\r\n          const usersRef = collection(this.firestore, 'users');\r\n          addDoc(usersRef, userInfo);\r\n        }\r\n        this.saveUserDataAndNavigate(userInfo, usersSubscription);\r\n      });\r\n    } else {\r\n      const userInfo = this.getUserInfoData(isLogin, formValue, userCredential);\r\n      usersSubscription = this.usersService.getUsers().subscribe((users) => {\r\n        let user = users.find((user) => user.email === userInfo.email);\r\n        this.usersService\r\n          .updateUser(user?.id ? user?.id : '', {\r\n            ...userInfo,\r\n            displayName: user?.displayName || '',\r\n            phoneNumber: user?.phoneNumber || '',\r\n            photoURL: user?.photoURL || '',\r\n            favorites: user?.favorites || [],\r\n          })\r\n          .then(() => {\r\n            user = users.find((user) => user.email === userInfo.email);\r\n            if (user) {\r\n              this.saveUserDataAndNavigate(user, usersSubscription);\r\n            }\r\n          });\r\n      });\r\n    }\r\n  }\r\n\r\n  saveUserDataAndNavigate(userInfo: User, usersSubscription: Subscription) {\r\n    this.store.dispatch(UserActions.addUser({ user: userInfo }));\r\n    this.usersService.saveUserInStorage(userInfo.rememberMe, userInfo);\r\n    if (usersSubscription) {\r\n      usersSubscription.unsubscribe();\r\n    }\r\n    this.router.navigate(['/students']);\r\n    this.alertsService.successMessage('Welcome to FreeLearn.');\r\n  }\r\n\r\n  getUserInfoData(\r\n    isLogin: boolean,\r\n    formValue: FormGroup,\r\n    userCredential: UserCredential\r\n  ) {\r\n    if (isLogin) {\r\n      return {\r\n        authUid: userCredential.user.uid,\r\n        rememberMe: formValue.value?.rememberMe\r\n          ? formValue.value.rememberMe\r\n          : false,\r\n        ...userCredential.user.providerData[0],\r\n      };\r\n    } else {\r\n      return {\r\n        authUid: userCredential.user.uid,\r\n        ...userCredential.user.providerData[0],\r\n        rememberMe: formValue.value?.rememberMe\r\n          ? formValue.value.rememberMe\r\n          : false,\r\n        role: 'student',\r\n        favorites: [],\r\n      };\r\n    }\r\n  }\r\n}\r\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -3058,6 +3058,132 @@
             "templateData": "<div class=\"a-box\">\r\n  <div class=\"img-container\">\r\n    <div class=\"img-inner\">\r\n      <div class=\"inner-skew\">\r\n        <img [src]=\"course?.imageUrl\">\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"text-container\">\r\n    <h3>{{course?.name}}</h3>\r\n    <div> \r\n      {{this.handleDescription(course?.description || '')}}\r\n    </div>\r\n    <div class=\"lessons-text\"> \r\n      Lessons: {{course?.lessons?.length}}\r\n    </div>\r\n\r\n    <app-button\r\n          [label]=\"'Learn ' + course?.techs?.[0]?.name\"\r\n          [type]=\"'softgradient'\"\r\n          routerLink=\"/login\"\r\n    ></app-button>\r\n    \r\n    \r\n</div>\r\n"
         },
         {
+            "name": "CourseCardsComponent",
+            "id": "component-CourseCardsComponent-7b6b5de6368199678ca2b6c0453f62e2b40eac4c240a1226aa452f8e718f2f442f64f6ea6d83d5c7e46021ff0046d476d648e36e5023e7d99ccdcd71dfa7dda1",
+            "file": "src/app/students/students-dashboard/pages/courses/components/course-cards/course-cards.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-course-cards",
+            "styleUrls": [
+                "./course-cards.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./course-cards.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "course",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 10,
+                    "type": "Course | undefined",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "getRatingAverage",
+                    "args": [
+                        {
+                            "name": "ratings",
+                            "type": "any[] | undefined",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "number",
+                    "typeParameters": [],
+                    "line": 13,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "ratings",
+                            "type": "any[] | undefined",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';\r\n\r\n@Component({\r\n  selector: 'app-course-cards',\r\n  templateUrl: './course-cards.component.html',\r\n  styleUrls: ['./course-cards.component.scss']\r\n})\r\nexport class CourseCardsComponent {\r\n  @Input() course: Course | undefined;\r\n\r\n\r\n  getRatingAverage(ratings: any[] | undefined): number {\r\n    const sum = ratings?.reduce((total, item) => total + item.rating, 0);\r\n    let average = 0;\r\n    let roundedAverage = 0;\r\n    if (ratings?.length) {\r\n      average = sum / ratings?.length;\r\n      roundedAverage = Math.round(average);\r\n    }\r\n    return roundedAverage;\r\n  }\r\n\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".card {\r\n    border-radius: 15px;\r\n    padding: 10px;\r\n    margin: 10PX;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: start;\r\n    gap: .5rem;\r\n    transition: all 0.5s ease-in-out;   \r\n\r\n    .card-img {\r\n        margin: 5px;\r\n        width: 100px;\r\n        height: 100px;\r\n        display: flex;\r\n        justify-content: center;\r\n        align-items: center;\r\n        border-radius: 50%;\r\n        overflow: hidden;       \r\n        img {\r\n            width:100px;\r\n            height:100px;\r\n            border-radius: 50%;\r\n        }\r\n    }\r\n    .main{\r\n        display: flex;\r\n        flex-direction: row;\r\n        justify-content: space-between;\r\n        width: 100%;\r\n\r\n        .card-content {       \r\n            box-sizing: border-box;\r\n            overflow: hidden;\r\n            max-width: 200px;\r\n     \r\n            .card-title {\r\n                text-align: left;\r\n                margin: 0;\r\n             }\r\n     \r\n          \r\n             .card-list {\r\n                 display: flex;\r\n                 flex-direction: column;\r\n                 gap: 5px;\r\n     \r\n                 div {\r\n                     filter: opacity(0.6);\r\n                     display: flex;\r\n                     flex-direction: row;\r\n                     gap: 5px;\r\n                     font-size: smaller;\r\n                 }\r\n             }     \r\n         }       \r\n    }\r\n   \r\n}\r\n\r\n.card:hover { \r\n    transition: all 0.5s ease-in-out;\r\n    box-shadow: 10px 10px 14px #9d9d9d;\r\n    cursor:pointer;\r\n}\r\n\r\n",
+                    "styleUrl": "./course-cards.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<div class=\"card \"  [routerLink]=\"course?.id\">\r\n    <div class=\"card-img\"> <img [src]=\"course?.imageUrl\" alt=\"\">\r\n    </div>\r\n    <div class=\"main\">\r\n\r\n        <div class=\"card-content\">\r\n            <div class=\"card-title\">\r\n                <p>\r\n                    {{course?.name}}\r\n                </p>\r\n            </div>\r\n\r\n            <div class=\"card-list \">\r\n                <div *ngIf=\"course?.instructorId?.length !== 0\"> <i class=\"bi bi-mortarboard-fill\"></i> <span\r\n                        *ngFor=\"let instructor of course?.instructorId\"> {{instructor.name}}</span></div>\r\n                <div *ngIf=\"course?.techs?.length !== 0\"> <i class=\"bi bi-tools\"></i> <span\r\n                        *ngFor=\"let tech of course?.techs\">{{tech.name}}</span> </div>\r\n            </div>\r\n\r\n\r\n        </div>\r\n        <div class=\"card-rating\">\r\n\r\n            <div class=\"rating-stars\" *ngIf=\"course?.rating\">\r\n\r\n                <ng-container *ngFor=\"let i of [].constructor(5); let j = index\">\r\n                    <i class=\"bi stars\"\r\n                        [ngClass]=\"{'bi-star-fill': j < getRatingAverage(course?.rating), 'bi-star': j >= getRatingAverage(course?.rating)}\"></i>\r\n                </ng-container>\r\n\r\n\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n\r\n</div>"
+        },
+        {
+            "name": "CoursePageComponent",
+            "id": "component-CoursePageComponent-0fd6825fd7e2fa9395b4c8f5e0567a1472f9c36deeeff7d6434b58bc855957022ff1115c75b6082d4b5e9b4f0c617443ef083f165082af6161d8378daebd666e",
+            "file": "src/app/students/students-dashboard/pages/courses/components/course-page/course-page.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-course-page",
+            "styleUrls": [
+                "./course-page.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./course-page.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-course-page',\r\n  templateUrl: './course-page.component.html',\r\n  styleUrls: ['./course-page.component.scss']\r\n})\r\nexport class CoursePageComponent {\r\n\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./course-page.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<p>course-page works!</p>\r\n"
+        },
+        {
             "name": "CoursesComponent",
             "id": "component-CoursesComponent-4a39d669630659f131255515fbf33c7728824397ecd09cd8a77512e1ce94e688e0205884797036a11fddb127fe65ec84dd8f5bde737f53bc1a0663d49e8d655d",
             "file": "src/app/admins/admins-dashboard/pages/courses/courses.component.ts",
@@ -3297,7 +3423,7 @@
         },
         {
             "name": "CoursesComponent",
-            "id": "component-CoursesComponent-fee93496a3bacb7ce8544a102f1913fdfa7f4d641e33e584ab6bada5d8c3e3779cd3cce5ee6ca287390e1b556454b239d40cc2732c3194b4fe7b2be7494a888e-1",
+            "id": "component-CoursesComponent-7b363484ce88ec9e2d22c3f42c8e5bf3c9c371d7ae6bfe69cbc1a85a48b914bbc9ea790864dc9ef1bda65cdc847de75264cb6c212ce9cabfa4de9f5659c419ee-1",
             "file": "src/app/students/students-dashboard/pages/courses/courses.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -3327,7 +3453,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-courses',\r\n  templateUrl: './courses.component.html',\r\n  styleUrls: ['./courses.component.scss']\r\n})\r\nexport class CoursesComponent {\r\n\r\n}\r\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { selectCourses } from 'src/app/store/courses/courses.selectors';\r\n\r\n@Component({\r\n  selector: 'app-courses',\r\n  templateUrl: './courses.component.html',\r\n  styleUrls: ['./courses.component.scss']\r\n})\r\nexport class CoursesComponent {\r\n \r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -3340,7 +3466,111 @@
             "isDuplicate": true,
             "duplicateId": 1,
             "duplicateName": "CoursesComponent-1",
-            "templateData": "<p>courses works!</p>\r\n"
+            "templateData": "<router-outlet></router-outlet>\r\n"
+        },
+        {
+            "name": "CoursesMainPageComponent",
+            "id": "component-CoursesMainPageComponent-8dfb025c99e3435ec3c8e75be3138576646a29032df0d370d7940345f110e24c75fcc949b4509b21795baf247e9b2f6391c25c7f7b9504ebc2933bc4f42dccc0",
+            "file": "src/app/students/students-dashboard/pages/courses/components/courses-main-page/courses-main-page.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-courses-main-page",
+            "styleUrls": [
+                "./courses-main-page.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./courses-main-page.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "courses",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 13
+                },
+                {
+                    "name": "courses$",
+                    "defaultValue": "this.store.select(selectCourses)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 12
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 19,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { selectCourses } from 'src/app/store/courses/courses.selectors';\r\n\r\n@Component({\r\n  selector: 'app-courses-main-page',\r\n  templateUrl: './courses-main-page.component.html',\r\n  styleUrls: ['./courses-main-page.component.scss']\r\n})\r\nexport class CoursesMainPageComponent implements OnInit {\r\n\r\n  courses$ = this.store.select(selectCourses);\r\n  courses: any;\r\n  \r\n    constructor(\r\n      private store: Store,\r\n    \r\n    ) {}\r\n    ngOnInit(): void {\r\n      this.courses$.subscribe((courses) => {\r\n        this.courses = courses;\r\n      });\r\n    }\r\n\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".course{\r\n    width: 100%;\r\n    height: 100%;\r\n    box-sizing: content-box;  \r\n    overflow: scroll;\r\n    overflow-x: hidden;\r\n    border-radius: 20px;   \r\n   \r\n}\r\n\r\n\r\n.course::-webkit-scrollbar {\r\n    width: 5px;    \r\n    border-radius: 20px;  \r\n  }\r\n  \r\n  .course::-webkit-scrollbar-track {\r\n    height: 10px;    \r\n  }\r\n  \r\n  .course::-webkit-scrollbar-thumb { \r\n    background: var(--gradient);   \r\n    border-radius: 20px;      \r\n\r\n  }\r\n\r\n  .course {\r\n   \r\n    scrollbar-color:var(--gradient);\r\n  }",
+                    "styleUrl": "./courses-main-page.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "store",
+                        "type": "Store",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 13,
+                "jsdoctags": [
+                    {
+                        "name": "store",
+                        "type": "Store",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "extends": [],
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<div class=\"course row\">\r\n    <div class=\"courses-cards col-sm-12 col-md-6 col-lg-6  \" *ngFor=\"let course of courses\">       \r\n             <app-course-cards [course]=\"course\"></app-course-cards>  \r\n       \r\n    </div>\r\n</div> "
         },
         {
             "name": "CreateInstructorsFormComponent",
@@ -5005,6 +5235,139 @@
             "templateData": "<p>home works!</p>\r\n"
         },
         {
+            "name": "InstructorCardComponent",
+            "id": "component-InstructorCardComponent-1a3f13f453affd207081370083fb6bafc8e2c2eb96b71812a7c20acecbc963c71172d264b12a0e997d537f0e71f10f2bbca614215b7482a5d62ad92e9825eb5d",
+            "file": "src/app/shared/components/instructor-card/instructor-card.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-instructor-card",
+            "styleUrls": [
+                "./instructor-card.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./instructor-card.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "instructor",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 10,
+                    "type": "Instructor | undefined",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { Instructor } from 'src/app/admins/admins-dashboard/pages/instructors/instructors';\r\n\r\n@Component({\r\n  selector: 'app-instructor-card',\r\n  templateUrl: './instructor-card.component.html',\r\n  styleUrls: ['./instructor-card.component.scss']\r\n})\r\nexport class InstructorCardComponent {\r\n  @Input() instructor:Instructor | undefined;\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".flex-container {\r\n    display: flex;\r\n    align-items: center;\r\n    padding: 15px;\r\n    width: auto;\r\n    max-width: 325px;\r\n    height: auto;\r\n    background-color: white;\r\n    border-radius: 15px;\r\n    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);\r\n  }\r\n  \r\n  .circle-section {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    width: 65px;\r\n    height: 65px;\r\n    border-radius: 50%;\r\n    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);\r\n    background: white;\r\n    cursor: pointer;\r\n    transition: all 0.3s ease;\r\n    overflow: hidden;\r\n\r\n    & img {\r\n        object-fit: cover;\r\n        width: 100%;\r\n        height: 100%;\r\n    }\r\n  }\r\n  \r\n  .circle-section:hover {\r\n    transform: scale(1.1);\r\n  }\r\n  \r\n  .block-section {\r\n    display: block;\r\n    border-left: 1px solid gray;\r\n    margin-left: 10px;\r\n  }\r\n  \r\n  .text-section {\r\n    padding-left: 5px;\r\n  }\r\n  \r\n  .role {\r\n    background-clip: text;\r\n    color: transparent;\r\n    background: var(--gradient);\r\n    -webkit-background-clip: text;\r\n    font-size: large;\r\n    font-weight: bold;\r\n  }\r\n  \r\n  .image-section {\r\n    display: flex;\r\n    gap: 10px;\r\n    padding-top: 2px;\r\n    padding-left: 5px;\r\n\r\n      img{\r\n        max-width: 30px;\r\n      }\r\n\r\n      a{\r\n        color: inherit;\r\n        text-decoration: none;\r\n        font-size: 20px;\r\n      }\r\n      \r\n      i{\r\n        color: var(--black);\r\n      }\r\n  \r\n}\r\n\r\n.flex-container:hover{\r\n  cursor: pointer;\r\n}\r\n  ",
+                    "styleUrl": "./instructor-card.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<div class=\"flex-container\" [routerLink]=\"instructor?.id\">\r\n    <section class=\"circle-section\">\r\n     <img [src]=\"instructor?.imagePath\"/>\r\n    </section>\r\n  \r\n    <section class=\"block-section\">\r\n      <div class=\"text-section\">\r\n        <h3 class=\"role\">{{instructor?.name}}</h3>\r\n      </div>\r\n      <div class=\"image-section\">\r\n        <a *ngIf=\"instructor?.socialMedia?.twitter\" href=\"{{ instructor?.socialMedia?.twitter }}\" target=\"_blank\">\r\n            <i class=\"bi bi-twitter-x\"></i>\r\n        </a>\r\n        <a\r\n            *ngIf=\"instructor?.socialMedia?.youtube\"\r\n            class=\"youtube\"\r\n            href=\"{{ instructor?.socialMedia?.youtube }}\"\r\n            target=\"_blank\"\r\n            >\r\n                <i class=\"bi bi-youtube\"></i>\r\n        </a>\r\n        <a\r\n            *ngIf=\"instructor?.socialMedia?.linkedin\"\r\n            class=\"linkedin\"\r\n            href=\"{{ instructor?.socialMedia?.linkedin }}\"\r\n            target=\"_blank\"\r\n            >\r\n                <i class=\"bi bi-linkedin\"></i>\r\n        </a>\r\n        <a\r\n            *ngIf=\"instructor?.socialMedia?.web\"\r\n            class=\"web\"\r\n            href=\"{{ instructor?.socialMedia?.web }}\"\r\n            target=\"_blank\"\r\n            >\r\n                <i class=\"bi bi-browser-chrome\"></i>\r\n        </a>\r\n      </div>\r\n    </section>\r\n</div>\r\n  "
+        },
+        {
+            "name": "InstructorPageComponent",
+            "id": "component-InstructorPageComponent-65cd0e4f55da5ae1da44a259eeb83f668c90e988dd43ce5b9e8a01fdf731bb24e1289d6635e9015f50f71bf20ee803936b45cdbd847402ca3693a5f60c6c9b74",
+            "file": "src/app/students/students-dashboard/pages/trainers/components/instructor-page/instructor-page.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-instructor-page",
+            "styleUrls": [
+                "./instructor-page.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./instructor-page.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "instructor",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Instructor | undefined",
+                    "optional": false,
+                    "description": "",
+                    "line": 11
+                }
+            ],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\r\nimport { ActivatedRoute } from '@angular/router';\r\nimport { Instructor } from 'src/app/admins/admins-dashboard/pages/instructors/instructors';\r\n\r\n@Component({\r\n  selector: 'app-instructor-page',\r\n  templateUrl: './instructor-page.component.html',\r\n  styleUrls: ['./instructor-page.component.scss']\r\n})\r\nexport class InstructorPageComponent {\r\n  instructor: Instructor | undefined\r\n  constructor(private route: ActivatedRoute) {\r\n    this.route.data.subscribe(data => {\r\n      this.instructor = data['data']\r\n    });\r\n  }\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./instructor-page.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "route",
+                        "type": "ActivatedRoute",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 11,
+                "jsdoctags": [
+                    {
+                        "name": "route",
+                        "type": "ActivatedRoute",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "extends": [],
+            "templateData": "<app-instructor-card [instructor]=\"instructor\"></app-instructor-card>\r\n"
+        },
+        {
             "name": "InstructorsComponent",
             "id": "component-InstructorsComponent-352aea7c588fc71b01103b2bc98a122222f97ec9260dfe8d3351e10c8a8de7d0451dd777d628130be2b3f20b4b49a9b5864039ec438c77988afd27799b90b9d5",
             "file": "src/app/admins/admins-dashboard/pages/instructors/instructors.component.ts",
@@ -5244,6 +5607,214 @@
             },
             "extends": [],
             "templateData": "<div class=\"flex-container\">\r\n  \r\n  <app-button\r\n    [label]=\"'Add instructor'\"\r\n    [type]=\"'gradient'\"\r\n    (onClick)=\"toggleForm()\"\r\n    [iconName]=\"'add'\"\r\n  >\r\n  </app-button>\r\n  <app-create-instructors-form *ngIf=\"showForm\" (closeForm)=\"toggleForm()\"></app-create-instructors-form>\r\n\r\n  <app-custom-table \r\n  [data]=\"instructors$\"\r\n  [displayedColumns]=\"tableColumns\"  \r\n  [rows]=\"rows\"\r\n  [modalWith]=\"modalWith\"\r\n  [modalHeight]=\"modalHeight\"\r\n  [modalTitle]=\"modalTitle\"\r\n  (onEdit)=\"onEdit($event)\"\r\n  (onDelete)=\"onDelete($event)\">\r\n  </app-custom-table>\r\n</div>"
+        },
+        {
+            "name": "InstructorsMainPageComponent",
+            "id": "component-InstructorsMainPageComponent-70b732afc4be3c9f220f11645dcacd61c01da9d8257087efb4d150fffab2d02fe873b729b3671f34d008c80d4dbb1227587582e1af6047ef5c43f8cf4340e59b",
+            "file": "src/app/students/students-dashboard/pages/trainers/components/instructors-main-page/instructors-main-page.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-instructors-main-page",
+            "styleUrls": [
+                "./instructors-main-page.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./instructors-main-page.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "filteredInstructors",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Instructor[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 17
+                },
+                {
+                    "name": "instructors",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Instructor[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 16
+                },
+                {
+                    "name": "instructors$",
+                    "defaultValue": "this.store.select(selectInstructor)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
+                },
+                {
+                    "name": "instructorsSubscription",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Subscription | undefined",
+                    "optional": false,
+                    "description": "",
+                    "line": 15
+                },
+                {
+                    "name": "name",
+                    "defaultValue": "new FormControl('')",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 19
+                },
+                {
+                    "name": "topInstructors",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Instructor[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 18
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "filterByName",
+                    "args": [
+                        {
+                            "name": "array",
+                            "type": "Instructor[]",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "input",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 37,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "array",
+                            "type": "Instructor[]",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "input",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "getInstructors",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "{}",
+                    "typeParameters": [],
+                    "line": 41,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "ngOnDestroy",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 33,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 23,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, OnDestroy, OnInit } from '@angular/core';\r\nimport { FormControl } from '@angular/forms';\r\nimport { Store } from '@ngrx/store';\r\nimport { Subscription } from 'rxjs';\r\nimport { Instructor } from 'src/app/admins/admins-dashboard/pages/instructors/instructors';\r\nimport { selectInstructor } from 'src/app/store/instructors/instructors.selectors';\r\n\r\n@Component({\r\n  selector: 'app-instructors-main-page',\r\n  templateUrl: './instructors-main-page.component.html',\r\n  styleUrls: ['./instructors-main-page.component.scss']\r\n})\r\nexport class InstructorsMainPageComponent implements OnInit, OnDestroy{\r\n  instructors$ = this.store.select(selectInstructor);\r\n  instructorsSubscription: Subscription | undefined;\r\n  instructors: Instructor[] = [];\r\n  filteredInstructors: Instructor[] = [];\r\n  topInstructors: Instructor[] = [];\r\n  name = new FormControl('');\r\n\r\n  constructor(private store: Store) {}\r\n\r\n  ngOnInit(): void {\r\n    this.instructorsSubscription = this.instructors$.subscribe((data) => {\r\n      this.instructors = [...data]\r\n      this.topInstructors = this.instructors.slice(0,3)\r\n    })\r\n    this.name.valueChanges.subscribe(value => {\r\n      this.filteredInstructors = this.filterByName(this.instructors, value || '')\r\n    });\r\n  }\r\n\r\n  ngOnDestroy(): void {\r\n    this.instructorsSubscription?.unsubscribe()\r\n  }\r\n\r\n  filterByName(array: Instructor[], input: string) {\r\n    return array.filter(item => item.name.toLowerCase().includes(input.toLowerCase()));\r\n  }\r\n\r\n  getInstructors(){\r\n    if(this.filteredInstructors.length > 0){\r\n      return this.filteredInstructors\r\n    }else{\r\n      return this.instructors\r\n    }\r\n  }\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".instructors-page{\r\n    width: 98%;\r\n    max-height: 97%;\r\n    box-sizing: content-box;  \r\n    overflow: scroll;\r\n    overflow-x: hidden;\r\n    border-radius: 20px;   \r\n}\r\n\r\n\r\n.instructors-page::-webkit-scrollbar {\r\n    width: 5px;    \r\n    border-radius: 20px;  \r\n  }\r\n  \r\n  .instructors-page::-webkit-scrollbar-track {\r\n    height: 10px;    \r\n  }\r\n  \r\n  .instructors-page::-webkit-scrollbar-thumb { \r\n    background: var(--gradient);   \r\n    border-radius: 20px;      \r\n\r\n  }",
+                    "styleUrl": "./instructors-main-page.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "store",
+                        "type": "Store",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 19,
+                "jsdoctags": [
+                    {
+                        "name": "store",
+                        "type": "Store",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "extends": [],
+            "implements": [
+                "OnInit",
+                "OnDestroy"
+            ],
+            "templateData": "<div class=\"instructors-page row p-3\">\r\n    <div class=\"row\">\r\n        <h3>Trainers</h3>\r\n        <h5>Most rated trainers</h5>\r\n        <div class=\"col-sm-12 col-md-6 col-lg-4 col-xl-3 mt-2\" *ngFor=\"let instructor of topInstructors\">\r\n            <app-instructor-card [instructor]=\"instructor\"></app-instructor-card>\r\n        </div>\r\n    </div>\r\n    <div class=\"row mt-5 p-3\">\r\n        <h5>All trainers</h5>\r\n        <div>\r\n            <mat-form-field>\r\n                <mat-label>Filter by name</mat-label>\r\n                <input matInput [formControl]=\"name\">\r\n            </mat-form-field>\r\n        </div>\r\n        <div class=\"col-sm-12 col-md-6 col-lg-4 col-xl-3 mt-2\" *ngFor=\"let instructor of getInstructors()\">\r\n            <app-instructor-card [instructor]=\"instructor\"></app-instructor-card>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n\r\n"
         },
         {
             "name": "LoginFormComponent",
@@ -5695,7 +6266,7 @@
         },
         {
             "name": "MenuSettingsComponent",
-            "id": "component-MenuSettingsComponent-4edcc9ae825f7ca0a16473b329efa409e2c6417d7069474658c14595fc02b97bcc9fd4804d9f3c5a8782e9c2c56c06254faf6e040b639015085a44b36bc2fd6f",
+            "id": "component-MenuSettingsComponent-5ada1bd1a77e402a36d19125c8180644c67ea54b4cdc60f0fc6c7f0fd912a6b4e4749ed8fa5da2d765867078010fa6dbd22418b10fc043dfedd0b590bd1ed435",
             "file": "src/app/students/students-dashboard/pages/settings/components/menu-settings/menu-settings.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -5715,7 +6286,18 @@
             "inputsClass": [],
             "outputsClass": [],
             "propertiesClass": [],
-            "methodsClass": [],
+            "methodsClass": [
+                {
+                    "name": "handleLogOut",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 15,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -5725,17 +6307,43 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-menu-settings',\n  templateUrl: './menu-settings.component.html',\n  styleUrls: ['./menu-settings.component.scss']\n})\nexport class MenuSettingsComponent {\n\n}\n",
+            "sourceCode": "import { Component } from '@angular/core';\r\nimport { Router } from '@angular/router';\r\n\r\n@Component({\r\n  selector: 'app-menu-settings',\r\n  templateUrl: './menu-settings.component.html',\r\n  styleUrls: ['./menu-settings.component.scss']\r\n})\r\nexport class MenuSettingsComponent {\r\n\r\n  constructor(private router: Router){\r\n\r\n  }\r\n\r\n  handleLogOut(){\r\n    localStorage.removeItem('userInfo');\r\n    sessionStorage.removeItem('userInfo')\r\n    this.router.navigate(['/login'])\r\n  }\r\n\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".main-settings {\r\n    .menu {\r\n        display: flex;\r\n        flex-direction: column;\r\n        gap: 0.5rem;\r\n\r\n        hr {\r\n            margin: 0;\r\n        }\r\n\r\n        .item {\r\n            display: flex;\r\n            align-items: center;\r\n            justify-content: space-between;\r\n            gap: 3rem;\r\n            height: 30px;\r\n            cursor: pointer;\r\n\r\n            .data {\r\n                display: flex;\r\n                gap: 1rem;\r\n                align-items: center;\r\n            }\r\n            \r\n\r\n            span {\r\n                padding: 2px 6px;\r\n                margin-left: 0.5rem;\r\n                border-radius: 5px;\r\n            }\r\n\r\n        }\r\n\r\n        .active {\r\n            height: 30px;\r\n            border-left: 2px solid;\r\n            border-image: linear-gradient(to bottom, #4defa7, #2d71fa) 1;\r\n\r\n            span {\r\n                background: var(--gradient);\r\n                padding: 2px 6px;\r\n                margin-left: 0.5rem;\r\n                border-radius: 5px;\r\n            }\r\n\r\n            .data {\r\n                color: transparent;\r\n                background: var(--gradient);\r\n                -webkit-background-clip: text;\r\n            }\r\n\r\n            .arrow{\r\n                i{\r\n                    color: var(--black) !important;\r\n                }\r\n                \r\n            }\r\n            i {\r\n                color: white;\r\n            }\r\n        }\r\n\r\n    }\r\n\r\n\r\n\r\n}",
+                    "data": ".main-settings {\r\n    .menu {\r\n        display: flex;\r\n        flex-direction: column;\r\n        gap: 0.5rem;\r\n\r\n        hr {\r\n            margin: 0;\r\n        }\r\n\r\n        .item {\r\n            display: flex;\r\n            align-items: center;\r\n            justify-content: space-between;\r\n            gap: 3rem;\r\n            height: 30px;\r\n            cursor: pointer;\r\n\r\n            .data {\r\n                display: flex;\r\n                gap: 1rem;\r\n                align-items: center;\r\n            }\r\n            \r\n\r\n            span {\r\n                padding: 2px 6px;\r\n                margin-left: 0.5rem;\r\n                border-radius: 5px;\r\n            }\r\n\r\n        }\r\n\r\n        .active {\r\n            height: 30px;\r\n            border-left: 2px solid;\r\n            border-image: linear-gradient(to bottom, #4defa7, #2d71fa) 1;\r\n\r\n            span {\r\n                background: var(--gradient);\r\n                padding: 2px 6px;\r\n                margin-left: 0.5rem;\r\n                border-radius: 5px;\r\n            }\r\n\r\n            .data {\r\n                color: transparent;\r\n                background: var(--gradient);\r\n                -webkit-background-clip: text;\r\n            }\r\n\r\n            .arrow{\r\n                i{\r\n                    color: var(--black) !important;\r\n                }\r\n                \r\n            }\r\n            i {\r\n                color: white;\r\n            }\r\n        }\r\n\r\n    }\r\n\r\n}\r\n\r\n.logout{\r\n    .data{\r\n        color: rgb(211, 32, 32) !important;\r\n    }\r\n}",
                     "styleUrl": "./menu-settings.component.scss"
                 }
             ],
             "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "router",
+                        "type": "Router",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 9,
+                "jsdoctags": [
+                    {
+                        "name": "router",
+                        "type": "Router",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
             "extends": [],
-            "templateData": "<div class=\"main-settings\">\n    <div class=\"menu\">\n       <div class=\"item\" routerLink=\"profile\" routerLinkActive=\"active\">\n        <div class=\"data\">\n            <span class=\"logo\"><i class=\"bi bi-person-fill\"></i></span>\n            Profile base\n        </div>\n        <div class=\"arrow\">\n            <i class=\"bi bi-chevron-right\"></i>\n        </div>\n        \n       </div>\n       <hr>\n       <div class=\"item\" routerLink=\"password\" routerLinkActive=\"active\">\n        <div class=\"data\">\n            <span class=\"logo\"><i class=\"bi bi-lock-fill\"></i></span>\n            Password\n        </div>\n        <div class=\"arrow\">\n            <i class=\"bi bi-chevron-right\"></i>\n\n        </div>\n    </div>  \n    </div>\n</div>\n"
+            "templateData": "<div class=\"main-settings\">\r\n  <div class=\"menu\">\r\n    <div class=\"item\" routerLink=\"profile\" routerLinkActive=\"active\">\r\n      <div class=\"data\">\r\n        <span class=\"logo\"><i class=\"bi bi-person-fill\"></i></span>\r\n        Profile base\r\n      </div>\r\n      <div class=\"arrow\">\r\n        <i class=\"bi bi-chevron-right\"></i>\r\n      </div>\r\n    </div>\r\n    <hr />\r\n    <div class=\"item\" routerLink=\"password\" routerLinkActive=\"active\">\r\n      <div class=\"data\">\r\n        <span class=\"logo\"><i class=\"bi bi-lock-fill\"></i></span>\r\n        Password\r\n      </div>\r\n      <div class=\"arrow\">\r\n        <i class=\"bi bi-chevron-right\"></i>\r\n      </div>\r\n    </div>\r\n    <hr>\r\n    <div class=\"item logout\" (click)=\"handleLogOut()\">\r\n      <div class=\"data\">\r\n        <span class=\"logo\"><i class=\"bi bi-person-walking\"></i></span>\r\n        Logout\r\n      </div>\r\n      <div class=\"arrow\">\r\n        <i class=\"bi bi-chevron-right\"></i>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
         },
         {
             "name": "NewTechFormComponent",
@@ -5855,7 +6463,7 @@
         },
         {
             "name": "PasswordComponent",
-            "id": "component-PasswordComponent-86efde4457b95d25f7b4d70ad87fdf0dfa9e7e9a5fddd9cafe7aa82833677bb28ef63a286e7309de6d7aa7f7ef615b0aa937ca7a9afd9d1b1af57fae3380cbbb",
+            "id": "component-PasswordComponent-11bb6241e24071e25a13344eee2e78fb62ad5b591cc14557393429f1f78917f3633108958cc5907a0f67e6f2aab6c652a6600a6e714bb50409f55a9d3052d189",
             "file": "src/app/students/students-dashboard/pages/settings/components/password/password.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -5874,8 +6482,62 @@
             "hostDirectives": [],
             "inputsClass": [],
             "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "hidePassword",
+                    "defaultValue": "true",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 13
+                },
+                {
+                    "name": "hidePassword2",
+                    "defaultValue": "true",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
+                },
+                {
+                    "name": "resetPassForm",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "FormGroup",
+                    "optional": false,
+                    "description": "",
+                    "line": 12
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "cambiarContrasena",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 23,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "getASecureRandomPassword",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "string",
+                    "typeParameters": [],
+                    "line": 42,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        123
+                    ]
+                }
+            ],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -5885,7 +6547,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-password',\n  templateUrl: './password.component.html',\n  styleUrls: ['./password.component.scss']\n})\nexport class PasswordComponent {\n\n}\n",
+            "sourceCode": "import { Component } from '@angular/core';\r\nimport { FormBuilder, FormGroup, Validators } from '@angular/forms';\r\nimport { getAuth, updatePassword } from 'firebase/auth';\r\nimport { User } from 'src/app/login/types/user';\r\n\r\n@Component({\r\n  selector: 'app-password',\r\n  templateUrl: './password.component.html',\r\n  styleUrls: ['./password.component.scss'],\r\n})\r\nexport class PasswordComponent {\r\n  resetPassForm: FormGroup;\r\n  hidePassword = true;\r\n  hidePassword2 = true;\r\n\r\n  constructor(private fb: FormBuilder) {\r\n    this.resetPassForm = this.fb.group({\r\n      password: ['', Validators.required],\r\n      confirmPassword: ['', Validators.required],\r\n    });\r\n  }\r\n\r\n  cambiarContrasena() {\r\n    const auth = getAuth();\r\n    const user = auth.currentUser;\r\n\r\n    if (user) {\r\n      const newPassword = this.getASecureRandomPassword();\r\n\r\n      updatePassword(user, newPassword)\r\n        .then(() => {\r\n          console.log('Contraseña actualizada exitosamente.');\r\n        })\r\n        .catch((error) => {\r\n          console.error('Error al cambiar la contraseña:', error.message);\r\n        });\r\n    } else {\r\n      console.error('No hay usuario autenticado.');\r\n    }\r\n  }\r\n\r\n  private getASecureRandomPassword(): string {\r\n    // Implementa la lógica para generar una contraseña segura\r\n    // Esto podría ser una función que devuelve una cadena aleatoria, por ejemplo.\r\n    // Asegúrate de implementar esta función de manera segura en tu aplicación.\r\n    return 'test1230';\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -5894,12 +6556,38 @@
                 }
             ],
             "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "fb",
+                        "type": "FormBuilder",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 14,
+                "jsdoctags": [
+                    {
+                        "name": "fb",
+                        "type": "FormBuilder",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
             "extends": [],
-            "templateData": "<p>password works!</p>\n"
+            "templateData": "<form [formGroup]=\"resetPassForm\" (ngSubmit)=\"cambiarContrasena()\">\r\n    <mat-form-field>\r\n      <mat-label>Password</mat-label>\r\n      <input matInput formControlName=\"password\" [type]=\"hidePassword ? 'password' : 'text'\">\r\n      <mat-icon matSuffix (click)=\"hidePassword = !hidePassword\">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>\r\n      <mat-error *ngIf=\"resetPassForm.controls['password'].errors?.['required']\">\r\n        Password is required.\r\n      </mat-error>\r\n    </mat-form-field>\r\n    <mat-form-field>\r\n        <mat-label>Confirm password</mat-label>\r\n        <input matInput formControlName=\"confirmPassword\" [type]=\"hidePassword2 ? 'password' : 'text'\">\r\n        <mat-icon matSuffix (click)=\"hidePassword2 = !hidePassword2\">{{hidePassword2 ? 'visibility_off' : 'visibility'}}</mat-icon>\r\n        <mat-error *ngIf=\"resetPassForm.controls['confirmPassword'].errors?.['required']\">\r\n          Confirm password is required.\r\n        </mat-error>\r\n    </mat-form-field>\r\n</form>"
         },
         {
             "name": "ProfileBaseComponent",
-            "id": "component-ProfileBaseComponent-bcf03547842957a33cd3685759d85e56c5113fcab64bdae1c5f0187fe4bcc60e0cef170d952a1721bb34b20d1994214c5ed3db00a3990a19f62f594f8573904f",
+            "id": "component-ProfileBaseComponent-eac2c361842223da9db6ba4ab1a90cebadd319cd1ac297c71d9749ff5e308ea9a3c4fe22c44963a60bf3a33a53889ad91358c4f175a9c36c337d83029312cdc0",
             "file": "src/app/students/students-dashboard/pages/settings/components/profile-base/profile-base.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -5920,13 +6608,34 @@
             "outputsClass": [],
             "propertiesClass": [
                 {
+                    "name": "dialog",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "MatDialog",
+                    "optional": false,
+                    "description": "",
+                    "line": 25,
+                    "modifierKind": [
+                        125
+                    ]
+                },
+                {
                     "name": "profileForm",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "FormGroup",
                     "optional": false,
                     "description": "",
-                    "line": 13
+                    "line": 20
+                },
+                {
+                    "name": "user",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "User | undefined",
+                    "optional": false,
+                    "description": "",
+                    "line": 19
                 },
                 {
                     "name": "user$",
@@ -5936,7 +6645,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 12
+                    "line": 18
                 }
             ],
             "methodsClass": [
@@ -5946,9 +6655,37 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 23,
+                    "line": 37,
                     "deprecated": false,
                     "deprecationMessage": ""
+                },
+                {
+                    "name": "onEdit",
+                    "args": [
+                        {
+                            "name": "userUpdated",
+                            "type": "User",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 46,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "userUpdated",
+                            "type": "User",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
                 },
                 {
                     "name": "onSubmit",
@@ -5956,7 +6693,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 31,
+                    "line": 57,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -5970,11 +6707,11 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { FormBuilder, FormGroup, Validators } from '@angular/forms';\nimport { Store } from '@ngrx/store';\nimport { selectUser } from 'src/app/login/store/user.selectors';\n\n@Component({\n  selector: 'app-profile-base',\n  templateUrl: './profile-base.component.html',\n  styleUrls: ['./profile-base.component.scss']\n})\nexport class ProfileBaseComponent implements OnInit {\n  user$ = this.store.select(selectUser);\n  profileForm: FormGroup;  // Quita el tipo `undefined` aquí\n\n  constructor(private store: Store, private fb: FormBuilder) {\n    this.profileForm = this.fb.group({\n      email: ['', Validators.required],\n      phoneNumber: [''],\n      displayName: [''],\n    });\n  }\n\n  ngOnInit() {\n    this.user$.subscribe(user => {\n      if (user) {\n        this.profileForm.patchValue(user);  // Puedes utilizar patchValue para establecer los valores del usuario\n      }\n    });\n  }\n\n  onSubmit() {\n    if (this.profileForm.valid) {\n      // Realiza acciones con los datos del formulario, por ejemplo, enviar al servidor\n      // this.profileForm.value contiene los valores del formulario\n      console.log(this.profileForm.value);\n    }\n  }\n}\n\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { FormBuilder, FormGroup, Validators } from '@angular/forms';\r\nimport { MatDialog } from '@angular/material/dialog';\r\nimport { Store } from '@ngrx/store';\r\nimport { UserActions } from 'src/app/login/store/user.actions';\r\nimport { selectUser } from 'src/app/login/store/user.selectors';\r\nimport { User } from 'src/app/login/types/user';\r\nimport { UpdateModalComponent } from 'src/app/shared/components/modals/update-modal/update-modal.component';\r\nimport { AlertsService } from 'src/app/shared/services/alerts/alerts.service';\r\nimport { UsersService } from 'src/app/shared/services/users/users.service';\r\n\r\n@Component({\r\n  selector: 'app-profile-base',\r\n  templateUrl: './profile-base.component.html',\r\n  styleUrls: ['./profile-base.component.scss'],\r\n})\r\nexport class ProfileBaseComponent implements OnInit {\r\n  user$ = this.store.select(selectUser);\r\n  user: User | undefined;\r\n  profileForm: FormGroup;\r\n\r\n  constructor(\r\n    private store: Store,\r\n    private fb: FormBuilder,\r\n    public dialog: MatDialog,\r\n    private userService: UsersService,\r\n    private alertMessage: AlertsService\r\n  ) {\r\n    this.profileForm = this.fb.group({\r\n      email: ['', Validators.required],\r\n      phoneNumber: [''],\r\n      displayName: [''],\r\n      photoURL: [''],\r\n    });\r\n  }\r\n\r\n  ngOnInit() {\r\n    this.user$.subscribe((user) => {\r\n      if (user) {\r\n        this.user = user;\r\n        this.profileForm.patchValue(user);\r\n      }\r\n    });\r\n  }\r\n\r\n  onEdit(userUpdated: User) {\r\n    this.userService\r\n      .updateUser(userUpdated.id ? userUpdated.id : '', userUpdated)\r\n      .then(() => {\r\n        this.alertMessage.successMessage('Profile update succesfully');\r\n        this.store.dispatch(UserActions.updateUser({ user: userUpdated }));\r\n        this.userService.saveUserInStorage(userUpdated.rememberMe, userUpdated);\r\n      })\r\n      .catch((error) => console.log(error));\r\n  }\r\n\r\n  onSubmit() {\r\n    if (this.profileForm.valid) {\r\n      const userUpdated = {\r\n        ...this.user,\r\n        ...this.profileForm?.value,\r\n      };\r\n\r\n      this.dialog.open(UpdateModalComponent, {\r\n        data: {\r\n          editData: userUpdated,\r\n          onEdit: this.onEdit.bind(this),\r\n        },\r\n      });\r\n    } else{\r\n      this.alertMessage.errorMessage(\"Fill in the required fields\")\r\n    }\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "",
+                    "data": ".form{\r\n    display: flex;\r\n    flex-direction: row-reverse;\r\n    gap: 2rem;\r\n    @media (width < 1150px) {\r\n        flex-direction: column;\r\n        gap: 1rem;\r\n    }\r\n    @media (width < 460px) {\r\n        flex-direction: column;\r\n        gap: 0rem;\r\n    }\r\n}\r\n.img-container{\r\n    display: flex;\r\n    gap: 1rem;\r\n    flex-direction: column;\r\n    width: 350px;\r\n    align-items: center;\r\n    @media (width < 1150px) {\r\n        flex-direction: row;\r\n        gap: 1rem;\r\n        align-items: end;\r\n    }\r\n    @media (width < 460px) {\r\n        flex-direction: column;\r\n        gap: 1rem;\r\n        align-items: center;\r\n    }\r\n    @media (width < 460px) {\r\n        width: 300px;\r\n    }\r\n    @media (width < 418px) {\r\n        width: 220px;\r\n    }\r\n    \r\n    .photo{\r\n        height: 140px;\r\n        width: 140px;\r\n        overflow: hidden;\r\n        border-radius: 20px;\r\n        @media (width < 1150px) {\r\n            height: 100px;\r\n            width: 140px;\r\n        }\r\n        @media (width < 460px) {\r\n            height: 140px;\r\n            width: 140px;\r\n        }\r\n\r\n        img{\r\n            height: 140px;\r\n            width: 100%;\r\n            @media (width < 1150px) {\r\n                height: 100px;\r\n                \r\n            }\r\n            @media (width < 460px) {\r\n                height: 140px;\r\n                \r\n            }\r\n        }\r\n    }\r\n    \r\n}\r\n.data{\r\n    display: flex;\r\n    flex-direction: column;\r\n    width: 350px;\r\n    @media (width < 460px) {\r\n        width: 300px;\r\n    }\r\n    @media (width < 418px) {\r\n        width: 220px;\r\n    }\r\n    \r\n}\r\n\r\n.input-photo{\r\n    height: 80px;\r\n    width: 100%;\r\n    \r\n}\r\n\r\n",
                     "styleUrl": "./profile-base.component.scss"
                 }
             ],
@@ -5996,9 +6733,27 @@
                         "type": "FormBuilder",
                         "deprecated": false,
                         "deprecationMessage": ""
+                    },
+                    {
+                        "name": "dialog",
+                        "type": "MatDialog",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "userService",
+                        "type": "UsersService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "alertMessage",
+                        "type": "AlertsService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
                     }
                 ],
-                "line": 13,
+                "line": 20,
                 "jsdoctags": [
                     {
                         "name": "store",
@@ -6017,6 +6772,33 @@
                         "tagName": {
                             "text": "param"
                         }
+                    },
+                    {
+                        "name": "dialog",
+                        "type": "MatDialog",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "userService",
+                        "type": "UsersService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "alertMessage",
+                        "type": "AlertsService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
                     }
                 ]
             },
@@ -6024,7 +6806,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<form [formGroup]=\"profileForm\">\n  <mat-form-field class=\"input-name\">\n    <mat-label>Name</mat-label>\n    <input matInput formControlName=\"displayName\" type=\"string\">\n  </mat-form-field>\n\n  <mat-form-field class=\"input-name\">\n    <mat-label>Email</mat-label>\n    <input matInput formControlName=\"email\" type=\"string\">\n    <!-- <mat-error *ngIf=\"instructorForm.get('name')?.hasError('required') && instructorForm.touched\">\n        Name is required\n    </mat-error> -->\n  </mat-form-field>\n  \n  \n  <mat-form-field class=\"input-name\">\n    <mat-label>Phone Number</mat-label>\n    <input matInput formControlName=\"phoneNumber\" type=\"string\">\n  </mat-form-field>\n\n  <div class=\"btn-container\">\n    <button mat-raised-button color=\"primary\" type=\"submit\" >Add Instructor</button>\n</div>\n  \n  \n    <button type=\"submit\">Save</button>\n  </form>"
+            "templateData": "<form [formGroup]=\"profileForm\" class=\"form\">\r\n  <div class=\"img-container\" >\r\n      <div class=\"photo\">\r\n        <img [src]=\"user?.photoURL\" alt=\"User Photo\" />\r\n      </div>\r\n\r\n      <mat-form-field class=\"input-name input-photo\">\r\n        <mat-label>Photo Url</mat-label>\r\n        <input matInput formControlName=\"photoURL\" type=\"string\" />\r\n      </mat-form-field>\r\n  </div>\r\n<div class=\"data\">\r\n  <mat-form-field class=\"input-name\">\r\n    <mat-label>Name</mat-label>\r\n    <input matInput formControlName=\"displayName\" type=\"string\" />\r\n  </mat-form-field>\r\n\r\n  <mat-form-field class=\"input-name\">\r\n    <mat-label>Phone Number</mat-label>\r\n    <input matInput formControlName=\"phoneNumber\" type=\"string\" />\r\n  </mat-form-field>\r\n\r\n  <mat-form-field class=\"input-name\">\r\n    <mat-label>Email</mat-label>\r\n    <input matInput formControlName=\"email\" type=\"string\" />\r\n    <mat-error *ngIf=\"profileForm.get('email')?.hasError('required')\">\r\n        Email is required\r\n    </mat-error>\r\n  </mat-form-field>\r\n</div>\r\n\r\n</form>\r\n<app-button [label]=\"'Update profile'\" [type]=\"'gradient'\" (onClick)=\"onSubmit()\"></app-button>\r\n\r\n"
         },
         {
             "name": "SecondSectionMainComponent",
@@ -6193,7 +6975,7 @@
         },
         {
             "name": "SettingsComponent",
-            "id": "component-SettingsComponent-de5d50129e381e52ef45272289f81e637ad37cde7a7a51249b32d7201dc9c92df0e72d4b341f29670fc007d0ee208eae085bc0c11010703c197b33ce490f5126",
+            "id": "component-SettingsComponent-f5f04b1c22f9446f7bd95006e6d82ddce519fae8fbf993ec31cb1344a3f723572d1216e2cf145293fab68b48daaa588af457d9925e9f69e3f6670e84650d662f",
             "file": "src/app/students/students-dashboard/pages/settings/settings.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -6212,18 +6994,7 @@
             "hostDirectives": [],
             "inputsClass": [],
             "outputsClass": [],
-            "propertiesClass": [
-                {
-                    "name": "user$",
-                    "defaultValue": "this.store.select(selectUser)",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 12
-                }
-            ],
+            "propertiesClass": [],
             "methodsClass": [],
             "deprecated": false,
             "deprecationMessage": "",
@@ -6234,43 +7005,17 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { selectUser } from 'src/app/login/store/user.selectors';\r\n\r\n@Component({\r\n  selector: 'app-settings',\r\n  templateUrl: './settings.component.html',\r\n  styleUrls: ['./settings.component.scss']\r\n})\r\nexport class SettingsComponent {\r\n\r\n  user$ = this.store.select(selectUser);\r\n\r\n  constructor(private store: Store) {}\r\n}\r\n",
+            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-settings',\r\n  templateUrl: './settings.component.html',\r\n  styleUrls: ['./settings.component.scss']\r\n})\r\nexport class SettingsComponent{\r\n\r\n  \r\n  \r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".main-container{\r\n    width: 100%;\r\n    display: flex;\r\n    flex-direction: column;\r\n    gap: 1.5rem;\r\n}\r\n.main-settings{\r\n    display: flex;\r\n    gap: 4rem;\r\n    width: 100%;\r\n    .menu{\r\n    }\r\n    .router{\r\n    }\r\n}",
+                    "data": ".main-container{\r\n    display: flex;\r\n    flex-direction: column;\r\n    gap: 1.5rem;\r\n    overflow: scroll;\r\n    overflow-x: hidden;\r\n    max-height: 97%;\r\n    padding-right: 2rem;\r\n    box-sizing: content-box;\r\n    h3{\r\n      margin-top: 1rem;\r\n    }\r\n}\r\n.main-settings{\r\n    display: flex;\r\n    gap: 4rem;\r\n    width: 100%;\r\n\r\n    @media (width < 750px) {\r\n        flex-direction: column;\r\n        gap: 3rem;\r\n        }\r\n}\r\n.router{\r\n  margin-left: 1rem;\r\n}\r\n\r\n.main-container::-webkit-scrollbar {\r\n    width: 5px;    \r\n    border-radius: 20px;  \r\n   \r\n  }\r\n  \r\n.main-container::-webkit-scrollbar-track {\r\n    height: 10px;  \r\n    margin: 40px;\r\n  }\r\n  \r\n.main-container::-webkit-scrollbar-thumb { \r\n    background: var(--gradient);   \r\n    border-radius: 20px;\r\n    \r\n}",
                     "styleUrl": "./settings.component.scss"
                 }
             ],
             "stylesData": "",
-            "constructorObj": {
-                "name": "constructor",
-                "description": "",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "args": [
-                    {
-                        "name": "store",
-                        "type": "Store",
-                        "deprecated": false,
-                        "deprecationMessage": ""
-                    }
-                ],
-                "line": 12,
-                "jsdoctags": [
-                    {
-                        "name": "store",
-                        "type": "Store",
-                        "deprecated": false,
-                        "deprecationMessage": "",
-                        "tagName": {
-                            "text": "param"
-                        }
-                    }
-                ]
-            },
             "extends": [],
-            "templateData": "<p>{{user$ | async | json}}</p>\r\n<div class=\"main-container\">\r\n<h3>Account Settings</h3>\r\n<div class=\"main-settings\">\r\n    <div class=\"menu\">\r\n        <app-menu-settings></app-menu-settings>\r\n    </div>\r\n    <div class=\"router\"> \r\n        <router-outlet></router-outlet>\r\n    </div>\r\n</div>\r\n</div>"
+            "templateData": "<div class=\"main-container\">\r\n<h3>Account Settings</h3>\r\n<div class=\"main-settings\">\r\n    <div class=\"menu\">\r\n        <app-menu-settings></app-menu-settings>\r\n    </div>\r\n    <div class=\"router\"> \r\n        <router-outlet></router-outlet>\r\n    </div>\r\n</div>\r\n</div>\r\n\r\n"
         },
         {
             "name": "SidebarComponent",
@@ -6625,7 +7370,7 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".container-fluid{\r\n    display: flex;\r\n    padding: 0;\r\n    background-color: var(--black);\r\n    height: 100%;\r\n\r\n    .container-fluid{\r\n        height: 100%;\r\n        padding: 20px;\r\n        \r\n        .container-fluid{\r\n            border-radius: 20px;\r\n            background-color: var(--white);\r\n            color: var(--black);\r\n        }\r\n    }\r\n}",
+                    "data": ".container-fluid{\r\n    display: flex;\r\n    padding: 0;\r\n    background-color: var(--black);\r\n    height: 100%;\r\n    overflow: hidden;\r\n\r\n    .container-fluid{\r\n        height: 100%;\r\n        padding: 20px;\r\n        \r\n        .container{\r\n            border-radius: 20px;\r\n            background-color: var(--white);\r\n            color: var(--black);\r\n            min-width: 100%;\r\n        }\r\n    }\r\n}",
                     "styleUrl": "./students-dashboard.component.scss"
                 }
             ],
@@ -6660,7 +7405,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"container-fluid\">\r\n    <app-sidebar></app-sidebar>\r\n    <div class=\"container-fluid\">\r\n        <div class=\"container-fluid\">\r\n            <router-outlet></router-outlet>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
+            "templateData": "<div class=\"container-fluid a\">\r\n    <app-sidebar></app-sidebar>\r\n    <div class=\"container-fluid b\">\r\n        <div class=\"container c\">\r\n            <router-outlet></router-outlet>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
         },
         {
             "name": "SubDetailModalComponent",
@@ -7682,7 +8427,7 @@
         },
         {
             "name": "TrainersComponent",
-            "id": "component-TrainersComponent-af3f3508fe15c4081674172cc074e1a13e2e3daa6f14b48a8088c5c831b8d5a2123a4aa588b11d9762672ffd9af3bc38106f418d9d6151b64a0e8d2a971b8767",
+            "id": "component-TrainersComponent-17cbf896be783eb5a1f888a89d0d9feedc3716b0412e3406f205b74196525090787c3e640b4090a756f8256defb24ff5dfaab7cb00b06e5071c811e66e7b7e83",
             "file": "src/app/students/students-dashboard/pages/trainers/trainers.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -7712,7 +8457,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-trainers',\r\n  templateUrl: './trainers.component.html',\r\n  styleUrls: ['./trainers.component.scss']\r\n})\r\nexport class TrainersComponent {\r\n\r\n}\r\n",
+            "sourceCode": "import { Component, OnDestroy, OnInit } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { Subscription } from 'rxjs';\r\nimport { Instructor } from 'src/app/admins/admins-dashboard/pages/instructors/instructors';\r\nimport { selectInstructor } from 'src/app/store/instructors/instructors.selectors';\r\n\r\n@Component({\r\n  selector: 'app-trainers',\r\n  templateUrl: './trainers.component.html',\r\n  styleUrls: ['./trainers.component.scss']\r\n})\r\nexport class TrainersComponent {\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -7722,7 +8467,7 @@
             ],
             "stylesData": "",
             "extends": [],
-            "templateData": "<p>trainers works!</p>\r\n"
+            "templateData": "<router-outlet></router-outlet>"
         },
         {
             "name": "UpdateModalComponent",
@@ -7845,7 +8590,7 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".update-modal {\r\n    min-width: 100px;\r\n    max-width: 500px;\r\n    min-height: 200px;\r\n    padding: 10px;\r\n    background-image: url(\"../../../../../assets/images/svgs/waveGreenDown.svg\");\r\n    background-repeat: no-repeat;\r\n    background-size: content;\r\n    background-position: bottom;\r\n\r\n    &--content {\r\n        .--close-icon {\r\n            display: flex;\r\n            justify-content: flex-end;\r\n            cursor: pointer;\r\n        }\r\n\r\n        .--edit-icon {\r\n            border-radius: 50%;\r\n            border: 2px var(--succes);\r\n            display: inline-block;\r\n            background-color: var(--succes-transparent);\r\n            padding: 10px;\r\n\r\n            mat-icon {\r\n                color: var(--succes);\r\n                font-size: 24px;\r\n                display: block;\r\n                margin: 0 auto;\r\n            }\r\n        }\r\n\r\n        .modal-body {\r\n            margin: 10px 5px;\r\n\r\n            .title {\r\n                font-weight: bolder;\r\n            }\r\n\r\n            .text-advise {\r\n                color: var(--succes);\r\n                font-weight: bold;\r\n            }\r\n        }\r\n\r\n\r\n        .modal-buttons {\r\n            display: flex;\r\n            justify-content: flex-end;\r\n            margin-top: 20px;\r\n            gap: 1rem;\r\n\r\n            button {\r\n                margin-left: 10px;\r\n            }\r\n\r\n            .confirm-update {\r\n                background-color: var(--primary);\r\n                //background-color: #1d9da8;\r\n                color: var(--white);\r\n\r\n                &:hover {\r\n                    background-color: var(--primary-hover);\r\n\r\n                }\r\n            }\r\n        }\r\n\r\n    }\r\n}",
+                    "data": ".update-modal {\r\n    min-width: 100px;\r\n    max-width: 500px;\r\n    min-height: 200px;\r\n    padding: 10px;\r\n    background-image: url(\"../../../../../assets/images/svgs/waveGreenDown.svg\");\r\n    background-repeat: no-repeat;\r\n    background-size: content;\r\n    background-position: bottom;\r\n\r\n    &--content {\r\n        .--close-icon {\r\n            display: flex;\r\n            justify-content: flex-end;\r\n            cursor: pointer;\r\n        }\r\n\r\n        .--edit-icon {\r\n            border-radius: 50%;\r\n            border: 2px var(--succes);\r\n            display: inline-block;\r\n            background-color: var(--succes-transparent);\r\n            padding: 10px;\r\n\r\n            mat-icon {\r\n                color: var(--succes);\r\n                font-size: 24px;\r\n                display: block;\r\n                margin: 0 auto;\r\n            }\r\n        }\r\n\r\n        .modal-body {\r\n            margin: 10px 5px;\r\n\r\n            .title {\r\n                font-weight: bolder;\r\n            }\r\n\r\n            .text-advise {\r\n                color: var(--succes);\r\n                font-weight: bold;\r\n            }\r\n        }\r\n\r\n\r\n        .modal-buttons {\r\n            display: flex;\r\n            justify-content: flex-end;\r\n            margin-top: 20px;\r\n            gap: 1rem;\r\n\r\n            button {\r\n                margin-left: 10px;\r\n            }\r\n\r\n            .confirm-update {\r\n                background-color: var(--primary);\r\n               \r\n                color: var(--white);\r\n\r\n                &:hover {\r\n                    background-color: var(--primary-hover);\r\n\r\n                }\r\n            }\r\n        }\r\n\r\n    }\r\n}",
                     "styleUrl": "./update-modal.component.scss"
                 }
             ],
@@ -7910,7 +8655,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"update-modal\">\r\n  <div class=\"update-modal--content\">\r\n    <div class=\"--close-icon\">\r\n      <mat-icon (click)=\"close()\">close</mat-icon>\r\n    </div>\r\n\r\n    <div class=\"--edit-icon\">\r\n      <mat-icon>edit</mat-icon>\r\n    </div>\r\n    <div mat-dialog-content class=\"modal-body\">\r\n      <h5 mat-dialog-title class=\"title\">Update {{ title }}</h5>\r\n      <p class=\"text\">Are you sure you want to permanently update this file?</p>\r\n      <p class=\"text-advise\">This action cannot be undone</p>\r\n    </div>\r\n\r\n    <div class=\"modal-buttons\">\r\n        <app-button\r\n        [label]=\"'Update file'\"\r\n        [type]=\"'success'\"\r\n        (onClick)=\"onUpdate()\"\r\n      ></app-button>\r\n      <app-button\r\n        [label]=\"'Close'\"\r\n        [type]=\"'close'\"\r\n        (onClick)=\"close()\"\r\n      ></app-button>\r\n      \r\n    </div>\r\n  </div>\r\n</div>\r\n"
+            "templateData": "<div class=\"update-modal\">\r\n  <div class=\"update-modal--content\">\r\n    <div class=\"--close-icon\">\r\n      <mat-icon (click)=\"close()\">close</mat-icon>\r\n    </div>\r\n\r\n    <div class=\"--edit-icon\">\r\n      <mat-icon>edit</mat-icon>\r\n    </div>\r\n    <div mat-dialog-content class=\"modal-body\">\r\n      <h5 mat-dialog-title class=\"title\">Update {{ title }}</h5>\r\n      <p class=\"text\">Are you sure you want to permanently update ?</p>\r\n      <p class=\"text-advise\">This action cannot be undone</p>\r\n    </div>\r\n\r\n    <div class=\"modal-buttons\">\r\n        <app-button\r\n        [label]=\"'Update'\"\r\n        [type]=\"'success'\"\r\n        (onClick)=\"onUpdate()\"\r\n      ></app-button>\r\n      <app-button\r\n        [label]=\"'Close'\"\r\n        [type]=\"'close'\"\r\n        (onClick)=\"close()\"\r\n      ></app-button>\r\n      \r\n    </div>\r\n  </div>\r\n</div>\r\n"
         },
         {
             "name": "UsersComponent",
@@ -8543,13 +9288,13 @@
         },
         {
             "name": "SharedModule",
-            "id": "module-SharedModule-9df61ed43b8c90df7c0b7babfdba8a10cdbe4ebc9f0abd3f2012b227c2839fadf42889b541b23f6afb64424772353f2d26eaca62725f7f5555728570a0049279",
+            "id": "module-SharedModule-af88f22cf5409b9ed594efbaa036bc434707deef341daa4f9ca1708faa236795995fbc735f4b1332e7b988380f3bcf1aa0cc33a378c3cf5b4df9ec642dd272bf",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/shared/shared.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatFormFieldModule } from '@angular/material/form-field';\r\nimport { FormsModule, ReactiveFormsModule } from '@angular/forms';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { MatSnackBarModule } from '@angular/material/snack-bar';\r\nimport { WorkingInProgressComponent } from './components/default-pages/working-in-progress/working-in-progress.component';\r\nimport { ErrorPageComponent } from './components/default-pages/error-page/error-page.component';\r\nimport { ButtonComponent } from './components/button/button.component';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { UpdateModalComponent } from './components/modals/update-modal/update-modal.component';\r\nimport { DeleteModalComponent } from './components/modals/delete-modal/delete-modal.component';\r\nimport { DetailModalComponent } from './components/modals/detail-modal/detail-modal.component';\r\nimport { CourseCardComponent } from './components/course-card/course-card.component';\r\nimport { SubDetailModalComponent } from './components/modals/sub-modals/sub-detail-modal/sub-detail-modal.component';\r\nimport { SubModalCreateComponent } from './components/modals/sub-modals/sub-modal-create/sub-modal-create.component';\r\nimport { RouterModule } from '@angular/router';\r\nimport { MatOptionModule } from '@angular/material/core';\r\nimport { MatSelectModule } from '@angular/material/select';\r\n\r\n\r\n@NgModule({\r\n  declarations: [ \r\n    WorkingInProgressComponent,\r\n    ErrorPageComponent,\r\n    ButtonComponent,\r\n    UpdateModalComponent,\r\n    DeleteModalComponent,\r\n    DetailModalComponent,\r\n    CourseCardComponent,\r\n    SubDetailModalComponent,\r\n    SubModalCreateComponent,\r\n  ],\r\n  imports: [\r\n    CommonModule,\r\n    MatFormFieldModule,\r\n    FormsModule,\r\n    MatInputModule,\r\n    MatButtonModule,\r\n    MatSnackBarModule,\r\n    MatIconModule,\r\n    ReactiveFormsModule,\r\n    RouterModule,\r\n    MatOptionModule,\r\n    MatSelectModule,\r\n\r\n  ],\r\n  exports: [   \r\n    WorkingInProgressComponent,\r\n    ErrorPageComponent,\r\n    ButtonComponent,\r\n    CourseCardComponent,\r\n  ]\r\n})\r\nexport class SharedModule { }\r\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatFormFieldModule } from '@angular/material/form-field';\r\nimport { FormsModule, ReactiveFormsModule } from '@angular/forms';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { MatSnackBarModule } from '@angular/material/snack-bar';\r\nimport { WorkingInProgressComponent } from './components/default-pages/working-in-progress/working-in-progress.component';\r\nimport { ErrorPageComponent } from './components/default-pages/error-page/error-page.component';\r\nimport { ButtonComponent } from './components/button/button.component';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { UpdateModalComponent } from './components/modals/update-modal/update-modal.component';\r\nimport { DeleteModalComponent } from './components/modals/delete-modal/delete-modal.component';\r\nimport { DetailModalComponent } from './components/modals/detail-modal/detail-modal.component';\r\nimport { CourseCardComponent } from './components/course-card/course-card.component';\r\nimport { SubDetailModalComponent } from './components/modals/sub-modals/sub-detail-modal/sub-detail-modal.component';\r\nimport { SubModalCreateComponent } from './components/modals/sub-modals/sub-modal-create/sub-modal-create.component';\r\nimport { RouterModule } from '@angular/router';\r\nimport { MatOptionModule } from '@angular/material/core';\r\nimport { MatSelectModule } from '@angular/material/select';\r\nimport { InstructorCardComponent } from './components/instructor-card/instructor-card.component';\r\n\r\n\r\n@NgModule({\r\n  declarations: [ \r\n    WorkingInProgressComponent,\r\n    ErrorPageComponent,\r\n    ButtonComponent,\r\n    UpdateModalComponent,\r\n    DeleteModalComponent,\r\n    DetailModalComponent,\r\n    CourseCardComponent,\r\n    SubDetailModalComponent,\r\n    SubModalCreateComponent,\r\n    InstructorCardComponent,\r\n  ],\r\n  imports: [\r\n    CommonModule,\r\n    MatFormFieldModule,\r\n    FormsModule,\r\n    MatInputModule,\r\n    MatButtonModule,\r\n    MatSnackBarModule,\r\n    MatIconModule,\r\n    ReactiveFormsModule,\r\n    RouterModule,\r\n    MatOptionModule,\r\n    MatSelectModule,\r\n\r\n  ],\r\n  exports: [   \r\n    WorkingInProgressComponent,\r\n    ErrorPageComponent,\r\n    ButtonComponent,\r\n    CourseCardComponent,\r\n    InstructorCardComponent,\r\n  ]\r\n})\r\nexport class SharedModule { }\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -8572,6 +9317,9 @@
                         },
                         {
                             "name": "ErrorPageComponent"
+                        },
+                        {
+                            "name": "InstructorCardComponent"
                         },
                         {
                             "name": "SubDetailModalComponent"
@@ -8604,6 +9352,9 @@
                             "name": "ErrorPageComponent"
                         },
                         {
+                            "name": "InstructorCardComponent"
+                        },
+                        {
                             "name": "WorkingInProgressComponent"
                         }
                     ]
@@ -8620,13 +9371,13 @@
         },
         {
             "name": "StudentsModule",
-            "id": "module-StudentsModule-c8213770a9e72e788f4c449edebef42926802f8bdd8a9dbcba5a61484b1f3f5892abc5d4676fb829f502f57f733d11571a8154c5e40421282d0126e4d1d23201",
+            "id": "module-StudentsModule-de70eda68f2dea60cb1d728386d7d07e3e96955ad5d3fbcbdca5d1f5c511ff4db705d57383223af258300e1e59714ec614a39f11cd1192a4f8f941bacee7733e",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/students/students.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { StudentsDashboardComponent } from './students-dashboard/students-dashboard.component';\r\nimport { StudentsRoutingModule } from './students-routing.module';\r\nimport { SharedModule } from '../shared/shared.module';\r\nimport { SidebarComponent } from './components/sidebar/sidebar.component';\r\nimport { MatDialogModule } from '@angular/material/dialog';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { HomeComponent } from './students-dashboard/pages/home/home.component';\r\nimport { CoursesComponent } from './students-dashboard/pages/courses/courses.component';\r\nimport { TrainersComponent } from './students-dashboard/pages/trainers/trainers.component';\r\nimport { TechnologiesComponent } from './students-dashboard/pages/technologies/technologies.component';\r\nimport { SettingsComponent } from './students-dashboard/pages/settings/settings.component';\r\nimport {MatTooltipModule} from '@angular/material/tooltip';\r\nimport { MenuSettingsComponent } from './students-dashboard/pages/settings/components/menu-settings/menu-settings.component';\r\nimport { ProfileBaseComponent } from './students-dashboard/pages/settings/components/profile-base/profile-base.component';\r\nimport { PasswordComponent } from './students-dashboard/pages/settings/components/password/password.component';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { MatFormFieldModule } from '@angular/material/form-field';\r\nimport { ReactiveFormsModule } from '@angular/forms';\r\n\r\n\r\n\r\n@NgModule({\r\n  declarations: [\r\n    StudentsDashboardComponent,\r\n    SidebarComponent,\r\n    HomeComponent,\r\n    CoursesComponent,\r\n    TrainersComponent,\r\n    TechnologiesComponent,\r\n    SettingsComponent,\r\n    MenuSettingsComponent,\r\n    ProfileBaseComponent,\r\n    PasswordComponent\r\n  ],\r\n  imports: [\r\n    CommonModule,\r\n    StudentsRoutingModule,\r\n    SharedModule,\r\n    MatDialogModule,\r\n    MatIconModule,\r\n    MatTooltipModule,\r\n    MatInputModule,\r\n    MatFormFieldModule,\r\n    ReactiveFormsModule\r\n  ]\r\n})\r\nexport class StudentsModule { }\r\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { StudentsDashboardComponent } from './students-dashboard/students-dashboard.component';\r\nimport { StudentsRoutingModule } from './students-routing.module';\r\nimport { SharedModule } from '../shared/shared.module';\r\nimport { SidebarComponent } from './components/sidebar/sidebar.component';\r\nimport { MatDialogModule } from '@angular/material/dialog';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { HomeComponent } from './students-dashboard/pages/home/home.component';\r\nimport { CoursesComponent } from './students-dashboard/pages/courses/courses.component';\r\nimport { TrainersComponent } from './students-dashboard/pages/trainers/trainers.component';\r\nimport { TechnologiesComponent } from './students-dashboard/pages/technologies/technologies.component';\r\nimport { SettingsComponent } from './students-dashboard/pages/settings/settings.component';\r\nimport {MatTooltipModule} from '@angular/material/tooltip';\r\nimport { MenuSettingsComponent } from './students-dashboard/pages/settings/components/menu-settings/menu-settings.component';\r\nimport { ProfileBaseComponent } from './students-dashboard/pages/settings/components/profile-base/profile-base.component';\r\nimport { PasswordComponent } from './students-dashboard/pages/settings/components/password/password.component';\r\nimport { CourseCardsComponent } from './students-dashboard/pages/courses/components/course-cards/course-cards.component';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { MatFormFieldModule } from '@angular/material/form-field';\r\nimport { ReactiveFormsModule } from '@angular/forms';\r\nimport { InstructorPageComponent } from './students-dashboard/pages/trainers/components/instructor-page/instructor-page.component';\r\nimport { InstructorsMainPageComponent } from './students-dashboard/pages/trainers/components/instructors-main-page/instructors-main-page.component';\r\nimport { CoursePageComponent } from './students-dashboard/pages/courses/components/course-page/course-page.component';\r\nimport { CoursesMainPageComponent } from './students-dashboard/pages/courses/components/courses-main-page/courses-main-page.component';\r\n\r\n\r\n\r\n@NgModule({\r\n  declarations: [\r\n    StudentsDashboardComponent,\r\n    SidebarComponent,\r\n    HomeComponent,\r\n    CoursesComponent,\r\n    TrainersComponent,\r\n    TechnologiesComponent,\r\n    SettingsComponent,\r\n    MenuSettingsComponent,\r\n    ProfileBaseComponent,\r\n    PasswordComponent,\r\n    CourseCardsComponent,\r\n    InstructorPageComponent,\r\n    InstructorsMainPageComponent,\r\n    CoursePageComponent,\r\n    CoursesMainPageComponent,\r\n  ],\r\n  imports: [\r\n    CommonModule,\r\n    StudentsRoutingModule,\r\n    SharedModule,\r\n    MatDialogModule,\r\n    MatIconModule,\r\n    MatTooltipModule,\r\n    MatInputModule,\r\n    MatFormFieldModule,\r\n    ReactiveFormsModule\r\n  ]\r\n})\r\nexport class StudentsModule { }\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -8636,7 +9387,22 @@
                     "type": "declarations",
                     "elements": [
                         {
+                            "name": "CourseCardsComponent"
+                        },
+                        {
+                            "name": "CoursePageComponent"
+                        },
+                        {
+                            "name": "CoursesMainPageComponent"
+                        },
+                        {
                             "name": "HomeComponent"
+                        },
+                        {
+                            "name": "InstructorPageComponent"
+                        },
+                        {
+                            "name": "InstructorsMainPageComponent"
                         },
                         {
                             "name": "MenuSettingsComponent"
@@ -8688,13 +9454,13 @@
         },
         {
             "name": "StudentsRoutingModule",
-            "id": "module-StudentsRoutingModule-8e0893794d295db7ae677d269207538bdb371362b0c090c3708b8b6d805dd20830d7c0c21326d5748f93b647349a8fd126f00dd68bc38d849c3601fb4e069de6",
+            "id": "module-StudentsRoutingModule-19709903a080ac295a78c5cf5d56fee2c5b335eeafcc92806ab071183c4314979ca25e4fb0429f3be9c1778056bf0d5d573ad9249a2d60673831bece25e2f9da",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/students/students-routing.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RouterModule, Routes } from '@angular/router';\r\nimport { StudentsDashboardComponent } from './students-dashboard/students-dashboard.component';\r\nimport { HomeComponent } from './students-dashboard/pages/home/home.component';\r\nimport { CoursesComponent } from './students-dashboard/pages/courses/courses.component';\r\nimport { TrainersComponent } from './students-dashboard/pages/trainers/trainers.component';\r\nimport { TechnologiesComponent } from './students-dashboard/pages/technologies/technologies.component';\r\nimport { SettingsComponent } from './students-dashboard/pages/settings/settings.component';\r\nimport { ProfileBaseComponent } from './students-dashboard/pages/settings/components/profile-base/profile-base.component';\r\nimport { PasswordComponent } from './students-dashboard/pages/settings/components/password/password.component';\r\nimport { RoleGuard } from '../shared/guards/role/role.guard';\r\n\r\nconst routes: Routes = [\r\n    { path: '', component: StudentsDashboardComponent, canActivate:[RoleGuard], data: {expectedRole: 'student'}, children: [\r\n      { path: '', redirectTo: 'home', pathMatch: 'full' },\r\n      { path: 'home', component: HomeComponent },\r\n      { path: 'courses', component: CoursesComponent },\r\n      { path: 'trainers', component: TrainersComponent },\r\n      { path: 'technologies', component: TechnologiesComponent },\r\n      { path: 'settings', component: SettingsComponent, children:[\r\n        { path: '', redirectTo: 'profile', pathMatch: 'full' },\r\n        { path: 'profile', component: ProfileBaseComponent },\r\n        { path: 'password', component: PasswordComponent },\r\n      ] },\r\n    ] },\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class StudentsRoutingModule { }",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RouterModule, Routes } from '@angular/router';\r\nimport { StudentsDashboardComponent } from './students-dashboard/students-dashboard.component';\r\nimport { HomeComponent } from './students-dashboard/pages/home/home.component';\r\nimport { CoursesComponent } from './students-dashboard/pages/courses/courses.component';\r\nimport { TrainersComponent } from './students-dashboard/pages/trainers/trainers.component';\r\nimport { TechnologiesComponent } from './students-dashboard/pages/technologies/technologies.component';\r\nimport { SettingsComponent } from './students-dashboard/pages/settings/settings.component';\r\nimport { ProfileBaseComponent } from './students-dashboard/pages/settings/components/profile-base/profile-base.component';\r\nimport { PasswordComponent } from './students-dashboard/pages/settings/components/password/password.component';\r\nimport { RoleGuard } from '../shared/guards/role/role.guard';\r\nimport { InstructorPageComponent } from './students-dashboard/pages/trainers/components/instructor-page/instructor-page.component';\r\nimport { InstructorsMainPageComponent } from './students-dashboard/pages/trainers/components/instructors-main-page/instructors-main-page.component';\r\nimport { instructorResolver } from './students-dashboard/pages/trainers/resolver/instructor.resolver';\r\nimport { CoursesMainPageComponent } from './students-dashboard/pages/courses/components/courses-main-page/courses-main-page.component';\r\nimport { CoursePageComponent } from './students-dashboard/pages/courses/components/course-page/course-page.component';\r\nimport { courseResolver } from './students-dashboard/pages/courses/resolver/course.resolver';\r\n\r\nconst routes: Routes = [\r\n    { path: '', component: StudentsDashboardComponent, canActivate:[RoleGuard], data: {expectedRole: 'student'}, children: [\r\n      { path: '', redirectTo: 'home', pathMatch: 'full' },\r\n      { path: 'home', component: HomeComponent },\r\n      { path: 'courses', component: CoursesComponent, children:[\r\n        {path: '', component: CoursesMainPageComponent},\r\n        {path: ':id', component: CoursePageComponent, resolve: {\r\n          data: courseResolver\r\n        }}\r\n      ] },\r\n      { path: 'trainers', component: TrainersComponent, children: [\r\n        { path: '', component: InstructorsMainPageComponent },\r\n        { path: ':id', component: InstructorPageComponent, resolve: {\r\n          data: instructorResolver\r\n        } }\r\n      ] },\r\n      { path: 'technologies', component: TechnologiesComponent },\r\n      { path: 'settings', component: SettingsComponent, children:[\r\n        { path: '', redirectTo: 'profile', pathMatch: 'full' },\r\n        { path: 'profile', component: ProfileBaseComponent },\r\n        { path: 'password', component: PasswordComponent },\r\n      ] },\r\n    ] },\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class StudentsRoutingModule { }",
             "children": [
                 {
                     "type": "providers",
@@ -8756,6 +9522,16 @@
                 "defaultValue": "createReducer(\r\n  initialState,\r\n  on(CourseActions.addCourse, (_state, { course }) => course),\r\n  on(CourseActions.editCourse, (_state, { course }) => course)\r\n)"
             },
             {
+                "name": "courseResolver",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/students/students-dashboard/pages/courses/resolver/course.resolver.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "ResolveFn<any>",
+                "defaultValue": "(route, state) => {\r\n  \r\n  const courseResolver = inject(InstructorsService)\r\n  return courseResolver.getInstructorById(route.paramMap.get('id') || '')\r\n}"
+            },
+            {
                 "name": "CoursesActions",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -8809,21 +9585,21 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\r\n  args: {\r\n    //👇 The args you need here will depend on your component\r\n  },\r\n}"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/shared/components/course-card/course-card.components.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\r\n  args: {\r\n    course: {\r\n      name: 'Example Course',\r\n      imageUrl: 'example.jpg',\r\n      description: 'This is an example course description.',\r\n      lessons: [], \r\n      techs: [{ id:\"1\", name: 'Angular' }],\r\n      rating: [],\r\n      introductionURL: \"https://example.com/introduction\",\r\n      instructorId:[]\r\n    },\r\n  },\r\n  \r\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    //👇 The args you need here will depend on your component\r\n  },\r\n}"
             },
             {
                 "name": "effectsActions",
@@ -8946,6 +9722,16 @@
                 "defaultValue": "{\r\n    name: \"\",\r\n    description: \"\",\r\n    instructorId: [],\r\n    imageUrl: \"\",\r\n    techs: [],\r\n    lessons: [],\r\n    rating: [],\r\n    introductionURL: \"\"\r\n}"
             },
             {
+                "name": "instructorResolver",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/students/students-dashboard/pages/trainers/resolver/instructor.resolver.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "ResolveFn<any>",
+                "defaultValue": "(route, state) => {\r\n  \r\n  const instructorService = inject(InstructorsService)\r\n  return instructorService.getInstructorById(route.paramMap.get('id') || '')\r\n}"
+            },
+            {
                 "name": "InstructorsActions",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -9019,16 +9805,6 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<MainPageHeaderComponent>",
-                "defaultValue": "{\r\n    title: 'Components/Headers/MainPageHeader',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/shared/components/button/button.components.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -9044,6 +9820,16 @@
                 "deprecationMessage": "",
                 "type": "Meta<CourseCardComponent>",
                 "defaultValue": "{\r\n  title: 'Components/CourseCard',\r\n  component: CourseCardComponent,\r\n  tags: ['autodocs'], \r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations:[ButtonComponent]\r\n    })\r\n  ]\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<MainPageHeaderComponent>",
+                "defaultValue": "{\r\n    title: 'Components/Headers/MainPageHeader',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
             },
             {
                 "name": "preview",
@@ -9203,7 +9989,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "createActionGroup({\r\n    source: 'User',\r\n    events: {\r\n        'Add User': props<{user: any}>(),\r\n        'Update User': props<{user: any}>(),\r\n        'Delete User': props<{user: any}>(),\r\n    }\r\n})"
+                "defaultValue": "createActionGroup({\r\n    source: 'User',\r\n    events: {\r\n        'Add User': props<{user: any}>(),\r\n        'Update User': props<{user: any}>(),\r\n    }\r\n})"
             },
             {
                 "name": "userReducer",
@@ -9213,7 +9999,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "createReducer(\r\n    initialState,\r\n    on(UserActions.addUser, (_state, { user }) => user)\r\n)"
+                "defaultValue": "createReducer(\r\n    initialState,\r\n    on(UserActions.addUser, (_state, { user }) => user),\r\n    on(UserActions.updateUser, (_state, { user }) => user),\r\n)"
             },
             {
                 "name": "UsersActions",
@@ -9274,17 +10060,6 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<MainPageHeaderComponent>",
-                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 183
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
                 "rawtype": "StoryObj<ButtonComponent>",
                 "file": "src/app/shared/components/button/button.components.stories.ts",
                 "deprecated": false,
@@ -9298,6 +10073,17 @@
                 "subtype": "typealias",
                 "rawtype": "StoryObj<CourseCardComponent>",
                 "file": "src/app/shared/components/course-card/course-card.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<MainPageHeaderComponent>",
+                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -9482,6 +10268,18 @@
                     "defaultValue": "{\r\n    name: \"\",\r\n    description: \"\",\r\n    instructorId: [],\r\n    imageUrl: \"\",\r\n    techs: [],\r\n    lessons: [],\r\n    rating: [],\r\n    introductionURL: \"\"\r\n}"
                 }
             ],
+            "src/app/students/students-dashboard/pages/courses/resolver/course.resolver.ts": [
+                {
+                    "name": "courseResolver",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/students/students-dashboard/pages/courses/resolver/course.resolver.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ResolveFn<any>",
+                    "defaultValue": "(route, state) => {\r\n  \r\n  const courseResolver = inject(InstructorsService)\r\n  return courseResolver.getInstructorById(route.paramMap.get('id') || '')\r\n}"
+                }
+            ],
             "src/app/store/courses/courses.actions.ts": [
                 {
                     "name": "CoursesActions",
@@ -9560,28 +10358,6 @@
                     "defaultValue": "{\r\n    title: 'Components/Headers/AdminHeader',\r\n    component: HeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[],\r\n          imports: [MatButtonModule] \r\n        })\r\n      ]\r\n}"
                 }
             ],
-            "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\r\n  args: {\r\n    //👇 The args you need here will depend on your component\r\n  },\r\n}"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta<MainPageHeaderComponent>",
-                    "defaultValue": "{\r\n    title: 'Components/Headers/MainPageHeader',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
-                }
-            ],
             "src/app/shared/components/course-card/course-card.components.stories.ts": [
                 {
                     "name": "Default",
@@ -9602,6 +10378,28 @@
                     "deprecationMessage": "",
                     "type": "Meta<CourseCardComponent>",
                     "defaultValue": "{\r\n  title: 'Components/CourseCard',\r\n  component: CourseCardComponent,\r\n  tags: ['autodocs'], \r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations:[ButtonComponent]\r\n    })\r\n  ]\r\n}"
+                }
+            ],
+            "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    //👇 The args you need here will depend on your component\r\n  },\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<MainPageHeaderComponent>",
+                    "defaultValue": "{\r\n    title: 'Components/Headers/MainPageHeader',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
                 }
             ],
             "src/app/store/effectsActions.ts": [
@@ -9671,7 +10469,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "createReducer(\r\n    initialState,\r\n    on(UserActions.addUser, (_state, { user }) => user)\r\n)"
+                    "defaultValue": "createReducer(\r\n    initialState,\r\n    on(UserActions.addUser, (_state, { user }) => user),\r\n    on(UserActions.updateUser, (_state, { user }) => user),\r\n)"
                 }
             ],
             "src/app/store/instructors/instructors.reducer.ts": [
@@ -9738,6 +10536,18 @@
                     "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "createReducer(\r\n  initialState,\r\n  on(UsersActions.retrievedUsersList, (_state, { users }) => users)\r\n)"
+                }
+            ],
+            "src/app/students/students-dashboard/pages/trainers/resolver/instructor.resolver.ts": [
+                {
+                    "name": "instructorResolver",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/students/students-dashboard/pages/trainers/resolver/instructor.resolver.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ResolveFn<any>",
+                    "defaultValue": "(route, state) => {\r\n  \r\n  const instructorService = inject(InstructorsService)\r\n  return instructorService.getInstructorById(route.paramMap.get('id') || '')\r\n}"
                 }
             ],
             "src/app/store/instructors/instructors.actions.ts": [
@@ -9869,7 +10679,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "createActionGroup({\r\n    source: 'User',\r\n    events: {\r\n        'Add User': props<{user: any}>(),\r\n        'Update User': props<{user: any}>(),\r\n        'Delete User': props<{user: any}>(),\r\n    }\r\n})"
+                    "defaultValue": "createActionGroup({\r\n    source: 'User',\r\n    events: {\r\n        'Add User': props<{user: any}>(),\r\n        'Update User': props<{user: any}>(),\r\n    }\r\n})"
                 }
             ],
             "src/app/store/users/users.actions.ts": [
@@ -9914,19 +10724,6 @@
                     "kind": 183
                 }
             ],
-            "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<MainPageHeaderComponent>",
-                    "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 183
-                }
-            ],
             "src/app/shared/components/button/button.components.stories.ts": [
                 {
                     "name": "Story",
@@ -9947,6 +10744,19 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<CourseCardComponent>",
                     "file": "src/app/shared/components/course-card/course-card.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
+            "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<MainPageHeaderComponent>",
+                    "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -10049,11 +10859,37 @@
                                                     },
                                                     {
                                                         "path": "courses",
-                                                        "component": "CoursesComponent"
+                                                        "component": "CoursesComponent",
+                                                        "children": [
+                                                            {
+                                                                "path": "",
+                                                                "component": "CoursesMainPageComponent"
+                                                            },
+                                                            {
+                                                                "path": ":id",
+                                                                "component": "CoursePageComponent",
+                                                                "resolve": {
+                                                                    "data": "courseResolver"
+                                                                }
+                                                            }
+                                                        ]
                                                     },
                                                     {
                                                         "path": "trainers",
-                                                        "component": "TrainersComponent"
+                                                        "component": "TrainersComponent",
+                                                        "children": [
+                                                            {
+                                                                "path": "",
+                                                                "component": "InstructorsMainPageComponent"
+                                                            },
+                                                            {
+                                                                "path": ":id",
+                                                                "component": "InstructorPageComponent",
+                                                                "resolve": {
+                                                                    "data": "instructorResolver"
+                                                                }
+                                                            }
+                                                        ]
                                                     },
                                                     {
                                                         "path": "technologies",
@@ -10839,6 +11675,15 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/shared/components/instructor-card/instructor-card.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "InstructorCardComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/shared/components/modals/delete-modal/delete-modal.component.ts",
                 "type": "component",
                 "linktype": "component",
@@ -11136,10 +11981,47 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/students/students-dashboard/pages/courses/components/course-cards/course-cards.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "CourseCardsComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/students/students-dashboard/pages/courses/components/course-page/course-page.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "CoursePageComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/students/students-dashboard/pages/courses/components/courses-main-page/courses-main-page.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "CoursesMainPageComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/students/students-dashboard/pages/courses/courses.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "CoursesComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/students/students-dashboard/pages/courses/resolver/course.resolver.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "courseResolver",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -11159,7 +12041,7 @@
                 "linktype": "component",
                 "name": "MenuSettingsComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/1",
+                "coverageCount": "0/3",
                 "status": "low"
             },
             {
@@ -11168,7 +12050,7 @@
                 "linktype": "component",
                 "name": "PasswordComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/1",
+                "coverageCount": "0/7",
                 "status": "low"
             },
             {
@@ -11177,7 +12059,7 @@
                 "linktype": "component",
                 "name": "ProfileBaseComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/6",
+                "coverageCount": "0/9",
                 "status": "low"
             },
             {
@@ -11186,7 +12068,7 @@
                 "linktype": "component",
                 "name": "SettingsComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/3",
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
@@ -11194,6 +12076,34 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "TechnologiesComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/students/students-dashboard/pages/trainers/components/instructor-page/instructor-page.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "InstructorPageComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/students/students-dashboard/pages/trainers/components/instructors-main-page/instructors-main-page.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "InstructorsMainPageComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/12",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/students/students-dashboard/pages/trainers/resolver/instructor.resolver.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "instructorResolver",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

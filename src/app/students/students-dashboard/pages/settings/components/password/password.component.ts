@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { getAuth, updatePassword } from 'firebase/auth';
-import { User } from 'src/app/login/types/user';
 
 @Component({
   selector: 'app-password',
@@ -13,11 +13,11 @@ export class PasswordComponent {
   hidePassword = true;
   hidePassword2 = true;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.resetPassForm = this.fb.group({
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required],
-    });
+    })
   }
 
   cambiarContrasena() {
@@ -25,11 +25,12 @@ export class PasswordComponent {
     const user = auth.currentUser;
 
     if (user) {
-      const newPassword = this.getASecureRandomPassword();
+      const newPassword = this.resetPassForm.value.password;
 
       updatePassword(user, newPassword)
         .then(() => {
           console.log('Contraseña actualizada exitosamente.');
+          this.router.navigate(['/students/settings/profile']);
         })
         .catch((error) => {
           console.error('Error al cambiar la contraseña:', error.message);
@@ -39,10 +40,7 @@ export class PasswordComponent {
     }
   }
 
-  private getASecureRandomPassword(): string {
-    // Implementa la lógica para generar una contraseña segura
-    // Esto podría ser una función que devuelve una cadena aleatoria, por ejemplo.
-    // Asegúrate de implementar esta función de manera segura en tu aplicación.
-    return 'test1230';
-  }
+
+  
 }
+
