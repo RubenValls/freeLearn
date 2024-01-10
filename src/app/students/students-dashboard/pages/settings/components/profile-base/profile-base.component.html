@@ -1,7 +1,10 @@
 <form [formGroup]="profileForm" class="form">
   <div class="img-container" >
-      <div class="photo">
+      <div  class="photo" *ngIf="user?.photoURL">
         <img [src]="user?.photoURL" alt="User Photo" />
+      </div>
+      <div class="photo" *ngIf="!user?.photoURL">
+        <img src="assets/images/default-pages/noimg.png" alt="User Photo" />
       </div>
 
       <mat-form-field class="input-name input-photo">
