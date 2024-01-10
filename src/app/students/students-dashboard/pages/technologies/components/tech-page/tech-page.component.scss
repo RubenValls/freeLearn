@@ -1,0 +1,27 @@
+.main-container{
+
+    .header-container{
+        .tech-container{
+            display: flex;
+            align-items: center;
+            .data{
+                margin-left: 2rem;
+                margin-right: 3rem;
+                p{
+                    font-size: 14px;
+                    text-align: justify;
+                }
+                h3{
+                    font-weight: bold;
+                    color: transparent;
+                    background: linear-gradient(139deg,#4defa7 0,#2d71fa 30%) padding-box;
+                    -webkit-background-clip: text;
+
+                }
+            }
+            img{
+                width: 200px;
+            }
+        }
+    }
+}
