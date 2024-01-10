@@ -1,6 +1,26 @@
-<div class="course row">
-    <div class="courses-cards col-sm-12 col-md-6 col-lg-6  " *ngFor="let course of courses">       
-             <app-course-cards [course]="course"></app-course-cards>  
-       
+<div class="course row p-2">
+    <div class="row ">
+        <h3 >Courses</h3>
+        <h5>Most rated courses</h5>
+        <div class="courses-cards col-sm-12 col-md-6 col-lg-6  " *ngFor="let course of topCourses">
+            <app-course-cards [course]="course"></app-course-cards>
+        </div>
+        
     </div>
+    <div class="row mt-5 p-3">
+        <h5>All Courses</h5>
+
+        <div>
+            <mat-form-field>
+                <mat-label>Filter by name</mat-label>
+                <input matInput [formControl]="name">
+            </mat-form-field>
+        </div>
+
+        <div class="courses-cards col-sm-12 col-md-6 col-lg-6  " *ngFor="let course of courses">       
+            <app-course-cards [course]="course"></app-course-cards>  
+      
+   </div>
+    </div>
+ 
 </div> 
