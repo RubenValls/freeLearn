@@ -1,0 +1,9 @@
+.main-tech{
+    display: flex;
+    justify-content: center;
+    .techs{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+    }
+}
