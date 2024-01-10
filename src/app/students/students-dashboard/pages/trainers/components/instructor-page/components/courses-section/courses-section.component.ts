@@ -13,12 +13,13 @@ export class CoursesSectionComponent implements OnInit{
 
   constructor( private coursesService: CoursesService ){}
 
-  ngOnInit(): void {
-    console.log(this.courses)
+  async ngOnInit(): Promise<void> {
     if(this.courses && this.courses?.length > 0){
-      this.courses.forEach((courseId) => {
-        this.coursesService.getCourseById(courseId).then((course) => this.instructorCourses = this.instructorCourses?.concat(course))
-      })
+      try {
+        this.instructorCourses = await this.coursesService.getInstructorCourses(this.courses ? this.courses : []);
+      } catch (error) {
+          console.error(error);
+      }
     }
   }
 }

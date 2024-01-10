@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Firestore, collectionData } from '@angular/fire/firestore';
 import { Course, Tech } from '../interface/course';
 import { addDoc, collection, deleteDoc, doc, getDoc, updateDoc } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, first } from 'rxjs';
 import { TechService } from '../../technologies/service/tech.service';
 import { InstructorsService } from '../../instructors/instructors-service/instructors.service';
 import { Store } from '@ngrx/store';
@@ -47,6 +47,21 @@ export class CoursesService {
     const data = snapshot.data();
     return data as Course;
   };
+
+  async getInstructorCourses (courses: string[]){
+    const coursesRef = collection(this.firestore, 'courses')
+    const courseCollection =  await collectionData(coursesRef, { idField: 'id' }) as Observable<Course[]>;
+    let instructorCourses: Course[] = [];
+
+    return new Promise<Course[]>((resolve, reject) => {
+      courseCollection.pipe(first()).subscribe(coursesFromCollection => {
+          instructorCourses = coursesFromCollection.filter(course => courses.includes(course.id ? course.id : ''));
+          resolve(instructorCourses);
+      }, error => {
+          reject(error);
+      });
+    });
+  }
 
   async updateCourse(id: string, course: Course) {
     debugger
