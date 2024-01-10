@@ -16,7 +16,7 @@ export class CoursesSectionComponent implements OnInit{
   async ngOnInit(): Promise<void> {
     if(this.courses && this.courses?.length > 0){
       try {
-        this.instructorCourses = await this.coursesService.getInstructorCourses(this.courses ? this.courses : []);
+        this.instructorCourses = await this.coursesService.getTopicCourses(this.courses ? this.courses : []);
       } catch (error) {
           console.error(error);
       }

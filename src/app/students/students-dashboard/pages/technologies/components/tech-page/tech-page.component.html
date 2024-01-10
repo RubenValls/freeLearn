@@ -13,7 +13,11 @@
     </div>
     
     <div class="courses-container">
-
+        <div class="courses">
+            <div class="course" *ngFor="let course of techCourses">
+                <app-course-cards [course]="course"></app-course-cards>
+            </div>
+        </div>
     </div>
 
 </div>

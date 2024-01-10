@@ -48,20 +48,22 @@ export class CoursesService {
     return data as Course;
   };
 
-  async getInstructorCourses (courses: string[]){
+  async getTopicCourses (courses: string[]){
     const coursesRef = collection(this.firestore, 'courses')
     const courseCollection =  await collectionData(coursesRef, { idField: 'id' }) as Observable<Course[]>;
-    let instructorCourses: Course[] = [];
+    let topicCourses: Course[] = [];
 
     return new Promise<Course[]>((resolve, reject) => {
       courseCollection.pipe(first()).subscribe(coursesFromCollection => {
-          instructorCourses = coursesFromCollection.filter(course => courses.includes(course.id ? course.id : ''));
-          resolve(instructorCourses);
+          topicCourses = coursesFromCollection.filter(course => courses.includes(course.id ? course.id : ''));
+          resolve(topicCourses);
       }, error => {
           reject(error);
       });
     });
   }
+
+  
 
   async updateCourse(id: string, course: Course) {
     const coursesRef = doc(this.firestore, "courses", id);

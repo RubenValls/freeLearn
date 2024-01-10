@@ -3,6 +3,7 @@ import { Firestore, collectionData } from '@angular/fire/firestore';
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import { TechnologyType } from '../types/technologies';
 import { Observable } from 'rxjs';
+import { Course } from '../../courses/interface/course';
 
 
 @Injectable({
@@ -67,4 +68,5 @@ export class TechService {
     const techRef = doc(this.firestore, 'technologies', technologyId);
     await deleteDoc(techRef);
   }
+
 }
