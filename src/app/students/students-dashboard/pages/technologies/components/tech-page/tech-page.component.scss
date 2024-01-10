@@ -38,3 +38,14 @@
         }
     }
 }
+
+.courses-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    .courses{
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+
