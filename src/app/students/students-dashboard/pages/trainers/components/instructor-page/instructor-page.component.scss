@@ -1,0 +1,25 @@
+.instructors-page{
+    width: 97%;
+    max-height: 95%;
+    box-sizing: content-box;  
+    overflow: scroll;
+    overflow-x: hidden;
+    border-radius: 20px;   
+}
+
+
+.instructors-page::-webkit-scrollbar {
+    width: 5px;    
+    border-radius: 20px;  
+  }
+  
+  .instructors-page::-webkit-scrollbar-track {
+    height: 10px;
+    margin: 40px;    
+  }
+  
+  .instructors-page::-webkit-scrollbar-thumb { 
+    background: var(--gradient);   
+    border-radius: 20px;      
+
+}

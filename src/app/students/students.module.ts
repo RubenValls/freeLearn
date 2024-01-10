@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StudentsDashboardComponent } from './students-dashboard/students-dashboard.component';
 import { StudentsRoutingModule } from './students-routing.module';
@@ -27,6 +27,10 @@ import { HeaderCourseComponent } from './students-dashboard/pages/courses/compon
 import { DetailsCourseComponent } from './students-dashboard/pages/courses/components/course-page/details-course/details-course.component';
 import { LessonsCourseComponent } from './students-dashboard/pages/courses/components/course-page/lessons-course/lessons-course.component';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { HeaderComponent } from './students-dashboard/pages/trainers/components/instructor-page/components/header/header.component';
+import { CoursesSectionComponent } from './students-dashboard/pages/trainers/components/instructor-page/components/courses-section/courses-section.component';
+import { StarRatingComponent } from './components/star-rating/star-rating.component';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -50,7 +54,9 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
     HeaderCourseComponent,
     DetailsCourseComponent,
     LessonsCourseComponent,
-
+    HeaderComponent,
+    CoursesSectionComponent,
+    StarRatingComponent,
   ],
   imports: [
     CommonModule,
@@ -62,7 +68,9 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
     MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    NgbCollapseModule,
-  ]
+    NgbCollapseModule,  
+    MatButtonModule,
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
 export class StudentsModule { }

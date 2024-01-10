@@ -1,7 +1,7 @@
 <form [formGroup]="profileForm" class="form">
   <div class="img-container" >
       <div class="photo">
-        <img [src]="profileForm.get('photoURL')?.value" alt="User Photo" />
+        <img [src]="user?.photoURL" alt="User Photo" />
       </div>
 
       <mat-form-field class="input-name input-photo">
@@ -20,12 +20,9 @@
     <input matInput formControlName="phoneNumber" type="string" />
   </mat-form-field>
 
-  <mat-form-field class="input-name">
+  <mat-form-field class="input-name" >
     <mat-label>Email</mat-label>
-    <input matInput formControlName="email" type="string" />
-    <!-- <mat-error *ngIf="instructorForm.get('name')?.hasError('required') && instructorForm.touched">
-        Name is required
-    </mat-error> -->
+    <input matInput disabled value="{{user?.email}}" type="string"/>
   </mat-form-field>
 </div>
 

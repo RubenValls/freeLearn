@@ -5,6 +5,5 @@ export const UserActions = createActionGroup({
     events: {
         'Add User': props<{user: any}>(),
         'Update User': props<{user: any}>(),
-        'Delete User': props<{user: any}>(),
     }
 });
