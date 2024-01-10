@@ -1,5 +1,16 @@
 .main-container{
-
+    .separator{
+        margin-top: 1rem;
+        display: flex;
+        justify-content: center;
+        div{
+            background: var(--gradient);
+            width: 80%;
+            height: 1px;
+        }
+        
+    }
+    
     .header-container{
         .tech-container{
             display: flex;
