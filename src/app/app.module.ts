@@ -26,6 +26,7 @@ import { courseReducer } from './admins/admins-dashboard/pages/courses/store/cou
 @NgModule({
   declarations: [
     AppComponent,
+  
   ],
   imports: [
     BrowserModule,

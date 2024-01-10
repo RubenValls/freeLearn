@@ -28,6 +28,8 @@ import { CoursesSectionComponent } from './students-dashboard/pages/trainers/com
 import { StarRatingComponent } from './components/star-rating/star-rating.component';
 import { MatButtonModule } from '@angular/material/button';
 import { CardTechComponent } from './students-dashboard/pages/technologies/components/card-tech/card-tech.component';
+import { TechsMainPageComponent } from './students-dashboard/pages/technologies/components/techs-main-page/techs-main-page.component';
+import { TechPageComponent } from './students-dashboard/pages/technologies/components/tech-page/tech-page.component';
 
 
 
@@ -51,7 +53,9 @@ import { CardTechComponent } from './students-dashboard/pages/technologies/compo
     HeaderComponent,
     CoursesSectionComponent,
     StarRatingComponent,
-    CardTechComponent
+    CardTechComponent,
+    TechsMainPageComponent,
+    TechPageComponent
   ],
   imports: [
     CommonModule,
