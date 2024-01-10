@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collectionData } from '@angular/fire/firestore';
-import { Course, Tech } from '../interface/course';
+import { Course, Rating, Tech } from '../interface/course';
 import { addDoc, collection, deleteDoc, doc, getDoc, updateDoc } from '@angular/fire/firestore';
 import { Observable, first } from 'rxjs';
 import { TechService } from '../../technologies/service/tech.service';
@@ -104,6 +104,23 @@ export class CoursesService {
     return { addedIds, deletedIds };
   };
 
+  async updateCourseRating(courseId: string, rating: Rating) {   
+    debugger;
+  
+    await this.getCourseById(courseId).then((currentCourse) => this.currentCourse = currentCourse);
+    const userRatingIndex = this.currentCourse!.rating.findIndex(r => r.userId === rating.userId);
+
+    if (userRatingIndex !== -1) {
+      this.currentCourse!.rating[userRatingIndex] = rating;
+    } else {
+      this.currentCourse!.rating.push(rating);
+    } 
+
+    await updateDoc(doc(this.firestore, "courses", courseId), {
+      rating: this.currentCourse!.rating
+  
+    });
+  }
 
   async deleteCourse(id: string) {    
     const coursesRef = doc(this.firestore, "courses", id);

@@ -9,43 +9,23 @@
                     <div class="title-course">
                         <h1 class="text-center">{{course?.name}}</h1>
                     </div>
-    
                 </div>
-                <div class="rating">
-                    <div class="rating-stars" *ngIf="course?.rating">
-    
-                        <ng-container *ngFor="let i of [].constructor(5); let j = index">
-                            <i class="bi stars"
-                                [ngClass]="{'bi-star-fill': j < getRatingAverage(course?.rating), 'bi-star': j >= getRatingAverage(course?.rating)}"></i>
-                        </ng-container>
-                    </div>
-                </div>
-    
+
+
             </div>
-        </div>   
-    
+          
+        </div>
+
+        <div class="rating d-flex justify-content-center">
+            <app-star-rating [rating]="course?.rating" (ratingUpdated)="handleUpdate($event)"></app-star-rating>
+        </div>
     </div>
-    <!-- 
-    <div class="collapse-one d-block d-sm-none">
-    
-            <button type="button" class="btn-course" (click)="collapse.toggle()"
-                [attr.aria-expanded]="!isDescriptionCollapsed" aria-controls="collapseDescription">
-                See course description
-            </button>
-    
-            <div class="collapse-text" #collapse="ngbCollapse" [(ngbCollapse)]="isDescriptionCollapsed">
-                <div class="description-course">
-                    <p>{{course?.description}}</p>
-                </div>
-            </div>
-    
-    </div>        -->
-    
-    
-    
-    
+
+
+
     <div class="d-none d-sm-block">
-        <div class="header-course d-flex flex-wrap flex-row justify-content-between justify-content-sm-center align-items-center">
+        <div
+            class="header-course d-flex flex-wrap flex-row justify-content-between justify-content-sm-center align-items-center">
             <div class="img-content">
                 <img src="{{course?.imageUrl}}" alt="">
             </div>
@@ -58,16 +38,12 @@
                         <p>{{course?.description}}</p>
                     </div>
                 </div>
-                <div class="rating">
-                    <div class="rating-stars" *ngIf="course?.rating">
-                        <ng-container *ngFor="let i of [].constructor(5); let j = index">
-                            <i class="bi stars"
-                                [ngClass]="{'bi-star-fill': j < getRatingAverage(course?.rating), 'bi-star': j >= getRatingAverage(course?.rating)}"></i>
-                        </ng-container>
-                    </div>
-                </div>
-    
+
             </div>
         </div>
+        <div class="rating d-flex justify-content-end">
+            <app-star-rating [rating]="course?.rating" (ratingUpdated)="handleUpdate($event)"></app-star-rating>
+        </div>
     </div>
+
 </div>
