@@ -3,6 +3,7 @@ import { Firestore, collectionData } from '@angular/fire/firestore';
 import { addDoc, collection, deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { Instructor } from '../instructors';
 import { Observable } from 'rxjs';
+import { Rating } from '../../courses/interface/course';
 
 @Injectable({
   providedIn: 'root',
@@ -40,6 +41,25 @@ export class InstructorsService {
       courses: instructorData.courses
     });
     return instructorUpdated;
+  }
+
+  async updateInstructorsRating(instructorId: string, rating: Rating) { 
+    const instructorRef = doc(this.firestore, 'instructors', instructorId);
+    let instructorData = (await getDoc(instructorRef)).data() as Instructor;
+
+    const userRatingIndex = instructorData.rating.findIndex(r => r.userId === rating.userId);
+
+    if (userRatingIndex !== -1) {
+      instructorData.rating[userRatingIndex] = rating;
+    } else {
+      instructorData.rating.push(rating);
+    }
+
+    await updateDoc(instructorRef, {
+      rating: instructorData.rating
+    });
+    instructorData = (await getDoc(instructorRef)).data() as Instructor;
+    return instructorData;
   }
 
   async deleteInstructorsCourses(technologyId: string, courseId: string) {  

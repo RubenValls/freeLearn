@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StudentsDashboardComponent } from './students-dashboard/students-dashboard.component';
 import { StudentsRoutingModule } from './students-routing.module';
@@ -23,6 +23,10 @@ import { InstructorPageComponent } from './students-dashboard/pages/trainers/com
 import { InstructorsMainPageComponent } from './students-dashboard/pages/trainers/components/instructors-main-page/instructors-main-page.component';
 import { CoursePageComponent } from './students-dashboard/pages/courses/components/course-page/course-page.component';
 import { CoursesMainPageComponent } from './students-dashboard/pages/courses/components/courses-main-page/courses-main-page.component';
+import { HeaderComponent } from './students-dashboard/pages/trainers/components/instructor-page/components/header/header.component';
+import { CoursesSectionComponent } from './students-dashboard/pages/trainers/components/instructor-page/components/courses-section/courses-section.component';
+import { StarRatingComponent } from './components/star-rating/star-rating.component';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -43,6 +47,9 @@ import { CoursesMainPageComponent } from './students-dashboard/pages/courses/com
     InstructorsMainPageComponent,
     CoursePageComponent,
     CoursesMainPageComponent,
+    HeaderComponent,
+    CoursesSectionComponent,
+    StarRatingComponent,
   ],
   imports: [
     CommonModule,
@@ -53,7 +60,9 @@ import { CoursesMainPageComponent } from './students-dashboard/pages/courses/com
     MatTooltipModule,
     MatInputModule,
     MatFormFieldModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    MatButtonModule,
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
 export class StudentsModule { }
