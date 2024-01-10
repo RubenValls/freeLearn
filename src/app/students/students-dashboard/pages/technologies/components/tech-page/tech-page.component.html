@@ -1,23 +1,24 @@
-<div class="main-container">
+<div class="scroll">
+  <div class="main-container">
     <div class="header-container">
-        <div class="tech-container">
-            <img src="{{tech?.imagePath}}" alt="">
-            <div class="data">
-                <h3>{{tech?.name}}</h3>
-                <p>{{tech?. description}}</p>
-            </div>
+      <div class="tech-container">
+        <img src="{{ tech?.imagePath }}" alt="" />
+        <div class="data">
+          <h3>{{ tech?.name }}</h3>
+          <p>{{ tech?.description }}</p>
         </div>
+      </div>
     </div>
     <div class="separator">
-        <div></div>
-    </div>
-    
-    <div class="courses-container">
-        <div class="courses">
-            <div class="course" *ngFor="let course of techCourses">
-                <app-course-cards [course]="course"></app-course-cards>
-            </div>
-        </div>
+      <div></div>
     </div>
 
+    <div class="courses-container">
+      <div class="courses">
+        <div class="course" *ngFor="let course of techCourses">
+          <app-course-cards [course]="course"></app-course-cards>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
