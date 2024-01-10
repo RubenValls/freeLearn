@@ -1,13 +1,18 @@
 <div class="details-courses row">
-    <div class="instructors  col-12 col-sm-12 col-md-6 row " *ngIf="instructorsData">
-        <div class="instructors-cards d-flex flex-wrap flex-row justify-content-start gap-2" >      
-            <div class="instructor-card" *ngFor="let instructor of instructorsData">
+    <div class=" col-12 col-sm-12 col-md-6 row " *ngIf="instructorsData">
+        <div class="d-flex flex-wrap flex-row justify-content-start gap-2" >      
+            <div class="" *ngFor="let instructor of instructorsData">
                 <app-instructor-card [instructor]="instructor"></app-instructor-card>     
             </div>                 
                          
         </div>      
     </div>
-    <div class="techs col-12 col-sm-12 col-md-6">
-       aqui va techs
+    <div class="col-12 col-sm-12 col-md-6 row " *ngIf="techsData">
+        <div class="d-flex flex-wrap flex-row justify-content-start gap-2" >      
+            <div class="" *ngFor="let techs of techsData">
+                <app-instructor-card [instructor]="techs"></app-instructor-card>     
+            </div>                 
+                         
+        </div>      
     </div>
 </div>
