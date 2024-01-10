@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
 import { InstructorsService } from 'src/app/admins/admins-dashboard/pages/instructors/instructors-service/instructors.service';
 import { UsersService } from 'src/app/shared/services/users/users.service';
 
-fdescribe('InstructorPageComponent', () => {
+describe('InstructorPageComponent', () => {
   let component: InstructorPageComponent;
   let fixture: ComponentFixture<InstructorPageComponent>;
   let instructorsService: InstructorsService;
