@@ -27,6 +27,13 @@ export class TechService {
     const techRef =  doc(this.firestore, 'technologies', technologyId);
     return (await getDoc(techRef)).data() as TechnologyType;
   }
+  
+  getTechnologyByCourseId(courseId: string, technologies: string[] | undefined){
+    const techRef = collection(this.firestore, 'technologies');
+    const techQuery = query(techRef, where('courses', 'array-contains', courseId));
+    const techCollection = collectionData(techQuery, {idField: 'id'}) as Observable<TechnologyType[]>;
+    return techCollection;
+  }
 
   async isTechnologyInDatabase(technologyId: string){
     const techRef = doc(this.firestore, 'technologies', technologyId);

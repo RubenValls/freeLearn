@@ -10,8 +10,8 @@ import { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/
 export class CoursePageComponent implements OnInit {
   course:Course | undefined
   courseId: string | undefined;
-  instructorData: any;
-  techsData: any;
+  instructorsId: string[] | undefined ;
+  techsId: string[] | undefined ;
 
   constructor(
     private route: ActivatedRoute
@@ -24,6 +24,10 @@ export class CoursePageComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.courseId = params['id'];    
     });  
+    this.instructorsId = this.course?.instructorId.map(instructor => instructor.id);
+    this.techsId = this.course?.techs.map(tech => tech.id);
   }
+
+
 
 }
