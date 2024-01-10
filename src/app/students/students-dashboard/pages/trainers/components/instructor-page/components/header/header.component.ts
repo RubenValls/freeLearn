@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Instructor } from 'src/app/admins/admins-dashboard/pages/instructors/instructors';
 
 @Component({
@@ -8,4 +8,10 @@ import { Instructor } from 'src/app/admins/admins-dashboard/pages/instructors/in
 })
 export class HeaderComponent {
   @Input() instructor: Instructor | undefined
+  @Output() handleUpdate = new EventEmitter();
+
+  onRatingChanged(rating: number){
+    this.handleUpdate.emit(rating)
+  }
+  
 }

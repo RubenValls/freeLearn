@@ -16,7 +16,7 @@ export interface Lesson {
     videoUrl: string;                   
 }
 
-interface Rating {
+export interface Rating {
     userId: string;
     rating: number;
 }
