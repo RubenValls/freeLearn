@@ -32,6 +32,8 @@ export class ProfileBaseComponent implements OnInit {
       displayName: [''],
       photoURL: [''],
     });
+
+    
   }
 
   ngOnInit() {
