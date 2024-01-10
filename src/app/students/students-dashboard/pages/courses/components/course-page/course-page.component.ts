@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';
 
@@ -7,14 +7,23 @@ import { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/
   templateUrl: './course-page.component.html',
   styleUrls: ['./course-page.component.scss']
 })
-export class CoursePageComponent {
+export class CoursePageComponent implements OnInit {
   course:Course | undefined
+  courseId: string | undefined;
+  instructorData: any;
+  techsData: any;
+
   constructor(
     private route: ActivatedRoute
   ) { 
     this.route.data.subscribe(data => {    
-      this.course = data['data']
+      this.course = data['data'];
     });
+  }
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.courseId = params['id'];    
+    });  
   }
 
 }

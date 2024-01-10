@@ -23,6 +23,10 @@ import { InstructorPageComponent } from './students-dashboard/pages/trainers/com
 import { InstructorsMainPageComponent } from './students-dashboard/pages/trainers/components/instructors-main-page/instructors-main-page.component';
 import { CoursePageComponent } from './students-dashboard/pages/courses/components/course-page/course-page.component';
 import { CoursesMainPageComponent } from './students-dashboard/pages/courses/components/courses-main-page/courses-main-page.component';
+import { HeaderCourseComponent } from './students-dashboard/pages/courses/components/course-page/header-course/header-course.component';
+import { DetailsCourseComponent } from './students-dashboard/pages/courses/components/course-page/details-course/details-course.component';
+import { LessonsCourseComponent } from './students-dashboard/pages/courses/components/course-page/lessons-course/lessons-course.component';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -43,6 +47,10 @@ import { CoursesMainPageComponent } from './students-dashboard/pages/courses/com
     InstructorsMainPageComponent,
     CoursePageComponent,
     CoursesMainPageComponent,
+    HeaderCourseComponent,
+    DetailsCourseComponent,
+    LessonsCourseComponent,
+
   ],
   imports: [
     CommonModule,
@@ -53,7 +61,8 @@ import { CoursesMainPageComponent } from './students-dashboard/pages/courses/com
     MatTooltipModule,
     MatInputModule,
     MatFormFieldModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbCollapseModule,
   ]
 })
 export class StudentsModule { }
