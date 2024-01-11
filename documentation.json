@@ -11431,7 +11431,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\r\n    args:{\r\n        course:{\r\n            name: \"Example Course\",\r\n            imageUrl: \"example.jpg\",\r\n            description: \"This is an example course description.\",\r\n            lessons: [],\r\n            techs: [{id:\"1\", name: \"Angular\"}],\r\n            rating: [],\r\n            introductionURL: \"https://example.com/introduction\",\r\n            instructorId: []\r\n        }\r\n    }\r\n}"
+                "defaultValue": "{\r\n    args:{\r\n        course:{\r\n            name: \"Example Course\",\r\n            imageUrl: \"https://banner2.cleanpng.com/20180420/sxw/kisspng-angularjs-ruby-on-rails-typescript-web-application-icon-hacker-5ad97b80139367.5630065415242023680802.jpg\",\r\n            description: \"This is an example course description.\",\r\n            lessons: [],\r\n            techs: [{id:\"1\", name: \"Angular\"}],\r\n            rating: [],\r\n            introductionURL: \"https://example.com/introduction\",\r\n            instructorId: [\r\n                {id:\"1\", name: \"Midudev\"}\r\n            ]\r\n        }\r\n    }\r\n}"
             },
             {
                 "name": "effectsActions",
@@ -11671,7 +11671,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<CourseCardsComponent>",
-                "defaultValue": "{\r\n    title: \"Components/students/CourseCards\",\r\n    component: CourseCardsComponent,\r\n    tags: ['autodocs'],\r\n    \r\n}"
+                "defaultValue": "{\r\n    title: \"Components/Students/CourseCards\",\r\n    component: CourseCardsComponent,\r\n    tags: ['autodocs'],\r\n    \r\n}"
             },
             {
                 "name": "preview",
@@ -12274,7 +12274,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\r\n    args:{\r\n        course:{\r\n            name: \"Example Course\",\r\n            imageUrl: \"example.jpg\",\r\n            description: \"This is an example course description.\",\r\n            lessons: [],\r\n            techs: [{id:\"1\", name: \"Angular\"}],\r\n            rating: [],\r\n            introductionURL: \"https://example.com/introduction\",\r\n            instructorId: []\r\n        }\r\n    }\r\n}"
+                    "defaultValue": "{\r\n    args:{\r\n        course:{\r\n            name: \"Example Course\",\r\n            imageUrl: \"https://banner2.cleanpng.com/20180420/sxw/kisspng-angularjs-ruby-on-rails-typescript-web-application-icon-hacker-5ad97b80139367.5630065415242023680802.jpg\",\r\n            description: \"This is an example course description.\",\r\n            lessons: [],\r\n            techs: [{id:\"1\", name: \"Angular\"}],\r\n            rating: [],\r\n            introductionURL: \"https://example.com/introduction\",\r\n            instructorId: [\r\n                {id:\"1\", name: \"Midudev\"}\r\n            ]\r\n        }\r\n    }\r\n}"
                 },
                 {
                     "name": "meta",
@@ -12284,7 +12284,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<CourseCardsComponent>",
-                    "defaultValue": "{\r\n    title: \"Components/students/CourseCards\",\r\n    component: CourseCardsComponent,\r\n    tags: ['autodocs'],\r\n    \r\n}"
+                    "defaultValue": "{\r\n    title: \"Components/Students/CourseCards\",\r\n    component: CourseCardsComponent,\r\n    tags: ['autodocs'],\r\n    \r\n}"
                 }
             ],
             "src/app/store/effectsActions.ts": [
