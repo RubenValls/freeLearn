@@ -11631,7 +11631,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<ButtonComponent>",
-                "defaultValue": "{\r\n    title: 'Components/Button',\r\n    component: ButtonComponent,  \r\n    tags: ['autodocs'], \r\n    render: (args: ButtonComponent) => ({\r\n        props: {\r\n            backgroundColor: null,\r\n            ...args,\r\n        },\r\n    }),    \r\n}"
+                "defaultValue": "{\r\n    title: 'Components/Shared/Button',\r\n    component: ButtonComponent,  \r\n    tags: ['autodocs'], \r\n    render: (args: ButtonComponent) => ({\r\n        props: {\r\n            backgroundColor: null,\r\n            ...args,\r\n        },\r\n    }),    \r\n}"
             },
             {
                 "name": "meta",
@@ -11641,7 +11641,17 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<CourseCardComponent>",
-                "defaultValue": "{\r\n  title: 'Components/CourseCard',\r\n  component: CourseCardComponent,\r\n  tags: ['autodocs'], \r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations:[ButtonComponent]\r\n    })\r\n  ]\r\n}"
+                "defaultValue": "{\r\n  title: 'Components/Shared/CourseCard',\r\n  component: CourseCardComponent,\r\n  tags: ['autodocs'], \r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations:[ButtonComponent]\r\n    })\r\n  ]\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<MainPageHeaderComponent>",
+                "defaultValue": "{\r\n    title: 'Components/Headers/MainPageHeader',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
             },
             {
                 "name": "meta",
@@ -12045,7 +12055,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<ButtonComponent>",
-                    "defaultValue": "{\r\n    title: 'Components/Button',\r\n    component: ButtonComponent,  \r\n    tags: ['autodocs'], \r\n    render: (args: ButtonComponent) => ({\r\n        props: {\r\n            backgroundColor: null,\r\n            ...args,\r\n        },\r\n    }),    \r\n}"
+                    "defaultValue": "{\r\n    title: 'Components/Shared/Button',\r\n    component: ButtonComponent,  \r\n    tags: ['autodocs'], \r\n    render: (args: ButtonComponent) => ({\r\n        props: {\r\n            backgroundColor: null,\r\n            ...args,\r\n        },\r\n    }),    \r\n}"
                 },
                 {
                     "name": "Primary",
@@ -12251,7 +12261,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<CourseCardComponent>",
-                    "defaultValue": "{\r\n  title: 'Components/CourseCard',\r\n  component: CourseCardComponent,\r\n  tags: ['autodocs'], \r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations:[ButtonComponent]\r\n    })\r\n  ]\r\n}"
+                    "defaultValue": "{\r\n  title: 'Components/Shared/CourseCard',\r\n  component: CourseCardComponent,\r\n  tags: ['autodocs'], \r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations:[ButtonComponent]\r\n    })\r\n  ]\r\n}"
                 }
             ],
             "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts": [

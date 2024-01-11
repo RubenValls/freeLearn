@@ -6,7 +6,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 
 //👇 This default export determines where your story goes in the story list
 const meta: Meta<CustomTableComponent> = {
-  title: 'Components/CustomTable',
+  title: 'Components/Admin/CustomTable',
   component: CustomTableComponent,
   tags: ['autodocs'],
   decorators: [
