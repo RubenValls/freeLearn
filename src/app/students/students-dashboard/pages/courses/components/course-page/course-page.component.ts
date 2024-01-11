@@ -23,6 +23,7 @@ export class CoursePageComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.courseId = params['id'];    
+      console.log(this.courseId);
     });  
     this.instructorsId = this.course?.instructorId.map(instructor => instructor.id);
     this.techsId = this.course?.techs.map(tech => tech.id);

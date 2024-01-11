@@ -106,9 +106,7 @@ export class CoursesService {
     return { addedIds, deletedIds };
   };
 
-  async updateCourseRating(courseId: string, rating: Rating) {   
-    debugger;
-  
+  async updateCourseRating(courseId: string, rating: Rating) {      
     await this.getCourseById(courseId).then((currentCourse) => this.currentCourse = currentCourse);
     const userRatingIndex = this.currentCourse!.rating.findIndex(r => r.userId === rating.userId);
 
