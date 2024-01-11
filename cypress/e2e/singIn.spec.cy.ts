@@ -1,5 +1,5 @@
 describe('Singin page', () => {
-  it('passes  if the user already not exist', () => {
+  it('Passes if the user does not exist and is logged in. ', () => {
     cy.visit('/login')
     cy.get('mat-button-toggle[value="signin"]').click();
     cy.get('input[formControlName="email"]').type('newUser@freelearn.com')
@@ -12,7 +12,7 @@ describe('Singin page', () => {
 })
 
 describe('Singin page', () => {
-  it('passes if the user already exist', () => {
+  it('Passes if user already exists and registration fails', () => {
     cy.visit('/login')
     cy.get('mat-button-toggle[value="signin"]').click();
     cy.get('input[formControlName="email"]').type('newUser@freelearn.com')
