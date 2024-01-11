@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from 'firebase/auth';
+import { User } from 'src/app/login/types/user';
 import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 
 @Component({
