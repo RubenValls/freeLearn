@@ -4,7 +4,7 @@ import { CourseCardComponent } from './course-card.component';
 import { ButtonComponent } from '../button/button.component';
 
 const meta: Meta<CourseCardComponent> = {
-  title: 'Components/CourseCard',
+  title: 'Components/Shared/CourseCard',
   component: CourseCardComponent,
   tags: ['autodocs'], 
   decorators: [
