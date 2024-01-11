@@ -18,6 +18,7 @@ import { courseResolver } from './students-dashboard/pages/courses/resolver/cour
 import { TechsMainPageComponent } from './students-dashboard/pages/technologies/components/techs-main-page/techs-main-page.component';
 import { TechPageComponent } from './students-dashboard/pages/technologies/components/tech-page/tech-page.component';
 import { technologiesResolver } from './students-dashboard/pages/technologies/resolver/technologies.resolver';
+import { WorkingInProgressComponent } from '../shared/components/default-pages/working-in-progress/working-in-progress.component';
 
 const routes: Routes = [
   {
@@ -27,7 +28,7 @@ const routes: Routes = [
     data: { expectedRole: 'student' },
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: HomeComponent },
+      { path: 'home', component: WorkingInProgressComponent },
       {
         path: 'courses',
         component: CoursesComponent,
