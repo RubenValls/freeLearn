@@ -63,16 +63,30 @@ describe('CoursesService', () => {
     expect(service.getCourses).toHaveBeenCalled();    
   });
 
-  it('should get a course by id', () =>{   
+ it('should get a course by id', () =>{   
     spyOn(service, 'getCourseById')
     service.getCourseById(courseId);
     expect(service.getCourseById).toHaveBeenCalled();
+  });
+
+  it('should obtain a collection of instructors', () =>{
+    const courses = ['1', '2'];
+    spyOn(service, 'getInstructorCourses')
+    service.getInstructorCourses(courses);
+    expect(service.getInstructorCourses).toHaveBeenCalled();
   });
 
   it('should update a course', () => {   
     spyOn(service, 'updateCourse')
     service.updateCourse(courseId, course);
     expect(service.updateCourse).toHaveBeenCalled();
+  });
+
+  it('should update course rating', () => {
+    const rating = {userId: '1', rating: 4};
+    spyOn(service, 'updateCourseRating')
+    service.updateCourseRating(courseId, rating);
+    expect(service.updateCourseRating).toHaveBeenCalled();
   });
 
   it('should delete a course', () => { 
