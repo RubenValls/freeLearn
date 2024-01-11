@@ -32,7 +32,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     if (userInfoString) {
        user = JSON.parse(userInfoString);
     }
-    this.alertMessage.successMessage("See you soon: " + user.email)
+    this.alertMessage.successMessage("See you soon: " + user?.email)
     localStorage.removeItem('userInfo');
     sessionStorage.removeItem('userInfo')
     this.router.navigate(['/login'])

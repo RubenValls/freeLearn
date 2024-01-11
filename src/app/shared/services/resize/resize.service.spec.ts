@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
 import { ResizeService } from './resize.service';
-import { first } from 'rxjs';
 import { NgZone } from '@angular/core';
 
 describe('ResizeService', () => {

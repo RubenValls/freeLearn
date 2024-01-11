@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 
 import { CoursePageComponent } from './course-page.component';
 
-fdescribe('CoursePageComponent', () => {
+describe('CoursePageComponent', () => {
   let component: CoursePageComponent;
   let fixture: ComponentFixture<CoursePageComponent>;
 

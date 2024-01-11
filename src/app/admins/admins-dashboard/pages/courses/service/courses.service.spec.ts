@@ -71,9 +71,9 @@ describe('CoursesService', () => {
 
   it('should obtain a collection of instructors', () =>{
     const courses = ['1', '2'];
-    spyOn(service, 'getInstructorCourses')
-    service.getInstructorCourses(courses);
-    expect(service.getInstructorCourses).toHaveBeenCalled();
+    spyOn(service, 'getTopicCourses')
+    service.getTopicCourses(courses);
+    expect(service.getTopicCourses).toHaveBeenCalled();
   });
 
   it('should update a course', () => {   

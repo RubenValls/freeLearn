@@ -2,8 +2,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SidebarComponent } from './sidebar.component';
 import { ResizeService } from 'src/app/shared/services/resize/resize.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, of } from 'rxjs';
+import { StudentsModule } from '../../students.module';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
@@ -14,9 +18,20 @@ describe('SidebarComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [SidebarComponent],
+      imports: [
+        MatSnackBarModule,
+        BrowserAnimationsModule,
+      ],
       providers: [
-        { provide: ResizeService, useValue: { checkScreenSize: () => {}, isSmallScreen$: of(false) } },
-        { provide: Router, useValue: { navigate: () => {} } }
+        { 
+          provide: ResizeService, 
+          useValue: { 
+            checkScreenSize: () => {}, 
+            isSmallScreen$: of(false) 
+          } 
+        },
+        { provide: Router, useValue: { navigate: () => {} } },
+        { provide: ActivatedRoute, useValue: { root: {} } }
       ]
     });
     fixture = TestBed.createComponent(SidebarComponent);
