@@ -10,7 +10,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 
-fdescribe('InstructorsService', () => {
+describe('InstructorsService', () => {
   let service: InstructorsService;
 
   const instructorData: Instructor = {
