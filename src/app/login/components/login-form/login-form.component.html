@@ -18,7 +18,7 @@
 
     <mat-checkbox matInput formControlName="rememberMe" name="rememberMe" class="mt-3 mb-4">Remember me!</mat-checkbox>
     
-    <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid || isLoading">
+    <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid || isLoading" id="loginButton">
       <mat-spinner *ngIf="isLoading; else buttonText" [diameter]="15"></mat-spinner>
       <ng-template #buttonText>Log In</ng-template>
     </button>
