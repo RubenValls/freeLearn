@@ -8,6 +8,9 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth'
 import { environment } from 'src/environments/environment';
+import { CoursesService } from 'src/app/admins/admins-dashboard/pages/courses/service/courses.service';
+import { UsersService } from 'src/app/shared/services/users/users.service';
+
 
 describe('CoursePageComponent', () => {
   let component: CoursePageComponent;
@@ -31,7 +34,8 @@ describe('CoursePageComponent', () => {
             params: of({ id: 'test' }),
             data: of({ data: { id: 'test' } })
           }
-        }
+        },
+        {provide : UsersService, useValue: {getUserFromStorage:  () => of([])}},
       ]
     });
     fixture = TestBed.createComponent(CoursePageComponent);
@@ -42,4 +46,7 @@ describe('CoursePageComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+ 
+
 });

@@ -49,7 +49,7 @@ describe('StarRatingComponent', () => {
     spyOn(component.ratingUpdated, 'emit').and.callThrough();
     const rating = 5;
     component.onClick(rating);
-    expect(alertsService.successMessage).toHaveBeenCalledWith(`Rated trainer with ${rating} stars.`);
+    expect(alertsService.successMessage).toHaveBeenCalledWith(`Rated with ${rating} stars.`);
     expect(component.ratingUpdated.emit).toHaveBeenCalledWith(rating);
   });
 });

@@ -6,7 +6,7 @@ import { StudentsModule } from 'src/app/students/students.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';
 
-fdescribe('CoursesMainPageComponent', () => {
+describe('CoursesMainPageComponent', () => {
   let component: CoursesMainPageComponent;
   let fixture: ComponentFixture<CoursesMainPageComponent>;
 
