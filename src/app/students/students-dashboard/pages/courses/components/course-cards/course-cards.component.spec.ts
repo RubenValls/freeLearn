@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CourseCardsComponent } from './course-cards.component';
+import { StudentsModule } from 'src/app/students/students.module';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 describe('CourseCardsComponent', () => {
   let component: CourseCardsComponent;
@@ -8,7 +11,17 @@ describe('CourseCardsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CourseCardsComponent]
+      declarations: [CourseCardsComponent],
+      imports: [StudentsModule],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            params: of({ id: 'test' }),
+            data: of({ data: { id: 'test' } }),
+          },
+        },
+      ],
     });
     fixture = TestBed.createComponent(CourseCardsComponent);
     component = fixture.componentInstance;
