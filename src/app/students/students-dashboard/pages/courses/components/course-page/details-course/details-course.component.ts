@@ -9,23 +9,24 @@ import { TechService } from 'src/app/admins/admins-dashboard/pages/technologies/
   styleUrls: ['./details-course.component.scss']
 })
 export class DetailsCourseComponent implements OnInit {
-@Input() courseId: any;
-@Input() instructorsId: string[] | undefined ;
-@Input() techsId: string[] | undefined ;
-instructorsData:any[] = [];
-techsData:any[] = [];
+  @Input() courseId: any;
+  @Input() instructorsId: string[] | undefined;
+  @Input() techsId: string[] | undefined;
+  instructorsData: any[] = [];
+  techsData: any[] = [];
 
   constructor(
     private trainersService: InstructorsService,
     private techsService: TechService,
   ) { }
-  ngOnInit(): void {
-    this.trainersService.getInstructorByCourseId(this.courseId, this.instructorsId).subscribe(data => {
+  async ngOnInit(): Promise<void> {
+    (await this.trainersService.getInstructorByCourseId(this.courseId)).subscribe((data) => {
       this.instructorsData = data;
     });
-    this.techsService.getTechnologyByCourseId(this.courseId, this.techsId).subscribe(data => {
+    (await this.techsService.getTechnologyByCourseId(this.courseId)).subscribe((data) => {
       this.techsData = data;
     });
+  
   }
 
 

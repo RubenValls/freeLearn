@@ -13,14 +13,14 @@ describe('CoursesMainPageComponent', () => {
     TestBed.configureTestingModule({
       imports: [StudentsModule, BrowserAnimationsModule],
       declarations: [CoursesMainPageComponent],
-      providers: [provideMockStore({ initialState: {} })],  // Proporciona un Store ficticio
+      providers: [provideMockStore({ initialState: {} })],  
     });
     fixture = TestBed.createComponent(CoursesMainPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  fit('should create', () => {
     expect(component).toBeTruthy();
   });
 });

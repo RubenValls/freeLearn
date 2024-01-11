@@ -1,11 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Data } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
 import { CoursePageComponent } from './course-page.component';
 
-fdescribe('CoursePageComponent', () => {
+describe('CoursePageComponent', () => {
   let component: CoursePageComponent;
   let fixture: ComponentFixture<CoursePageComponent>;
 
@@ -17,7 +17,8 @@ fdescribe('CoursePageComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            params: of({ id: 'test' })
+            params: of({ id: 'test' }),
+            data: of({ data: { id: 'test' } })
           }
         }
       ]

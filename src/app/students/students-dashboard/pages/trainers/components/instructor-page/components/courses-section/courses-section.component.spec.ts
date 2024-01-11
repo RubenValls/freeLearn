@@ -37,16 +37,16 @@ describe('CoursesSectionComponent', () => {
   });
 
   it('should call getInstructorCourses on ngOnInit if courses are defined', () => {
-    spyOn(coursesService, 'getInstructorCourses').and.callThrough();
+    spyOn(coursesService, 'getTopicCourses').and.callThrough();
     component.courses = ['course1', 'course2'];
     component.ngOnInit();
-    expect(coursesService.getInstructorCourses).toHaveBeenCalledWith(component.courses);
+    expect(coursesService.getTopicCourses).toHaveBeenCalledWith(component.courses);
   });
 
   it('should not call getInstructorCourses on ngOnInit if courses are undefined', () => {
-    spyOn(coursesService, 'getInstructorCourses').and.callThrough();
+    spyOn(coursesService, 'getTopicCourses').and.callThrough();
     component.courses = undefined;
     component.ngOnInit();
-    expect(coursesService.getInstructorCourses).not.toHaveBeenCalled();
+    expect(coursesService.getTopicCourses).not.toHaveBeenCalled();
   });
 });
