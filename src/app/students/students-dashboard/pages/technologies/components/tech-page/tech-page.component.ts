@@ -37,7 +37,7 @@ export class TechPageComponent implements OnInit{
       
       console.log(this.techCourses);
     });
-    this.techIdSubscription = this.route.paramMap.subscribe((params) => {
+    this.techIdSubscription = this.route?.paramMap?.subscribe((params) => {
       const idParam = params.get('id');
       this.techId = idParam ? idParam : ''
     })
