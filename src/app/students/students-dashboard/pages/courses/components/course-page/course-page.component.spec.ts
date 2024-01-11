@@ -12,7 +12,7 @@ import { CoursesService } from 'src/app/admins/admins-dashboard/pages/courses/se
 import { UsersService } from 'src/app/shared/services/users/users.service';
 
 
-fdescribe('CoursePageComponent', () => {
+describe('CoursePageComponent', () => {
   let component: CoursePageComponent;
   let fixture: ComponentFixture<CoursePageComponent>;
 
