@@ -11,35 +11,35 @@ const meta: Meta<HeaderCourseComponent> = {
     decorators: [
         moduleMetadata({
             providers: [
-                { 
-                  provide: ActivatedRoute, 
-                  useValue: {
-                    params: of({ id: 'test' }),
-                    data: of({ data: { id: 'test' } })
-                  } 
+                {
+                    provide: ActivatedRoute,
+                    useValue: {
+                        params: of({ id: 'test' }),
+                        data: of({ data: { id: 'test' } })
+                    }
                 },
-               { provide: UsersService, useValue: { getUserFromStorage: () => ({ id: 'test' }) } },
-                
-              ],           
-         
+                { provide: UsersService, useValue: { getUserFromStorage: () => ({ id: 'test' }) } },
+
+            ],
+
         })
     ]
-    
+
 };
 export default meta;
 type Story = StoryObj<HeaderCourseComponent>;
-export const Default:Story = {
-    args:{
-        course:{
-            name: "Example Course",
-            imageUrl: "https://banner2.cleanpng.com/20180420/sxw/kisspng-angularjs-ruby-on-rails-typescript-web-application-icon-hacker-5ad97b80139367.5630065415242023680802.jpg",
-            description: "This is an example course description.",
+export const Default: Story = {
+    args: {
+        course: {
+            name: "Curso Completo de REACT",
+            imageUrl: "https://www.pildorasinformaticas.es/wp-content/uploads/2021/01/AngularJS-Tutorial.png",
+            description: "Comienzo en el día de hoy un curso de Angular que me habéis solicitado mucho desde los comentarios del canal, mi web y redes sociales. En este primer vídeo vemos el temario del curso, los conocimientos previos requeridos y vemos qué es Angular y sus principales características. Espero que el curso sea de vuestro agrado.Para más cursos, ejercicios y manuales visita: www.pildorasinformaticas.es",
             lessons: [],
-            techs: [{id:"1", name: "Angular"}],
+            techs: [{ id: "1", name: "Angular" }],
             rating: [],
-            introductionURL: "https://example.com/introduction",
+            introductionURL: "https://www.youtube.com/watch?v=VoMyUgI-5NI&list=PLRM7PpbqqStKo-NiCuzuYwewZmd9b-EZ9&index=1",
             instructorId: [
-                {id:"1", name: "Midudev"}
+                { id: "1", name: "JAB" }
             ]
         }
     }
