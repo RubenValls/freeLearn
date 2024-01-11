@@ -15,6 +15,7 @@ export class CoursePageComponent implements OnInit {
   instructorsId: string[] | undefined;
   techsId: string[] | undefined;
   userId: string = '';
+
   constructor(
     private courseService: CoursesService,
     private route: ActivatedRoute,
@@ -24,19 +25,20 @@ export class CoursePageComponent implements OnInit {
       this.course = data['data'];
     });
   }
+  
   ngOnInit(): void {
     const user = this.userService.getUserFromStorage();
     this.userId = user?.id;
 
     this.route.params.subscribe(params => {
-      this.courseId = params['id'];   
+      this.courseId = params['id'];
     });
 
     this.instructorsId = this.course?.instructorId?.map(instructor => instructor.id);
     this.techsId = this.course?.techs?.map(tech => tech.id);
   }
 
-  handleUpdate(rating: number) {   
+  handleUpdate(rating: number) {
     debugger
     if (this.userId && this.courseId) {
       const newRating = {
