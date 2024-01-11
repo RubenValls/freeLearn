@@ -11,8 +11,7 @@ import { UsersService } from 'src/app/shared/services/users/users.service';
   styleUrls: ['./header-course.component.scss']
 })
 export class HeaderCourseComponent implements OnInit {
-  isDescriptionCollapsed = false;
-  isRatingCollapsed = false;
+  
   userId: string = '';
   course:any;
   constructor(

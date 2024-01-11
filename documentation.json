@@ -6029,7 +6029,7 @@
         },
         {
             "name": "HeaderCourseComponent",
-            "id": "component-HeaderCourseComponent-d9746db134d54585449010c5299e91b1da58f5f913124fa90913b5c8e6588411d96fd016160622267135ec19aa2269a97f1483652af8f36d73223e2d7ac1d657",
+            "id": "component-HeaderCourseComponent-5f107d9887c72e5b923b0ad7201bd2e2bb17b0848d313056d8eec7824d77b10975bb39029bc47f8facde6c37035a5797a66e54fd4c6bf99852d5fd735323826f",
             "file": "src/app/students/students-dashboard/pages/courses/components/course-page/header-course/header-course.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -6056,27 +6056,7 @@
                     "type": "any",
                     "optional": false,
                     "description": "",
-                    "line": 17
-                },
-                {
-                    "name": "isDescriptionCollapsed",
-                    "defaultValue": "false",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 14
-                },
-                {
-                    "name": "isRatingCollapsed",
-                    "defaultValue": "false",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 15
+                    "line": 16
                 },
                 {
                     "name": "userId",
@@ -6086,7 +6066,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 16
+                    "line": 15
                 }
             ],
             "methodsClass": [
@@ -6096,7 +6076,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 27,
+                    "line": 26,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -6110,7 +6090,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { ActivatedRoute } from '@angular/router';\r\nimport { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';\r\nimport { CoursesService } from 'src/app/admins/admins-dashboard/pages/courses/service/courses.service';\r\nimport { UsersService } from 'src/app/shared/services/users/users.service';\r\n\r\n\r\n@Component({\r\n  selector: 'app-header-course',\r\n  templateUrl: './header-course.component.html',\r\n  styleUrls: ['./header-course.component.scss']\r\n})\r\nexport class HeaderCourseComponent implements OnInit {\r\n  isDescriptionCollapsed = false;\r\n  isRatingCollapsed = false;\r\n  userId: string = '';\r\n  course:any;\r\n  constructor(\r\n    private route: ActivatedRoute,\r\n    private userService: UsersService,\r\n \r\n  ) { \r\n    this.route.data.subscribe(data => {    \r\n      this.course = data['data']\r\n    });\r\n  }\r\n  ngOnInit(): void {\r\n    const user = this.userService.getUserFromStorage();\r\n    this.userId = user?.id\r\n  }\r\n\r\n \r\n}\r\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { ActivatedRoute } from '@angular/router';\r\nimport { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';\r\nimport { CoursesService } from 'src/app/admins/admins-dashboard/pages/courses/service/courses.service';\r\nimport { UsersService } from 'src/app/shared/services/users/users.service';\r\n\r\n\r\n@Component({\r\n  selector: 'app-header-course',\r\n  templateUrl: './header-course.component.html',\r\n  styleUrls: ['./header-course.component.scss']\r\n})\r\nexport class HeaderCourseComponent implements OnInit {\r\n  \r\n  userId: string = '';\r\n  course:any;\r\n  constructor(\r\n    private route: ActivatedRoute,\r\n    private userService: UsersService,\r\n \r\n  ) { \r\n    this.route.data.subscribe(data => {    \r\n      this.course = data['data']\r\n    });\r\n  }\r\n  ngOnInit(): void {\r\n    const user = this.userService.getUserFromStorage();\r\n    this.userId = user?.id\r\n  }\r\n\r\n \r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -6138,7 +6118,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 17,
+                "line": 16,
                 "jsdoctags": [
                     {
                         "name": "route",
@@ -11407,16 +11387,6 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\r\n  args: {\r\n    //👇 The args you need here will depend on your component\r\n  },\r\n}"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/shared/components/course-card/course-card.components.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -11427,7 +11397,27 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    //👇 The args you need here will depend on your component\r\n  },\r\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/students/students-dashboard/pages/courses/components/course-cards/course-card-second-component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args:{\r\n        course:{\r\n            name: \"Example Course\",\r\n            imageUrl: \"https://banner2.cleanpng.com/20180420/sxw/kisspng-angularjs-ruby-on-rails-typescript-web-application-icon-hacker-5ad97b80139367.5630065415242023680802.jpg\",\r\n            description: \"This is an example course description.\",\r\n            lessons: [],\r\n            techs: [{id:\"1\", name: \"Angular\"}],\r\n            rating: [],\r\n            introductionURL: \"https://example.com/introduction\",\r\n            instructorId: [\r\n                {id:\"1\", name: \"Midudev\"}\r\n            ]\r\n        }\r\n    }\r\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/students/students-dashboard/pages/courses/components/course-page/header-course/header-course-students-component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
@@ -11497,16 +11487,6 @@
                 "name": "initialState",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/login/store/user.reducer.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "any",
-                "defaultValue": "{}"
-            },
-            {
-                "name": "initialState",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/store/courses/courses.reducer.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -11542,6 +11522,16 @@
                 "deprecationMessage": "",
                 "type": "ReadonlyArray<User>",
                 "defaultValue": "[]"
+            },
+            {
+                "name": "initialState",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/login/store/user.reducer.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "any",
+                "defaultValue": "{}"
             },
             {
                 "name": "initialState",
@@ -11637,16 +11627,6 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<MainPageHeaderComponent>",
-                "defaultValue": "{\r\n    title: 'Components/Headers/MainPageHeader',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/shared/components/button/button.components.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -11667,11 +11647,31 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<MainPageHeaderComponent>",
+                "defaultValue": "{\r\n    title: 'Components/Headers/MainPageHeader',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/students/students-dashboard/pages/courses/components/course-cards/course-card-second-component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<CourseCardsComponent>",
                 "defaultValue": "{\r\n    title: \"Components/Students/CourseCards\",\r\n    component: CourseCardsComponent,\r\n    tags: ['autodocs'],\r\n    \r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/students/students-dashboard/pages/courses/components/course-page/header-course/header-course-students-component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<HeaderCourseComponent>",
+                "defaultValue": "{\r\n    title: \"Components/Students/HeaderCourse\",\r\n    component: HeaderCourseComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n            providers: [\r\n                { \r\n                  provide: ActivatedRoute, \r\n                  useValue: {\r\n                    params: of({ id: 'test' }),\r\n                    data: of({ data: { id: 'test' } })\r\n                  } \r\n                },\r\n               { provide: UsersService, useValue: { getUserFromStorage: () => ({ id: 'test' }) } },\r\n                \r\n              ],           \r\n         \r\n        })\r\n    ]\r\n    \r\n}"
             },
             {
                 "name": "preview",
@@ -11912,17 +11912,6 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<MainPageHeaderComponent>",
-                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 183
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
                 "rawtype": "StoryObj<ButtonComponent>",
                 "file": "src/app/shared/components/button/button.components.stories.ts",
                 "deprecated": false,
@@ -11945,8 +11934,30 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
+                "rawtype": "StoryObj<MainPageHeaderComponent>",
+                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
                 "rawtype": "StoryObj<CourseCardsComponent>",
                 "file": "src/app/students/students-dashboard/pages/courses/components/course-cards/course-card-second-component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<HeaderCourseComponent>",
+                "file": "src/app/students/students-dashboard/pages/courses/components/course-page/header-course/header-course-students-component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -12221,28 +12232,6 @@
                     "defaultValue": "{\r\n    title: 'Components/Headers/AdminHeader',\r\n    component: HeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[],\r\n          imports: [MatButtonModule] \r\n        })\r\n      ]\r\n}"
                 }
             ],
-            "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\r\n  args: {\r\n    //👇 The args you need here will depend on your component\r\n  },\r\n}"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta<MainPageHeaderComponent>",
-                    "defaultValue": "{\r\n    title: 'Components/Headers/MainPageHeader',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
-                }
-            ],
             "src/app/shared/components/course-card/course-card.components.stories.ts": [
                 {
                     "name": "Default",
@@ -12265,6 +12254,28 @@
                     "defaultValue": "{\r\n  title: 'Components/CourseCard',\r\n  component: CourseCardComponent,\r\n  tags: ['autodocs'], \r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations:[ButtonComponent]\r\n    })\r\n  ]\r\n}"
                 }
             ],
+            "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    //👇 The args you need here will depend on your component\r\n  },\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<MainPageHeaderComponent>",
+                    "defaultValue": "{\r\n    title: 'Components/Headers/MainPageHeader',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
+                }
+            ],
             "src/app/students/students-dashboard/pages/courses/components/course-cards/course-card-second-component.stories.ts": [
                 {
                     "name": "Default",
@@ -12285,6 +12296,28 @@
                     "deprecationMessage": "",
                     "type": "Meta<CourseCardsComponent>",
                     "defaultValue": "{\r\n    title: \"Components/Students/CourseCards\",\r\n    component: CourseCardsComponent,\r\n    tags: ['autodocs'],\r\n    \r\n}"
+                }
+            ],
+            "src/app/students/students-dashboard/pages/courses/components/course-page/header-course/header-course-students-component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/students/students-dashboard/pages/courses/components/course-page/header-course/header-course-students-component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args:{\r\n        course:{\r\n            name: \"Example Course\",\r\n            imageUrl: \"https://banner2.cleanpng.com/20180420/sxw/kisspng-angularjs-ruby-on-rails-typescript-web-application-icon-hacker-5ad97b80139367.5630065415242023680802.jpg\",\r\n            description: \"This is an example course description.\",\r\n            lessons: [],\r\n            techs: [{id:\"1\", name: \"Angular\"}],\r\n            rating: [],\r\n            introductionURL: \"https://example.com/introduction\",\r\n            instructorId: [\r\n                {id:\"1\", name: \"Midudev\"}\r\n            ]\r\n        }\r\n    }\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/students/students-dashboard/pages/courses/components/course-page/header-course/header-course-students-component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<HeaderCourseComponent>",
+                    "defaultValue": "{\r\n    title: \"Components/Students/HeaderCourse\",\r\n    component: HeaderCourseComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n            providers: [\r\n                { \r\n                  provide: ActivatedRoute, \r\n                  useValue: {\r\n                    params: of({ id: 'test' }),\r\n                    data: of({ data: { id: 'test' } })\r\n                  } \r\n                },\r\n               { provide: UsersService, useValue: { getUserFromStorage: () => ({ id: 'test' }) } },\r\n                \r\n              ],           \r\n         \r\n        })\r\n    ]\r\n    \r\n}"
                 }
             ],
             "src/app/store/effectsActions.ts": [
@@ -12333,28 +12366,6 @@
                     "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "(...args: string[]) => [\"button\", ...args].filter(Boolean)"
-                }
-            ],
-            "src/app/login/store/user.reducer.ts": [
-                {
-                    "name": "initialState",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/login/store/user.reducer.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "any",
-                    "defaultValue": "{}"
-                },
-                {
-                    "name": "userReducer",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/login/store/user.reducer.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "createReducer(\r\n    initialState,\r\n    on(UserActions.addUser, (_state, { user }) => user),\r\n    on(UserActions.updateUser, (_state, { user }) => user),\r\n)"
                 }
             ],
             "src/app/store/instructors/instructors.reducer.ts": [
@@ -12421,6 +12432,28 @@
                     "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "createReducer(\r\n  initialState,\r\n  on(UsersActions.retrievedUsersList, (_state, { users }) => users)\r\n)"
+                }
+            ],
+            "src/app/login/store/user.reducer.ts": [
+                {
+                    "name": "initialState",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/login/store/user.reducer.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "defaultValue": "{}"
+                },
+                {
+                    "name": "userReducer",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/login/store/user.reducer.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createReducer(\r\n    initialState,\r\n    on(UserActions.addUser, (_state, { user }) => user),\r\n    on(UserActions.updateUser, (_state, { user }) => user),\r\n)"
                 }
             ],
             "src/app/students/students-dashboard/pages/trainers/resolver/instructor.resolver.ts": [
@@ -12621,19 +12654,6 @@
                     "kind": 183
                 }
             ],
-            "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<MainPageHeaderComponent>",
-                    "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 183
-                }
-            ],
             "src/app/shared/components/button/button.components.stories.ts": [
                 {
                     "name": "Story",
@@ -12660,6 +12680,19 @@
                     "kind": 183
                 }
             ],
+            "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<MainPageHeaderComponent>",
+                    "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
             "src/app/students/students-dashboard/pages/courses/components/course-cards/course-card-second-component.stories.ts": [
                 {
                     "name": "Story",
@@ -12667,6 +12700,19 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<CourseCardsComponent>",
                     "file": "src/app/students/students-dashboard/pages/courses/components/course-cards/course-card-second-component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
+            "src/app/students/students-dashboard/pages/courses/components/course-page/header-course/header-course-students-component.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<HeaderCourseComponent>",
+                    "file": "src/app/students/students-dashboard/pages/courses/components/course-page/header-course/header-course-students-component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -13960,12 +14006,32 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/students/students-dashboard/pages/courses/components/course-page/header-course/header-course-students-component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/students/students-dashboard/pages/courses/components/course-page/header-course/header-course-students-component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/students/students-dashboard/pages/courses/components/course-page/header-course/header-course.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "HeaderCourseComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/7",
+                "coverageCount": "0/5",
                 "status": "low"
             },
             {
