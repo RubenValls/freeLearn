@@ -23,7 +23,7 @@ describe('CoursesSectionComponent', () => {
         provideAuth(() => getAuth()),
       ],
       providers: [
-        { provide: CoursesService, useValue: { getInstructorCourses: () => of([]) } }
+        { provide: CoursesService, useValue: { getTopicCourses: () => of([]) } }
       ]
     });
     fixture = TestBed.createComponent(CoursesSectionComponent);
@@ -36,15 +36,15 @@ describe('CoursesSectionComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call getInstructorCourses on ngOnInit if courses are defined', () => {
-    spyOn(coursesService, 'getTopicCourses').and.callThrough();
+  it('should call getTopicCourses on ngOnInit if courses are defined', () => {
+    spyOn(coursesService, 'getTopicCourses');
     component.courses = ['course1', 'course2'];
     component.ngOnInit();
     expect(coursesService.getTopicCourses).toHaveBeenCalledWith(component.courses);
   });
 
   it('should not call getTopicCourses on ngOnInit if courses are undefined', () => {
-    spyOn(coursesService, 'getTopicCourses').and.callThrough();
+    spyOn(coursesService, 'getTopicCourses');
     component.courses = undefined;
     component.ngOnInit();
     expect(coursesService.getTopicCourses).not.toHaveBeenCalled();
