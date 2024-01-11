@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Firestore, collectionData } from '@angular/fire/firestore';
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import { TechnologyType } from '../types/technologies';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Course } from '../../courses/interface/course';
+import { Instructor } from '../../instructors/instructors';
 
 
 @Injectable({
@@ -29,8 +30,11 @@ export class TechService {
     return (await getDoc(techRef)).data() as TechnologyType;
   }
   
-  getTechnologyByCourseId(courseId: string, technologies: string[] | undefined){
-    const techRef = collection(this.firestore, 'technologies');
+  async getTechnologyByCourseId(courseId: string){
+    if (!courseId) {     
+      return of([]);
+    }
+    const techRef = await collection(this.firestore, 'technologies');
     const techQuery = query(techRef, where('courses', 'array-contains', courseId));
     const techCollection = collectionData(techQuery, {idField: 'id'}) as Observable<TechnologyType[]>;
     return techCollection;

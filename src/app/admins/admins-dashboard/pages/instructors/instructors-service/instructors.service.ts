@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Firestore, collectionData } from '@angular/fire/firestore';
 import { addDoc, collection, deleteDoc, doc, getDoc, query, updateDoc, where } from 'firebase/firestore';
 import { Instructor } from '../instructors';
-import { Observable, retry } from 'rxjs';
+import { Observable, of, retry } from 'rxjs';
 import { Rating } from '../../courses/interface/course';
 
 @Injectable({
@@ -27,12 +27,16 @@ export class InstructorsService {
     return (await getDoc(instructorsRef)).data() as Instructor;
   };
 
-  getInstructorByCourseId( courseId:string, instructors: string[] | undefined  ){
-    const instructorsRef = collection(this.firestore, 'instructors');
+  async getInstructorByCourseId(courseId: string) {
+    if (!courseId) {     
+      return of([]) as Observable<Instructor[]>;
+    }
+    const instructorsRef = await collection(this.firestore, 'instructors');
     const instructorsQuery = query(instructorsRef, where('courses', 'array-contains', courseId));
     const instructorsCollection = collectionData(instructorsQuery, { idField: 'id' }) as Observable<Instructor[]>;
-     return instructorsCollection;
+    return instructorsCollection;
   }
+  
 
   async updateInstructor(id: string, instructor: Instructor) {
     const instructorRef = doc(this.firestore, 'instructors', id);
