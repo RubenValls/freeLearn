@@ -10,15 +10,10 @@
                         <h1 class="text-center">{{course?.name}}</h1>
                     </div>
                 </div>
-
-
-            </div>
-          
+                        </div>          
         </div>
 
-        <div class="rating d-flex justify-content-center">
-            <app-star-rating [rating]="course?.rating" (ratingUpdated)="handleUpdate($event)"></app-star-rating>
-        </div>
+        
     </div>
 
 
@@ -41,9 +36,7 @@
 
             </div>
         </div>
-        <div class="rating d-flex justify-content-end">
-            <app-star-rating [rating]="course?.rating" (ratingUpdated)="handleUpdate($event)"></app-star-rating>
-        </div>
+       
     </div>
 
 </div>

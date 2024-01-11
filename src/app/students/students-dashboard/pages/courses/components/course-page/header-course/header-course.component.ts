@@ -18,7 +18,7 @@ export class HeaderCourseComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private userService: UsersService,
-    private courseService: CoursesService,
+ 
   ) { 
     this.route.data.subscribe(data => {    
       this.course = data['data']
@@ -29,27 +29,5 @@ export class HeaderCourseComponent implements OnInit {
     this.userId = user?.id
   }
 
-  handleUpdate(rating: number){
-    if(this.userId && this.course?.id){
-      const newRating = {
-        userId: this.userId,
-        rating: rating
-      }
-
-      this.courseService.updateCourseRating(this.course?.id, newRating).then((instructorUpdated) => {
-        this.course = instructorUpdated
-      })
-    }
-  }
  
-  getRatingAverage(ratings: any[] | undefined): number {
-    const sum = ratings?.reduce((total, item) => total + item.rating, 0);
-    let average = 0;
-    let roundedAverage = 0;
-    if (ratings?.length) {
-      average = sum / ratings?.length;
-      roundedAverage = Math.round(average);
-    }
-    return roundedAverage;
-  }
 }

@@ -34,7 +34,7 @@ export class StarRatingComponent implements OnInit, OnChanges {
   }
 
   onClick(rating:number) {
-    this.alertsService.successMessage(rating > 1 ? `Rated trainer with ${rating} stars.` : `Rated trainer with ${rating} star.`)
+    this.alertsService.successMessage(rating > 1 ? `Rated with ${rating} stars.` : `Rated with ${rating} star.`)
     this.ratingUpdated.emit(rating);
     return false;
   }

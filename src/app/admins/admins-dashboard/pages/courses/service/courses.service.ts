@@ -120,6 +120,7 @@ export class CoursesService {
       rating: this.currentCourse!.rating
   
     });
+    return this.currentCourse;
   }
 
   async deleteCourse(id: string) {    
