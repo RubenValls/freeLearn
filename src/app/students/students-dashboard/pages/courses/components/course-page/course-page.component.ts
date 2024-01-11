@@ -11,10 +11,11 @@ import { UsersService } from 'src/app/shared/services/users/users.service';
 })
 export class CoursePageComponent implements OnInit {
   course: Course | undefined
-  courseId: string | undefined;
+  courseId: string = '';
   instructorsId: string[] | undefined;
   techsId: string[] | undefined;
   userId: string = '';
+
   constructor(
     private courseService: CoursesService,
     private route: ActivatedRoute,
@@ -24,27 +25,31 @@ export class CoursePageComponent implements OnInit {
       this.course = data['data'];
     });
   }
+  
   ngOnInit(): void {
     const user = this.userService.getUserFromStorage();
     this.userId = user?.id;
 
     this.route.params.subscribe(params => {
       this.courseId = params['id'];
-      console.log(this.courseId);
     });
 
     this.instructorsId = this.course?.instructorId?.map(instructor => instructor.id);
     this.techsId = this.course?.techs?.map(tech => tech.id);
   }
-  handleUpdate(rating: number) {   
-    if (this.userId && this.course?.id) {
+
+  handleUpdate(rating: number) {
+    debugger
+    if (this.userId && this.courseId) {
       const newRating = {
         userId: this.userId,
         rating: rating
       }
 
-      this.courseService.updateCourseRating(this.course?.id, newRating).then((instructorUpdated) => {
-        this.course = instructorUpdated
+      this.courseService.updateCourseRating(this.courseId, newRating).then((courseUpdate) => {
+        this.course = courseUpdate
+        console.log('courseUpdate', courseUpdate?.rating)
+        console.log('this.course', this.course?.rating)
       })
     }
   }

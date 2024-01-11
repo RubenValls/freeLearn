@@ -33,7 +33,7 @@ export class StarRatingComponent implements OnInit, OnChanges {
     this.setRatingAverage(this.ratings ? this.ratings : [])
   }
 
-  onClick(rating:number) {
+  onClick(rating:number) {   
     this.alertsService.successMessage(rating > 1 ? `Rated with ${rating} stars.` : `Rated with ${rating} star.`)
     this.ratingUpdated.emit(rating);
     return false;
