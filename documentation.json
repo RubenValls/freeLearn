@@ -11621,7 +11621,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<CustomTableComponent>",
-                "defaultValue": "{\r\n  title: 'Components/CustomTable',\r\n  component: CustomTableComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations: [],\r\n      imports: [MatTableModule, MatDialogModule, SharedModule],\r\n    }),\r\n  ],\r\n}"
+                "defaultValue": "{\r\n  title: 'Components/Admin/CustomTable',\r\n  component: CustomTableComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations: [],\r\n      imports: [MatTableModule, MatDialogModule, SharedModule],\r\n    }),\r\n  ],\r\n}"
             },
             {
                 "name": "meta",
@@ -11631,7 +11631,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<HeaderComponent>",
-                "defaultValue": "{\r\n    title: 'Components/Headers/AdminHeader',\r\n    component: HeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[],\r\n          imports: [MatButtonModule] \r\n        })\r\n      ]\r\n}"
+                "defaultValue": "{\r\n    title: 'Components/Admin/Header',\r\n    component: HeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[],\r\n          imports: [MatButtonModule] \r\n        })\r\n      ]\r\n}"
             },
             {
                 "name": "meta",
@@ -11661,7 +11661,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<MainPageHeaderComponent>",
-                "defaultValue": "{\r\n    title: 'Components/Headers/MainPageHeader',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
+                "defaultValue": "{\r\n    title: 'Components/Main Page/Header',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
             },
             {
                 "name": "meta",
@@ -12196,7 +12196,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<CustomTableComponent>",
-                    "defaultValue": "{\r\n  title: 'Components/CustomTable',\r\n  component: CustomTableComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations: [],\r\n      imports: [MatTableModule, MatDialogModule, SharedModule],\r\n    }),\r\n  ],\r\n}"
+                    "defaultValue": "{\r\n  title: 'Components/Admin/CustomTable',\r\n  component: CustomTableComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations: [],\r\n      imports: [MatTableModule, MatDialogModule, SharedModule],\r\n    }),\r\n  ],\r\n}"
                 }
             ],
             "src/app/admins/components/header/header.components.stories.ts": [
@@ -12218,7 +12218,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<HeaderComponent>",
-                    "defaultValue": "{\r\n    title: 'Components/Headers/AdminHeader',\r\n    component: HeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[],\r\n          imports: [MatButtonModule] \r\n        })\r\n      ]\r\n}"
+                    "defaultValue": "{\r\n    title: 'Components/Admin/Header',\r\n    component: HeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[],\r\n          imports: [MatButtonModule] \r\n        })\r\n      ]\r\n}"
                 }
             ],
             "src/app/shared/components/course-card/course-card.components.stories.ts": [
@@ -12262,7 +12262,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<MainPageHeaderComponent>",
-                    "defaultValue": "{\r\n    title: 'Components/Headers/MainPageHeader',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
+                    "defaultValue": "{\r\n    title: 'Components/Main Page/Header',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
                 }
             ],
             "src/app/students/students-dashboard/pages/courses/components/course-cards/course-card-second-component.stories.ts": [
