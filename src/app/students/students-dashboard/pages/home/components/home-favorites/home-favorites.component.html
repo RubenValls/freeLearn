@@ -1,1 +1,6 @@
-<p>home-favorites works!</p>
+<div class="container-fluid mt-3" *ngIf="this.favouriteCourses.length > 0">
+    <h4 class="mx-3 fw-bold">Favourite Courses:</h4>
+    <div class="course" *ngFor="let course of favouriteCourses">
+        <app-course-cards [course]="course"></app-course-cards>
+    </div>
+</div>
