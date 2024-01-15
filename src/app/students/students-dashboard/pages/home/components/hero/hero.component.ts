@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-hero',
   templateUrl: './hero.component.html',
-  styleUrls: ['./hero.component.css'],
+  styleUrls: ['./hero.component.scss'],
 })
 export class HeroComponent implements OnInit {
   user: any;
@@ -18,9 +18,9 @@ export class HeroComponent implements OnInit {
     const sessionUser = sessionStorage.getItem('userInfo');
   
     if (localUser) {
-      this.user = JSON.parse(localUser); // Convierte la cadena a objeto
+      this.user = JSON.parse(localUser); 
     } else if (sessionUser) {
-      this.user = JSON.parse(sessionUser); // Convierte la cadena a objeto
+      this.user = JSON.parse(sessionUser); 
     }
   }
   
