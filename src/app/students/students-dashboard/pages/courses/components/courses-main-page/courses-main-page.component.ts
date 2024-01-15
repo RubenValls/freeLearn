@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';
 import { selectCourses } from 'src/app/store/courses/courses.selectors';
+import { mostRatedTopic } from 'src/app/students/functions/most-rated';
 
 @Component({
   selector: 'app-courses-main-page',
@@ -26,7 +27,7 @@ export class CoursesMainPageComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.courseSubscription = this.courses$.subscribe((data) => {
         this.courses = [...data]
-        this.topCourses = this.courses.slice(0,3)
+        this.topCourses = mostRatedTopic([...data]) as Course[];
       });
       this.name.valueChanges.subscribe(value => {
         this.filteredCourses = this.filterByName(this.courses, value || '')
