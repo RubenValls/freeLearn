@@ -7,7 +7,7 @@ import { UsersService } from 'src/app/shared/services/users/users.service';
 @Component({
   selector: 'app-home-favorites',
   templateUrl: './home-favorites.component.html',
-  styleUrls: ['./home-favorites.component.css']
+  styleUrls: ['./home-favorites.component.scss']
 })
 export class HomeFavoritesComponent implements OnInit {
 
