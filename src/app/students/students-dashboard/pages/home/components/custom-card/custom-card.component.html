@@ -1,4 +1,4 @@
-<div class="main-container">
-  <img src="{{ data.img }}" alt="" />
+<div class="card">
+  <img *ngIf="data.imagePath" src="{{ data.imagePath }}" alt="" />
   <p>{{data.name}}</p>
 </div>

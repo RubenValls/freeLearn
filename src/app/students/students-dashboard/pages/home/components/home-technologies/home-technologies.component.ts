@@ -7,7 +7,7 @@ import { selectTechnologies } from 'src/app/store/technologies/tecnologies.selec
 @Component({
   selector: 'app-home-technologies',
   templateUrl: './home-technologies.component.html',
-  styleUrls: ['./home-technologies.component.css']
+  styleUrls: ['./home-technologies.component.scss']
 })
 export class HomeTechnologiesComponent {
   tech$ = this.store.select(selectTechnologies);

@@ -1,0 +1,32 @@
+.card{
+    background: var(--softGrey) !important;
+    width: 150px;
+    text-align: center;
+    background: var(--bg);
+    border: none;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    box-shadow: 3px 3px 6px #9d9d9d27;
+    cursor: pointer;
+    padding: 1rem;
+    transition: all 2s ease;
+    
+    p{
+        margin: 0;
+        font-size: 14px;
+    }
+
+    img{
+        width: 60px;
+    }
+    
+}
+.card:hover{
+    background: var(--gradient-opacity) !important;
+}

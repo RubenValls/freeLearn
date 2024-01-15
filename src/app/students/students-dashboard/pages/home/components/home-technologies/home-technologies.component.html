@@ -1,1 +1,6 @@
-<p>home-technologies works!</p>
+<h4>Technologies</h4>
+<div class="techs">
+    <div  *ngFor="let tech of techs">
+        <app-custom-card [data]="tech"></app-custom-card>
+    </div>
+</div>
