@@ -26,7 +26,7 @@ import { CoursesMainPageComponent } from './students-dashboard/pages/courses/com
 import { HeaderCourseComponent } from './students-dashboard/pages/courses/components/course-page/header-course/header-course.component';
 import { DetailsCourseComponent } from './students-dashboard/pages/courses/components/course-page/details-course/details-course.component';
 import { LessonsCourseComponent } from './students-dashboard/pages/courses/components/course-page/lessons-course/lessons-course.component';
-import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderComponent } from './students-dashboard/pages/trainers/components/instructor-page/components/header/header.component';
 import { CoursesSectionComponent } from './students-dashboard/pages/trainers/components/instructor-page/components/courses-section/courses-section.component';
 import { StarRatingComponent } from './components/star-rating/star-rating.component';
@@ -73,9 +73,9 @@ import { TechPageComponent } from './students-dashboard/pages/technologies/compo
     MatTooltipModule,
     MatInputModule,
     MatFormFieldModule,
-    ReactiveFormsModule,
-    NgbCollapseModule,  
+    ReactiveFormsModule,    
     MatButtonModule,
+    NgbAccordionModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })

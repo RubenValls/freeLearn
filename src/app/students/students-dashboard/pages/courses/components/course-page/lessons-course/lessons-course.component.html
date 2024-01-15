@@ -1,1 +1,25 @@
-<p>lessons-course works!</p>
+<div class="lessons">
+    <h5>Lessons</h5>
+
+    <div class="lesson">
+        <div ngbAccordion [closeOthers]="true">
+            <div ngbAccordionItem *ngFor="let panel of panels" [collapsed]="panel !== 'First'">
+                <h2 ngbAccordionHeader>
+                    <button ngbAccordionButton>{{ panel.position + ') '+ panel.name }}</button>
+                </h2>
+                <div ngbAccordionCollapse>
+                    <div ngbAccordionBody>
+                        <div class="iframe-container">    
+    
+                            <iframe width="640" height="360" [src]=" panel?.videoUrl" frameborder="0" allowfullscreen></iframe>
+    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
