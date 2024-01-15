@@ -6,7 +6,7 @@ describe('Login Page', () => {
   it('login with student', () => {
     cy.visit('/login');
     cy.get('input[formControlName="email"]').type('ruben@test.com');
-    cy.get('input[formControlName="password"]').type('test1234');
+    cy.get('input[formControlName="password"]').type('test12345');
     cy.get('#loginButton').click();
     cy.url().should('include', '/students');
   });
