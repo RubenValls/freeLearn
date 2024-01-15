@@ -35,6 +35,7 @@ import { CardTechComponent } from './students-dashboard/pages/technologies/compo
 import { TechsMainPageComponent } from './students-dashboard/pages/technologies/components/techs-main-page/techs-main-page.component';
 import { TechPageComponent } from './students-dashboard/pages/technologies/components/tech-page/tech-page.component';
 import { HeroComponent } from './students-dashboard/pages/home/components/hero/hero.component';
+import { FavoritesComponent } from './students-dashboard/pages/home/components/favorites/favorites.component';
 
 
 
@@ -64,7 +65,8 @@ import { HeroComponent } from './students-dashboard/pages/home/components/hero/h
     CardTechComponent,
     TechsMainPageComponent,
     TechPageComponent,
-    HeroComponent
+    HeroComponent,
+    FavoritesComponent
   ],
   imports: [
     CommonModule,
