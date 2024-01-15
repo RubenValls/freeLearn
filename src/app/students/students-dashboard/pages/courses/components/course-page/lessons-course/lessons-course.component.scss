@@ -13,3 +13,8 @@
 iframe{
     max-width: 100%;
 }
+
+button:active {
+    background: var(--gradient) ;
+    color: #fff;
+  }

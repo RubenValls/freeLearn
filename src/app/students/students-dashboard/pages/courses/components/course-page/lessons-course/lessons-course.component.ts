@@ -27,3 +27,4 @@ export class LessonsCourseComponent implements OnInit {
     });  
   }
 }
+
