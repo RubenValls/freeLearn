@@ -1,6 +1,17 @@
-<h4>Technologies</h4>
-<div class="techs">
-    <div  *ngFor="let tech of techs">
-        <app-custom-card [data]="tech"></app-custom-card>
+<div class="main-container">
+    <h4>Technologies</h4>
+    <div class="data">
+        <div class="array">
+            <div  *ngFor="let tech of techs">
+                <app-custom-card [data]="tech"></app-custom-card>
+            </div>
+        </div>
+        <div class="more">
+            <p>Ver mas ...</p>
+        </div>
+
+
     </div>
+    
 </div>
+

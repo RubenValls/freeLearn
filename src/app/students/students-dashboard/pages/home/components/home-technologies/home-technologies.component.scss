@@ -1,8 +1,26 @@
+.main-container{
+    margin-left: 1.5rem;
+}
 h4{
     font-weight: bold;
+    margin-bottom: 1rem;
 }
-.techs{
+.array{
     display: flex;
     gap: 2rem;
     flex-wrap: wrap;
+}
+.data{
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+}
+.more{
+    p{
+        margin: 0;
+        font-weight: bold;
+        color: transparent;
+                background: var(--gradient);
+                -webkit-background-clip: text;
+    }
 }
