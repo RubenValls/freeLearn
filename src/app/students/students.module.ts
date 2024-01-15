@@ -36,6 +36,7 @@ import { TechsMainPageComponent } from './students-dashboard/pages/technologies/
 import { TechPageComponent } from './students-dashboard/pages/technologies/components/tech-page/tech-page.component';
 import { HeroComponent } from './students-dashboard/pages/home/components/hero/hero.component';
 import { FavoritesComponent } from './students-dashboard/pages/home/components/favorites/favorites.component';
+import { CustomCardComponent } from './students-dashboard/pages/home/components/custom-card/custom-card.component';
 
 
 
@@ -66,7 +67,8 @@ import { FavoritesComponent } from './students-dashboard/pages/home/components/f
     TechsMainPageComponent,
     TechPageComponent,
     HeroComponent,
-    FavoritesComponent
+    FavoritesComponent, 
+    CustomCardComponent
   ],
   imports: [
     CommonModule,
