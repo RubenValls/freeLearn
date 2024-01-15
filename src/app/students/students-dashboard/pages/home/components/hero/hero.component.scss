@@ -20,9 +20,29 @@
     align-items: center;
     justify-content: space-between;
     .data{
+        display: flex;
+        align-items: center;
+        
+
+            img{
+                width: 100px;
+                border-radius: 5rem;
+                cursor: pointer;
+                transition: all 1s ease-in-out;
+                margin-right: 2rem;
+            }
+            img:hover{
+                width: 110px;
+            }
+            
+            
+        
         h1{
             font-weight: bold;
+            font-size: 50px;
         }
+        
+        
     }
     .img{
         img{
