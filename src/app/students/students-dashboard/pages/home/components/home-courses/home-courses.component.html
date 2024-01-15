@@ -3,7 +3,7 @@
     <div class="data">
         <div class="array">
             <div  *ngFor="let course of courses">
-                <app-custom-card [data]="course"></app-custom-card>
+                <app-custom-card [data]="course" [routerLink]="'/students/courses/' + course?.id"></app-custom-card>
             </div>
         </div>
         <div class="more">

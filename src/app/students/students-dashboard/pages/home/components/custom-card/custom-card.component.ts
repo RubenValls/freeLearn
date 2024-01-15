@@ -9,4 +9,5 @@ export class CustomCardComponent {
 
 @Input() data: any
 
+
 }
