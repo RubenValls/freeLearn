@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { TechnologyType } from 'src/app/admins/admins-dashboard/pages/technologies/types/technologies';
 import { selectTechnologies } from 'src/app/store/technologies/tecnologies.selectors';
+import { randomArray } from 'src/app/students/functions/rondom-array';
 
 @Component({
   selector: 'app-home-technologies',
@@ -20,6 +21,7 @@ export class HomeTechnologiesComponent {
   ngOnInit() {
     this.techsSubscription = this.tech$.subscribe((tech) => {
       this.techs = [...tech]; 
+      this.techs = randomArray(this.techs, 4);
     });
   }
 
