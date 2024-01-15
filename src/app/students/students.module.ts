@@ -35,10 +35,7 @@ import { CardTechComponent } from './students-dashboard/pages/technologies/compo
 import { TechsMainPageComponent } from './students-dashboard/pages/technologies/components/techs-main-page/techs-main-page.component';
 import { TechPageComponent } from './students-dashboard/pages/technologies/components/tech-page/tech-page.component';
 import { HeroComponent } from './students-dashboard/pages/home/components/hero/hero.component';
-import { HomeTechnologiesComponent } from './students-dashboard/pages/home/components/home-technologies/home-technologies.component';
-import { HomeCoursesComponent } from './students-dashboard/pages/home/components/home-courses/home-courses.component';
-import { HomeTrainersComponent } from './students-dashboard/pages/home/components/home-trainers/home-trainers.component';
-import { HomeFavoritesComponent } from './students-dashboard/pages/home/components/home-favorites/home-favorites.component';
+import { CustomCardComponent } from './students-dashboard/pages/home/components/custom-card/custom-card.component';
 
 
 
@@ -69,10 +66,7 @@ import { HomeFavoritesComponent } from './students-dashboard/pages/home/componen
     TechsMainPageComponent,
     TechPageComponent,
     HeroComponent,
-    HomeTechnologiesComponent,
-    HomeCoursesComponent,
-    HomeTrainersComponent,
-    HomeFavoritesComponent
+    CustomCardComponent
   ],
   imports: [
     CommonModule,
