@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { Instructor } from 'src/app/admins/admins-dashboard/pages/instructors/instructors';
+import { selectInstructor } from 'src/app/store/instructors/instructors.selectors';
 
 @Component({
   selector: 'app-home-trainers',
@@ -6,5 +10,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./home-trainers.component.css']
 })
 export class HomeTrainersComponent {
+  trainers$ = this.store.select(selectInstructor);
+  trainers: Instructor[] | undefined;
+  trainersSubscription: Subscription | undefined;
 
+
+  constructor(private store: Store, ){}
+
+  ngOnInit() {
+    this.trainersSubscription = this.trainers$.subscribe((trainer) => {
+      this.trainers = [...trainer]; 
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.trainersSubscription?.unsubscribe();
+  }
 }
