@@ -3,11 +3,12 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Instructor } from 'src/app/admins/admins-dashboard/pages/instructors/instructors';
 import { selectInstructor } from 'src/app/store/instructors/instructors.selectors';
+import { randomArray } from 'src/app/students/functions/rondom-array';
 
 @Component({
   selector: 'app-home-trainers',
   templateUrl: './home-trainers.component.html',
-  styleUrls: ['./home-trainers.component.css']
+  styleUrls: ['./home-trainers.component.scss']
 })
 export class HomeTrainersComponent {
   trainers$ = this.store.select(selectInstructor);
@@ -20,6 +21,7 @@ export class HomeTrainersComponent {
   ngOnInit() {
     this.trainersSubscription = this.trainers$.subscribe((trainer) => {
       this.trainers = [...trainer]; 
+      this.trainers = randomArray(this.trainers, 4)
     });
   }
 

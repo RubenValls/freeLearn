@@ -16,5 +16,30 @@ body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
 }
+.scrollbar{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    overflow: scroll;
+    overflow-x: hidden;
+    max-height: 97%;
+    padding-right: 2rem;
+    box-sizing: content-box;
+}
 
-
+.scrollbar::-webkit-scrollbar {
+    width: 5px;    
+    border-radius: 20px;  
+   
+  }
+  
+.scrollbar::-webkit-scrollbar-track {
+    height: 10px;  
+    margin: 40px;
+  }
+  
+.scrollbar::-webkit-scrollbar-thumb { 
+    background: var(--gradient);   
+    border-radius: 20px;
+    
+}
