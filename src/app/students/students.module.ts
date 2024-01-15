@@ -34,6 +34,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { CardTechComponent } from './students-dashboard/pages/technologies/components/card-tech/card-tech.component';
 import { TechsMainPageComponent } from './students-dashboard/pages/technologies/components/techs-main-page/techs-main-page.component';
 import { TechPageComponent } from './students-dashboard/pages/technologies/components/tech-page/tech-page.component';
+import { HeroComponent } from './students-dashboard/pages/home/components/hero/hero.component';
+import { CustomCardComponent } from './students-dashboard/pages/home/components/custom-card/custom-card.component';
+import { HomeCoursesComponent } from './students-dashboard/pages/home/components/home-courses/home-courses.component';
+import { HomeFavoritesComponent } from './students-dashboard/pages/home/components/home-favorites/home-favorites.component';
+import { HomeTechnologiesComponent } from './students-dashboard/pages/home/components/home-technologies/home-technologies.component';
+import { HomeTrainersComponent } from './students-dashboard/pages/home/components/home-trainers/home-trainers.component';
 
 
 
@@ -62,7 +68,13 @@ import { TechPageComponent } from './students-dashboard/pages/technologies/compo
     StarRatingComponent,
     CardTechComponent,
     TechsMainPageComponent,
-    TechPageComponent
+    TechPageComponent,
+    HeroComponent,
+    CustomCardComponent,
+    HomeCoursesComponent,
+    HomeFavoritesComponent,
+    HomeTechnologiesComponent,
+    HomeTrainersComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,39 @@
+.main-container{
+    margin-left: 1.5rem;
+}
+h4{
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+.array{
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    @media (width < 1100px) {
+        justify-content: center;
+    }
+    
+}
+.data{
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    @media (width < 1100px) {
+        display: block;
+    }
+}
+.more{
+    @media (width < 1100px) {
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
+    }
+    p{
+        cursor: pointer;
+        margin: 0;
+        font-weight: bold;
+        color: transparent;
+                background: linear-gradient(120deg,#4defa7 0,#2d71fa 100%) no-repeat;
+                -webkit-background-clip: text;
+    }
+}
