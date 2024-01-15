@@ -14,8 +14,7 @@ export class LessonsCourseComponent implements OnInit {
 
   constructor(private sanitizer: DomSanitizer) {}
 
-  ngOnInit(): void {
-    console.log('lessons', this.lessons);
+  ngOnInit(): void {    
     this.panels = this.lessons?.map((lesson, index) => {
       const videoUrl = lesson?.videoUrl;
       const sanitizedVideoUrl: SafeResourceUrl | undefined = videoUrl ? this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${videoUrl}`) : undefined;
@@ -25,7 +24,6 @@ export class LessonsCourseComponent implements OnInit {
         name: lesson?.name,
         videoUrl: sanitizedVideoUrl,
       };
-    });
-    console.log('this.panels', this.panels);
+    });  
   }
 }

@@ -15,6 +15,7 @@ export class CoursePageComponent implements OnInit {
   instructorsId: string[] | undefined;
   techsId: string[] | undefined;
   userId: string = '';
+  areLessonsVisible: boolean = false;
 
   constructor(
     private courseService: CoursesService,
@@ -36,6 +37,7 @@ export class CoursePageComponent implements OnInit {
 
     this.instructorsId = this.course?.instructorId?.map(instructor => instructor.id);
     this.techsId = this.course?.techs?.map(tech => tech.id);
+    this.course?.lessons?.length ? this.areLessonsVisible = true : this.areLessonsVisible = false;
   }
 
   handleUpdate(rating: number) {
