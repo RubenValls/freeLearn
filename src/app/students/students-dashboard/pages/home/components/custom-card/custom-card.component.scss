@@ -16,6 +16,9 @@
     cursor: pointer;
     padding: 1rem;
     transition: all 2s ease;
+    @media (width < 522px) {
+        width: 220px;
+    }
     
     p{
         margin: 0;
