@@ -8,7 +8,7 @@ import { randomArray } from 'src/app/students/functions/rondom-array';
 @Component({
   selector: 'app-home-courses',
   templateUrl: './home-courses.component.html',
-  styleUrls: ['./home-courses.component.css']
+  styleUrls: ['./home-courses.component.scss']
 })
 export class HomeCoursesComponent {
   courses$ = this.store.select(selectCourses);

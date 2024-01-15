@@ -1,1 +1,17 @@
-<p>home-trainers works!</p>
+<div class="main-container">
+    <h4>Trainer</h4>
+    <div class="data">
+        <div class="array">
+            <div  *ngFor="let trainer of trainers">
+                <app-custom-card [data]="trainer"></app-custom-card>
+            </div>
+        </div>
+        <div class="more">
+            <p>Ver mas ...</p>
+        </div>
+
+
+    </div>
+    
+</div>
+
