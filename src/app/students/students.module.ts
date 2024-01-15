@@ -34,6 +34,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { CardTechComponent } from './students-dashboard/pages/technologies/components/card-tech/card-tech.component';
 import { TechsMainPageComponent } from './students-dashboard/pages/technologies/components/techs-main-page/techs-main-page.component';
 import { TechPageComponent } from './students-dashboard/pages/technologies/components/tech-page/tech-page.component';
+import { HeroComponent } from './students-dashboard/pages/home/components/hero/hero.component';
 
 
 
@@ -62,7 +63,8 @@ import { TechPageComponent } from './students-dashboard/pages/technologies/compo
     StarRatingComponent,
     CardTechComponent,
     TechsMainPageComponent,
-    TechPageComponent
+    TechPageComponent,
+    HeroComponent
   ],
   imports: [
     CommonModule,
