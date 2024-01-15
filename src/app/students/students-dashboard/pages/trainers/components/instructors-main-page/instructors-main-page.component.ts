@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Instructor } from 'src/app/admins/admins-dashboard/pages/instructors/instructors';
 import { selectInstructor } from 'src/app/store/instructors/instructors.selectors';
+import { mostRatedTopic } from 'src/app/students/functions/most-rated';
 
 @Component({
   selector: 'app-instructors-main-page',
@@ -22,11 +23,11 @@ export class InstructorsMainPageComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.instructorsSubscription = this.instructors$.subscribe((data) => {
-      this.instructors = [...data]
-      this.topInstructors = this.instructors.slice(0,3)
+      this.instructors = [...data];
+      this.topInstructors = mostRatedTopic([...data]) as Instructor[];
     })
     this.name.valueChanges.subscribe(value => {
-      this.filteredInstructors = this.filterByName(this.instructors, value || '')
+      this.filteredInstructors = this.filterByName(this.instructors, value || '');
     });
   }
 
