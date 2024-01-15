@@ -20,7 +20,6 @@ export class HomeTechnologiesComponent {
   ngOnInit() {
     this.techsSubscription = this.tech$.subscribe((tech) => {
       this.techs = [...tech]; 
-      console.log(tech)
     });
   }
 
