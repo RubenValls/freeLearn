@@ -17,9 +17,13 @@ export class HomeFavoritesComponent implements OnInit {
   constructor( private userService: UsersService, private courseService: CoursesService ) {}
 
   ngOnInit(): void {
-    const userInfo = this.userService.getUserFromStorage() as User
-    this.userFavorites = userInfo?.favorites ? userInfo?.favorites : []
-    this.courseService.getTopicCourses(this.userFavorites).then(courses => this.favouriteCourses = courses)
+    const userInfo = this.getUserInfo();
+    this.userFavorites = userInfo?.favorites ? userInfo?.favorites : [];
+    this.courseService.getTopicCourses(this.userFavorites).then(courses => this.favouriteCourses = courses);
+  }
+
+  public getUserInfo(): User {
+    return this.userService.getUserFromStorage() as User;
   }
 
 }
