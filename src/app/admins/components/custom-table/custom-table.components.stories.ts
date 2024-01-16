@@ -90,9 +90,11 @@ export const Trainers: Story = {
       {
         id: '1',
         name: 'Midudev',
-        reating: [],
-        imagePath:
-          'https://yt3.googleusercontent.com/ytc/AIf8zZScNwk4VuB2XijvUaEz7Z8Wff_tvBzYaHgOXZZtFQ=s176-c-k-c0x00ffffff-no-rj',
+        rating: [{
+          rating: 4,
+          userId: "HclEUHV8XslaqIYSMatG"
+        }],
+        imagePath: 'https://yt3.googleusercontent.com/ytc/AIf8zZScNwk4VuB2XijvUaEz7Z8Wff_tvBzYaHgOXZZtFQ=s176-c-k-c0x00ffffff-no-rj',
         courses: [],
         socialMedia: [
           {
@@ -100,6 +102,8 @@ export const Trainers: Story = {
             twitter: 'https://twitter.com/midudev',
             web: 'https://www.youtube.com/c/midudev',
             youtube: 'https://www.youtube.com/c/midudev',
+            
+            
           },
         ],
       },
@@ -130,6 +134,7 @@ export const Trainers: Story = {
     ],
   },
 };
+
 export const Users: Story = {
   args: {
     data: [

@@ -12035,6 +12035,16 @@
                 "name": "Courses",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    data: [\r\n      {\r\n        id: '1',\r\n        name: 'Curso Completo de REACT',\r\n        description: 'Description',\r\n        instructorId: [{ id: 'BHb6atXs68TPFuj4GnbP', name: 'JAB' }],\r\n        imageUrl: 'https://i.ytimg.com/vi/VoMyUgI-5NI/maxresdefault.jpg',\r\n        techs: [{ id: '3ZLJDtVSkLGCVMa95S0W', name: 'React' }],\r\n        lessons: [],\r\n        rating: [],\r\n        introductionURL:\r\n          'https://www.youtube.com/watch?v=VoMyUgI-5NI&list=PLRM7PpbqqStKo-NiCuzuYwewZmd9b-EZ9&index=1',\r\n      },\r\n    ],\r\n    displayedColumns: [\r\n      { prop: 'name', title: 'Name' },\r\n      { prop: 'imageUrl', title: 'Image' },\r\n      { prop: 'techs', title: 'Technologies' },\r\n      { prop: 'instructorId', title: 'Instructor' },\r\n      { prop: 'introductionURL', title: 'Introduction' },\r\n      { prop: 'lessons', title: 'NºLessons' },\r\n      { prop: 'rating', title: 'Rating' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'Name', prop: 'name' },\r\n      { label: 'Image', prop: 'imageUrl' },\r\n      { label: 'Technologies', prop: 'techs' },\r\n      { label: 'Instructor', prop: 'instructorId' },\r\n      { label: 'Introduction', prop: 'introductionURL' },\r\n      { label: 'Lessons', prop: 'lessons' },\r\n    ],\r\n  },\r\n}"
+            },
+            {
+                "name": "Courses",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -12070,16 +12080,6 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\r\n    args: {\r\n        label: 'Danger',\r\n          type: 'danger',\r\n    },\r\n  }"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\r\n  args: {\r\n    data: [{\r\n        id: \"1\",\r\n        name: \"Curso Completo de REACT\",\r\n        description: \"Description\",  \r\n        instructorId: [{id: \"BHb6atXs68TPFuj4GnbP\", name: \"JAB\"}], \r\n        imageUrl: \"https://i.ytimg.com/vi/VoMyUgI-5NI/maxresdefault.jpg\",\r\n        techs: [{id: \"3ZLJDtVSkLGCVMa95S0W\", name: \"React\"}],\r\n        lessons: [],\r\n        rating: [],\r\n        introductionURL: \"https://www.youtube.com/watch?v=VoMyUgI-5NI&list=PLRM7PpbqqStKo-NiCuzuYwewZmd9b-EZ9&index=1\"\r\n    }],\r\n    displayedColumns: [\r\n      { prop: 'name', title: 'Name' },\r\n      { prop: 'imageUrl', title: 'Image' },\r\n      { prop: 'techs', title: 'Technologies' },\r\n      { prop: 'instructorId', title: 'Instructor' },\r\n      { prop: 'introductionURL', title: 'Introduction' },\r\n      { prop: 'lessons', title: 'NºLessons' },\r\n      { prop: 'rating', title: 'Rating' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'Name', prop: 'name' },\r\n      { label: 'Image', prop: 'imageUrl' },\r\n      { label: 'Technologies', prop: 'techs' },\r\n      { label: 'Instructor', prop: 'instructorId' },\r\n      { label: 'Introduction', prop: 'introductionURL' },\r\n      { label: 'Lessons', prop: 'lessons' },\r\n    ],\r\n  },\r\n}"
             },
             {
                 "name": "Default",
@@ -12235,20 +12235,20 @@
                 "name": "initialState",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/store/instructors/instructors.reducer.ts",
+                "file": "src/app/store/courses/courses.reducer.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "ReadonlyArray<Instructor>",
+                "type": "ReadonlyArray<Course>",
                 "defaultValue": "[]"
             },
             {
                 "name": "initialState",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/store/courses/courses.reducer.ts",
+                "file": "src/app/store/instructors/instructors.reducer.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "ReadonlyArray<Course>",
+                "type": "ReadonlyArray<Instructor>",
                 "defaultValue": "[]"
             },
             {
@@ -12602,6 +12602,16 @@
                 "defaultValue": "{\r\n    args: {\r\n        label: 'Success',\r\n          type: 'success',\r\n    },\r\n  }"
             },
             {
+                "name": "Technologies",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    data: [\r\n      {\r\n        id: '1',\r\n        name: 'Python',\r\n        description:\r\n          'Python is a high-level, general-purpose programming language that emphasizes code readability and supports multiple programming paradigms. It is dynamically typed, garbage-collected, and has a comprehensive standard library. It was created by Guido van Rossum in 1991 and is widely used for web development, software development, machine learning, and more.',\r\n        imagePath:\r\n          'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',\r\n        courses: ['1', '2', '3'],\r\n      },\r\n    ],\r\n    displayedColumns: [\r\n      { prop: 'name', title: 'Name' },\r\n      { prop: 'imagePath', title: 'Image' },\r\n      { prop: 'courses', title: 'NºCourses' },\r\n      { prop: 'description', title: 'Description' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'Name', prop: 'name' },\r\n      { label: 'Image', prop: 'imagePath' },\r\n      { label: 'Description', prop: 'description' },\r\n      { label: 'Courses', prop: 'courses' },\r\n    ],\r\n  },\r\n}"
+            },
+            {
                 "name": "TechnologiesActions",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -12645,6 +12655,16 @@
                 "name": "Trainers",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    data: [\r\n      {\r\n        id: '1',\r\n        name: 'Midudev',\r\n        rating: [],\r\n        imagePath: 'https://yt3.googleusercontent.com/ytc/AIf8zZScNwk4VuB2XijvUaEz7Z8Wff_tvBzYaHgOXZZtFQ=s176-c-k-c0x00ffffff-no-rj',\r\n        courses: [],\r\n        socialMedia: [\r\n          {\r\n            web: 'https://www.youtube.com/c/midudev',\r\n            youtube: 'https://www.youtube.com/c/midudev',\r\n            twitter: 'https://twitter.com/midudev',\r\n            linkedin: 'https://www.linkedin.com/in/midudev',\r\n          },\r\n        ],\r\n      },\r\n    ],\r\n    displayedColumns: [\r\n      { prop: 'name', title: 'Name' },\r\n      { prop: 'imagePath', title: 'Image' },\r\n      { prop: 'courses', title: 'NºCourses' },\r\n      { prop: 'rating', title: 'Rating' },\r\n      { prop: 'socialMedia', title: 'SocialMedia' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'Name', prop: 'name' },\r\n      { label: 'Image', prop: 'imagePath' },\r\n      { label: 'Courses', prop: 'courses' },\r\n      { label: 'Rating', prop: 'rating' },\r\n      {\r\n        label: 'SocialMedia',\r\n        prop: 'socialMedia',\r\n        subFields: [\r\n          { label: 'Web', prop: 'web' },\r\n          { label: 'YouTube', prop: 'youtube' },\r\n          { label: 'Twitter', prop: 'twitter' },\r\n          { label: 'LinkedIn', prop: 'linkedin' },\r\n        ],\r\n      },\r\n    ],\r\n  },\r\n}"
+            },
+            {
+                "name": "Trainers",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -12670,6 +12690,16 @@
                 "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "createReducer(\r\n    initialState,\r\n    on(UserActions.addUser, (_state, { user }) => user),\r\n    on(UserActions.updateUser, (_state, { user }) => user),\r\n)"
+            },
+            {
+                "name": "Users",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    data: [\r\n      {\r\n        id: '1',\r\n        displayName: 'Ismael Cervera',\r\n        email: \"isma@test.com\",\r\n        photoURL:\r\n          'https://th.bing.com/th/id/OIP.ZmXuryOWnCOmdKSGsS3RAwHaHa?rs=1&pid=ImgDetMain',\r\n        favorites: [],\r\n        providerId: \"password\",\r\n        phoneNumber: \"666888999\",\r\n        authUid: \"wefe34jhhxhjs\",\r\n        role: \"student\",\r\n        uid: \"isma@test.com\",\r\n        rememberMe: true\r\n      },\r\n    ],\r\n    displayedColumns: [\r\n      { prop: 'displayName', title: 'User' },\r\n      { prop: 'photoURL', title: 'Img' },\r\n      { prop: 'email', title: 'Email' },\r\n      { prop: 'phoneNumber', title: 'Phone' },\r\n      { prop: 'role', title: 'Role' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'User', prop: 'displayName' },\r\n      { label: 'Img', prop: 'photoURL' },\r\n      { label: 'Email', prop: 'email' },\r\n      { label: 'Phone', prop: 'phoneNumber' },\r\n      { label: 'role', prop: 'role' },\r\n    ],\r\n  },\r\n}"
             },
             {
                 "name": "UsersActions",
@@ -13016,6 +13046,58 @@
                     "defaultValue": "(route, state) => {\r\n  \r\n  const courseResolver = inject(CoursesService)\r\n  return courseResolver.getCourseById(route.paramMap.get('id') || '')\r\n}"
                 }
             ],
+            "src/app/admins/components/custom-table/custom-table.components.stories.ts": [
+                {
+                    "name": "Courses",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    data: [\r\n      {\r\n        id: '1',\r\n        name: 'Curso Completo de REACT',\r\n        description: 'Description',\r\n        instructorId: [{ id: 'BHb6atXs68TPFuj4GnbP', name: 'JAB' }],\r\n        imageUrl: 'https://i.ytimg.com/vi/VoMyUgI-5NI/maxresdefault.jpg',\r\n        techs: [{ id: '3ZLJDtVSkLGCVMa95S0W', name: 'React' }],\r\n        lessons: [],\r\n        rating: [],\r\n        introductionURL:\r\n          'https://www.youtube.com/watch?v=VoMyUgI-5NI&list=PLRM7PpbqqStKo-NiCuzuYwewZmd9b-EZ9&index=1',\r\n      },\r\n    ],\r\n    displayedColumns: [\r\n      { prop: 'name', title: 'Name' },\r\n      { prop: 'imageUrl', title: 'Image' },\r\n      { prop: 'techs', title: 'Technologies' },\r\n      { prop: 'instructorId', title: 'Instructor' },\r\n      { prop: 'introductionURL', title: 'Introduction' },\r\n      { prop: 'lessons', title: 'NºLessons' },\r\n      { prop: 'rating', title: 'Rating' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'Name', prop: 'name' },\r\n      { label: 'Image', prop: 'imageUrl' },\r\n      { label: 'Technologies', prop: 'techs' },\r\n      { label: 'Instructor', prop: 'instructorId' },\r\n      { label: 'Introduction', prop: 'introductionURL' },\r\n      { label: 'Lessons', prop: 'lessons' },\r\n    ],\r\n  },\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<CustomTableComponent>",
+                    "defaultValue": "{\r\n  title: 'Components/Admin/CustomTable',\r\n  component: CustomTableComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations: [],\r\n      imports: [MatTableModule, MatDialogModule, SharedModule],\r\n    }),\r\n  ],\r\n}"
+                },
+                {
+                    "name": "Technologies",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    data: [\r\n      {\r\n        id: '1',\r\n        name: 'Python',\r\n        description:\r\n          'Python is a high-level, general-purpose programming language that emphasizes code readability and supports multiple programming paradigms. It is dynamically typed, garbage-collected, and has a comprehensive standard library. It was created by Guido van Rossum in 1991 and is widely used for web development, software development, machine learning, and more.',\r\n        imagePath:\r\n          'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',\r\n        courses: ['1', '2', '3'],\r\n      },\r\n    ],\r\n    displayedColumns: [\r\n      { prop: 'name', title: 'Name' },\r\n      { prop: 'imagePath', title: 'Image' },\r\n      { prop: 'courses', title: 'NºCourses' },\r\n      { prop: 'description', title: 'Description' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'Name', prop: 'name' },\r\n      { label: 'Image', prop: 'imagePath' },\r\n      { label: 'Description', prop: 'description' },\r\n      { label: 'Courses', prop: 'courses' },\r\n    ],\r\n  },\r\n}"
+                },
+                {
+                    "name": "Trainers",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    data: [\r\n      {\r\n        id: '1',\r\n        name: 'Midudev',\r\n        rating: [],\r\n        imagePath: 'https://yt3.googleusercontent.com/ytc/AIf8zZScNwk4VuB2XijvUaEz7Z8Wff_tvBzYaHgOXZZtFQ=s176-c-k-c0x00ffffff-no-rj',\r\n        courses: [],\r\n        socialMedia: [\r\n          {\r\n            web: 'https://www.youtube.com/c/midudev',\r\n            youtube: 'https://www.youtube.com/c/midudev',\r\n            twitter: 'https://twitter.com/midudev',\r\n            linkedin: 'https://www.linkedin.com/in/midudev',\r\n          },\r\n        ],\r\n      },\r\n    ],\r\n    displayedColumns: [\r\n      { prop: 'name', title: 'Name' },\r\n      { prop: 'imagePath', title: 'Image' },\r\n      { prop: 'courses', title: 'NºCourses' },\r\n      { prop: 'rating', title: 'Rating' },\r\n      { prop: 'socialMedia', title: 'SocialMedia' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'Name', prop: 'name' },\r\n      { label: 'Image', prop: 'imagePath' },\r\n      { label: 'Courses', prop: 'courses' },\r\n      { label: 'Rating', prop: 'rating' },\r\n      {\r\n        label: 'SocialMedia',\r\n        prop: 'socialMedia',\r\n        subFields: [\r\n          { label: 'Web', prop: 'web' },\r\n          { label: 'YouTube', prop: 'youtube' },\r\n          { label: 'Twitter', prop: 'twitter' },\r\n          { label: 'LinkedIn', prop: 'linkedin' },\r\n        ],\r\n      },\r\n    ],\r\n  },\r\n}"
+                },
+                {
+                    "name": "Users",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    data: [\r\n      {\r\n        id: '1',\r\n        displayName: 'Ismael Cervera',\r\n        email: \"isma@test.com\",\r\n        photoURL:\r\n          'https://th.bing.com/th/id/OIP.ZmXuryOWnCOmdKSGsS3RAwHaHa?rs=1&pid=ImgDetMain',\r\n        favorites: [],\r\n        providerId: \"password\",\r\n        phoneNumber: \"666888999\",\r\n        authUid: \"wefe34jhhxhjs\",\r\n        role: \"student\",\r\n        uid: \"isma@test.com\",\r\n        rememberMe: true\r\n      },\r\n    ],\r\n    displayedColumns: [\r\n      { prop: 'displayName', title: 'User' },\r\n      { prop: 'photoURL', title: 'Img' },\r\n      { prop: 'email', title: 'Email' },\r\n      { prop: 'phoneNumber', title: 'Phone' },\r\n      { prop: 'role', title: 'Role' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'User', prop: 'displayName' },\r\n      { label: 'Img', prop: 'photoURL' },\r\n      { label: 'Email', prop: 'email' },\r\n      { label: 'Phone', prop: 'phoneNumber' },\r\n      { label: 'role', prop: 'role' },\r\n    ],\r\n  },\r\n}"
+                }
+            ],
             "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts": [
                 {
                     "name": "Courses",
@@ -13090,28 +13172,6 @@
                     "deprecationMessage": "",
                     "type": "ReadonlyArray<Course>",
                     "defaultValue": "[]"
-                }
-            ],
-            "src/app/admins/components/custom-table/custom-table.components.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\r\n  args: {\r\n    data: [{\r\n        id: \"1\",\r\n        name: \"Curso Completo de REACT\",\r\n        description: \"Description\",  \r\n        instructorId: [{id: \"BHb6atXs68TPFuj4GnbP\", name: \"JAB\"}], \r\n        imageUrl: \"https://i.ytimg.com/vi/VoMyUgI-5NI/maxresdefault.jpg\",\r\n        techs: [{id: \"3ZLJDtVSkLGCVMa95S0W\", name: \"React\"}],\r\n        lessons: [],\r\n        rating: [],\r\n        introductionURL: \"https://www.youtube.com/watch?v=VoMyUgI-5NI&list=PLRM7PpbqqStKo-NiCuzuYwewZmd9b-EZ9&index=1\"\r\n    }],\r\n    displayedColumns: [\r\n      { prop: 'name', title: 'Name' },\r\n      { prop: 'imageUrl', title: 'Image' },\r\n      { prop: 'techs', title: 'Technologies' },\r\n      { prop: 'instructorId', title: 'Instructor' },\r\n      { prop: 'introductionURL', title: 'Introduction' },\r\n      { prop: 'lessons', title: 'NºLessons' },\r\n      { prop: 'rating', title: 'Rating' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'Name', prop: 'name' },\r\n      { label: 'Image', prop: 'imageUrl' },\r\n      { label: 'Technologies', prop: 'techs' },\r\n      { label: 'Instructor', prop: 'instructorId' },\r\n      { label: 'Introduction', prop: 'introductionURL' },\r\n      { label: 'Lessons', prop: 'lessons' },\r\n    ],\r\n  },\r\n}"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta<CustomTableComponent>",
-                    "defaultValue": "{\r\n  title: 'Components/Admin/CustomTable',\r\n  component: CustomTableComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations: [],\r\n      imports: [MatTableModule, MatDialogModule, SharedModule],\r\n    }),\r\n  ],\r\n}"
                 }
             ],
             "src/app/admins/components/header/header.components.stories.ts": [
@@ -14244,7 +14304,7 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "Default",
+                "name": "Courses",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -14255,6 +14315,36 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Technologies",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Trainers",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Users",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
