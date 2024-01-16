@@ -130,3 +130,38 @@ export const Trainers: Story = {
     ],
   },
 };
+export const Users: Story = {
+  args: {
+    data: [
+      {
+        id: '1',
+        displayName: 'Ismael Cervera',
+        email: "isma@test.com",
+        photoURL:
+          'https://th.bing.com/th/id/OIP.ZmXuryOWnCOmdKSGsS3RAwHaHa?rs=1&pid=ImgDetMain',
+        favorites: [],
+        providerId: "password",
+        phoneNumber: "666888999",
+        authUid: "wefe34jhhxhjs",
+        role: "student",
+        uid: "isma@test.com",
+        rememberMe: true
+      },
+    ],
+    displayedColumns: [
+      { prop: 'displayName', title: 'User' },
+      { prop: 'photoURL', title: 'Img' },
+      { prop: 'email', title: 'Email' },
+      { prop: 'phoneNumber', title: 'Phone' },
+      { prop: 'role', title: 'Role' },
+    ],
+    rows: [
+      { label: 'Id', prop: 'id' },
+      { label: 'User', prop: 'displayName' },
+      { label: 'Img', prop: 'photoURL' },
+      { label: 'Email', prop: 'email' },
+      { label: 'Phone', prop: 'phoneNumber' },
+      { label: 'role', prop: 'role' },
+    ],
+  },
+};
