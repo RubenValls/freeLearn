@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/login/types/user';
 
 @Component({
   selector: 'app-hero',
@@ -6,11 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./hero.component.scss'],
 })
 export class HeroComponent implements OnInit {
-  user: any;
+  user: User | undefined;
 
   ngOnInit(): void {
     this.getUserLogged()
-    console.log(this.user);
   }
 
   getUserLogged() {

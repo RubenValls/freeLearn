@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { HeroComponent } from "./hero.component";
+import { StudentsModule } from "src/app/students/students.module";
+import { RouterTestingModule } from "@angular/router/testing";
 
 describe('HeroComponent', () => {
   let component: HeroComponent;
@@ -8,6 +10,10 @@ describe('HeroComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [HeroComponent],
+      imports: [
+        StudentsModule,
+        RouterTestingModule,
+      ]
     });
     fixture = TestBed.createComponent(HeroComponent);
     component = fixture.componentInstance;
@@ -16,5 +22,43 @@ describe('HeroComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have no user at the beginning', () => {
+    expect(component.user).toBeUndefined();
+  });
+
+  it('should get user from local storage if available', () => {
+    const user = {
+      displayName: 'Test User',
+      email: 'testuser@example.com',
+      phoneNumber: '1234567890',
+      photoURL: null,
+      providerId: null,
+      rememberMe: true,
+      uid: '1',
+      authUid: '1',
+    };
+    localStorage.setItem('userInfo', JSON.stringify(user));
+    component.getUserLogged();
+    expect(component.user).toEqual(user);
+    localStorage.removeItem('userInfo');
+  });
+
+  it('should get user from session storage if not in local storage', () => {
+    const user = {
+      displayName: 'Test User',
+      email: 'testuser@example.com',
+      phoneNumber: '1234567890',
+      photoURL: null,
+      providerId: null,
+      rememberMe: true,
+      uid: '1',
+      authUid: '1',
+    };
+    sessionStorage.setItem('userInfo', JSON.stringify(user));
+    component.getUserLogged();
+    expect(component.user).toEqual(user);
+    sessionStorage.removeItem('userInfo');
   });
 });
