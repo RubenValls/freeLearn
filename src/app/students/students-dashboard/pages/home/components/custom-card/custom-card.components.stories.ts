@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { CustomCardComponent } from './custom-card.component';
 
-//👇 This default export determines where your story goes in the story list
 const meta: Meta<CustomCardComponent> = {
   title: 'Components/Students/HomeCard',
   component: CustomCardComponent,
