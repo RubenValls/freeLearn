@@ -41,6 +41,7 @@ export class UsersService {
   }
 
   async updateFavoriteCourses( courseId: string) {
+    debugger
     const userId = this.getUserFromStorage()?.id;
     const userRef = doc(this.firestore, 'users', userId);
     const userData = (await getDoc(userRef)).data() as User;
@@ -52,8 +53,8 @@ export class UsersService {
       const userUpdated = await updateDoc(userRef, { ...userData, favorites: newFavorites })
       return userUpdated
     }
-    const newFavorites = userData?.favorites?.push(courseId);
-    const userUpdated = await updateDoc(userRef, { ...userData, favorites: newFavorites })
+    userData?.favorites?.push(courseId);
+    const userUpdated = await updateDoc(userRef, { favorites: userData?.favorites })
     return userUpdated
   }
 }

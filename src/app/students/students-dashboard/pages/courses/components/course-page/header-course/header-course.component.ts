@@ -14,18 +14,34 @@ export class HeaderCourseComponent implements OnInit {
   
   userId: string = '';
   course:any;
+  courseId: string = '';
+  isFavorite: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
     private userService: UsersService,
+  
  
   ) { 
     this.route.data.subscribe(data => {    
-      this.course = data['data']
+      this.course = data['data']     
     });
+    this.isFavorite = this.course?.favorites?.includes(this.courseId);
   }
   ngOnInit(): void {
     const user = this.userService.getUserFromStorage();
     this.userId = user?.id
+
+    this.route.params.subscribe(params => {
+      this.courseId = params['id'];
+    });
+
+
+  }
+
+  onFavoriteClick() {
+    this.userService.updateFavoriteCourses(this.courseId)
+    this.isFavorite = !this.isFavorite;
   }
 
  
