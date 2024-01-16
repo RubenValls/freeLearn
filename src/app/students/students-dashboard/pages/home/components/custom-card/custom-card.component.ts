@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class CustomCardComponent {
 
-@Input() data: any
+@Input() data: any | undefined
 
 
 }

@@ -1,6 +1,6 @@
 <div class="card"  >
-  <img *ngIf="data.imagePath" src="{{ data.imagePath }}" alt="" />
-  <img *ngIf="data.imageUrl" src="{{ data.imageUrl }}" alt="" class="course"/>
-  <p>{{data.name}}</p>
+  <img *ngIf="data?.imagePath" src="{{ data?.imagePath ? data?.imagePath : '' }}" alt="" />
+  <img *ngIf="data?.imageUrl" src="{{ data?.imageUrl ? data?.imageUrl : '' }}" alt="" class="course"/>
+  <p>{{data?.name ? data?.name : ''}}</p>
 </div>
 
