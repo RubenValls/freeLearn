@@ -49,7 +49,7 @@ describe('HomeTechnologiesComponent', () => {
       providers:[
         { provide: Store, useValue: storeMock },
       ]
-    }).compileComponents();;
+    }).compileComponents();
     fixture = TestBed.createComponent(HomeTechnologiesComponent);
     component = fixture.componentInstance;
     store = TestBed.inject(Store);
