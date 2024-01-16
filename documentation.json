@@ -3379,7 +3379,7 @@
         },
         {
             "name": "CoursePageComponent",
-            "id": "component-CoursePageComponent-32418a1c5a255b7bf102a3474928942070ac7639639fd8680655cb66abb59d22ac1191488f18acf9eefc2b327afe64d4db1e802f43ca8adb9ddcaf59eab4c37e",
+            "id": "component-CoursePageComponent-fa5977fd4c2165ff27656d471fde01ac546c0571eaec463ea98ceae6ec47d454b97f9eeddd74478a61cfc595da5c2d2b279f2ac8e467c212fc0b2724f73e29fe",
             "file": "src/app/students/students-dashboard/pages/courses/components/course-page/course-page.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -3399,6 +3399,16 @@
             "inputsClass": [],
             "outputsClass": [],
             "propertiesClass": [
+                {
+                    "name": "areLessonsVisible",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 18
+                },
                 {
                     "name": "course",
                     "deprecated": false,
@@ -3461,7 +3471,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 41,
+                    "line": 43,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -3482,7 +3492,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 29,
+                    "line": 30,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -3496,11 +3506,11 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { ActivatedRoute } from '@angular/router';\r\nimport { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';\r\nimport { CoursesService } from 'src/app/admins/admins-dashboard/pages/courses/service/courses.service';\r\nimport { UsersService } from 'src/app/shared/services/users/users.service';\r\n\r\n@Component({\r\n  selector: 'app-course-page',\r\n  templateUrl: './course-page.component.html',\r\n  styleUrls: ['./course-page.component.scss']\r\n})\r\nexport class CoursePageComponent implements OnInit {\r\n  course: Course | undefined\r\n  courseId: string = '';\r\n  instructorsId: string[] | undefined;\r\n  techsId: string[] | undefined;\r\n  userId: string = '';\r\n\r\n  constructor(\r\n    private courseService: CoursesService,\r\n    private route: ActivatedRoute,\r\n    private userService: UsersService,\r\n  ) {\r\n    this.route.data.subscribe(data => {\r\n      this.course = data['data'];\r\n    });\r\n  }\r\n  \r\n  ngOnInit(): void {\r\n    const user = this.userService.getUserFromStorage();\r\n    this.userId = user?.id;\r\n\r\n    this.route.params.subscribe(params => {\r\n      this.courseId = params['id'];\r\n    });\r\n\r\n    this.instructorsId = this.course?.instructorId?.map(instructor => instructor.id);\r\n    this.techsId = this.course?.techs?.map(tech => tech.id);\r\n  }\r\n\r\n  handleUpdate(rating: number) {\r\n    debugger\r\n    if (this.userId && this.courseId) {\r\n      const newRating = {\r\n        userId: this.userId,\r\n        rating: rating\r\n      }\r\n\r\n      this.courseService.updateCourseRating(this.courseId, newRating).then((courseUpdate) => {\r\n        this.course = courseUpdate\r\n        console.log('courseUpdate', courseUpdate?.rating)\r\n        console.log('this.course', this.course?.rating)\r\n      })\r\n    }\r\n  }\r\n\r\n\r\n}\r\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { ActivatedRoute } from '@angular/router';\r\nimport { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';\r\nimport { CoursesService } from 'src/app/admins/admins-dashboard/pages/courses/service/courses.service';\r\nimport { UsersService } from 'src/app/shared/services/users/users.service';\r\n\r\n@Component({\r\n  selector: 'app-course-page',\r\n  templateUrl: './course-page.component.html',\r\n  styleUrls: ['./course-page.component.scss']\r\n})\r\nexport class CoursePageComponent implements OnInit {\r\n  course: Course | undefined\r\n  courseId: string = '';\r\n  instructorsId: string[] | undefined;\r\n  techsId: string[] | undefined;\r\n  userId: string = '';\r\n  areLessonsVisible: boolean = false;\r\n\r\n  constructor(\r\n    private courseService: CoursesService,\r\n    private route: ActivatedRoute,\r\n    private userService: UsersService,\r\n  ) {\r\n    this.route.data.subscribe(data => {\r\n      this.course = data['data'];\r\n    });\r\n  }\r\n  \r\n  ngOnInit(): void {\r\n    const user = this.userService.getUserFromStorage();\r\n    this.userId = user?.id;\r\n\r\n    this.route.params.subscribe(params => {\r\n      this.courseId = params['id'];\r\n    });\r\n\r\n    this.instructorsId = this.course?.instructorId?.map(instructor => instructor.id);\r\n    this.techsId = this.course?.techs?.map(tech => tech.id);\r\n    this.course?.lessons?.length ? this.areLessonsVisible = true : this.areLessonsVisible = false;\r\n  }\r\n\r\n  handleUpdate(rating: number) {\r\n    debugger\r\n    if (this.userId && this.courseId) {\r\n      const newRating = {\r\n        userId: this.userId,\r\n        rating: rating\r\n      }\r\n\r\n      this.courseService.updateCourseRating(this.courseId, newRating).then((courseUpdate) => {\r\n        this.course = courseUpdate\r\n        console.log('courseUpdate', courseUpdate?.rating)\r\n        console.log('this.course', this.course?.rating)\r\n      })\r\n    }\r\n  }\r\n\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".course {\r\n    width: 100%;\r\n    height: 100%;\r\n    box-sizing: content-box;  \r\n    overflow: scroll;\r\n    overflow-x: hidden;\r\n    border-radius: 20px;   \r\n\r\n\r\n    .header-course{\r\n        width: 100%;\r\n    }\r\n}\r\n\r\n\r\n.main-course {\r\n    margin: 10px;\r\n    width: 100%; \r\n}\r\n\r\n\r\n\r\n.course::-webkit-scrollbar {\r\n    width: 5px;    \r\n    border-radius: 20px;  \r\n  }\r\n  \r\n  .course::-webkit-scrollbar-track {\r\n    height: 10px;    \r\n  }\r\n  \r\n  .course::-webkit-scrollbar-thumb { \r\n    background: var(--gradient);   \r\n    border-radius: 20px;      \r\n\r\n  }\r\n\r\n  .course {   \r\n    scrollbar-color:var(--gradient);\r\n  }\r\n",
+                    "data": ".course {\r\n    width: 100%;\r\n    height: 100%;\r\n    box-sizing: content-box;  \r\n    overflow: scroll;\r\n    overflow-x: hidden;\r\n    border-radius: 20px;   \r\n\r\n\r\n    .header-course{\r\n        width: 100%;\r\n    }\r\n}\r\n\r\n\r\n.main-course {\r\n    margin: 10px;\r\n    width: 100%; \r\n}\r\n\r\n\r\n\r\n.course::-webkit-scrollbar {\r\n    width: 5px;    \r\n    border-radius: 20px;  \r\n  }\r\n  \r\n  .course::-webkit-scrollbar-track {\r\n    height: 10px;    \r\n    margin: 40px;\r\n  }\r\n  \r\n  .course::-webkit-scrollbar-thumb { \r\n    background: var(--gradient);   \r\n    border-radius: 20px;      \r\n\r\n  }\r\n\r\n  .course {   \r\n    scrollbar-color:var(--gradient);\r\n  }\r\n",
                     "styleUrl": "./course-page.component.scss"
                 }
             ],
@@ -3530,7 +3540,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 17,
+                "line": 18,
                 "jsdoctags": [
                     {
                         "name": "courseService",
@@ -3565,7 +3575,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"course\">\r\n    <div class=\"header-course\">\r\n        <app-header-course></app-header-course>\r\n        <div class=\"rating d-flex justify-content-end\">\r\n            <app-star-rating [rating]=\"course?.rating\" (ratingUpdated)=\"handleUpdate($event)\"></app-star-rating>\r\n        </div>\r\n    </div>\r\n    <div class=\"main-course row col-12\">\r\n        <div class=\"instructors row col-12\">           \r\n            <app-details-course [courseId]=\"courseId\" [instructorsId]=\"instructorsId\" [techsId]=\"techsId\"></app-details-course>\r\n        </div>\r\n        \r\n    </div>\r\n \r\n</div>\r\n\r\n"
+            "templateData": "<div class=\"course\">\r\n    <div class=\"header-course\">\r\n        <app-header-course></app-header-course>\r\n        <div class=\"rating d-flex justify-content-end\">\r\n            <app-star-rating [rating]=\"course?.rating\" (ratingUpdated)=\"handleUpdate($event)\"></app-star-rating>\r\n        </div>\r\n    </div>\r\n    <div class=\"main-course row col-12\">\r\n        <div class=\"instructors row col-12\">           \r\n            <app-details-course [courseId]=\"courseId\" [instructorsId]=\"instructorsId\" [techsId]=\"techsId\"></app-details-course>\r\n        </div>\r\n        \r\n    </div>\r\n    <div class=\"\" *ngIf=\"areLessonsVisible\" >\r\n        <app-lessons-course [lessons]=\"course?.lessons\" ></app-lessons-course>\r\n    </div>\r\n \r\n</div>\r\n\r\n"
         },
         {
             "name": "CoursesComponent",
@@ -3854,7 +3864,7 @@
         },
         {
             "name": "CoursesMainPageComponent",
-            "id": "component-CoursesMainPageComponent-4d3037b16c0515127b524aa0133fa04b4fa458d14fa926f87f2075658d26c68dc015af5364e62cd788983d1e030323c3ff777162c743b08d6feae6c7b9d2d3f1",
+            "id": "component-CoursesMainPageComponent-ab8fe08e9431a50e6647a23d5a2bbb3e45b03f89b34bd3b6f9a0eae22afb1096435fe2a1e0270d811085e2e4c3e1acaf7f908879aed39b927d94abd46f8ee72f",
             "file": "src/app/students/students-dashboard/pages/courses/components/courses-main-page/courses-main-page.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -3882,7 +3892,7 @@
                     "type": "Course[]",
                     "optional": false,
                     "description": "",
-                    "line": 17
+                    "line": 18
                 },
                 {
                     "name": "courses$",
@@ -3892,7 +3902,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 15
+                    "line": 16
                 },
                 {
                     "name": "courseSubscription",
@@ -3901,7 +3911,7 @@
                     "type": "Subscription | undefined",
                     "optional": false,
                     "description": "",
-                    "line": 16
+                    "line": 17
                 },
                 {
                     "name": "filteredCourses",
@@ -3911,7 +3921,7 @@
                     "type": "Course[]",
                     "optional": false,
                     "description": "",
-                    "line": 18
+                    "line": 19
                 },
                 {
                     "name": "name",
@@ -3921,7 +3931,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 20
+                    "line": 21
                 },
                 {
                     "name": "topCourses",
@@ -3931,7 +3941,7 @@
                     "type": "Course[]",
                     "optional": false,
                     "description": "",
-                    "line": 19
+                    "line": 20
                 }
             ],
             "methodsClass": [
@@ -3954,7 +3964,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 40,
+                    "line": 41,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -3984,7 +3994,7 @@
                     "optional": false,
                     "returnType": "{}",
                     "typeParameters": [],
-                    "line": 44,
+                    "line": 45,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -3994,7 +4004,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 36,
+                    "line": 37,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -4004,7 +4014,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 26,
+                    "line": 27,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -4018,11 +4028,11 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnDestroy, OnInit } from '@angular/core';\r\nimport { FormControl } from '@angular/forms';\r\nimport { Store } from '@ngrx/store';\r\nimport { Subscription } from 'rxjs';\r\nimport { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';\r\nimport { selectCourses } from 'src/app/store/courses/courses.selectors';\r\n\r\n@Component({\r\n  selector: 'app-courses-main-page',\r\n  templateUrl: './courses-main-page.component.html',\r\n  styleUrls: ['./courses-main-page.component.scss']\r\n})\r\nexport class CoursesMainPageComponent implements OnInit, OnDestroy {\r\n\r\n  courses$ = this.store.select(selectCourses);\r\n  courseSubscription: Subscription | undefined;\r\n  courses: Course[] = [];;\r\n  filteredCourses: Course[] = [];\r\n  topCourses: Course[] = [];\r\n  name = new FormControl('');\r\n  \r\n    constructor(\r\n      private store: Store,\r\n    \r\n    ) {}\r\n    ngOnInit(): void {\r\n        this.courseSubscription = this.courses$.subscribe((data) => {\r\n        this.courses = [...data]\r\n        this.topCourses = this.courses.slice(0,3)\r\n      });\r\n      this.name.valueChanges.subscribe(value => {\r\n        this.filteredCourses = this.filterByName(this.courses, value || '')\r\n      });\r\n    }\r\n\r\n    ngOnDestroy(): void {\r\n      this.courseSubscription?.unsubscribe()\r\n    }\r\n\r\n    filterByName(array: Course[], input: string) {\r\n      return array.filter(item => item.name.toLowerCase().includes(input.toLowerCase()));\r\n    }\r\n\r\n    getCourses(){\r\n      if(this.filteredCourses.length > 0){\r\n        return this.filteredCourses\r\n      }else{\r\n        return this.courses\r\n      }\r\n    }\r\n}\r\n",
+            "sourceCode": "import { Component, OnDestroy, OnInit } from '@angular/core';\r\nimport { FormControl } from '@angular/forms';\r\nimport { Store } from '@ngrx/store';\r\nimport { Subscription } from 'rxjs';\r\nimport { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';\r\nimport { selectCourses } from 'src/app/store/courses/courses.selectors';\r\nimport { mostRatedTopic } from 'src/app/students/functions/most-rated';\r\n\r\n@Component({\r\n  selector: 'app-courses-main-page',\r\n  templateUrl: './courses-main-page.component.html',\r\n  styleUrls: ['./courses-main-page.component.scss']\r\n})\r\nexport class CoursesMainPageComponent implements OnInit, OnDestroy {\r\n\r\n  courses$ = this.store.select(selectCourses);\r\n  courseSubscription: Subscription | undefined;\r\n  courses: Course[] = [];;\r\n  filteredCourses: Course[] = [];\r\n  topCourses: Course[] = [];\r\n  name = new FormControl('');\r\n  \r\n    constructor(\r\n      private store: Store,\r\n    \r\n    ) {}\r\n    ngOnInit(): void {\r\n        this.courseSubscription = this.courses$.subscribe((data) => {\r\n        this.courses = [...data]\r\n        this.topCourses = mostRatedTopic([...data]) as Course[];\r\n      });\r\n      this.name.valueChanges.subscribe(value => {\r\n        this.filteredCourses = this.filterByName(this.courses, value || '')\r\n      });\r\n    }\r\n\r\n    ngOnDestroy(): void {\r\n      this.courseSubscription?.unsubscribe()\r\n    }\r\n\r\n    filterByName(array: Course[], input: string) {\r\n      return array.filter(item => item.name.toLowerCase().includes(input.toLowerCase()));\r\n    }\r\n\r\n    getCourses(){\r\n      if(this.filteredCourses.length > 0){\r\n        return this.filteredCourses\r\n      }else{\r\n        return this.courses\r\n      }\r\n    }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".course{\r\n    height: 100%;\r\n    max-height: 97%;\r\n    box-sizing: content-box;  \r\n    overflow: scroll;\r\n    overflow-x: hidden;\r\n    border-radius: 20px;   \r\n   \r\n}\r\n// h3{\r\n//   padding: 10px;\r\n// }\r\n\r\n\r\n.course::-webkit-scrollbar {\r\n    width: 5px;    \r\n    border-radius: 20px;\r\n      \r\n  }\r\n  \r\n  .course::-webkit-scrollbar-track {\r\n    height: 10px;    \r\n   \r\n  }\r\n  \r\n  .course::-webkit-scrollbar-thumb { \r\n    background: var(--gradient);   \r\n    border-radius: 20px;      \r\n    \r\n  }\r\n\r\n  .course {   \r\n    scrollbar-color:var(--gradient);\r\n  }",
+                    "data": ".course{\r\n   width: 97%;\r\n    max-height: 97%;\r\n    box-sizing: content-box;  \r\n    overflow: scroll;\r\n    overflow-x: hidden;\r\n    border-radius: 20px;   \r\n   \r\n}\r\n// h3{\r\n//   padding: 10px;\r\n// }\r\n\r\n\r\n.course::-webkit-scrollbar {\r\n    width: 5px;    \r\n    border-radius: 20px;\r\n      \r\n  }\r\n  \r\n  .course::-webkit-scrollbar-track {\r\n    height: 10px;    \r\n    margin: 40px;\r\n  }\r\n  \r\n  .course::-webkit-scrollbar-thumb { \r\n    background: var(--gradient);   \r\n    border-radius: 20px;      \r\n    \r\n  }\r\n\r\n  .course {   \r\n    scrollbar-color:var(--gradient);\r\n  }",
                     "styleUrl": "./courses-main-page.component.scss"
                 }
             ],
@@ -4040,7 +4050,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 20,
+                "line": 21,
                 "jsdoctags": [
                     {
                         "name": "store",
@@ -4058,7 +4068,7 @@
                 "OnInit",
                 "OnDestroy"
             ],
-            "templateData": "<div class=\"course row p-2\">\r\n    <div class=\"row \">\r\n        <h3 >Courses</h3>\r\n        <h5>Most rated courses</h5>\r\n        <div class=\"courses-cards col-sm-12 col-md-6 col-lg-6  \" *ngFor=\"let course of topCourses\">\r\n            <app-course-cards [course]=\"course\"></app-course-cards>\r\n        </div>\r\n        \r\n    </div>\r\n    <div class=\"row mt-5 p-3\">\r\n        <h5>All Courses</h5>\r\n\r\n        <div>\r\n            <mat-form-field>\r\n                <mat-label>Filter by name</mat-label>\r\n                <input matInput [formControl]=\"name\">\r\n            </mat-form-field>\r\n        </div>\r\n\r\n        <div class=\"courses-cards col-sm-12 col-md-6 col-lg-6  \" *ngFor=\"let course of courses\">       \r\n            <app-course-cards [course]=\"course\"></app-course-cards>  \r\n      \r\n   </div>\r\n    </div>\r\n \r\n</div> "
+            "templateData": "<div class=\"course row p-2\">\r\n    <div class=\"row \">\r\n        <h3 >Courses</h3>\r\n        <h5>Most rated courses</h5>\r\n        <div class=\"courses-cards col-sm-12 col-md-6 col-lg-6  \" *ngFor=\"let course of topCourses\">\r\n            <app-course-cards [course]=\"course\"></app-course-cards>\r\n        </div>\r\n        \r\n    </div>\r\n    <div class=\"row mt-5 p-3\">\r\n        <h5>All Courses</h5>\r\n\r\n        <div>\r\n            <mat-form-field>\r\n                <mat-label>Filter by name</mat-label>\r\n                <input matInput [formControl]=\"name\">\r\n            </mat-form-field>\r\n        </div>\r\n\r\n        <div class=\"courses-cards col-sm-12 col-md-6 col-lg-6  \" *ngFor=\"let course of getCourses()\">       \r\n            <app-course-cards [course]=\"course\"></app-course-cards>  \r\n      \r\n   </div>\r\n    </div>\r\n \r\n</div> "
         },
         {
             "name": "CoursesSectionComponent",
@@ -4306,6 +4316,59 @@
             },
             "extends": [],
             "templateData": "    <form [formGroup]=\"instructorForm\" (ngSubmit)=\"onSubmit()\">\r\n        <mat-form-field class=\"input-name\">\r\n            <mat-label>Name</mat-label>\r\n            <input matInput formControlName=\"name\" type=\"string\">\r\n            <mat-error *ngIf=\"instructorForm.get('name')?.hasError('required') && instructorForm.touched\">\r\n                Name is required\r\n            </mat-error>\r\n        </mat-form-field>\r\n\r\n        <mat-form-field class=\"input-name\">\r\n            <mat-label>Avatar image URL</mat-label>\r\n            <input matInput formControlName=\"imagePath\" type=\"string\">\r\n        </mat-form-field>\r\n    \r\n        <div class=\"social\" formGroupName=\"socialMedia\">\r\n            <mat-form-field>\r\n                <mat-label>Web</mat-label>\r\n                <input matInput formControlName=\"web\" type=\"string\">\r\n            </mat-form-field>\r\n        \r\n            <mat-form-field>\r\n                <mat-label>LinkedIn</mat-label>\r\n                <input matInput formControlName=\"linkedin\" type=\"string\">\r\n            </mat-form-field>\r\n        \r\n            <mat-form-field>\r\n                <mat-label>Youtube</mat-label>\r\n                <input matInput formControlName=\"youtube\" type=\"string\">\r\n            </mat-form-field>\r\n            <mat-form-field>\r\n                <mat-label>Twitter</mat-label>\r\n                <input matInput formControlName=\"twitter\" type=\"string\">\r\n            </mat-form-field>\r\n        </div>\r\n        <div class=\"btn-container\">\r\n            <button mat-raised-button color=\"primary\" type=\"submit\" [disabled]=\"!instructorForm.valid\" >Add Instructor</button>\r\n        </div>\r\n    </form>\r\n"
+        },
+        {
+            "name": "CustomCardComponent",
+            "id": "component-CustomCardComponent-0d6e17e32fcccd06aa4ebf0f76ca0505ba74fed7c492f0976864de4e20b85aaa569c8631fe2cb1210f445b34b60182d623a31b4f9391e3dac85ae621fc5b6fa5",
+            "file": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-custom-card",
+            "styleUrls": [
+                "./custom-card.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./custom-card.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "data",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 10,
+                    "type": "any",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, Input } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-custom-card',\r\n  templateUrl: './custom-card.component.html',\r\n  styleUrls: ['./custom-card.component.scss']\r\n})\r\nexport class CustomCardComponent {\r\n\r\n@Input() data: any\r\n\r\n\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".card{\r\n    background: var(--softGrey) !important;\r\n    width: 150px;\r\n    text-align: center;\r\n    background: var(--bg);\r\n    border: none;\r\n    border-radius: 15px;\r\n    position: relative;\r\n    overflow: hidden;\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\r\n    align-items: center;\r\n    gap: 1em;\r\n    box-shadow: 3px 3px 6px #9d9d9d27;\r\n    cursor: pointer;\r\n    padding: 1rem;\r\n    transition: all 2s ease;\r\n    @media (width < 522px) {\r\n        width: 220px;\r\n    }\r\n    \r\n    p{\r\n        margin: 0;\r\n        font-size: 14px;\r\n    }\r\n\r\n    img{\r\n        width: 60px;\r\n    }\r\n    .course{\r\n        width: 100px;\r\n        border-radius: 5px;\r\n    }\r\n    \r\n}\r\n.card:hover{\r\n    background: var(--gradient-opacity) !important;\r\n}",
+                    "styleUrl": "./custom-card.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<div class=\"card\"  >\r\n  <img *ngIf=\"data.imagePath\" src=\"{{ data.imagePath }}\" alt=\"\" />\r\n  <img *ngIf=\"data.imageUrl\" src=\"{{ data.imageUrl }}\" alt=\"\" class=\"course\"/>\r\n  <p>{{data.name}}</p>\r\n</div>\r\n\r\n"
         },
         {
             "name": "CustomTableComponent",
@@ -5498,7 +5561,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"details-courses row\">\r\n    <div class=\" col-12 col-sm-12 col-md-6 m-2 \" *ngIf=\"instructorsData\">\r\n        <h5>Instructors</h5>\r\n        <div class=\"d-flex flex-wrap flex-row justify-content-start gap-2\" >      \r\n            <div class=\"\" *ngFor=\"let instructor of instructorsData\">\r\n                <app-instructor-card [instructor]=\"instructor\"></app-instructor-card>     \r\n            </div>                 \r\n                         \r\n        </div>      \r\n    </div>\r\n    <div class=\"col-12 col-sm-12 col-md-6 m-2  \" *ngIf=\"techsData\">\r\n        <h5>Techs</h5>\r\n        <div class=\"d-flex flex-wrap flex-row justify-content-start gap-2\" >      \r\n            <div class=\"\" *ngFor=\"let tech of techsData\">\r\n               <app-card-tech [tech]=\"tech\"></app-card-tech>               \r\n            </div>                 \r\n                         \r\n        </div>      \r\n    </div>\r\n</div>\r\n"
+            "templateData": "<div class=\"details-courses row\">\r\n    <div class=\" col-12 col-sm-12 col-md-6 \" *ngIf=\"instructorsData\">\r\n        <h5>Instructors</h5>\r\n        <div class=\"d-flex flex-wrap flex-row justify-content-start gap-2\" >      \r\n            <div class=\"\" *ngFor=\"let instructor of instructorsData\">\r\n                <app-instructor-card [instructor]=\"instructor\"></app-instructor-card>     \r\n            </div>                 \r\n                         \r\n        </div>      \r\n    </div>\r\n    <div class=\"col-12 col-sm-12 col-md-6  \" *ngIf=\"techsData\">\r\n        <h5>Techs</h5>\r\n        <div class=\"d-flex flex-wrap flex-row justify-content-start gap-2\" >      \r\n            <div class=\"\" *ngFor=\"let tech of techsData\">\r\n               <app-card-tech [tech]=\"tech\"></app-card-tech>               \r\n            </div>                 \r\n                         \r\n        </div>      \r\n    </div>\r\n</div>\r\n"
         },
         {
             "name": "ErrorPageComponent",
@@ -6147,6 +6210,84 @@
             "templateData": "<div class=\"header-container\">\r\n    <div class=\"d-block d-sm-none\">\r\n        <div class=\"header-course d-flex flex-wrap flex-row justify-content-center\">\r\n            <div class=\"img-content\">\r\n                <img src=\"{{course?.imageUrl}}\" alt=\"\">\r\n            </div>\r\n            <div class=\"main-course d-flex justify-content-center\">\r\n                <div class=\"content-course \">\r\n                    <div class=\"title-course\">\r\n                        <h1 class=\"text-center\">{{course?.name}}</h1>\r\n                    </div>\r\n                </div>\r\n                        </div>          \r\n        </div>\r\n\r\n        \r\n    </div>\r\n\r\n\r\n\r\n    <div class=\"d-none d-sm-block\">\r\n        <div\r\n            class=\"header-course d-flex flex-wrap flex-row justify-content-between justify-content-sm-center align-items-center\">\r\n            <div class=\"img-content\">\r\n                <img src=\"{{course?.imageUrl}}\" alt=\"\">\r\n            </div>\r\n            <div class=\"main-course d-flex flex-wrap flex-row justify-content-between justify-content-sm-center\">\r\n                <div class=\"content-course\">\r\n                    <div class=\"title-course \">\r\n                        <h1 class=\"\">{{course?.name}}</h1>\r\n                    </div>\r\n                    <div class=\"description-course\">\r\n                        <p>{{course?.description}}</p>\r\n                    </div>\r\n                </div>\r\n\r\n            </div>\r\n        </div>\r\n       \r\n    </div>\r\n\r\n</div>"
         },
         {
+            "name": "HeroComponent",
+            "id": "component-HeroComponent-0e1bf5b211552ff24bfd5e6696eeeb30dce78ff49c63f648b8af081f08d87c6a49925ab9436e0ae6c020d9fc24dcfdb03496e8b9675e826a26a88a31d8cb402c",
+            "file": "src/app/students/students-dashboard/pages/home/components/hero/hero.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-hero",
+            "styleUrls": [
+                "./hero.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./hero.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "user",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "User | undefined",
+                    "optional": false,
+                    "description": "",
+                    "line": 10
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "getUserLogged",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 16,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 12,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { User } from 'src/app/login/types/user';\r\n\r\n@Component({\r\n  selector: 'app-hero',\r\n  templateUrl: './hero.component.html',\r\n  styleUrls: ['./hero.component.scss'],\r\n})\r\nexport class HeroComponent implements OnInit {\r\n  user: User | undefined;\r\n\r\n  ngOnInit(): void {\r\n    this.getUserLogged()\r\n  }\r\n\r\n  getUserLogged() {\r\n    const localUser = localStorage.getItem('userInfo');\r\n    const sessionUser = sessionStorage.getItem('userInfo');\r\n  \r\n    if (localUser) {\r\n      this.user = JSON.parse(localUser); \r\n    } else if (sessionUser) {\r\n      this.user = JSON.parse(sessionUser); \r\n    }\r\n  }\r\n  \r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".main-container{\r\n    height: 200px;\r\nmargin-left: 0;    display: flex;\r\n    align-items: center;\r\n    margin-top: 3rem; \r\n}\r\n.hero-container{\r\n    margin-left: 1rem;\r\n    margin-right: 1rem;\r\n    width: 100%;\r\n    height: 100%;\r\n    background: var(--gradient);\r\n    padding: 2rem;\r\n    border-radius: 1rem;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: space-between;\r\n    @media (width < 800px) {\r\n        height: 110%;\r\n    }\r\n    \r\n    \r\n    .data{\r\n        display: flex;\r\n        align-items: center;\r\n        width: 100%;\r\n        @media (width < 800px) {\r\n            flex-direction: column;\r\n        }\r\n        @media (width < 800px) {\r\n            justify-content: center;\r\n        }\r\n            img{\r\n                width: 100px;\r\n                border-radius: 5rem;\r\n                cursor: pointer;\r\n                margin-right: 2rem;\r\n                @media (width < 800px) {\r\n                    margin-right: 0;\r\n                    margin-bottom: 0.5rem;\r\n                }\r\n            }\r\n            \r\n      .info{\r\n        display: flex;\r\n        flex-direction: column;\r\n        justify-content: center;\r\n        @media (width < 800px) {\r\n            align-items: center;\r\n        }\r\n        \r\n        h1{\r\n            font-weight: bold;\r\n            font-size: 50px;\r\n            @media (width < 1000px) {\r\n                font-size: 35px;\r\n            }\r\n            @media (width < 900px) {\r\n                font-size: 50px;\r\n            }\r\n            @media (width < 800px) {\r\n                font-size: 25px;\r\n            }\r\n            \r\n        }\r\n        p{\r\n            margin: 0;\r\n            \r\n            \r\n            @media (width < 1000px) {\r\n                font-size: 14px;\r\n            } \r\n            @media (width < 800px) {\r\n                text-align: center;\r\n        \r\n            } \r\n        }\r\n  \r\n      }  \r\n        \r\n        \r\n    }\r\n    .img{\r\n        img{\r\n            width: 250px;\r\n            margin-bottom: 2rem;\r\n            @media (width < 900px) {\r\n               display: none;\r\n            }  \r\n        }\r\n    }\r\n}",
+                    "styleUrl": "./hero.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "extends": [],
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<div class=\"main-container\">\r\n    <div class=\"hero-container\">\r\n        <div class=\"data\">\r\n            \r\n                <img src=\"{{user?.photoURL}}\" alt=\"\" routerLink=\"/students/settings\" matTooltip=\"Go settings\" matTooltipPosition=\"below\">\r\n                \r\n           \r\n            <div class=\"info\">\r\n                <h1>{{user?.email}}</h1>\r\n                <p>Ready to kickstart your day by gaining new knowledge?</p>\r\n            </div>\r\n            \r\n        </div>\r\n        <div class=\"img\">\r\n            <img src=\"../../../../../../../assets/images/main-page/326933.png\" alt=\"\">\r\n        </div>\r\n    </div>\r\n\r\n</div>\r\n\r\n\r\n"
+        },
+        {
             "name": "HomeComponent",
             "id": "component-HomeComponent-36dc01722bf1bcd1a4c9d2a1230756cb13434daac06a5f1f1a1216d80aedd54fae74284d27c2c0c4bec35a92b25ad320db9ce56fd330871d550ea5ba613b29ca",
             "file": "src/app/students/students-dashboard/pages/home/home.component.ts",
@@ -6188,7 +6329,487 @@
             ],
             "stylesData": "",
             "extends": [],
-            "templateData": "<p>home works!</p>\r\n"
+            "templateData": "<div class=\"scrollbar\">\r\n<app-hero></app-hero>\r\n<app-home-favorites></app-home-favorites>\r\n<app-home-technologies></app-home-technologies>\r\n<app-home-trainers></app-home-trainers>\r\n<app-home-courses></app-home-courses>\r\n\r\n\r\n</div>"
+        },
+        {
+            "name": "HomeCoursesComponent",
+            "id": "component-HomeCoursesComponent-268a36c1fb4b8e51143db556086f919f0cc842588dbfe1bac7a57ea377b60931e8d069fd767b6f684c1674ea9d6012d4a7bac9193f4f5a61ee29691a2265b6d6",
+            "file": "src/app/students/students-dashboard/pages/home/components/home-courses/home-courses.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-home-courses",
+            "styleUrls": [
+                "./home-courses.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./home-courses.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "courses",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Course[] | undefined",
+                    "optional": false,
+                    "description": "",
+                    "line": 15
+                },
+                {
+                    "name": "courses$",
+                    "defaultValue": "this.store.select(selectCourses)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
+                },
+                {
+                    "name": "coursesSubscription",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Subscription | undefined",
+                    "optional": false,
+                    "description": "",
+                    "line": 16
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnDestroy",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 28,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 21,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { Subscription } from 'rxjs';\r\nimport { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';\r\nimport { selectCourses } from 'src/app/store/courses/courses.selectors';\r\nimport { randomArray } from 'src/app/students/functions/rondom-array';\r\n\r\n@Component({\r\n  selector: 'app-home-courses',\r\n  templateUrl: './home-courses.component.html',\r\n  styleUrls: ['./home-courses.component.scss']\r\n})\r\nexport class HomeCoursesComponent {\r\n  courses$ = this.store.select(selectCourses);\r\n  courses: Course[] | undefined;\r\n  coursesSubscription: Subscription | undefined;\r\n\r\n\r\n  constructor(private store: Store, ){}\r\n\r\n  ngOnInit() {\r\n    this.coursesSubscription = this.courses$.subscribe((course) => {\r\n      this.courses = [...course]; \r\n      this.courses = randomArray(this.courses, 4)\r\n    });\r\n  }\r\n\r\n  ngOnDestroy(): void {\r\n    this.coursesSubscription?.unsubscribe();\r\n  }\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".main-container{\r\n    margin-left: 1.5rem;\r\n}\r\nh4{\r\n    font-weight: bold;\r\n    margin-bottom: 1rem;\r\n}\r\n.array{\r\n    display: flex;\r\n    gap: 2rem;\r\n    flex-wrap: wrap;\r\n    @media (width < 1100px) {\r\n        justify-content: center;\r\n    }\r\n    \r\n}\r\n.data{\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 4rem;\r\n    @media (width < 1100px) {\r\n        display: block;\r\n    }\r\n}\r\n.more{\r\n    @media (width < 1100px) {\r\n        display: flex;\r\n        justify-content: center;\r\n        margin-top: 2rem;\r\n    }\r\n    p{\r\n        cursor: pointer;\r\n        margin: 0;\r\n        font-weight: bold;\r\n        color: transparent;\r\n                background: linear-gradient(120deg,#4defa7 0,#2d71fa 100%) no-repeat;\r\n                -webkit-background-clip: text;\r\n    }\r\n}",
+                    "styleUrl": "./home-courses.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "store",
+                        "type": "Store",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 16,
+                "jsdoctags": [
+                    {
+                        "name": "store",
+                        "type": "Store",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "extends": [],
+            "templateData": "<div class=\"main-container\">\r\n    <h4>Courses</h4>\r\n    <div class=\"data\">\r\n        <div class=\"array\">\r\n            <div  *ngFor=\"let course of courses\">\r\n                <app-custom-card [data]=\"course\" [routerLink]=\"'/students/courses/' + course?.id\"></app-custom-card>\r\n            </div>\r\n        </div>\r\n        <div class=\"more\">\r\n            <p routerLink=\"/students/courses\">Ver mas ...</p>\r\n        </div>\r\n\r\n\r\n    </div>\r\n    \r\n</div>\r\n\r\n"
+        },
+        {
+            "name": "HomeFavoritesComponent",
+            "id": "component-HomeFavoritesComponent-887e80b0ebb7fae687c6b761e225bb0963d258501d01fa865aeb548a44c7f12c8969315505e37cf07e5cfb5ea449c2fbb89323357067887de81324929ddf0d93",
+            "file": "src/app/students/students-dashboard/pages/home/components/home-favorites/home-favorites.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-home-favorites",
+            "styleUrls": [
+                "./home-favorites.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./home-favorites.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "favouriteCourses",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Course[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 15
+                },
+                {
+                    "name": "userFavorites",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 19,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';\r\nimport { CoursesService } from 'src/app/admins/admins-dashboard/pages/courses/service/courses.service';\r\nimport { User } from 'src/app/login/types/user';\r\nimport { UsersService } from 'src/app/shared/services/users/users.service';\r\n\r\n@Component({\r\n  selector: 'app-home-favorites',\r\n  templateUrl: './home-favorites.component.html',\r\n  styleUrls: ['./home-favorites.component.scss']\r\n})\r\nexport class HomeFavoritesComponent implements OnInit {\r\n\r\n  userFavorites: string[] = [];\r\n  favouriteCourses: Course[] = [];\r\n\r\n  constructor( private userService: UsersService, private courseService: CoursesService ) {}\r\n\r\n  ngOnInit(): void {\r\n    const userInfo = this.userService.getUserFromStorage() as User\r\n    this.userFavorites = userInfo?.favorites ? userInfo?.favorites : []\r\n    this.courseService.getTopicCourses(this.userFavorites).then(courses => this.favouriteCourses = courses)\r\n  }\r\n\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./home-favorites.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "userService",
+                        "type": "UsersService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "courseService",
+                        "type": "CoursesService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 15,
+                "jsdoctags": [
+                    {
+                        "name": "userService",
+                        "type": "UsersService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "courseService",
+                        "type": "CoursesService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "extends": [],
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<div class=\"row mt-3\" *ngIf=\"this.favouriteCourses.length > 0\">\r\n    <h4 class=\"mx-3 fw-bold\">Favourite Courses:</h4>\r\n    <div class=\"col-sm-12 col-md-6 col-lg-6 \" *ngFor=\"let course of favouriteCourses\">\r\n        <app-course-cards [course]=\"course\"></app-course-cards>\r\n    </div>\r\n</div>\r\n"
+        },
+        {
+            "name": "HomeTechnologiesComponent",
+            "id": "component-HomeTechnologiesComponent-349ca05c3124b25cd062ed53930d7054bfe109c8944236996afb763bf4d3e8547f97fc41d1e1070fd4b666ceb25a4afa24fe2d34c65341e196191e8fe7360da8",
+            "file": "src/app/students/students-dashboard/pages/home/components/home-technologies/home-technologies.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-home-technologies",
+            "styleUrls": [
+                "./home-technologies.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./home-technologies.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "tech$",
+                    "defaultValue": "this.store.select(selectTechnologies)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
+                },
+                {
+                    "name": "techs",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "TechnologyType[] | undefined",
+                    "optional": false,
+                    "description": "",
+                    "line": 15
+                },
+                {
+                    "name": "techsSubscription",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Subscription | undefined",
+                    "optional": false,
+                    "description": "",
+                    "line": 16
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnDestroy",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 28,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 21,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { Subscription } from 'rxjs';\r\nimport { TechnologyType } from 'src/app/admins/admins-dashboard/pages/technologies/types/technologies';\r\nimport { selectTechnologies } from 'src/app/store/technologies/tecnologies.selectors';\r\nimport { randomArray } from 'src/app/students/functions/rondom-array';\r\n\r\n@Component({\r\n  selector: 'app-home-technologies',\r\n  templateUrl: './home-technologies.component.html',\r\n  styleUrls: ['./home-technologies.component.scss']\r\n})\r\nexport class HomeTechnologiesComponent {\r\n  tech$ = this.store.select(selectTechnologies);\r\n  techs: TechnologyType[] | undefined;\r\n  techsSubscription: Subscription | undefined;\r\n\r\n\r\n  constructor(private store: Store, ){}\r\n\r\n  ngOnInit() {\r\n    this.techsSubscription = this.tech$.subscribe((tech) => {\r\n      this.techs = [...tech]; \r\n      this.techs = randomArray(this.techs, 4);\r\n    });\r\n  }\r\n\r\n  ngOnDestroy(): void {\r\n    this.techsSubscription?.unsubscribe();\r\n  }\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".main-container{\r\n    margin-left: 1.5rem;\r\n}\r\nh4{\r\n    font-weight: bold;\r\n    margin-bottom: 1rem;\r\n}\r\n.array{\r\n    display: flex;\r\n    gap: 2rem;\r\n    flex-wrap: wrap;\r\n    @media (width < 1100px) {\r\n        justify-content: center;\r\n    }\r\n    \r\n}\r\n.data{\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 4rem;\r\n    @media (width < 1100px) {\r\n        display: block;\r\n    }\r\n}\r\n.more{\r\n    @media (width < 1100px) {\r\n        display: flex;\r\n        justify-content: center;\r\n        margin-top: 2rem;\r\n    }\r\n    p{\r\n        cursor: pointer;\r\n        margin: 0;\r\n        font-weight: bold;\r\n        color: transparent;\r\n                background: linear-gradient(120deg,#4defa7 0,#2d71fa 100%) no-repeat;\r\n                -webkit-background-clip: text;\r\n    }\r\n}",
+                    "styleUrl": "./home-technologies.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "store",
+                        "type": "Store",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 16,
+                "jsdoctags": [
+                    {
+                        "name": "store",
+                        "type": "Store",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "extends": [],
+            "templateData": "<div class=\"main-container\">\r\n    <h4>Technologies</h4>\r\n    <div class=\"data\">\r\n        <div class=\"array\">\r\n            <div  *ngFor=\"let tech of techs\">\r\n                <app-custom-card [data]=\"tech\" [routerLink]=\"'/students/technologies/' + tech?.id\"></app-custom-card>\r\n            </div>\r\n        </div>\r\n        <div class=\"more\">\r\n            <p routerLink=\"/students/technologies\">Ver mas ...</p>\r\n        </div>\r\n\r\n\r\n    </div>\r\n    \r\n</div>\r\n\r\n"
+        },
+        {
+            "name": "HomeTrainersComponent",
+            "id": "component-HomeTrainersComponent-0cf61f07e0fe6ec43064fb2d66abd48e366e0e13f4291cd9805ba2816266fe8046909c9767c3d1ab89cba0484627759062775f299d87d2fdbaad233b672fc7be",
+            "file": "src/app/students/students-dashboard/pages/home/components/home-trainers/home-trainers.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-home-trainers",
+            "styleUrls": [
+                "./home-trainers.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./home-trainers.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "trainers",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Instructor[] | undefined",
+                    "optional": false,
+                    "description": "",
+                    "line": 15
+                },
+                {
+                    "name": "trainers$",
+                    "defaultValue": "this.store.select(selectInstructor)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
+                },
+                {
+                    "name": "trainersSubscription",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Subscription | undefined",
+                    "optional": false,
+                    "description": "",
+                    "line": 16
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnDestroy",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 28,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 21,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { Subscription } from 'rxjs';\r\nimport { Instructor } from 'src/app/admins/admins-dashboard/pages/instructors/instructors';\r\nimport { selectInstructor } from 'src/app/store/instructors/instructors.selectors';\r\nimport { randomArray } from 'src/app/students/functions/rondom-array';\r\n\r\n@Component({\r\n  selector: 'app-home-trainers',\r\n  templateUrl: './home-trainers.component.html',\r\n  styleUrls: ['./home-trainers.component.scss']\r\n})\r\nexport class HomeTrainersComponent {\r\n  trainers$ = this.store.select(selectInstructor);\r\n  trainers: Instructor[] | undefined;\r\n  trainersSubscription: Subscription | undefined;\r\n\r\n\r\n  constructor(private store: Store, ){}\r\n\r\n  ngOnInit() {\r\n    this.trainersSubscription = this.trainers$.subscribe((trainer) => {\r\n      this.trainers = [...trainer]; \r\n      this.trainers = randomArray(this.trainers, 4)\r\n    });\r\n  }\r\n\r\n  ngOnDestroy(): void {\r\n    this.trainersSubscription?.unsubscribe();\r\n  }\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".main-container{\r\n    margin-left: 1.5rem;\r\n}\r\nh4{\r\n    font-weight: bold;\r\n    margin-bottom: 1rem;\r\n}\r\n.array{\r\n    display: flex;\r\n    gap: 2rem;\r\n    flex-wrap: wrap;\r\n    @media (width < 1100px) {\r\n        justify-content: center;\r\n    }\r\n    \r\n}\r\n.data{\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 4rem;\r\n    @media (width < 1100px) {\r\n        display: block;\r\n    }\r\n}\r\n.more{\r\n    @media (width < 1100px) {\r\n        display: flex;\r\n        justify-content: center;\r\n        margin-top: 2rem;\r\n    }\r\n    p{\r\n        cursor: pointer;\r\n        margin: 0;\r\n        font-weight: bold;\r\n        color: transparent;\r\n                background: linear-gradient(120deg,#4defa7 0,#2d71fa 100%) no-repeat;\r\n                -webkit-background-clip: text;\r\n    }\r\n}",
+                    "styleUrl": "./home-trainers.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "store",
+                        "type": "Store",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 16,
+                "jsdoctags": [
+                    {
+                        "name": "store",
+                        "type": "Store",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "extends": [],
+            "templateData": "<div class=\"main-container\">\r\n    <h4>Trainer</h4>\r\n    <div class=\"data\">\r\n        <div class=\"array\">\r\n            <div  *ngFor=\"let trainer of trainers\">\r\n                <app-custom-card [data]=\"trainer\" [routerLink]=\"'/students/trainers/' + trainer?.id\"></app-custom-card>\r\n            </div>\r\n        </div>\r\n        <div class=\"more\">\r\n            <p routerLink=\"/students/trainers\">Ver mas ...</p>\r\n        </div>\r\n\r\n\r\n    </div>\r\n    \r\n</div>\r\n\r\n"
         },
         {
             "name": "InstructorCardComponent",
@@ -6687,7 +7308,7 @@
         },
         {
             "name": "InstructorsMainPageComponent",
-            "id": "component-InstructorsMainPageComponent-70b732afc4be3c9f220f11645dcacd61c01da9d8257087efb4d150fffab2d02fe873b729b3671f34d008c80d4dbb1227587582e1af6047ef5c43f8cf4340e59b",
+            "id": "component-InstructorsMainPageComponent-d37923fc98063bdef52220ca264badc49225473d33e3a860bf3cd7675958074aec2c2088dca89409f2cc8cd7155dd6e2d8f79b8e7b17d7a618863a602770b411",
             "file": "src/app/students/students-dashboard/pages/trainers/components/instructors-main-page/instructors-main-page.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -6715,7 +7336,7 @@
                     "type": "Instructor[]",
                     "optional": false,
                     "description": "",
-                    "line": 17
+                    "line": 18
                 },
                 {
                     "name": "instructors",
@@ -6725,7 +7346,7 @@
                     "type": "Instructor[]",
                     "optional": false,
                     "description": "",
-                    "line": 16
+                    "line": 17
                 },
                 {
                     "name": "instructors$",
@@ -6735,7 +7356,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 14
+                    "line": 15
                 },
                 {
                     "name": "instructorsSubscription",
@@ -6744,7 +7365,7 @@
                     "type": "Subscription | undefined",
                     "optional": false,
                     "description": "",
-                    "line": 15
+                    "line": 16
                 },
                 {
                     "name": "name",
@@ -6754,7 +7375,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 19
+                    "line": 20
                 },
                 {
                     "name": "topInstructors",
@@ -6764,7 +7385,7 @@
                     "type": "Instructor[]",
                     "optional": false,
                     "description": "",
-                    "line": 18
+                    "line": 19
                 }
             ],
             "methodsClass": [
@@ -6787,7 +7408,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 37,
+                    "line": 38,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -6817,7 +7438,7 @@
                     "optional": false,
                     "returnType": "{}",
                     "typeParameters": [],
-                    "line": 41,
+                    "line": 42,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -6827,7 +7448,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 33,
+                    "line": 34,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -6837,7 +7458,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 23,
+                    "line": 24,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -6851,7 +7472,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnDestroy, OnInit } from '@angular/core';\r\nimport { FormControl } from '@angular/forms';\r\nimport { Store } from '@ngrx/store';\r\nimport { Subscription } from 'rxjs';\r\nimport { Instructor } from 'src/app/admins/admins-dashboard/pages/instructors/instructors';\r\nimport { selectInstructor } from 'src/app/store/instructors/instructors.selectors';\r\n\r\n@Component({\r\n  selector: 'app-instructors-main-page',\r\n  templateUrl: './instructors-main-page.component.html',\r\n  styleUrls: ['./instructors-main-page.component.scss']\r\n})\r\nexport class InstructorsMainPageComponent implements OnInit, OnDestroy{\r\n  instructors$ = this.store.select(selectInstructor);\r\n  instructorsSubscription: Subscription | undefined;\r\n  instructors: Instructor[] = [];\r\n  filteredInstructors: Instructor[] = [];\r\n  topInstructors: Instructor[] = [];\r\n  name = new FormControl('');\r\n\r\n  constructor(private store: Store) {}\r\n\r\n  ngOnInit(): void {\r\n    this.instructorsSubscription = this.instructors$.subscribe((data) => {\r\n      this.instructors = [...data]\r\n      this.topInstructors = this.instructors.slice(0,3)\r\n    })\r\n    this.name.valueChanges.subscribe(value => {\r\n      this.filteredInstructors = this.filterByName(this.instructors, value || '')\r\n    });\r\n  }\r\n\r\n  ngOnDestroy(): void {\r\n    this.instructorsSubscription?.unsubscribe()\r\n  }\r\n\r\n  filterByName(array: Instructor[], input: string) {\r\n    return array.filter(item => item.name.toLowerCase().includes(input.toLowerCase()));\r\n  }\r\n\r\n  getInstructors(){\r\n    if(this.filteredInstructors.length > 0){\r\n      return this.filteredInstructors\r\n    }else{\r\n      return this.instructors\r\n    }\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, OnDestroy, OnInit } from '@angular/core';\r\nimport { FormControl } from '@angular/forms';\r\nimport { Store } from '@ngrx/store';\r\nimport { Subscription } from 'rxjs';\r\nimport { Instructor } from 'src/app/admins/admins-dashboard/pages/instructors/instructors';\r\nimport { selectInstructor } from 'src/app/store/instructors/instructors.selectors';\r\nimport { mostRatedTopic } from 'src/app/students/functions/most-rated';\r\n\r\n@Component({\r\n  selector: 'app-instructors-main-page',\r\n  templateUrl: './instructors-main-page.component.html',\r\n  styleUrls: ['./instructors-main-page.component.scss']\r\n})\r\nexport class InstructorsMainPageComponent implements OnInit, OnDestroy{\r\n  instructors$ = this.store.select(selectInstructor);\r\n  instructorsSubscription: Subscription | undefined;\r\n  instructors: Instructor[] = [];\r\n  filteredInstructors: Instructor[] = [];\r\n  topInstructors: Instructor[] = [];\r\n  name = new FormControl('');\r\n\r\n  constructor(private store: Store) {}\r\n\r\n  ngOnInit(): void {\r\n    this.instructorsSubscription = this.instructors$.subscribe((data) => {\r\n      this.instructors = [...data];\r\n      this.topInstructors = mostRatedTopic([...data]) as Instructor[];\r\n    })\r\n    this.name.valueChanges.subscribe(value => {\r\n      this.filteredInstructors = this.filterByName(this.instructors, value || '');\r\n    });\r\n  }\r\n\r\n  ngOnDestroy(): void {\r\n    this.instructorsSubscription?.unsubscribe()\r\n  }\r\n\r\n  filterByName(array: Instructor[], input: string) {\r\n    return array.filter(item => item.name.toLowerCase().includes(input.toLowerCase()));\r\n  }\r\n\r\n  getInstructors(){\r\n    if(this.filteredInstructors.length > 0){\r\n      return this.filteredInstructors\r\n    }else{\r\n      return this.instructors\r\n    }\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -6873,7 +7494,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 19,
+                "line": 20,
                 "jsdoctags": [
                     {
                         "name": "store",
@@ -6895,7 +7516,7 @@
         },
         {
             "name": "LessonsCourseComponent",
-            "id": "component-LessonsCourseComponent-5bc5ef1198c4da4d3b7bf5d4b7f011b752bcffb62cdb6ea8b80bc14e7798d00669e322fa87905e19cc4019188433cf1067b159cb793eb523722d7f8c7ea4ca9a",
+            "id": "component-LessonsCourseComponent-6d9fcc992653e1192cfcdecb8b4b841f4234a8491447aa097093d0ae0c87b8137cf4488038ea0c94780064679f03b57abaf58e204eb65619a27816e2bb4cc0f9",
             "file": "src/app/students/students-dashboard/pages/courses/components/course-page/lessons-course/lessons-course.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -6912,10 +7533,40 @@
             ],
             "viewProviders": [],
             "hostDirectives": [],
-            "inputsClass": [],
+            "inputsClass": [
+                {
+                    "name": "lessons",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 12,
+                    "type": "Lesson[] | undefined",
+                    "decorators": []
+                }
+            ],
             "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "panels",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 13
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 17,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -6925,17 +7576,46 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-lessons-course',\r\n  templateUrl: './lessons-course.component.html',\r\n  styleUrls: ['./lessons-course.component.scss']\r\n})\r\nexport class LessonsCourseComponent {\r\n\r\n}\r\n",
+            "sourceCode": "import { Component, Input, OnInit } from '@angular/core';\r\nimport { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';\r\nimport { Course, Lesson } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';\r\n\r\n@Component({\r\n  selector: 'app-lessons-course',\r\n  templateUrl: './lessons-course.component.html',\r\n  styleUrls: ['./lessons-course.component.scss']\r\n})\r\nexport class LessonsCourseComponent implements OnInit {\r\n \r\n  @Input() lessons: Lesson[] | undefined;\r\n  panels: any;\r\n\r\n  constructor(private sanitizer: DomSanitizer) {}\r\n\r\n  ngOnInit(): void {    \r\n    this.panels = this.lessons?.map((lesson, index) => {\r\n      const videoUrl = lesson?.videoUrl;\r\n      const sanitizedVideoUrl: SafeResourceUrl | undefined = videoUrl ? this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${videoUrl}`) : undefined;\r\n\r\n      return {\r\n        position: index + 1,\r\n        name: lesson?.name,\r\n        videoUrl: sanitizedVideoUrl,\r\n      };\r\n    });  \r\n  }\r\n}\r\n\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "",
+                    "data": ".lessons{   \r\n    margin: 20px 10px;    \r\n    padding: 10px;\r\n    border: 1px solid green;\r\n    border-radius: 10px;\r\n\r\n    h5{\r\n        margin: 10px;\r\n        font-weight: bold;\r\n\r\n    }\r\n}\r\niframe{\r\n    max-width: 100%;\r\n}\r\n\r\nbutton:active {\r\n    background: var(--gradient) ;\r\n    color: #fff;\r\n  }",
                     "styleUrl": "./lessons-course.component.scss"
                 }
             ],
             "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "sanitizer",
+                        "type": "DomSanitizer",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 13,
+                "jsdoctags": [
+                    {
+                        "name": "sanitizer",
+                        "type": "DomSanitizer",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
             "extends": [],
-            "templateData": "<p>lessons-course works!</p>\r\n"
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": " <div class=\"lessons\">\r\n    <h5>Lessons</h5>\r\n\r\n    <div class=\"lesson\">\r\n        <div ngbAccordion [closeOthers]=\"true\">\r\n            <div ngbAccordionItem *ngFor=\"let panel of panels\" [collapsed]=\"panel !== 'First'\">\r\n                <h2 ngbAccordionHeader>\r\n                    <button ngbAccordionButton>{{ panel.position + ') '+ panel.name }}</button>\r\n                </h2>\r\n                <div ngbAccordionCollapse>\r\n                    <div ngbAccordionBody>\r\n                        <div class=\"iframe-container d-flex justify-content-center\">    \r\n    \r\n                            <iframe width=\"640\" height=\"360\" [src]=\" panel?.videoUrl\" frameborder=\"0\" allowfullscreen></iframe>\r\n    \r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n\r\n</div>\r\n\r\n   "
         },
         {
             "name": "LoginFormComponent",
@@ -10027,7 +10707,7 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".scroll{\r\n    box-sizing: content-box;  \r\n    overflow: scroll;\r\n    overflow-x: hidden;\r\n    display: flex;\r\n    max-height: 99%;\r\n    \r\n}\r\n.main-container{\r\n    \r\n    margin-left: 0.5rem;\r\n    margin-top: 1rem;\r\n    margin-bottom: 2rem;\r\n   \r\n\r\n    h3{\r\n        margin-bottom: 1rem;\r\n    }\r\n}\r\n.main-tech{\r\n    display: flex;\r\n    justify-content: center;\r\n    padding-bottom: 1rem;\r\n    .techs{\r\n        display: flex;\r\n        flex-wrap: wrap;\r\n        gap: 1.5rem;\r\n    }\r\n}\r\n\r\n.scroll::-webkit-scrollbar {\r\n    width: 5px;    \r\n    border-radius: 20px;  \r\n  }\r\n  \r\n  .scroll::-webkit-scrollbar-track {\r\n    height: 10px;\r\n    margin: 40px;    \r\n  }\r\n  \r\n  .scroll::-webkit-scrollbar-thumb { \r\n    background: var(--gradient);   \r\n    border-radius: 20px;      \r\n\r\n  }",
+                    "data": ".scroll{\r\n    box-sizing: content-box;  \r\n    overflow: scroll;\r\n    overflow-x: hidden;\r\n    display: flex;\r\n    max-height: 99%;\r\n    \r\n}\r\n.main-container{\r\n    \r\n    margin-left: 0.5rem;\r\n    margin-top: 1rem;\r\n    margin-bottom: 2rem;\r\n   \r\n   \r\n\r\n    h3{\r\n        margin-bottom: 1rem;\r\n    }\r\n}\r\n.main-tech{\r\n    display: flex;\r\n    justify-content: center;\r\n    padding-bottom: 1rem;\r\n    .techs{\r\n        display: flex;\r\n        justify-content: center;\r\n        flex-wrap: wrap;\r\n        gap: 2rem;\r\n    }\r\n}\r\n\r\n.scroll::-webkit-scrollbar {\r\n    width: 5px;    \r\n    border-radius: 20px;  \r\n  }\r\n  \r\n  .scroll::-webkit-scrollbar-track {\r\n    height: 10px;\r\n    margin: 40px;    \r\n  }\r\n  \r\n  .scroll::-webkit-scrollbar-thumb { \r\n    background: var(--gradient);   \r\n    border-radius: 20px;      \r\n\r\n  }",
                     "styleUrl": "./techs-main-page.component.scss"
                 }
             ],
@@ -10783,13 +11463,13 @@
         },
         {
             "name": "AppModule",
-            "id": "module-AppModule-568d418e4d2ec11bbd81b7992721cd1cf38cf872c48ed378d622c5443fda6a8f54d1786709b8c4840e6686a1f829e988b010a620efa65c586960d34d93b1073d",
+            "id": "module-AppModule-9dd379158189a778088374982125d76a60ec7d776d6fb858e995ec26834ded70cad4787892b1c4d9c988900d27cd9e009ff8f6996a0ef97709310e0bd25600a4",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/app.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { BrowserModule } from '@angular/platform-browser';\r\nimport { AppRoutingModule } from './app-routing.module';\r\nimport { AppComponent } from './app.component';\r\nimport { BrowserAnimationsModule } from '@angular/platform-browser/animations';\r\nimport { NgbModule } from '@ng-bootstrap/ng-bootstrap';\r\nimport { StoreModule } from '@ngrx/store';\r\nimport { userReducer } from './login/store/user.reducer'; \r\nimport { initializeApp, provideFirebaseApp } from '@angular/fire/app';\r\nimport { getAuth, provideAuth } from '@angular/fire/auth';\r\nimport { getFirestore, provideFirestore } from '@angular/fire/firestore';\r\nimport { environment } from 'src/environments/environment';\r\nimport { coursesReducer } from './store/courses/courses.reducer';\r\nimport { EffectsModule } from '@ngrx/effects';\r\nimport { CoursesEffects } from './store/courses/courses.effects';\r\nimport { technologiesReducer } from './store/technologies/technologies.reducer';\r\nimport { TechnologiesEffects } from './store/technologies/technologies.effects';\r\nimport { instructorsReducer } from './store/instructors/instructors.reducer';\r\nimport { InstructorsEffects } from './store/instructors/instructors.effects';\r\nimport { SharedModule } from './shared/shared.module';\r\nimport { usersReducer } from './store/users/users.reducer';\r\nimport { UsersEffects } from './store/users/users.effects';\r\nimport { courseReducer } from './admins/admins-dashboard/pages/courses/store/course/course.reducer';\r\n\r\n \r\n@NgModule({\r\n  declarations: [\r\n    AppComponent,\r\n  \r\n  ],\r\n  imports: [\r\n    BrowserModule,\r\n    BrowserAnimationsModule,\r\n    NgbModule,\r\n    SharedModule,\r\n    StoreModule.forRoot({\r\n      user: userReducer,\r\n      courses: coursesReducer,\r\n      technologies: technologiesReducer,\r\n      instructors: instructorsReducer,\r\n      users: usersReducer,\r\n      course: courseReducer\r\n    }),\r\n    EffectsModule.forRoot(CoursesEffects, TechnologiesEffects, InstructorsEffects, UsersEffects),\r\n    AppRoutingModule,\r\n    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),\r\n    provideFirestore(() => getFirestore()),\r\n    provideAuth(() => getAuth())\r\n  ],\r\n  providers: [],\r\n  bootstrap: [AppComponent]\r\n})\r\nexport class AppModule { }\r\n ",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { BrowserModule } from '@angular/platform-browser';\r\nimport { AppRoutingModule } from './app-routing.module';\r\nimport { AppComponent } from './app.component';\r\nimport { BrowserAnimationsModule } from '@angular/platform-browser/animations';\r\nimport { NgbModule } from '@ng-bootstrap/ng-bootstrap';\r\nimport { StoreModule } from '@ngrx/store';\r\nimport { userReducer } from './login/store/user.reducer'; \r\nimport { initializeApp, provideFirebaseApp } from '@angular/fire/app';\r\nimport { getAuth, provideAuth } from '@angular/fire/auth';\r\nimport { getFirestore, provideFirestore } from '@angular/fire/firestore';\r\nimport { environment } from 'src/environments/environment';\r\nimport { coursesReducer } from './store/courses/courses.reducer';\r\nimport { EffectsModule } from '@ngrx/effects';\r\nimport { CoursesEffects } from './store/courses/courses.effects';\r\nimport { technologiesReducer } from './store/technologies/technologies.reducer';\r\nimport { TechnologiesEffects } from './store/technologies/technologies.effects';\r\nimport { instructorsReducer } from './store/instructors/instructors.reducer';\r\nimport { InstructorsEffects } from './store/instructors/instructors.effects';\r\nimport { SharedModule } from './shared/shared.module';\r\nimport { usersReducer } from './store/users/users.reducer';\r\nimport { UsersEffects } from './store/users/users.effects';\r\nimport { courseReducer } from './admins/admins-dashboard/pages/courses/store/course/course.reducer';\r\n\r\n\r\n \r\n@NgModule({\r\n  declarations: [\r\n    AppComponent,\r\n    \r\n    \r\n  \r\n  ],\r\n  imports: [\r\n    BrowserModule,\r\n    BrowserAnimationsModule,\r\n    NgbModule,\r\n    SharedModule,\r\n    StoreModule.forRoot({\r\n      user: userReducer,\r\n      courses: coursesReducer,\r\n      technologies: technologiesReducer,\r\n      instructors: instructorsReducer,\r\n      users: usersReducer,\r\n      course: courseReducer\r\n    }),\r\n    EffectsModule.forRoot(CoursesEffects, TechnologiesEffects, InstructorsEffects, UsersEffects),\r\n    AppRoutingModule,\r\n    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),\r\n    provideFirestore(() => getFirestore()),\r\n    provideAuth(() => getAuth())\r\n  ],\r\n  providers: [],\r\n  bootstrap: [AppComponent]\r\n})\r\nexport class AppModule { }\r\n ",
             "children": [
                 {
                     "type": "providers",
@@ -11149,13 +11829,13 @@
         },
         {
             "name": "StudentsModule",
-            "id": "module-StudentsModule-a0c9c6403999b56a6951840ed8b2793088be62ebda3aff822832510c52116bdfb9ad32d4d35ea445a15284011d76737e2bece2497105677bbb4cd39a48a62b1d",
+            "id": "module-StudentsModule-e75cac644d600f4a6638fb3b57e816a8049da07272746252915459abca40f53cdb21b9846b8ff481d914125febdf83fc117696a7299380cac12cff0424ee08f8",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/students/students.module.ts",
             "methods": [],
-            "sourceCode": "import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { StudentsDashboardComponent } from './students-dashboard/students-dashboard.component';\r\nimport { StudentsRoutingModule } from './students-routing.module';\r\nimport { SharedModule } from '../shared/shared.module';\r\nimport { SidebarComponent } from './components/sidebar/sidebar.component';\r\nimport { MatDialogModule } from '@angular/material/dialog';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { HomeComponent } from './students-dashboard/pages/home/home.component';\r\nimport { CoursesComponent } from './students-dashboard/pages/courses/courses.component';\r\nimport { TrainersComponent } from './students-dashboard/pages/trainers/trainers.component';\r\nimport { TechnologiesComponent } from './students-dashboard/pages/technologies/technologies.component';\r\nimport { SettingsComponent } from './students-dashboard/pages/settings/settings.component';\r\nimport {MatTooltipModule} from '@angular/material/tooltip';\r\nimport { MenuSettingsComponent } from './students-dashboard/pages/settings/components/menu-settings/menu-settings.component';\r\nimport { ProfileBaseComponent } from './students-dashboard/pages/settings/components/profile-base/profile-base.component';\r\nimport { PasswordComponent } from './students-dashboard/pages/settings/components/password/password.component';\r\nimport { CourseCardsComponent } from './students-dashboard/pages/courses/components/course-cards/course-cards.component';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { MatFormFieldModule } from '@angular/material/form-field';\r\nimport { ReactiveFormsModule } from '@angular/forms';\r\nimport { InstructorPageComponent } from './students-dashboard/pages/trainers/components/instructor-page/instructor-page.component';\r\nimport { InstructorsMainPageComponent } from './students-dashboard/pages/trainers/components/instructors-main-page/instructors-main-page.component';\r\nimport { CoursePageComponent } from './students-dashboard/pages/courses/components/course-page/course-page.component';\r\nimport { CoursesMainPageComponent } from './students-dashboard/pages/courses/components/courses-main-page/courses-main-page.component';\r\nimport { HeaderCourseComponent } from './students-dashboard/pages/courses/components/course-page/header-course/header-course.component';\r\nimport { DetailsCourseComponent } from './students-dashboard/pages/courses/components/course-page/details-course/details-course.component';\r\nimport { LessonsCourseComponent } from './students-dashboard/pages/courses/components/course-page/lessons-course/lessons-course.component';\r\nimport { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';\r\nimport { HeaderComponent } from './students-dashboard/pages/trainers/components/instructor-page/components/header/header.component';\r\nimport { CoursesSectionComponent } from './students-dashboard/pages/trainers/components/instructor-page/components/courses-section/courses-section.component';\r\nimport { StarRatingComponent } from './components/star-rating/star-rating.component';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { CardTechComponent } from './students-dashboard/pages/technologies/components/card-tech/card-tech.component';\r\nimport { TechsMainPageComponent } from './students-dashboard/pages/technologies/components/techs-main-page/techs-main-page.component';\r\nimport { TechPageComponent } from './students-dashboard/pages/technologies/components/tech-page/tech-page.component';\r\n\r\n\r\n\r\n@NgModule({\r\n  declarations: [\r\n    StudentsDashboardComponent,\r\n    SidebarComponent,\r\n    HomeComponent,\r\n    CoursesComponent,\r\n    TrainersComponent,\r\n    TechnologiesComponent,\r\n    SettingsComponent,\r\n    MenuSettingsComponent,\r\n    ProfileBaseComponent,\r\n    PasswordComponent,\r\n    CourseCardsComponent,\r\n    InstructorPageComponent,\r\n    InstructorsMainPageComponent,\r\n    CoursePageComponent,\r\n    CoursesMainPageComponent,\r\n    HeaderCourseComponent,\r\n    DetailsCourseComponent,\r\n    LessonsCourseComponent,\r\n    HeaderComponent,\r\n    CoursesSectionComponent,\r\n    StarRatingComponent,\r\n    CardTechComponent,\r\n    TechsMainPageComponent,\r\n    TechPageComponent\r\n  ],\r\n  imports: [\r\n    CommonModule,\r\n    StudentsRoutingModule,\r\n    SharedModule,\r\n    MatDialogModule,\r\n    MatIconModule,\r\n    MatTooltipModule,\r\n    MatInputModule,\r\n    MatFormFieldModule,\r\n    ReactiveFormsModule,\r\n    NgbCollapseModule,  \r\n    MatButtonModule,\r\n  ],\r\n  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]\r\n})\r\nexport class StudentsModule { }\r\n",
+            "sourceCode": "import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { StudentsDashboardComponent } from './students-dashboard/students-dashboard.component';\r\nimport { StudentsRoutingModule } from './students-routing.module';\r\nimport { SharedModule } from '../shared/shared.module';\r\nimport { SidebarComponent } from './components/sidebar/sidebar.component';\r\nimport { MatDialogModule } from '@angular/material/dialog';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { HomeComponent } from './students-dashboard/pages/home/home.component';\r\nimport { CoursesComponent } from './students-dashboard/pages/courses/courses.component';\r\nimport { TrainersComponent } from './students-dashboard/pages/trainers/trainers.component';\r\nimport { TechnologiesComponent } from './students-dashboard/pages/technologies/technologies.component';\r\nimport { SettingsComponent } from './students-dashboard/pages/settings/settings.component';\r\nimport {MatTooltipModule} from '@angular/material/tooltip';\r\nimport { MenuSettingsComponent } from './students-dashboard/pages/settings/components/menu-settings/menu-settings.component';\r\nimport { ProfileBaseComponent } from './students-dashboard/pages/settings/components/profile-base/profile-base.component';\r\nimport { PasswordComponent } from './students-dashboard/pages/settings/components/password/password.component';\r\nimport { CourseCardsComponent } from './students-dashboard/pages/courses/components/course-cards/course-cards.component';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { MatFormFieldModule } from '@angular/material/form-field';\r\nimport { ReactiveFormsModule } from '@angular/forms';\r\nimport { InstructorPageComponent } from './students-dashboard/pages/trainers/components/instructor-page/instructor-page.component';\r\nimport { InstructorsMainPageComponent } from './students-dashboard/pages/trainers/components/instructors-main-page/instructors-main-page.component';\r\nimport { CoursePageComponent } from './students-dashboard/pages/courses/components/course-page/course-page.component';\r\nimport { CoursesMainPageComponent } from './students-dashboard/pages/courses/components/courses-main-page/courses-main-page.component';\r\nimport { HeaderCourseComponent } from './students-dashboard/pages/courses/components/course-page/header-course/header-course.component';\r\nimport { DetailsCourseComponent } from './students-dashboard/pages/courses/components/course-page/details-course/details-course.component';\r\nimport { LessonsCourseComponent } from './students-dashboard/pages/courses/components/course-page/lessons-course/lessons-course.component';\r\nimport { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';\r\nimport { HeaderComponent } from './students-dashboard/pages/trainers/components/instructor-page/components/header/header.component';\r\nimport { CoursesSectionComponent } from './students-dashboard/pages/trainers/components/instructor-page/components/courses-section/courses-section.component';\r\nimport { StarRatingComponent } from './components/star-rating/star-rating.component';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { CardTechComponent } from './students-dashboard/pages/technologies/components/card-tech/card-tech.component';\r\nimport { TechsMainPageComponent } from './students-dashboard/pages/technologies/components/techs-main-page/techs-main-page.component';\r\nimport { TechPageComponent } from './students-dashboard/pages/technologies/components/tech-page/tech-page.component';\r\nimport { HeroComponent } from './students-dashboard/pages/home/components/hero/hero.component';\r\nimport { CustomCardComponent } from './students-dashboard/pages/home/components/custom-card/custom-card.component';\r\nimport { HomeCoursesComponent } from './students-dashboard/pages/home/components/home-courses/home-courses.component';\r\nimport { HomeFavoritesComponent } from './students-dashboard/pages/home/components/home-favorites/home-favorites.component';\r\nimport { HomeTechnologiesComponent } from './students-dashboard/pages/home/components/home-technologies/home-technologies.component';\r\nimport { HomeTrainersComponent } from './students-dashboard/pages/home/components/home-trainers/home-trainers.component';\r\n\r\n\r\n\r\n@NgModule({\r\n  declarations: [\r\n    StudentsDashboardComponent,\r\n    SidebarComponent,\r\n    HomeComponent,\r\n    CoursesComponent,\r\n    TrainersComponent,\r\n    TechnologiesComponent,\r\n    SettingsComponent,\r\n    MenuSettingsComponent,\r\n    ProfileBaseComponent,\r\n    PasswordComponent,\r\n    CourseCardsComponent,\r\n    InstructorPageComponent,\r\n    InstructorsMainPageComponent,\r\n    CoursePageComponent,\r\n    CoursesMainPageComponent,\r\n    HeaderCourseComponent,\r\n    DetailsCourseComponent,\r\n    LessonsCourseComponent,\r\n    HeaderComponent,\r\n    CoursesSectionComponent,\r\n    StarRatingComponent,\r\n    CardTechComponent,\r\n    TechsMainPageComponent,\r\n    TechPageComponent,\r\n    HeroComponent,\r\n    CustomCardComponent,\r\n    HomeCoursesComponent,\r\n    HomeFavoritesComponent,\r\n    HomeTechnologiesComponent,\r\n    HomeTrainersComponent,\r\n  ],\r\n  imports: [\r\n    CommonModule,\r\n    StudentsRoutingModule,\r\n    SharedModule,\r\n    MatDialogModule,\r\n    MatIconModule,\r\n    MatTooltipModule,\r\n    MatInputModule,\r\n    MatFormFieldModule,\r\n    ReactiveFormsModule,    \r\n    MatButtonModule,\r\n    NgbAccordionModule,\r\n  ],\r\n  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]\r\n})\r\nexport class StudentsModule { }\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -11180,13 +11860,31 @@
                             "name": "CoursesSectionComponent"
                         },
                         {
+                            "name": "CustomCardComponent"
+                        },
+                        {
                             "name": "DetailsCourseComponent"
                         },
                         {
                             "name": "HeaderCourseComponent"
                         },
                         {
+                            "name": "HeroComponent"
+                        },
+                        {
                             "name": "HomeComponent"
+                        },
+                        {
+                            "name": "HomeCoursesComponent"
+                        },
+                        {
+                            "name": "HomeFavoritesComponent"
+                        },
+                        {
+                            "name": "HomeTechnologiesComponent"
+                        },
+                        {
+                            "name": "HomeTrainersComponent"
                         },
                         {
                             "name": "InstructorPageComponent"
@@ -11256,13 +11954,13 @@
         },
         {
             "name": "StudentsRoutingModule",
-            "id": "module-StudentsRoutingModule-eb8efc1510e1638efc0d1a2e9620d7a51608f81e9367dcb7b07209dd709806740428a29fe410a16c72ee457fa6adab2a2409660e4bec6980ea657bb15305ef2d",
+            "id": "module-StudentsRoutingModule-1f9324ca5934e65b3d1b54f74aca3c3ebe699bd131868529ce667e06e53d6ee9d98499e7c7fa38ee1113ab16c873ec9eb1100e71e0993fe49eacbb1bab352a41",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/students/students-routing.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RouterModule, Routes } from '@angular/router';\r\nimport { StudentsDashboardComponent } from './students-dashboard/students-dashboard.component';\r\nimport { HomeComponent } from './students-dashboard/pages/home/home.component';\r\nimport { CoursesComponent } from './students-dashboard/pages/courses/courses.component';\r\nimport { TrainersComponent } from './students-dashboard/pages/trainers/trainers.component';\r\nimport { TechnologiesComponent } from './students-dashboard/pages/technologies/technologies.component';\r\nimport { SettingsComponent } from './students-dashboard/pages/settings/settings.component';\r\nimport { ProfileBaseComponent } from './students-dashboard/pages/settings/components/profile-base/profile-base.component';\r\nimport { PasswordComponent } from './students-dashboard/pages/settings/components/password/password.component';\r\nimport { RoleGuard } from '../shared/guards/role/role.guard';\r\nimport { InstructorPageComponent } from './students-dashboard/pages/trainers/components/instructor-page/instructor-page.component';\r\nimport { InstructorsMainPageComponent } from './students-dashboard/pages/trainers/components/instructors-main-page/instructors-main-page.component';\r\nimport { instructorResolver } from './students-dashboard/pages/trainers/resolver/instructor.resolver';\r\nimport { CoursesMainPageComponent } from './students-dashboard/pages/courses/components/courses-main-page/courses-main-page.component';\r\nimport { CoursePageComponent } from './students-dashboard/pages/courses/components/course-page/course-page.component';\r\nimport { courseResolver } from './students-dashboard/pages/courses/resolver/course.resolver';\r\nimport { TechsMainPageComponent } from './students-dashboard/pages/technologies/components/techs-main-page/techs-main-page.component';\r\nimport { TechPageComponent } from './students-dashboard/pages/technologies/components/tech-page/tech-page.component';\r\nimport { technologiesResolver } from './students-dashboard/pages/technologies/resolver/technologies.resolver';\r\nimport { WorkingInProgressComponent } from '../shared/components/default-pages/working-in-progress/working-in-progress.component';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    component: StudentsDashboardComponent,\r\n    canActivate: [RoleGuard],\r\n    data: { expectedRole: 'student' },\r\n    children: [\r\n      { path: '', redirectTo: 'home', pathMatch: 'full' },\r\n      { path: 'home', component: WorkingInProgressComponent },\r\n      {\r\n        path: 'courses',\r\n        component: CoursesComponent,\r\n        children: [\r\n          { path: '', component: CoursesMainPageComponent },\r\n          {\r\n            path: ':id',\r\n            component: CoursePageComponent,\r\n            resolve: {\r\n              data: courseResolver,\r\n            },\r\n          },\r\n        ],\r\n      },\r\n      {\r\n        path: 'trainers',\r\n        component: TrainersComponent,\r\n        children: [\r\n          { path: '', component: InstructorsMainPageComponent },\r\n          {\r\n            path: ':id',\r\n            component: InstructorPageComponent,\r\n            resolve: {\r\n              data: instructorResolver,\r\n            },\r\n          },\r\n        ],\r\n      },\r\n      {\r\n        path: 'technologies',\r\n        component: TechnologiesComponent,\r\n        children: [\r\n          { path: '', component: TechsMainPageComponent },\r\n          {\r\n            path: ':id',\r\n            component: TechPageComponent,\r\n            resolve: {\r\n              data: technologiesResolver,\r\n            },\r\n          },\r\n        ],\r\n      },\r\n      {\r\n        path: 'settings',\r\n        component: SettingsComponent,\r\n        children: [\r\n          { path: '', redirectTo: 'profile', pathMatch: 'full' },\r\n          { path: 'profile', component: ProfileBaseComponent },\r\n          { path: 'password', component: PasswordComponent },\r\n        ],\r\n      },\r\n    ],\r\n  },\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule],\r\n})\r\nexport class StudentsRoutingModule {}\r\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RouterModule, Routes } from '@angular/router';\r\nimport { StudentsDashboardComponent } from './students-dashboard/students-dashboard.component';\r\nimport { HomeComponent } from './students-dashboard/pages/home/home.component';\r\nimport { CoursesComponent } from './students-dashboard/pages/courses/courses.component';\r\nimport { TrainersComponent } from './students-dashboard/pages/trainers/trainers.component';\r\nimport { TechnologiesComponent } from './students-dashboard/pages/technologies/technologies.component';\r\nimport { SettingsComponent } from './students-dashboard/pages/settings/settings.component';\r\nimport { ProfileBaseComponent } from './students-dashboard/pages/settings/components/profile-base/profile-base.component';\r\nimport { PasswordComponent } from './students-dashboard/pages/settings/components/password/password.component';\r\nimport { RoleGuard } from '../shared/guards/role/role.guard';\r\nimport { InstructorPageComponent } from './students-dashboard/pages/trainers/components/instructor-page/instructor-page.component';\r\nimport { InstructorsMainPageComponent } from './students-dashboard/pages/trainers/components/instructors-main-page/instructors-main-page.component';\r\nimport { instructorResolver } from './students-dashboard/pages/trainers/resolver/instructor.resolver';\r\nimport { CoursesMainPageComponent } from './students-dashboard/pages/courses/components/courses-main-page/courses-main-page.component';\r\nimport { CoursePageComponent } from './students-dashboard/pages/courses/components/course-page/course-page.component';\r\nimport { courseResolver } from './students-dashboard/pages/courses/resolver/course.resolver';\r\nimport { TechsMainPageComponent } from './students-dashboard/pages/technologies/components/techs-main-page/techs-main-page.component';\r\nimport { TechPageComponent } from './students-dashboard/pages/technologies/components/tech-page/tech-page.component';\r\nimport { technologiesResolver } from './students-dashboard/pages/technologies/resolver/technologies.resolver';\r\nimport { WorkingInProgressComponent } from '../shared/components/default-pages/working-in-progress/working-in-progress.component';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: '',\r\n    component: StudentsDashboardComponent,\r\n    canActivate: [RoleGuard],\r\n    data: { expectedRole: 'student' },\r\n    children: [\r\n      { path: '', redirectTo: 'home', pathMatch: 'full' },\r\n      { path: 'home', component: HomeComponent },\r\n      {\r\n        path: 'courses',\r\n        component: CoursesComponent,\r\n        children: [\r\n          { path: '', component: CoursesMainPageComponent },\r\n          {\r\n            path: ':id',\r\n            component: CoursePageComponent,\r\n            resolve: {\r\n              data: courseResolver,\r\n            },\r\n          },\r\n        ],\r\n      },\r\n      {\r\n        path: 'trainers',\r\n        component: TrainersComponent,\r\n        children: [\r\n          { path: '', component: InstructorsMainPageComponent },\r\n          {\r\n            path: ':id',\r\n            component: InstructorPageComponent,\r\n            resolve: {\r\n              data: instructorResolver,\r\n            },\r\n          },\r\n        ],\r\n      },\r\n      {\r\n        path: 'technologies',\r\n        component: TechnologiesComponent,\r\n        children: [\r\n          { path: '', component: TechsMainPageComponent },\r\n          {\r\n            path: ':id',\r\n            component: TechPageComponent,\r\n            resolve: {\r\n              data: technologiesResolver,\r\n            },\r\n          },\r\n        ],\r\n      },\r\n      {\r\n        path: 'settings',\r\n        component: SettingsComponent,\r\n        children: [\r\n          { path: '', redirectTo: 'profile', pathMatch: 'full' },\r\n          { path: 'profile', component: ProfileBaseComponent },\r\n          { path: 'password', component: PasswordComponent },\r\n        ],\r\n      },\r\n    ],\r\n  },\r\n];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule],\r\n})\r\nexport class StudentsRoutingModule {}\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -11334,6 +12032,26 @@
                 "defaultValue": "(route, state) => {\r\n  \r\n  const courseResolver = inject(CoursesService)\r\n  return courseResolver.getCourseById(route.paramMap.get('id') || '')\r\n}"
             },
             {
+                "name": "Courses",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    data: [\r\n      {\r\n        id: '1',\r\n        name: 'Curso Completo de REACT',\r\n        description: 'Description',\r\n        instructorId: [{ id: 'BHb6atXs68TPFuj4GnbP', name: 'JAB' }],\r\n        imageUrl: 'https://i.ytimg.com/vi/VoMyUgI-5NI/maxresdefault.jpg',\r\n        techs: [{ id: '3ZLJDtVSkLGCVMa95S0W', name: 'React' }],\r\n        lessons: [],\r\n        rating: [],\r\n        introductionURL:\r\n          'https://www.youtube.com/watch?v=VoMyUgI-5NI&list=PLRM7PpbqqStKo-NiCuzuYwewZmd9b-EZ9&index=1',\r\n      },\r\n    ],\r\n    displayedColumns: [\r\n      { prop: 'name', title: 'Name' },\r\n      { prop: 'imageUrl', title: 'Image' },\r\n      { prop: 'techs', title: 'Technologies' },\r\n      { prop: 'instructorId', title: 'Instructor' },\r\n      { prop: 'introductionURL', title: 'Introduction' },\r\n      { prop: 'lessons', title: 'NºLessons' },\r\n      { prop: 'rating', title: 'Rating' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'Name', prop: 'name' },\r\n      { label: 'Image', prop: 'imageUrl' },\r\n      { label: 'Technologies', prop: 'techs' },\r\n      { label: 'Instructor', prop: 'instructorId' },\r\n      { label: 'Introduction', prop: 'introductionURL' },\r\n      { label: 'Lessons', prop: 'lessons' },\r\n    ],\r\n  },\r\n}"
+            },
+            {
+                "name": "Courses",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    data: {\r\n      name: 'React',\r\n      imageUrl:\r\n        'https://miro.medium.com/v2/resize:fit:1200/1*XOSA6j_mJ3oz6g8MfoHDpg.jpeg',\r\n      description: 'React',\r\n      lessons: [],\r\n      techs: [{ id: '1', name: 'React' }],\r\n      rating: [],\r\n      introductionURL: 'https://example.com/introduction',\r\n      instructorId: [{ id: '1', name: 'Midudev' }],\r\n    },\r\n  },\r\n}"
+            },
+            {
                 "name": "CoursesActions",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -11367,17 +12085,17 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                "file": "src/app/admins/components/header/header.components.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\r\n  args: {\r\n    data: [{\r\n        id: \"1\",\r\n        name: \"Curso Completo de REACT\",\r\n        description: \"Description\",  \r\n        instructorId: [{id: \"BHb6atXs68TPFuj4GnbP\", name: \"JAB\"}], \r\n        imageUrl: \"https://i.ytimg.com/vi/VoMyUgI-5NI/maxresdefault.jpg\",\r\n        techs: [{id: \"3ZLJDtVSkLGCVMa95S0W\", name: \"React\"}],\r\n        lessons: [],\r\n        rating: [],\r\n        introductionURL: \"https://www.youtube.com/watch?v=VoMyUgI-5NI&list=PLRM7PpbqqStKo-NiCuzuYwewZmd9b-EZ9&index=1\"\r\n    }],\r\n    displayedColumns: [\r\n      { prop: 'name', title: 'Name' },\r\n      { prop: 'imageUrl', title: 'Image' },\r\n      { prop: 'techs', title: 'Technologies' },\r\n      { prop: 'instructorId', title: 'Instructor' },\r\n      { prop: 'introductionURL', title: 'Introduction' },\r\n      { prop: 'lessons', title: 'NºLessons' },\r\n      { prop: 'rating', title: 'Rating' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'Name', prop: 'name' },\r\n      { label: 'Image', prop: 'imageUrl' },\r\n      { label: 'Technologies', prop: 'techs' },\r\n      { label: 'Instructor', prop: 'instructorId' },\r\n      { label: 'Introduction', prop: 'introductionURL' },\r\n      { label: 'Lessons', prop: 'lessons' },\r\n    ],\r\n  },\r\n}"
+                "defaultValue": "{\r\n  args: {\r\n    //👇 The args you need here will depend on your component\r\n  },\r\n}"
             },
             {
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/admins/components/header/header.components.stories.ts",
+                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
@@ -11391,7 +12109,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\r\n  args: {\r\n    course: {\r\n      name: 'Example Course',\r\n      imageUrl: 'example.jpg',\r\n      description: 'This is an example course description.',\r\n      lessons: [], \r\n      techs: [{ id:\"1\", name: 'Angular' }],\r\n      rating: [],\r\n      introductionURL: \"https://example.com/introduction\",\r\n      instructorId:[]\r\n    },\r\n  },\r\n  \r\n}"
+                "defaultValue": "{\r\n  args: {\r\n    course: {\r\n      name: 'React',\r\n      imageUrl:\r\n        'https://miro.medium.com/v2/resize:fit:1200/1*XOSA6j_mJ3oz6g8MfoHDpg.jpeg',\r\n      description: 'Curso de React desde cero. ¿Qué es? ¿Por qué deberías aprenderlo? ',\r\n      lessons: [],\r\n      techs: [{ id: '1', name: 'React' }],\r\n      rating: [],\r\n      introductionURL: 'https://example.com/introduction',\r\n      instructorId: [{ id: '1', name: 'Midudev' }],\r\n    },\r\n  },\r\n  \r\n}"
             },
             {
                 "name": "Default",
@@ -11402,16 +12120,6 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\r\n  args: {\r\n    instructor: {\r\n        id: '1',\r\n        name: 'Midudev',\r\n        rating: [],\r\n        imagePath:\r\n          'https://yt3.googleusercontent.com/ytc/AIf8zZScNwk4VuB2XijvUaEz7Z8Wff_tvBzYaHgOXZZtFQ=s176-c-k-c0x00ffffff-no-rj',\r\n        courses: [],\r\n        socialMedia: {\r\n            linkedin: \"https://www.linkedin.com/in/midudev\",\r\n            twitter: \"https://twitter.com/midudev\",\r\n            web: \"patreon.com/midudev\",\r\n            youtube:\"https://www.youtube.com/c/midudev\"\r\n        }\r\n      },\r\n  },\r\n}"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\r\n  args: {\r\n    //👇 The args you need here will depend on your component\r\n  },\r\n}"
             },
             {
                 "name": "Default",
@@ -11657,6 +12365,16 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<MainPageHeaderComponent>",
+                "defaultValue": "{\r\n    title: 'Components/Main Page/Header',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/shared/components/button/button.components.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -11687,16 +12405,6 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<MainPageHeaderComponent>",
-                "defaultValue": "{\r\n    title: 'Components/Main Page/Header',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/students/components/star-rating/star-rating.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -11712,6 +12420,16 @@
                 "deprecationMessage": "",
                 "type": "Meta<CourseCardsComponent>",
                 "defaultValue": "{\r\n    title: \"Components/Students/CourseCards\",\r\n    component: CourseCardsComponent,\r\n    tags: ['autodocs'],\r\n    \r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<CustomCardComponent>",
+                "defaultValue": "{\r\n  title: 'Components/Students/HomeCard',\r\n  component: CustomCardComponent,\r\n  tags: ['autodocs'],\r\n}"
             },
             {
                 "name": "meta",
@@ -11734,6 +12452,16 @@
                 "defaultValue": "{\r\n    title: \"Components/Students/HeaderCourse\",\r\n    component: HeaderCourseComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n            providers: [\r\n                {\r\n                    provide: ActivatedRoute,\r\n                    useValue: {\r\n                        params: of({ id: 'test' }),\r\n                        data: of({ data: { id: 'test' } })\r\n                    }\r\n                },\r\n                { provide: UsersService, useValue: { getUserFromStorage: () => ({ id: 'test' }) } },\r\n\r\n            ],\r\n\r\n        })\r\n    ]\r\n\r\n}"
             },
             {
+                "name": "mostRatedTopic",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/students/functions/most-rated.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "( array: Instructor[] | Course[] ) => {\r\n    const topicArray = [...array]\r\n\r\n    topicArray.forEach(( topic: any, index ) => {\r\n        let eachTopic = {\r\n            topicRating: 0,\r\n            index: index\r\n        };\r\n        if(topic.rating.length > 0){\r\n            topic.rating.forEach((rating : Rating) => {\r\n                eachTopic.topicRating += rating?.rating\r\n            })\r\n            eachTopic.topicRating = eachTopic.topicRating / topic.rating.length\r\n        }\r\n        topicArray[index] = {\r\n            ...topic,\r\n            topicRating: eachTopic.topicRating,\r\n        }\r\n    })\r\n\r\n    topicArray.sort((a: any, b: any) => b.topicRating - a.topicRating);\r\n\r\n\r\n    return topicArray.slice(0, 3).map((topic: any) => {\r\n        delete topic.topicRating;\r\n        return topic;\r\n      }) as Instructor[] | Course[];\r\n      \r\n}"
+            },
+            {
                 "name": "preview",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -11752,6 +12480,16 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\r\n    args: {\r\n        label: 'Primary',\r\n        type: 'primary',\r\n    },\r\n}"
+            },
+            {
+                "name": "randomArray",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/students/functions/rondom-array.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "(array: any[], n: number) => {\r\n    const shuffledArray = array.sort(() => 0.5 - Math.random()); // Desordenar el array\r\n    return shuffledArray.slice(0, n); // Tomar los primeros n elementos\r\n}"
             },
             {
                 "name": "RoleGuard",
@@ -11864,6 +12602,16 @@
                 "defaultValue": "{\r\n    args: {\r\n        label: 'Success',\r\n          type: 'success',\r\n    },\r\n  }"
             },
             {
+                "name": "Technologies",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    data: [\r\n      {\r\n        id: '1',\r\n        name: 'Python',\r\n        description:\r\n          'Python is a high-level, general-purpose programming language that emphasizes code readability and supports multiple programming paradigms. It is dynamically typed, garbage-collected, and has a comprehensive standard library. It was created by Guido van Rossum in 1991 and is widely used for web development, software development, machine learning, and more.',\r\n        imagePath:\r\n          'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',\r\n        courses: ['1', '2', '3'],\r\n      },\r\n    ],\r\n    displayedColumns: [\r\n      { prop: 'name', title: 'Name' },\r\n      { prop: 'imagePath', title: 'Image' },\r\n      { prop: 'courses', title: 'NºCourses' },\r\n      { prop: 'description', title: 'Description' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'Name', prop: 'name' },\r\n      { label: 'Image', prop: 'imagePath' },\r\n      { label: 'Description', prop: 'description' },\r\n      { label: 'Courses', prop: 'courses' },\r\n    ],\r\n  },\r\n}"
+            },
+            {
                 "name": "TechnologiesActions",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -11894,6 +12642,36 @@
                 "defaultValue": "(route, state) => {\r\n  const techService = inject(TechService)\r\n  return techService.getTechnologyById(route.paramMap.get('id') || '')\r\n}"
             },
             {
+                "name": "Techs",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    data: {\r\n      id: '1',\r\n      name: 'Python',\r\n      description: 'Python',\r\n      imagePath:\r\n        'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',\r\n      courses: [],\r\n    },\r\n  },\r\n}"
+            },
+            {
+                "name": "Trainers",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    data: [\r\n      {\r\n        id: '1',\r\n        name: 'Midudev',\r\n        rating: [],\r\n        imagePath: 'https://yt3.googleusercontent.com/ytc/AIf8zZScNwk4VuB2XijvUaEz7Z8Wff_tvBzYaHgOXZZtFQ=s176-c-k-c0x00ffffff-no-rj',\r\n        courses: [],\r\n        socialMedia: [\r\n          {\r\n            web: 'https://www.youtube.com/c/midudev',\r\n            youtube: 'https://www.youtube.com/c/midudev',\r\n            twitter: 'https://twitter.com/midudev',\r\n            linkedin: 'https://www.linkedin.com/in/midudev',\r\n          },\r\n        ],\r\n      },\r\n    ],\r\n    displayedColumns: [\r\n      { prop: 'name', title: 'Name' },\r\n      { prop: 'imagePath', title: 'Image' },\r\n      { prop: 'courses', title: 'NºCourses' },\r\n      { prop: 'rating', title: 'Rating' },\r\n      { prop: 'socialMedia', title: 'SocialMedia' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'Name', prop: 'name' },\r\n      { label: 'Image', prop: 'imagePath' },\r\n      { label: 'Courses', prop: 'courses' },\r\n      { label: 'Rating', prop: 'rating' },\r\n      {\r\n        label: 'SocialMedia',\r\n        prop: 'socialMedia',\r\n        subFields: [\r\n          { label: 'Web', prop: 'web' },\r\n          { label: 'YouTube', prop: 'youtube' },\r\n          { label: 'Twitter', prop: 'twitter' },\r\n          { label: 'LinkedIn', prop: 'linkedin' },\r\n        ],\r\n      },\r\n    ],\r\n  },\r\n}"
+            },
+            {
+                "name": "Trainers",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    data: {\r\n      id: '1',\r\n      name: 'Midudev',\r\n      reating: [],\r\n      imagePath:\r\n        'https://yt3.googleusercontent.com/ytc/AIf8zZScNwk4VuB2XijvUaEz7Z8Wff_tvBzYaHgOXZZtFQ=s176-c-k-c0x00ffffff-no-rj',\r\n      courses: [],\r\n      socialMedia: [\r\n        {\r\n          linkedin: 'https://www.linkedin.com/in/midudev',\r\n          twitter: 'https://twitter.com/midudev',\r\n          web: 'https://www.youtube.com/c/midudev',\r\n          youtube: 'https://www.youtube.com/c/midudev',\r\n        },\r\n      ],\r\n    },\r\n  },\r\n}"
+            },
+            {
                 "name": "UserActions",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -11912,6 +12690,16 @@
                 "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "createReducer(\r\n    initialState,\r\n    on(UserActions.addUser, (_state, { user }) => user),\r\n    on(UserActions.updateUser, (_state, { user }) => user),\r\n)"
+            },
+            {
+                "name": "Users",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    data: [\r\n      {\r\n        id: '1',\r\n        displayName: 'Ismael Cervera',\r\n        email: \"isma@test.com\",\r\n        photoURL:\r\n          'https://th.bing.com/th/id/OIP.ZmXuryOWnCOmdKSGsS3RAwHaHa?rs=1&pid=ImgDetMain',\r\n        favorites: [],\r\n        providerId: \"password\",\r\n        phoneNumber: \"666888999\",\r\n        authUid: \"wefe34jhhxhjs\",\r\n        role: \"student\",\r\n        uid: \"isma@test.com\",\r\n        rememberMe: true\r\n      },\r\n    ],\r\n    displayedColumns: [\r\n      { prop: 'displayName', title: 'User' },\r\n      { prop: 'photoURL', title: 'Img' },\r\n      { prop: 'email', title: 'Email' },\r\n      { prop: 'phoneNumber', title: 'Phone' },\r\n      { prop: 'role', title: 'Role' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'User', prop: 'displayName' },\r\n      { label: 'Img', prop: 'photoURL' },\r\n      { label: 'Email', prop: 'email' },\r\n      { label: 'Phone', prop: 'phoneNumber' },\r\n      { label: 'role', prop: 'role' },\r\n    ],\r\n  },\r\n}"
             },
             {
                 "name": "UsersActions",
@@ -11972,6 +12760,17 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
+                "rawtype": "StoryObj<MainPageHeaderComponent>",
+                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
                 "rawtype": "StoryObj<ButtonComponent>",
                 "file": "src/app/shared/components/button/button.components.stories.ts",
                 "deprecated": false,
@@ -12005,17 +12804,6 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<MainPageHeaderComponent>",
-                "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 183
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
                 "rawtype": "StoryObj<StarRatingComponent>",
                 "file": "src/app/students/components/star-rating/star-rating.component.stories.ts",
                 "deprecated": false,
@@ -12029,6 +12817,17 @@
                 "subtype": "typealias",
                 "rawtype": "StoryObj<CourseCardsComponent>",
                 "file": "src/app/students/students-dashboard/pages/courses/components/course-cards/course-card-second-component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<CustomCardComponent>",
+                "file": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -12247,6 +13046,100 @@
                     "defaultValue": "(route, state) => {\r\n  \r\n  const courseResolver = inject(CoursesService)\r\n  return courseResolver.getCourseById(route.paramMap.get('id') || '')\r\n}"
                 }
             ],
+            "src/app/admins/components/custom-table/custom-table.components.stories.ts": [
+                {
+                    "name": "Courses",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    data: [\r\n      {\r\n        id: '1',\r\n        name: 'Curso Completo de REACT',\r\n        description: 'Description',\r\n        instructorId: [{ id: 'BHb6atXs68TPFuj4GnbP', name: 'JAB' }],\r\n        imageUrl: 'https://i.ytimg.com/vi/VoMyUgI-5NI/maxresdefault.jpg',\r\n        techs: [{ id: '3ZLJDtVSkLGCVMa95S0W', name: 'React' }],\r\n        lessons: [],\r\n        rating: [],\r\n        introductionURL:\r\n          'https://www.youtube.com/watch?v=VoMyUgI-5NI&list=PLRM7PpbqqStKo-NiCuzuYwewZmd9b-EZ9&index=1',\r\n      },\r\n    ],\r\n    displayedColumns: [\r\n      { prop: 'name', title: 'Name' },\r\n      { prop: 'imageUrl', title: 'Image' },\r\n      { prop: 'techs', title: 'Technologies' },\r\n      { prop: 'instructorId', title: 'Instructor' },\r\n      { prop: 'introductionURL', title: 'Introduction' },\r\n      { prop: 'lessons', title: 'NºLessons' },\r\n      { prop: 'rating', title: 'Rating' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'Name', prop: 'name' },\r\n      { label: 'Image', prop: 'imageUrl' },\r\n      { label: 'Technologies', prop: 'techs' },\r\n      { label: 'Instructor', prop: 'instructorId' },\r\n      { label: 'Introduction', prop: 'introductionURL' },\r\n      { label: 'Lessons', prop: 'lessons' },\r\n    ],\r\n  },\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<CustomTableComponent>",
+                    "defaultValue": "{\r\n  title: 'Components/Admin/CustomTable',\r\n  component: CustomTableComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations: [],\r\n      imports: [MatTableModule, MatDialogModule, SharedModule],\r\n    }),\r\n  ],\r\n}"
+                },
+                {
+                    "name": "Technologies",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    data: [\r\n      {\r\n        id: '1',\r\n        name: 'Python',\r\n        description:\r\n          'Python is a high-level, general-purpose programming language that emphasizes code readability and supports multiple programming paradigms. It is dynamically typed, garbage-collected, and has a comprehensive standard library. It was created by Guido van Rossum in 1991 and is widely used for web development, software development, machine learning, and more.',\r\n        imagePath:\r\n          'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',\r\n        courses: ['1', '2', '3'],\r\n      },\r\n    ],\r\n    displayedColumns: [\r\n      { prop: 'name', title: 'Name' },\r\n      { prop: 'imagePath', title: 'Image' },\r\n      { prop: 'courses', title: 'NºCourses' },\r\n      { prop: 'description', title: 'Description' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'Name', prop: 'name' },\r\n      { label: 'Image', prop: 'imagePath' },\r\n      { label: 'Description', prop: 'description' },\r\n      { label: 'Courses', prop: 'courses' },\r\n    ],\r\n  },\r\n}"
+                },
+                {
+                    "name": "Trainers",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    data: [\r\n      {\r\n        id: '1',\r\n        name: 'Midudev',\r\n        rating: [],\r\n        imagePath: 'https://yt3.googleusercontent.com/ytc/AIf8zZScNwk4VuB2XijvUaEz7Z8Wff_tvBzYaHgOXZZtFQ=s176-c-k-c0x00ffffff-no-rj',\r\n        courses: [],\r\n        socialMedia: [\r\n          {\r\n            web: 'https://www.youtube.com/c/midudev',\r\n            youtube: 'https://www.youtube.com/c/midudev',\r\n            twitter: 'https://twitter.com/midudev',\r\n            linkedin: 'https://www.linkedin.com/in/midudev',\r\n          },\r\n        ],\r\n      },\r\n    ],\r\n    displayedColumns: [\r\n      { prop: 'name', title: 'Name' },\r\n      { prop: 'imagePath', title: 'Image' },\r\n      { prop: 'courses', title: 'NºCourses' },\r\n      { prop: 'rating', title: 'Rating' },\r\n      { prop: 'socialMedia', title: 'SocialMedia' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'Name', prop: 'name' },\r\n      { label: 'Image', prop: 'imagePath' },\r\n      { label: 'Courses', prop: 'courses' },\r\n      { label: 'Rating', prop: 'rating' },\r\n      {\r\n        label: 'SocialMedia',\r\n        prop: 'socialMedia',\r\n        subFields: [\r\n          { label: 'Web', prop: 'web' },\r\n          { label: 'YouTube', prop: 'youtube' },\r\n          { label: 'Twitter', prop: 'twitter' },\r\n          { label: 'LinkedIn', prop: 'linkedin' },\r\n        ],\r\n      },\r\n    ],\r\n  },\r\n}"
+                },
+                {
+                    "name": "Users",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    data: [\r\n      {\r\n        id: '1',\r\n        displayName: 'Ismael Cervera',\r\n        email: \"isma@test.com\",\r\n        photoURL:\r\n          'https://th.bing.com/th/id/OIP.ZmXuryOWnCOmdKSGsS3RAwHaHa?rs=1&pid=ImgDetMain',\r\n        favorites: [],\r\n        providerId: \"password\",\r\n        phoneNumber: \"666888999\",\r\n        authUid: \"wefe34jhhxhjs\",\r\n        role: \"student\",\r\n        uid: \"isma@test.com\",\r\n        rememberMe: true\r\n      },\r\n    ],\r\n    displayedColumns: [\r\n      { prop: 'displayName', title: 'User' },\r\n      { prop: 'photoURL', title: 'Img' },\r\n      { prop: 'email', title: 'Email' },\r\n      { prop: 'phoneNumber', title: 'Phone' },\r\n      { prop: 'role', title: 'Role' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'User', prop: 'displayName' },\r\n      { label: 'Img', prop: 'photoURL' },\r\n      { label: 'Email', prop: 'email' },\r\n      { label: 'Phone', prop: 'phoneNumber' },\r\n      { label: 'role', prop: 'role' },\r\n    ],\r\n  },\r\n}"
+                }
+            ],
+            "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts": [
+                {
+                    "name": "Courses",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    data: {\r\n      name: 'React',\r\n      imageUrl:\r\n        'https://miro.medium.com/v2/resize:fit:1200/1*XOSA6j_mJ3oz6g8MfoHDpg.jpeg',\r\n      description: 'React',\r\n      lessons: [],\r\n      techs: [{ id: '1', name: 'React' }],\r\n      rating: [],\r\n      introductionURL: 'https://example.com/introduction',\r\n      instructorId: [{ id: '1', name: 'Midudev' }],\r\n    },\r\n  },\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<CustomCardComponent>",
+                    "defaultValue": "{\r\n  title: 'Components/Students/HomeCard',\r\n  component: CustomCardComponent,\r\n  tags: ['autodocs'],\r\n}"
+                },
+                {
+                    "name": "Techs",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    data: {\r\n      id: '1',\r\n      name: 'Python',\r\n      description: 'Python',\r\n      imagePath:\r\n        'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',\r\n      courses: [],\r\n    },\r\n  },\r\n}"
+                },
+                {
+                    "name": "Trainers",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    data: {\r\n      id: '1',\r\n      name: 'Midudev',\r\n      reating: [],\r\n      imagePath:\r\n        'https://yt3.googleusercontent.com/ytc/AIf8zZScNwk4VuB2XijvUaEz7Z8Wff_tvBzYaHgOXZZtFQ=s176-c-k-c0x00ffffff-no-rj',\r\n      courses: [],\r\n      socialMedia: [\r\n        {\r\n          linkedin: 'https://www.linkedin.com/in/midudev',\r\n          twitter: 'https://twitter.com/midudev',\r\n          web: 'https://www.youtube.com/c/midudev',\r\n          youtube: 'https://www.youtube.com/c/midudev',\r\n        },\r\n      ],\r\n    },\r\n  },\r\n}"
+                }
+            ],
             "src/app/store/courses/courses.actions.ts": [
                 {
                     "name": "CoursesActions",
@@ -12281,28 +13174,6 @@
                     "defaultValue": "[]"
                 }
             ],
-            "src/app/admins/components/custom-table/custom-table.components.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\r\n  args: {\r\n    data: [{\r\n        id: \"1\",\r\n        name: \"Curso Completo de REACT\",\r\n        description: \"Description\",  \r\n        instructorId: [{id: \"BHb6atXs68TPFuj4GnbP\", name: \"JAB\"}], \r\n        imageUrl: \"https://i.ytimg.com/vi/VoMyUgI-5NI/maxresdefault.jpg\",\r\n        techs: [{id: \"3ZLJDtVSkLGCVMa95S0W\", name: \"React\"}],\r\n        lessons: [],\r\n        rating: [],\r\n        introductionURL: \"https://www.youtube.com/watch?v=VoMyUgI-5NI&list=PLRM7PpbqqStKo-NiCuzuYwewZmd9b-EZ9&index=1\"\r\n    }],\r\n    displayedColumns: [\r\n      { prop: 'name', title: 'Name' },\r\n      { prop: 'imageUrl', title: 'Image' },\r\n      { prop: 'techs', title: 'Technologies' },\r\n      { prop: 'instructorId', title: 'Instructor' },\r\n      { prop: 'introductionURL', title: 'Introduction' },\r\n      { prop: 'lessons', title: 'NºLessons' },\r\n      { prop: 'rating', title: 'Rating' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'Name', prop: 'name' },\r\n      { label: 'Image', prop: 'imageUrl' },\r\n      { label: 'Technologies', prop: 'techs' },\r\n      { label: 'Instructor', prop: 'instructorId' },\r\n      { label: 'Introduction', prop: 'introductionURL' },\r\n      { label: 'Lessons', prop: 'lessons' },\r\n    ],\r\n  },\r\n}"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta<CustomTableComponent>",
-                    "defaultValue": "{\r\n  title: 'Components/Admin/CustomTable',\r\n  component: CustomTableComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations: [],\r\n      imports: [MatTableModule, MatDialogModule, SharedModule],\r\n    }),\r\n  ],\r\n}"
-                }
-            ],
             "src/app/admins/components/header/header.components.stories.ts": [
                 {
                     "name": "Default",
@@ -12325,6 +13196,28 @@
                     "defaultValue": "{\r\n    title: 'Components/Admin/Header',\r\n    component: HeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[],\r\n          imports: [MatButtonModule] \r\n        })\r\n      ]\r\n}"
                 }
             ],
+            "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    //👇 The args you need here will depend on your component\r\n  },\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<MainPageHeaderComponent>",
+                    "defaultValue": "{\r\n    title: 'Components/Main Page/Header',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
+                }
+            ],
             "src/app/shared/components/course-card/course-card.components.stories.ts": [
                 {
                     "name": "Default",
@@ -12334,7 +13227,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\r\n  args: {\r\n    course: {\r\n      name: 'Example Course',\r\n      imageUrl: 'example.jpg',\r\n      description: 'This is an example course description.',\r\n      lessons: [], \r\n      techs: [{ id:\"1\", name: 'Angular' }],\r\n      rating: [],\r\n      introductionURL: \"https://example.com/introduction\",\r\n      instructorId:[]\r\n    },\r\n  },\r\n  \r\n}"
+                    "defaultValue": "{\r\n  args: {\r\n    course: {\r\n      name: 'React',\r\n      imageUrl:\r\n        'https://miro.medium.com/v2/resize:fit:1200/1*XOSA6j_mJ3oz6g8MfoHDpg.jpeg',\r\n      description: 'Curso de React desde cero. ¿Qué es? ¿Por qué deberías aprenderlo? ',\r\n      lessons: [],\r\n      techs: [{ id: '1', name: 'React' }],\r\n      rating: [],\r\n      introductionURL: 'https://example.com/introduction',\r\n      instructorId: [{ id: '1', name: 'Midudev' }],\r\n    },\r\n  },\r\n  \r\n}"
                 },
                 {
                     "name": "meta",
@@ -12367,28 +13260,6 @@
                     "deprecationMessage": "",
                     "type": "Meta<InstructorCardComponent>",
                     "defaultValue": "{\r\n    title: \"Components/Students/InstructorCard\",\r\n  component: InstructorCardComponent,\r\n  tags: ['autodoc']\r\n}"
-                }
-            ],
-            "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\r\n  args: {\r\n    //👇 The args you need here will depend on your component\r\n  },\r\n}"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta<MainPageHeaderComponent>",
-                    "defaultValue": "{\r\n    title: 'Components/Main Page/Header',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
                 }
             ],
             "src/app/students/components/star-rating/star-rating.component.stories.ts": [
@@ -12639,6 +13510,18 @@
                     "defaultValue": "createActionGroup({\r\n    source: 'Intructors',\r\n    events: {\r\n      'Retrieved Instructors List': props<{ instructors: ReadonlyArray<Instructor> }>(),\r\n    },\r\n  })"
                 }
             ],
+            "src/app/students/functions/most-rated.ts": [
+                {
+                    "name": "mostRatedTopic",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/students/functions/most-rated.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "( array: Instructor[] | Course[] ) => {\r\n    const topicArray = [...array]\r\n\r\n    topicArray.forEach(( topic: any, index ) => {\r\n        let eachTopic = {\r\n            topicRating: 0,\r\n            index: index\r\n        };\r\n        if(topic.rating.length > 0){\r\n            topic.rating.forEach((rating : Rating) => {\r\n                eachTopic.topicRating += rating?.rating\r\n            })\r\n            eachTopic.topicRating = eachTopic.topicRating / topic.rating.length\r\n        }\r\n        topicArray[index] = {\r\n            ...topic,\r\n            topicRating: eachTopic.topicRating,\r\n        }\r\n    })\r\n\r\n    topicArray.sort((a: any, b: any) => b.topicRating - a.topicRating);\r\n\r\n\r\n    return topicArray.slice(0, 3).map((topic: any) => {\r\n        delete topic.topicRating;\r\n        return topic;\r\n      }) as Instructor[] | Course[];\r\n      \r\n}"
+                }
+            ],
             ".storybook/preview.ts": [
                 {
                     "name": "preview",
@@ -12649,6 +13532,18 @@
                     "deprecationMessage": "",
                     "type": "Preview",
                     "defaultValue": "{\r\n  parameters: {\r\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/i,\r\n      },\r\n    },\r\n  },\r\n}"
+                }
+            ],
+            "src/app/students/functions/rondom-array.ts": [
+                {
+                    "name": "randomArray",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/students/functions/rondom-array.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "(array: any[], n: number) => {\r\n    const shuffledArray = array.sort(() => 0.5 - Math.random()); // Desordenar el array\r\n    return shuffledArray.slice(0, n); // Tomar los primeros n elementos\r\n}"
                 }
             ],
             "src/app/shared/guards/role/role.guard.ts": [
@@ -12813,6 +13708,19 @@
                     "kind": 183
                 }
             ],
+            "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<MainPageHeaderComponent>",
+                    "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
             "src/app/shared/components/button/button.components.stories.ts": [
                 {
                     "name": "Story",
@@ -12852,19 +13760,6 @@
                     "kind": 183
                 }
             ],
-            "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<MainPageHeaderComponent>",
-                    "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 183
-                }
-            ],
             "src/app/students/components/star-rating/star-rating.component.stories.ts": [
                 {
                     "name": "Story",
@@ -12885,6 +13780,19 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<CourseCardsComponent>",
                     "file": "src/app/students/students-dashboard/pages/courses/components/course-cards/course-card-second-component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
+            "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<CustomCardComponent>",
+                    "file": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -13009,7 +13917,7 @@
                                                     },
                                                     {
                                                         "path": "home",
-                                                        "component": "WorkingInProgressComponent"
+                                                        "component": "HomeComponent"
                                                     },
                                                     {
                                                         "path": "courses",
@@ -13396,7 +14304,7 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "Default",
+                "name": "Courses",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -13407,6 +14315,36 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Technologies",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Trainers",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/admins/components/custom-table/custom-table.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Users",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -14197,6 +15135,26 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/students/functions/most-rated.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "mostRatedTopic",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/students/functions/rondom-array.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "randomArray",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/students/students-dashboard/pages/courses/components/course-cards/course-card-second-component.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
@@ -14231,7 +15189,7 @@
                 "linktype": "component",
                 "name": "CoursePageComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/9",
+                "coverageCount": "0/10",
                 "status": "low"
             },
             {
@@ -14278,7 +15236,7 @@
                 "linktype": "component",
                 "name": "LessonsCourseComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/1",
+                "coverageCount": "0/5",
                 "status": "low"
             },
             {
@@ -14307,6 +15265,100 @@
                 "name": "courseResolver",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "CustomCardComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Courses",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Techs",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Trainers",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/students/students-dashboard/pages/home/components/hero/hero.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "HeroComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/students/students-dashboard/pages/home/components/home-courses/home-courses.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "HomeCoursesComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/7",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/students/students-dashboard/pages/home/components/home-favorites/home-favorites.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "HomeFavoritesComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/students/students-dashboard/pages/home/components/home-technologies/home-technologies.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "HomeTechnologiesComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/7",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/students/students-dashboard/pages/home/components/home-trainers/home-trainers.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "HomeTrainersComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/7",
                 "status": "low"
             },
             {
