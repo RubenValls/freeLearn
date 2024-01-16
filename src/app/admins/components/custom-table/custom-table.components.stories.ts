@@ -84,3 +84,49 @@ export const Technologies: Story = {
     ],
   },
 };
+export const Trainers: Story = {
+  args: {
+    data: [
+      {
+        id: '1',
+        name: 'Midudev',
+        reating: [],
+        imagePath:
+          'https://yt3.googleusercontent.com/ytc/AIf8zZScNwk4VuB2XijvUaEz7Z8Wff_tvBzYaHgOXZZtFQ=s176-c-k-c0x00ffffff-no-rj',
+        courses: [],
+        socialMedia: [
+          {
+            linkedin: 'https://www.linkedin.com/in/midudev',
+            twitter: 'https://twitter.com/midudev',
+            web: 'https://www.youtube.com/c/midudev',
+            youtube: 'https://www.youtube.com/c/midudev',
+          },
+        ],
+      },
+    ],
+    displayedColumns: [
+      { prop: 'name', title: 'Name' },
+      { prop: 'imagePath', title: 'Image' },
+      { prop: 'courses', title: 'NºCourses' },
+      { prop: 'rating', title: 'Rating' },
+      { prop: 'socialMedia', title: 'SocialMedia' },
+    ],
+    rows: [
+      { label: 'Id', prop: 'id' },
+      { label: 'Name', prop: 'name' },
+      { label: 'Image', prop: 'imagePath' },
+      { label: 'Courses', prop: 'courses' },
+      { label: 'Rating', prop: 'rating' },
+      {
+        label: 'SocialMedia',
+        prop: 'socialMedia',
+        subFields: [
+          { label: 'Web', prop: 'web' },
+          { label: 'YouTube', prop: 'youtube' },
+          { label: 'Twitter', prop: 'twitter' },
+          { label: 'LinkedIn', prop: 'linkedin' },
+        ],
+      },
+    ],
+  },
+};
