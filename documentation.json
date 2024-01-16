@@ -12032,6 +12032,16 @@
                 "defaultValue": "(route, state) => {\r\n  \r\n  const courseResolver = inject(CoursesService)\r\n  return courseResolver.getCourseById(route.paramMap.get('id') || '')\r\n}"
             },
             {
+                "name": "Courses",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    data: {\r\n      name: 'React',\r\n      imageUrl:\r\n        'https://miro.medium.com/v2/resize:fit:1200/1*XOSA6j_mJ3oz6g8MfoHDpg.jpeg',\r\n      description: 'React',\r\n      lessons: [],\r\n      techs: [{ id: '1', name: 'React' }],\r\n      rating: [],\r\n      introductionURL: 'https://example.com/introduction',\r\n      instructorId: [{ id: '1', name: 'Midudev' }],\r\n    },\r\n  },\r\n}"
+            },
+            {
                 "name": "CoursesActions",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -12099,7 +12109,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\r\n  args: {\r\n    course: {\r\n      name: 'Example Course',\r\n      imageUrl: 'example.jpg',\r\n      description: 'This is an example course description.',\r\n      lessons: [], \r\n      techs: [{ id:\"1\", name: 'Angular' }],\r\n      rating: [],\r\n      introductionURL: \"https://example.com/introduction\",\r\n      instructorId:[]\r\n    },\r\n  },\r\n  \r\n}"
+                "defaultValue": "{\r\n  args: {\r\n    course: {\r\n      name: 'React',\r\n      imageUrl:\r\n        'https://miro.medium.com/v2/resize:fit:1200/1*XOSA6j_mJ3oz6g8MfoHDpg.jpeg',\r\n      description: 'Curso de React desde cero. ¿Qué es? ¿Por qué deberías aprenderlo? ',\r\n      lessons: [],\r\n      techs: [{ id: '1', name: 'React' }],\r\n      rating: [],\r\n      introductionURL: 'https://example.com/introduction',\r\n      instructorId: [{ id: '1', name: 'Midudev' }],\r\n    },\r\n  },\r\n  \r\n}"
             },
             {
                 "name": "Default",
@@ -12225,20 +12235,20 @@
                 "name": "initialState",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/store/courses/courses.reducer.ts",
+                "file": "src/app/store/instructors/instructors.reducer.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "ReadonlyArray<Course>",
+                "type": "ReadonlyArray<Instructor>",
                 "defaultValue": "[]"
             },
             {
                 "name": "initialState",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/store/instructors/instructors.reducer.ts",
+                "file": "src/app/store/courses/courses.reducer.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "ReadonlyArray<Instructor>",
+                "type": "ReadonlyArray<Course>",
                 "defaultValue": "[]"
             },
             {
@@ -12410,6 +12420,16 @@
                 "deprecationMessage": "",
                 "type": "Meta<CourseCardsComponent>",
                 "defaultValue": "{\r\n    title: \"Components/Students/CourseCards\",\r\n    component: CourseCardsComponent,\r\n    tags: ['autodocs'],\r\n    \r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<CustomCardComponent>",
+                "defaultValue": "{\r\n  title: 'Components/Students/HomeCard',\r\n  component: CustomCardComponent,\r\n  tags: ['autodocs'],\r\n}"
             },
             {
                 "name": "meta",
@@ -12612,6 +12632,26 @@
                 "defaultValue": "(route, state) => {\r\n  const techService = inject(TechService)\r\n  return techService.getTechnologyById(route.paramMap.get('id') || '')\r\n}"
             },
             {
+                "name": "Techs",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    data: {\r\n      id: '1',\r\n      name: 'Python',\r\n      description: 'Python',\r\n      imagePath:\r\n        'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',\r\n      courses: [],\r\n    },\r\n  },\r\n}"
+            },
+            {
+                "name": "Trainers",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    data: {\r\n      id: '1',\r\n      name: 'Midudev',\r\n      reating: [],\r\n      imagePath:\r\n        'https://yt3.googleusercontent.com/ytc/AIf8zZScNwk4VuB2XijvUaEz7Z8Wff_tvBzYaHgOXZZtFQ=s176-c-k-c0x00ffffff-no-rj',\r\n      courses: [],\r\n      socialMedia: [\r\n        {\r\n          linkedin: 'https://www.linkedin.com/in/midudev',\r\n          twitter: 'https://twitter.com/midudev',\r\n          web: 'https://www.youtube.com/c/midudev',\r\n          youtube: 'https://www.youtube.com/c/midudev',\r\n        },\r\n      ],\r\n    },\r\n  },\r\n}"
+            },
+            {
                 "name": "UserActions",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -12747,6 +12787,17 @@
                 "subtype": "typealias",
                 "rawtype": "StoryObj<CourseCardsComponent>",
                 "file": "src/app/students/students-dashboard/pages/courses/components/course-cards/course-card-second-component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<CustomCardComponent>",
+                "file": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -12965,6 +13016,48 @@
                     "defaultValue": "(route, state) => {\r\n  \r\n  const courseResolver = inject(CoursesService)\r\n  return courseResolver.getCourseById(route.paramMap.get('id') || '')\r\n}"
                 }
             ],
+            "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts": [
+                {
+                    "name": "Courses",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    data: {\r\n      name: 'React',\r\n      imageUrl:\r\n        'https://miro.medium.com/v2/resize:fit:1200/1*XOSA6j_mJ3oz6g8MfoHDpg.jpeg',\r\n      description: 'React',\r\n      lessons: [],\r\n      techs: [{ id: '1', name: 'React' }],\r\n      rating: [],\r\n      introductionURL: 'https://example.com/introduction',\r\n      instructorId: [{ id: '1', name: 'Midudev' }],\r\n    },\r\n  },\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<CustomCardComponent>",
+                    "defaultValue": "{\r\n  title: 'Components/Students/HomeCard',\r\n  component: CustomCardComponent,\r\n  tags: ['autodocs'],\r\n}"
+                },
+                {
+                    "name": "Techs",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    data: {\r\n      id: '1',\r\n      name: 'Python',\r\n      description: 'Python',\r\n      imagePath:\r\n        'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',\r\n      courses: [],\r\n    },\r\n  },\r\n}"
+                },
+                {
+                    "name": "Trainers",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    data: {\r\n      id: '1',\r\n      name: 'Midudev',\r\n      reating: [],\r\n      imagePath:\r\n        'https://yt3.googleusercontent.com/ytc/AIf8zZScNwk4VuB2XijvUaEz7Z8Wff_tvBzYaHgOXZZtFQ=s176-c-k-c0x00ffffff-no-rj',\r\n      courses: [],\r\n      socialMedia: [\r\n        {\r\n          linkedin: 'https://www.linkedin.com/in/midudev',\r\n          twitter: 'https://twitter.com/midudev',\r\n          web: 'https://www.youtube.com/c/midudev',\r\n          youtube: 'https://www.youtube.com/c/midudev',\r\n        },\r\n      ],\r\n    },\r\n  },\r\n}"
+                }
+            ],
             "src/app/store/courses/courses.actions.ts": [
                 {
                     "name": "CoursesActions",
@@ -13074,7 +13167,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\r\n  args: {\r\n    course: {\r\n      name: 'Example Course',\r\n      imageUrl: 'example.jpg',\r\n      description: 'This is an example course description.',\r\n      lessons: [], \r\n      techs: [{ id:\"1\", name: 'Angular' }],\r\n      rating: [],\r\n      introductionURL: \"https://example.com/introduction\",\r\n      instructorId:[]\r\n    },\r\n  },\r\n  \r\n}"
+                    "defaultValue": "{\r\n  args: {\r\n    course: {\r\n      name: 'React',\r\n      imageUrl:\r\n        'https://miro.medium.com/v2/resize:fit:1200/1*XOSA6j_mJ3oz6g8MfoHDpg.jpeg',\r\n      description: 'Curso de React desde cero. ¿Qué es? ¿Por qué deberías aprenderlo? ',\r\n      lessons: [],\r\n      techs: [{ id: '1', name: 'React' }],\r\n      rating: [],\r\n      introductionURL: 'https://example.com/introduction',\r\n      instructorId: [{ id: '1', name: 'Midudev' }],\r\n    },\r\n  },\r\n  \r\n}"
                 },
                 {
                     "name": "meta",
@@ -13627,6 +13720,19 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<CourseCardsComponent>",
                     "file": "src/app/students/students-dashboard/pages/courses/components/course-cards/course-card-second-component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
+            "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<CustomCardComponent>",
+                    "file": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -15078,6 +15184,46 @@
                 "name": "CustomCardComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Courses",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Techs",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Trainers",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
