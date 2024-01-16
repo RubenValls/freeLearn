@@ -100,40 +100,16 @@
 
     .bi-heart {
         font-size: xx-large;
-        cursor: pointer;
-        position: relative;
+        cursor: pointer;     
        
 
     }
 
 
 
-    @keyframes latidos {
-        from {
-            transform: none;
-        }
-
-        50% {
-            transform: scale(1.5);
-        }
-
-        to {
-            transform: none;
-        }
-    }
-
-    .bi-heart:active {
-
-        background: var(--favorite);
-        animation: latidos .5s normal;
-        transform-origin: center;
-        transition: all .5s ease-in-out;
-    }
-
 
     .favorite {
-        color:var(--favorite);
-     
+        color:var(--favorite);     
     
     }
 

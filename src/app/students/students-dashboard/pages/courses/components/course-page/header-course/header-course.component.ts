@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';
 import { CoursesService } from 'src/app/admins/admins-dashboard/pages/courses/service/courses.service';
+import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 import { UsersService } from 'src/app/shared/services/users/users.service';
 
 
@@ -20,15 +22,18 @@ export class HeaderCourseComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private userService: UsersService,
+    private alertMessage: AlertsService,
   
  
   ) { 
+
     this.route.data.subscribe(data => {    
       this.course = data['data']     
     });
-    this.isFavorite = this.course?.favorites?.includes(this.courseId);
+
   }
   ngOnInit(): void {
+   
     const user = this.userService.getUserFromStorage();
     this.userId = user?.id
 
@@ -36,13 +41,19 @@ export class HeaderCourseComponent implements OnInit {
       this.courseId = params['id'];
     });
 
+    this.isFavorite = user?.favorites?.includes(this.courseId);
+
 
   }
 
   onFavoriteClick() {
-    this.userService.updateFavoriteCourses(this.courseId)
+    this.userService.updateFavoriteCourses(this.courseId).then(() => {
+      this.alertMessage.successMessage('Course added to favorites');
+    }).catch(() => this.alertMessage.errorMessage('Error adding course to favorites'));
     this.isFavorite = !this.isFavorite;
   }
 
  
 }
+
+
