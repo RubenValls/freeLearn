@@ -58,19 +58,20 @@ export class UsersService {
 
     if (courseIdExist) {
       const newFavorites = userData?.favorites?.filter((course) => course !== courseId);
-      const userUpdated = updateDoc(userRef, { ...userData, favorites: newFavorites });
-
+      const userUpdated = await updateDoc(userRef, { ...userData, favorites: newFavorites })
 
       this.store.dispatch(UserActions.updateUser({ user: userUpdated }));  
       this.saveUserInStorage(userInfo.rememberMe, { ...userInfo, favorites: newFavorites });    
       
-      return userUpdated
+      return Promise.resolve( { message: 'Course removed from favorites' })
     }
-    userData?.favorites?.push(courseId);
-    const userUpdated = await updateDoc(userRef, { favorites: userData?.favorites })
-    this.store.dispatch(UserActions.updateUser({ user: userUpdated }));  
-    this.saveUserInStorage(userInfo.rememberMe, { ...userInfo, favorites: userData?.favorites });    
-    
-    return userUpdated
+    else{
+      userData?.favorites?.push(courseId);
+      await updateDoc(userRef, { favorites: userData?.favorites })
+      this.saveUserInStorage(userInfo.rememberMe, { ...userInfo, favorites: userData?.favorites });    
+      
+      return  Promise.resolve( { message: 'Course add to favorites' })
+    }
+   
   }
 }

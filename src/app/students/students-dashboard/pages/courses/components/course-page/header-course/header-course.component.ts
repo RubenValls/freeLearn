@@ -47,9 +47,9 @@ export class HeaderCourseComponent implements OnInit {
   }
 
   onFavoriteClick() {
-    this.userService.updateFavoriteCourses(this.courseId).then(() => {
-      this.alertMessage.successMessage('Course added to favorites');
-    }).catch(() => this.alertMessage.errorMessage('Error adding course to favorites'));
+    this.userService.updateFavoriteCourses(this.courseId).then(( res) => {
+      this.alertMessage.successMessage(  res.message);
+    }).catch((error) => this.alertMessage.errorMessage(error.message));
     this.isFavorite = !this.isFavorite;
   }
 
