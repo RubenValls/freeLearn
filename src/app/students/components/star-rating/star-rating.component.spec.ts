@@ -32,16 +32,16 @@ describe('StarRatingComponent', () => {
 
   it('should calculate average rating on ngOnInit', () => {
     spyOn(component, 'setRatingAverage').and.callThrough();
-    component.ratings = [{ userId: '1', rating: 3 }, { userId: '2', rating: 4 }];
+    component.rating = [{ userId: '1', rating: 3 }, { userId: '2', rating: 4 }];
     component.ngOnInit();
-    expect(component.setRatingAverage).toHaveBeenCalledWith(component.ratings);
+    expect(component.setRatingAverage).toHaveBeenCalledWith(component.rating);
   });
 
   it('should calculate average rating on ngOnChanges', () => {
     spyOn(component, 'setRatingAverage').and.callThrough();
-    component.ratings = [{ userId: '1', rating: 3 }, { userId: '2', rating: 4 }];
+    component.rating = [{ userId: '1', rating: 3 }, { userId: '2', rating: 4 }];
     component.ngOnChanges({});
-    expect(component.setRatingAverage).toHaveBeenCalledWith(component.ratings);
+    expect(component.setRatingAverage).toHaveBeenCalledWith(component.rating);
   });
 
   it('should emit ratingUpdated event and show success message on click', () => {
