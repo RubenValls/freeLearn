@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';
 import { selectCourses } from 'src/app/store/courses/courses.selectors';
-import { randomArray } from 'src/app/students/functions/rondom-array';
+import { randomArray } from 'src/app/students/functions/random-array';
 
 @Component({
   selector: 'app-home-courses',

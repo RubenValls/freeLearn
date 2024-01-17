@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { TechnologyType } from 'src/app/admins/admins-dashboard/pages/technologies/types/technologies';
 import { selectTechnologies } from 'src/app/store/technologies/tecnologies.selectors';
-import { randomArray } from 'src/app/students/functions/rondom-array';
+import { randomArray } from 'src/app/students/functions/random-array';
 
 @Component({
   selector: 'app-home-technologies',
