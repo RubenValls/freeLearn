@@ -48,30 +48,23 @@ export class UsersService {
   }
 
   async updateFavoriteCourses(courseId: string) {
-
+    let message = '';
+    let favorites;
     const userInfo = this.getUserFromStorage();
-    const userId = this.getUserFromStorage()?.id;
-    const userRef = doc(this.firestore, 'users', userId);
+    const userRef = doc(this.firestore, 'users', userInfo.id);
     const userData = (await getDoc(userRef)).data() as User;
-
     const courseIdExist = userData?.favorites?.find((course) => course === courseId);
 
     if (courseIdExist) {
-      const newFavorites = userData?.favorites?.filter((course) => course !== courseId);
-      const userUpdated = await updateDoc(userRef, { ...userData, favorites: newFavorites })
-
-      this.store.dispatch(UserActions.updateUser({ user: userUpdated }));  
-      this.saveUserInStorage(userInfo.rememberMe, { ...userInfo, favorites: newFavorites });    
-      
-      return Promise.resolve( { message: 'Course removed from favorites' })
+      favorites = userData?.favorites?.filter((course) => course !== courseId);
+      message = 'Course removed from favorites'
+    } else {
+      favorites = userData?.favorites?.concat(courseId);
+      message = 'Course add to favorites'
     }
-    else{
-      userData?.favorites?.push(courseId);
-      await updateDoc(userRef, { favorites: userData?.favorites })
-      this.saveUserInStorage(userInfo.rememberMe, { ...userInfo, favorites: userData?.favorites });    
-      
-      return  Promise.resolve( { message: 'Course add to favorites' })
-    }
-   
+    const userUpdated = await updateDoc(userRef, { ...userData, favorites: favorites })
+    this.store.dispatch(UserActions.updateUser({ user: userUpdated }));
+    this.saveUserInStorage(userInfo.rememberMe, { ...userInfo, favorites: favorites });
+    return Promise.resolve({ message: message })
   }
 }
