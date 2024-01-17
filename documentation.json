@@ -12357,8 +12357,8 @@
                 "file": "src/app/students/components/star-rating/star-rating.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\r\n    args: {\r\n        finalRating: 3,\r\n        rating: [{ userId: \"1\", rating: 3 }, { userId: \"2\", rating: 4 }, { userId: \"3\", rating: 5 }],\r\n\r\n        onClick: (rating: number) => {\r\n          \r\n            return false;\r\n        }\r\n    }\r\n}"
+                "type": "",
+                "defaultValue": "() => ({\r\n  component: StarRatingComponent,\r\n  props: {\r\n    rating: [{ rating: 2 }, { rating: 4 }, { rating: 5 }],\r\n  },\r\n})"
             },
             {
                 "name": "Default",
@@ -12649,16 +12649,6 @@
                 "deprecationMessage": "",
                 "type": "Meta<InstructorCardComponent>",
                 "defaultValue": "{\r\n    title: \"Components/Students/InstructorCard\",\r\n  component: InstructorCardComponent,\r\n  tags: ['autodoc']\r\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/students/components/star-rating/star-rating.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<StarRatingComponent>",
-                "defaultValue": "{\r\n    title: \"Components/Students/StarRating\",\r\n    component: StarRatingComponent,\r\n\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n            providers: [\r\n                {\r\n                    provide: APP_INITIALIZER,\r\n                    useFactory: AlertsService,\r\n                    deps: [AlertsService, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBar],\r\n\r\n                },\r\n                {\r\n                    provide: AlertsService,\r\n                    useValue: {\r\n                        successMessage: (message: string) => {\r\n                            return of(message);\r\n                        }\r\n                    }\r\n                },\r\n                // {\r\n                //     provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,\r\n                //     useValue: {\r\n                //         duration: 5000,\r\n                //         horizontalPosition: \"right\",\r\n                //         verticalPosition: \"top\"\r\n                //     }\r\n                // }\r\n            ],\r\n            imports: [MatButtonModule, MatIconModule, MatSnackBarModule, MatTooltipModule\r\n\r\n            ]\r\n\r\n        })\r\n    ]\r\n}"
             },
             {
                 "name": "meta",
@@ -13094,17 +13084,6 @@
                 "subtype": "typealias",
                 "rawtype": "StoryObj<InstructorCardComponent>",
                 "file": "src/app/shared/components/instructor-card/instructor-card.components.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 183
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
-                "rawtype": "StoryObj<StarRatingComponent>",
-                "file": "src/app/students/components/star-rating/star-rating.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -13624,18 +13603,8 @@
                     "file": "src/app/students/components/star-rating/star-rating.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\r\n    args: {\r\n        finalRating: 3,\r\n        rating: [{ userId: \"1\", rating: 3 }, { userId: \"2\", rating: 4 }, { userId: \"3\", rating: 5 }],\r\n\r\n        onClick: (rating: number) => {\r\n          \r\n            return false;\r\n        }\r\n    }\r\n}"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/students/components/star-rating/star-rating.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta<StarRatingComponent>",
-                    "defaultValue": "{\r\n    title: \"Components/Students/StarRating\",\r\n    component: StarRatingComponent,\r\n\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n            providers: [\r\n                {\r\n                    provide: APP_INITIALIZER,\r\n                    useFactory: AlertsService,\r\n                    deps: [AlertsService, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBar],\r\n\r\n                },\r\n                {\r\n                    provide: AlertsService,\r\n                    useValue: {\r\n                        successMessage: (message: string) => {\r\n                            return of(message);\r\n                        }\r\n                    }\r\n                },\r\n                // {\r\n                //     provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,\r\n                //     useValue: {\r\n                //         duration: 5000,\r\n                //         horizontalPosition: \"right\",\r\n                //         verticalPosition: \"top\"\r\n                //     }\r\n                // }\r\n            ],\r\n            imports: [MatButtonModule, MatIconModule, MatSnackBarModule, MatTooltipModule\r\n\r\n            ]\r\n\r\n        })\r\n    ]\r\n}"
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  component: StarRatingComponent,\r\n  props: {\r\n    rating: [{ rating: 2 }, { rating: 4 }, { rating: 5 }],\r\n  },\r\n})"
                 }
             ],
             "src/app/students/students-dashboard/pages/courses/components/course-cards/course-card-second-component.stories.ts": [
@@ -14172,19 +14141,6 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<InstructorCardComponent>",
                     "file": "src/app/shared/components/instructor-card/instructor-card.components.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 183
-                }
-            ],
-            "src/app/students/components/star-rating/star-rating.component.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<StarRatingComponent>",
-                    "file": "src/app/students/components/star-rating/star-rating.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -15617,16 +15573,6 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "Default",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/students/components/star-rating/star-rating.component.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "meta",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
