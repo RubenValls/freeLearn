@@ -90,22 +90,21 @@ export const Trainers: Story = {
       {
         id: '1',
         name: 'Midudev',
-        rating: [{
-          rating: 4,
-          userId: "HclEUHV8XslaqIYSMatG"
-        }],
-        imagePath: 'https://yt3.googleusercontent.com/ytc/AIf8zZScNwk4VuB2XijvUaEz7Z8Wff_tvBzYaHgOXZZtFQ=s176-c-k-c0x00ffffff-no-rj',
-        courses: [],
-        socialMedia: [
+        rating: [
           {
-            linkedin: 'https://www.linkedin.com/in/midudev',
-            twitter: 'https://twitter.com/midudev',
-            web: 'https://www.youtube.com/c/midudev',
-            youtube: 'https://www.youtube.com/c/midudev',
-            
-            
+            rating: 4,
+            userId: 'HclEUHV8XslaqIYSMatG',
           },
         ],
+        imagePath:
+          'https://yt3.googleusercontent.com/ytc/AIf8zZScNwk4VuB2XijvUaEz7Z8Wff_tvBzYaHgOXZZtFQ=s176-c-k-c0x00ffffff-no-rj',
+        courses: [],
+        socialMedia: {
+          linkedin: 'https://www.linkedin.com/in/midudev',
+          twitter: 'https://twitter.com/midudev',
+          web: 'https://www.youtube.com/c/midudev',
+          youtube: 'https://www.youtube.com/c/midudev',
+        },
       },
     ],
     displayedColumns: [
@@ -141,16 +140,16 @@ export const Users: Story = {
       {
         id: '1',
         displayName: 'Ismael Cervera',
-        email: "isma@test.com",
+        email: 'isma@test.com',
         photoURL:
           'https://th.bing.com/th/id/OIP.ZmXuryOWnCOmdKSGsS3RAwHaHa?rs=1&pid=ImgDetMain',
         favorites: [],
-        providerId: "password",
-        phoneNumber: "666888999",
-        authUid: "wefe34jhhxhjs",
-        role: "student",
-        uid: "isma@test.com",
-        rememberMe: true
+        providerId: 'password',
+        phoneNumber: '666888999',
+        authUid: 'wefe34jhhxhjs',
+        role: 'student',
+        uid: 'isma@test.com',
+        rememberMe: true,
       },
     ],
     displayedColumns: [
