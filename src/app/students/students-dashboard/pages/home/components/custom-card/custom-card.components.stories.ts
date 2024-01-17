@@ -13,7 +13,7 @@ type Story = StoryObj<CustomCardComponent>;
 export const Courses: Story = {
   args: {
     data: {
-      name: 'React',
+      name: 'Curso de React',
       imageUrl:
         'https://miro.medium.com/v2/resize:fit:1200/1*XOSA6j_mJ3oz6g8MfoHDpg.jpeg',
       description: 'React',
