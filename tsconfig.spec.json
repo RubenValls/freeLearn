@@ -11,6 +11,7 @@
   "include": [
     "src/**/*.spec.ts",
     "src/**/*.d.ts",
-    "src/app/students/functions/functions.spec.ts"
+    "src/app/students/functions/functions.spec.ts",
+    "src/app/login/store/userstore.spec.ts",
   ]
 }
