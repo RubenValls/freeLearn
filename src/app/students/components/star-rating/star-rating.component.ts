@@ -9,8 +9,8 @@ import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 })
 export class StarRatingComponent implements OnInit, OnChanges {
 
-  @Input('rating') ratings: Rating[] | undefined;
-  rating: number = 0;
+  @Input('rating') rating: Rating[] | undefined;
+  finalRating: number = 0;
   starCount: number = 5;
   color: string = 'accent';
   @Output() ratingUpdated = new EventEmitter();
@@ -22,7 +22,7 @@ export class StarRatingComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.setRatingAverage(this.ratings ? this.ratings : [])
+    this.setRatingAverage(this.rating ? this.rating : [])
   }
 
   ngOnInit() {
@@ -30,7 +30,7 @@ export class StarRatingComponent implements OnInit, OnChanges {
       this.ratingArr.push(index);
     }
 
-    this.setRatingAverage(this.ratings ? this.ratings : [])
+    this.setRatingAverage(this.rating ? this.rating : [])
   }
 
   onClick(rating:number) {   
@@ -40,7 +40,7 @@ export class StarRatingComponent implements OnInit, OnChanges {
   }
 
   showIcon(index:number) {
-    if (this.rating >= index + 1) {
+    if (this.finalRating >= index + 1) {
       return 'star';
     } else {
       return 'star_border';
@@ -53,6 +53,6 @@ export class StarRatingComponent implements OnInit, OnChanges {
     const average = sum / ratings.length;
     const roundedAverage = Math.round(average);
 
-    this.rating = roundedAverage;
+    this.finalRating = roundedAverage;
   }
 }

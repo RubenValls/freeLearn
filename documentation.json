@@ -2451,7 +2451,7 @@
         },
         {
             "name": "UsersService",
-            "id": "injectable-UsersService-9725eabbe4b99ae9975fee2799384e56441282a3d20bd0510ae4fdbf87cb876c71fe5c2a35d2399f1364bc6dd949c1a615bc6696eca647678ec5dfb4c50c6753",
+            "id": "injectable-UsersService-b90f2fd3bd1cccb8ccddcb5e43c5437af004247332b5f531e9d77f01de2fd773dc284bc1a418423843cc425621048d130c89cfbe8c3910c527b58580e48ccb07",
             "file": "src/app/shared/services/users/users.service.ts",
             "properties": [],
             "methods": [
@@ -2468,7 +2468,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 15,
+                    "line": 22,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2489,7 +2489,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 33,
+                    "line": 40,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -2499,7 +2499,7 @@
                     "optional": false,
                     "returnType": "Observable<{}>",
                     "typeParameters": [],
-                    "line": 20,
+                    "line": 27,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -2522,7 +2522,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 25,
+                    "line": 32,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2538,6 +2538,37 @@
                         {
                             "name": "user",
                             "type": "User",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "updateFavoriteCourses",
+                    "args": [
+                        {
+                            "name": "courseId",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "unknown",
+                    "typeParameters": [],
+                    "line": 50,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        134
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "courseId",
+                            "type": "string",
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
@@ -2565,7 +2596,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 38,
+                    "line": 45,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -2597,7 +2628,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { Firestore, collectionData } from '@angular/fire/firestore';\r\nimport { addDoc, collection, doc, updateDoc } from 'firebase/firestore';\r\nimport { Observable } from 'rxjs';\r\nimport { User } from 'src/app/login/types/user';\r\n\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class UsersService {\r\n\r\n  constructor(private firestore: Firestore) { }\r\n\r\n  addUser(user: any){\r\n    const usersRef = collection(this.firestore, 'users')\r\n    addDoc(usersRef, user).then((data) => { console.log(\"creado\", data)}).catch((error) => {console.log(\"error\", error)})\r\n  }\r\n\r\n  getUsers(){\r\n    const userRef =  collection(this.firestore, 'users');\r\n    return collectionData(userRef, {idField: 'id'}) as Observable<User[]>;\r\n  }\r\n\r\n  saveUserInStorage(rememberMe: boolean, user: User){\r\n    if(rememberMe){\r\n      localStorage.setItem('userInfo', JSON.stringify(user))\r\n    }else{\r\n      sessionStorage.setItem('userInfo', JSON.stringify(user))\r\n    }\r\n  }\r\n\r\n  getUserFromStorage(){\r\n    const userInfo = localStorage.getItem('userInfo') || sessionStorage.getItem('userInfo');\r\n    return userInfo ? JSON.parse(userInfo) : null;\r\n  }\r\n\r\n  async updateUser(userId: string, user: User){\r\n    const techRef = doc(this.firestore, 'users', userId);\r\n    await updateDoc(techRef, {...user})\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { user } from '@angular/fire/auth';\r\nimport { Firestore, collectionData } from '@angular/fire/firestore';\r\nimport { Store } from '@ngrx/store';\r\nimport { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';\r\nimport { Observable } from 'rxjs';\r\nimport { UserActions } from 'src/app/login/store/user.actions';\r\nimport { User } from 'src/app/login/types/user';\r\n\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class UsersService {\r\n\r\n  constructor(\r\n    private firestore: Firestore,\r\n    private store: Store\r\n\r\n  ) { }\r\n\r\n  addUser(user: any) {\r\n    const usersRef = collection(this.firestore, 'users')\r\n    addDoc(usersRef, user).then((data) => { console.log(\"creado\", data) }).catch((error) => { console.log(\"error\", error) })\r\n  }\r\n\r\n  getUsers() {\r\n    const userRef = collection(this.firestore, 'users');\r\n    return collectionData(userRef, { idField: 'id' }) as Observable<User[]>;\r\n  }\r\n\r\n  saveUserInStorage(rememberMe: boolean, user: User) {\r\n    if (rememberMe) {\r\n      localStorage.setItem('userInfo', JSON.stringify(user))\r\n    } else {\r\n      sessionStorage.setItem('userInfo', JSON.stringify(user))\r\n    }\r\n  }\r\n\r\n  getUserFromStorage() {\r\n    const userInfo = localStorage.getItem('userInfo') || sessionStorage.getItem('userInfo');\r\n    return userInfo ? JSON.parse(userInfo) : null;\r\n  }\r\n\r\n  async updateUser(userId: string, user: User) {\r\n    const techRef = doc(this.firestore, 'users', userId);\r\n    await updateDoc(techRef, { ...user })\r\n  }\r\n\r\n  async updateFavoriteCourses(courseId: string) {\r\n    let message = '';\r\n    let favorites;\r\n    const userInfo = this.getUserFromStorage();\r\n    const userRef = doc(this.firestore, 'users', userInfo.id);\r\n    const userData = (await getDoc(userRef)).data() as User;\r\n    const courseIdExist = userData?.favorites?.find((course) => course === courseId);\r\n\r\n    if (courseIdExist) {\r\n      favorites = userData?.favorites?.filter((course) => course !== courseId);\r\n      message = 'Course removed from favorites'\r\n    } else {\r\n      favorites = userData?.favorites?.concat(courseId);\r\n      message = 'Course add to favorites'\r\n    }\r\n    const userUpdated = await updateDoc(userRef, { ...userData, favorites: favorites })\r\n    this.store.dispatch(UserActions.updateUser({ user: userUpdated }));\r\n    this.saveUserInStorage(userInfo.rememberMe, { ...userInfo, favorites: favorites });\r\n    return Promise.resolve({ message: message })\r\n  }\r\n}\r\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -2609,13 +2640,28 @@
                         "type": "Firestore",
                         "deprecated": false,
                         "deprecationMessage": ""
+                    },
+                    {
+                        "name": "store",
+                        "type": "Store",
+                        "deprecated": false,
+                        "deprecationMessage": ""
                     }
                 ],
-                "line": 11,
+                "line": 14,
                 "jsdoctags": [
                     {
                         "name": "firestore",
                         "type": "Firestore",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "store",
+                        "type": "Store",
                         "deprecated": false,
                         "deprecationMessage": "",
                         "tagName": {
@@ -3369,13 +3415,13 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".card {\r\n    border-radius: 15px;\r\n    padding: 10px;\r\n    margin: 10PX;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: start;\r\n    gap: .5rem;\r\n    transition: all 0.5s ease-in-out;   \r\n\r\n    .card-img {\r\n        margin: 5px;\r\n        width: 100px;\r\n        height: 100px;\r\n        display: flex;\r\n        justify-content: center;\r\n        align-items: center;\r\n        border-radius: 50%;\r\n        overflow: hidden;       \r\n        img {\r\n            width:100px;\r\n            height:100px;\r\n            border-radius: 50%;\r\n        }\r\n    }\r\n    .main{\r\n        display: flex;\r\n        flex-direction: row;\r\n        justify-content: space-between;\r\n        width: 100%;\r\n\r\n        .card-content {       \r\n            box-sizing: border-box;\r\n            overflow: hidden;\r\n            max-width: 200px;\r\n     \r\n            .card-title {\r\n                text-align: left;\r\n                margin: 0;\r\n             }\r\n     \r\n          \r\n             .card-list {\r\n                 display: flex;\r\n                 flex-direction: column;\r\n                 gap: 5px;\r\n     \r\n                 div {\r\n                     filter: opacity(0.6);\r\n                     display: flex;\r\n                     flex-direction: row;\r\n                     gap: 5px;\r\n                     font-size: smaller;\r\n                 }\r\n             }     \r\n         }       \r\n    }\r\n   \r\n}\r\n\r\n.card:hover { \r\n    transition: all 0.5s ease-in-out;\r\n    box-shadow: 10px 10px 14px #9d9d9d;\r\n    cursor:pointer;\r\n}\r\n\r\n",
+                    "data": ".card {\r\n    border-radius: 15px;\r\n    padding: 10px;\r\n    margin: 10PX;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: start;\r\n    gap: .5rem;\r\n    transition: all 0.5s ease-in-out;   \r\n\r\n    .card-img {\r\n        margin: 5px;\r\n        width: 100px;\r\n        height: 100px;\r\n        display: flex;\r\n        justify-content: center;\r\n        align-items: center;\r\n        border-radius: 50%;\r\n        overflow: hidden;       \r\n        img {\r\n            width:100px;\r\n            height:100px;\r\n            border-radius: 50%;\r\n        }\r\n    }\r\n    .main{\r\n        display: flex;\r\n        flex-direction: row;\r\n        justify-content: space-between;\r\n        width: 100%;\r\n\r\n        .card-content {       \r\n            box-sizing: border-box;\r\n            overflow: hidden;\r\n            max-width: 200px;\r\n     \r\n            .card-title {\r\n                text-align: left;\r\n                margin: 0;\r\n             }\r\n     \r\n          \r\n             .card-list {\r\n                 display: flex;\r\n                 flex-direction: column;\r\n                 gap: 5px;\r\n     \r\n                 div {\r\n                     filter: opacity(0.6);\r\n                     display: flex;\r\n                     flex-direction: row;\r\n                     gap: 5px;\r\n                     font-size: smaller;\r\n                 }\r\n             }     \r\n         }       \r\n    }\r\n   \r\n}\r\n\r\n.card:hover { \r\n    transition: all 0.5s ease-in-out;\r\n    box-shadow: 10px 10px 14px #9d9d9d;\r\n    cursor:pointer;\r\n}\r\n.stars{\r\n    color: var(--accent);\r\n    font-size: 20px;\r\n}\r\n",
                     "styleUrl": "./course-cards.component.scss"
                 }
             ],
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"card \"  [routerLink]=\" '/students/courses/' + course?.id\">\r\n    <div class=\"card-img\"> <img [src]=\"course?.imageUrl\" alt=\"\">\r\n    </div>\r\n    <div class=\"main\">\r\n        <div class=\"card-content\">\r\n            <div class=\"card-title\">\r\n                <p>\r\n                    {{course?.name}}\r\n                </p>\r\n            </div>\r\n            <div class=\"card-list \">\r\n                <div *ngIf=\"course?.instructorId?.length !== 0\"> <i class=\"bi bi-mortarboard-fill\"></i> <span\r\n                        *ngFor=\"let instructor of course?.instructorId\"> {{instructor.name}}</span></div>\r\n                <div *ngIf=\"course?.techs?.length !== 0\"> <i class=\"bi bi-tools\"></i> <span\r\n                        *ngFor=\"let tech of course?.techs\">{{tech.name}}</span> </div>\r\n            </div>\r\n        </div>\r\n                <div class=\"card-rating\">\r\n            <div class=\"rating-stars\" *ngIf=\"course?.rating\">\r\n                <ng-container *ngFor=\"let i of [].constructor(5); let j = index\">\r\n                     <i class=\"bi stars\" [ngClass]=\"{'bi-star-fill': j < getRatingAverage(course?.rating), 'bi-star': j >= getRatingAverage(course?.rating)}\"></i>\r\n                </ng-container>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n\r\n</div>"
+            "templateData": "<div class=\"card \"  [routerLink]=\" '/students/courses/' + course?.id\">\r\n <div class=\"d-none d-sm-block\">\r\n    <div class=\"card-img \"> <img [src]=\"course?.imageUrl\" alt=\"\" class=\"\">\r\n\r\n    </div>\r\n </div>\r\n \r\n    <div class=\"main\">\r\n        <div class=\"card-content\">\r\n            <div class=\"card-title\">\r\n                <p>\r\n                    {{course?.name}}\r\n                </p>\r\n            </div>\r\n            <div class=\"card-list \">\r\n                <div *ngIf=\"course?.instructorId?.length !== 0\"> <i class=\"bi bi-mortarboard-fill\"></i> <span\r\n                        *ngFor=\"let instructor of course?.instructorId\"> {{instructor.name}}</span></div>\r\n                <div *ngIf=\"course?.techs?.length !== 0\"> <i class=\"bi bi-tools\"></i> <span\r\n                        *ngFor=\"let tech of course?.techs\">{{tech.name}}</span> </div>\r\n            </div>\r\n        </div>\r\n                <div class=\"card-rating d-none d-sm-block\">\r\n            <div class=\"rating-stars\" *ngIf=\"course?.rating\">\r\n                <ng-container *ngFor=\"let i of [].constructor(5); let j = index\">\r\n                     <i class=\"bi stars\" [ngClass]=\"{'bi-star-fill ': j < getRatingAverage(course?.rating), 'bi-star': j >= getRatingAverage(course?.rating)}\"></i>\r\n                </ng-container>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n\r\n</div>"
         },
         {
             "name": "CoursePageComponent",
@@ -3510,7 +3556,7 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".course {\r\n    width: 100%;\r\n    height: 100%;\r\n    box-sizing: content-box;  \r\n    overflow: scroll;\r\n    overflow-x: hidden;\r\n    border-radius: 20px;   \r\n\r\n\r\n    .header-course{\r\n        width: 100%;\r\n    }\r\n}\r\n\r\n\r\n.main-course {\r\n    margin: 10px;\r\n    width: 100%; \r\n}\r\n\r\n\r\n\r\n.course::-webkit-scrollbar {\r\n    width: 5px;    \r\n    border-radius: 20px;  \r\n  }\r\n  \r\n  .course::-webkit-scrollbar-track {\r\n    height: 10px;    \r\n    margin: 40px;\r\n  }\r\n  \r\n  .course::-webkit-scrollbar-thumb { \r\n    background: var(--gradient);   \r\n    border-radius: 20px;      \r\n\r\n  }\r\n\r\n  .course {   \r\n    scrollbar-color:var(--gradient);\r\n  }\r\n",
+                    "data": ".course {\r\n    width: 100%;\r\n    height: 100%;\r\n    box-sizing: content-box;  \r\n    overflow: scroll;\r\n    overflow-x: hidden;\r\n    border-radius: 20px;   \r\n\r\n\r\n    .header-course{\r\n        width: 100%;\r\n    }\r\n}\r\n\r\n\r\n.main-course {\r\n    margin: 10px;\r\n    width: 100%; \r\n}\r\n\r\n\r\n\r\n.course::-webkit-scrollbar {\r\n    width: 5px;    \r\n    border-radius: 20px;  \r\n  }\r\n  \r\n  .course::-webkit-scrollbar-track {\r\n    height: 10px;    \r\n    margin: 40px;\r\n  }\r\n  \r\n  .course::-webkit-scrollbar-thumb { \r\n    background: var(--gradient);   \r\n    border-radius: 20px;      \r\n\r\n  }\r\n\r\n  .course {   \r\n    scrollbar-color:var(--gradient);\r\n  }\r\n\r\n\r\n",
                     "styleUrl": "./course-page.component.scss"
                 }
             ],
@@ -3575,7 +3621,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"course\">\r\n    <div class=\"header-course\">\r\n        <app-header-course></app-header-course>\r\n        <div class=\"rating d-flex justify-content-end\">\r\n            <app-star-rating [rating]=\"course?.rating\" (ratingUpdated)=\"handleUpdate($event)\"></app-star-rating>\r\n        </div>\r\n    </div>\r\n    <div class=\"main-course row col-12\">\r\n        <div class=\"instructors row col-12\">           \r\n            <app-details-course [courseId]=\"courseId\" [instructorsId]=\"instructorsId\" [techsId]=\"techsId\"></app-details-course>\r\n        </div>\r\n        \r\n    </div>\r\n    <div class=\"\" *ngIf=\"areLessonsVisible\" >\r\n        <app-lessons-course [lessons]=\"course?.lessons\" ></app-lessons-course>\r\n    </div>\r\n \r\n</div>\r\n\r\n"
+            "templateData": "<div class=\"course\">\r\n    <div class=\"header-course\">\r\n        <app-header-course></app-header-course>     \r\n\r\n        <div class=\"rating d-flex justify-content-end\">\r\n            <app-star-rating [rating]=\"course?.rating\" (ratingUpdated)=\"handleUpdate($event)\"></app-star-rating>\r\n        </div>\r\n      \r\n    </div>\r\n    <div class=\"main-course row col-12\">\r\n        <div class=\"instructors row col-12\">           \r\n            <app-details-course [courseId]=\"courseId\" [instructorsId]=\"instructorsId\" [techsId]=\"techsId\"></app-details-course>\r\n        </div>\r\n        \r\n    </div>\r\n    <div class=\"\" *ngIf=\"areLessonsVisible\" >\r\n        <app-lessons-course [lessons]=\"course?.lessons\" ></app-lessons-course>\r\n    </div>\r\n \r\n</div>\r\n\r\n"
         },
         {
             "name": "CoursesComponent",
@@ -4319,7 +4365,7 @@
         },
         {
             "name": "CustomCardComponent",
-            "id": "component-CustomCardComponent-0d6e17e32fcccd06aa4ebf0f76ca0505ba74fed7c492f0976864de4e20b85aaa569c8631fe2cb1210f445b34b60182d623a31b4f9391e3dac85ae621fc5b6fa5",
+            "id": "component-CustomCardComponent-79157bc00ec63df82c6689e9447577b5d5702d441f7132bb8eb5769e89536e6b680424b602240a59dca0b12a6ad432b45229c972a2914803910a1b182d61685e",
             "file": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -4342,7 +4388,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "line": 10,
-                    "type": "any",
+                    "type": "any | undefined",
                     "decorators": []
                 }
             ],
@@ -4358,7 +4404,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-custom-card',\r\n  templateUrl: './custom-card.component.html',\r\n  styleUrls: ['./custom-card.component.scss']\r\n})\r\nexport class CustomCardComponent {\r\n\r\n@Input() data: any\r\n\r\n\r\n}\r\n",
+            "sourceCode": "import { Component, Input } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-custom-card',\r\n  templateUrl: './custom-card.component.html',\r\n  styleUrls: ['./custom-card.component.scss']\r\n})\r\nexport class CustomCardComponent {\r\n\r\n@Input() data: any | undefined\r\n\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -4368,7 +4414,7 @@
             ],
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"card\"  >\r\n  <img *ngIf=\"data.imagePath\" src=\"{{ data.imagePath }}\" alt=\"\" />\r\n  <img *ngIf=\"data.imageUrl\" src=\"{{ data.imageUrl }}\" alt=\"\" class=\"course\"/>\r\n  <p>{{data.name}}</p>\r\n</div>\r\n\r\n"
+            "templateData": "<div class=\"card\"  >\r\n  <img *ngIf=\"data?.imagePath\" src=\"{{ data?.imagePath ? data?.imagePath : '' }}\" alt=\"\" />\r\n  <img *ngIf=\"data?.imageUrl\" src=\"{{ data?.imageUrl ? data?.imageUrl : '' }}\" alt=\"\" class=\"course\"/>\r\n  <p>{{data?.name ? data?.name : ''}}</p>\r\n</div>\r\n\r\n"
         },
         {
             "name": "CustomTableComponent",
@@ -6092,7 +6138,7 @@
         },
         {
             "name": "HeaderCourseComponent",
-            "id": "component-HeaderCourseComponent-5f107d9887c72e5b923b0ad7201bd2e2bb17b0848d313056d8eec7824d77b10975bb39029bc47f8facde6c37035a5797a66e54fd4c6bf99852d5fd735323826f",
+            "id": "component-HeaderCourseComponent-2f8231989d58b7a29b19d8effb5e64a8676d68d348f9e4bc40d14565d5582c4d268d702fd287f8554c5f42231b21314f4ff77679ed48136ff575951cb087c0f7",
             "file": "src/app/students/students-dashboard/pages/courses/components/course-page/header-course/header-course.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -6119,7 +6165,27 @@
                     "type": "any",
                     "optional": false,
                     "description": "",
-                    "line": 16
+                    "line": 18
+                },
+                {
+                    "name": "courseId",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 19
+                },
+                {
+                    "name": "isFavorite",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 20
                 },
                 {
                     "name": "userId",
@@ -6129,7 +6195,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 15
+                    "line": 17
                 }
             ],
             "methodsClass": [
@@ -6139,7 +6205,17 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 26,
+                    "line": 35,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "onFavoriteClick",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 49,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -6153,11 +6229,11 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { ActivatedRoute } from '@angular/router';\r\nimport { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';\r\nimport { CoursesService } from 'src/app/admins/admins-dashboard/pages/courses/service/courses.service';\r\nimport { UsersService } from 'src/app/shared/services/users/users.service';\r\n\r\n\r\n@Component({\r\n  selector: 'app-header-course',\r\n  templateUrl: './header-course.component.html',\r\n  styleUrls: ['./header-course.component.scss']\r\n})\r\nexport class HeaderCourseComponent implements OnInit {\r\n  \r\n  userId: string = '';\r\n  course:any;\r\n  constructor(\r\n    private route: ActivatedRoute,\r\n    private userService: UsersService,\r\n \r\n  ) { \r\n    this.route.data.subscribe(data => {    \r\n      this.course = data['data']\r\n    });\r\n  }\r\n  ngOnInit(): void {\r\n    const user = this.userService.getUserFromStorage();\r\n    this.userId = user?.id\r\n  }\r\n\r\n \r\n}\r\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { ActivatedRoute } from '@angular/router';\r\nimport { Store } from '@ngrx/store';\r\nimport { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';\r\nimport { CoursesService } from 'src/app/admins/admins-dashboard/pages/courses/service/courses.service';\r\nimport { AlertsService } from 'src/app/shared/services/alerts/alerts.service';\r\nimport { UsersService } from 'src/app/shared/services/users/users.service';\r\n\r\n\r\n@Component({\r\n  selector: 'app-header-course',\r\n  templateUrl: './header-course.component.html',\r\n  styleUrls: ['./header-course.component.scss']\r\n})\r\nexport class HeaderCourseComponent implements OnInit {\r\n  \r\n  userId: string = '';\r\n  course:any;\r\n  courseId: string = '';\r\n  isFavorite: boolean = false;\r\n\r\n  constructor(\r\n    private route: ActivatedRoute,\r\n    private userService: UsersService,\r\n    private alertMessage: AlertsService,\r\n  \r\n \r\n  ) { \r\n\r\n    this.route.data.subscribe(data => {    \r\n      this.course = data['data']     \r\n    });\r\n\r\n  }\r\n  ngOnInit(): void {\r\n   \r\n    const user = this.userService.getUserFromStorage();\r\n    this.userId = user?.id\r\n\r\n    this.route.params.subscribe(params => {\r\n      this.courseId = params['id'];\r\n    });\r\n\r\n    this.isFavorite = user?.favorites?.includes(this.courseId);\r\n\r\n\r\n  }\r\n\r\n  onFavoriteClick() {\r\n    this.userService.updateFavoriteCourses(this.courseId).then(( res) => {\r\n      this.alertMessage.successMessage(  res.message);\r\n    }).catch((error) => this.alertMessage.errorMessage(error.message));\r\n    this.isFavorite = !this.isFavorite;\r\n  }\r\n\r\n \r\n}\r\n\r\n\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".header-container{\r\n    width: 100%;\r\n    padding:20px 10px;\r\n}\r\n.header-course {\r\n    width: 100%;\r\n    padding: 5px;\r\n    border-radius: 10px;   \r\n    background:var(--gradient-opacity);   \r\n}\r\n.header-course-md{\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    gap: 1rem;\r\n    align-items: center;   \r\n}\r\n.header-course-sm {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    flex-direction: column;\r\n    justify-content: center;\r\n    gap: 1rem;\r\n    align-items: center;   \r\n}\r\n\r\n\r\n.img-content {\r\n    width: 100px;\r\n    height: 100px;\r\n    border-radius: 50%;\r\n    overflow: hidden;\r\n\r\n\r\n}\r\n\r\n.img-content img {\r\n    width: 100%;\r\n    height: 100%;   \r\n}\r\n\r\n.main-course {\r\n    width: 85%;\r\n \r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    padding: 10px;\r\n\r\n    .content-course {\r\n        width: 85%;\r\n\r\n    }\r\n\r\n   \r\n\r\n}\r\n.btn-course{\r\n    background: var(--gradient);\r\n    border-radius: 10px;\r\n    padding: 5px;\r\n    border: none;\r\n    color: white;\r\n}\r\n.collapse-text{\r\n    overflow: hidden;\r\n   \r\n    width: 85%;\r\n    text-align: justify;\r\n   .description-course{\r\n    border: 1px solid rgb(0, 255, 13);\r\n   }\r\n   \r\n}\r\n.collapse-one{\r\n    margin-top: 5px;\r\n    border: 1px solid red;\r\n    width: 30%;\r\n}\r\n.collpse-btn, .collapse-one{\r\n    width: 85%;\r\n   \r\n}",
+                    "data": ".header-container {\r\n    width: 100%;\r\n    padding: 20px 10px;\r\n}\r\n\r\n.header-course {\r\n    width: 100%;\r\n    padding: 5px;\r\n    border-radius: 10px;\r\n    background: var(--gradient-opacity);\r\n}\r\n\r\n.header-course-md {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    gap: 1rem;\r\n    align-items: center;\r\n}\r\n\r\n.header-course-sm {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    flex-direction: column;\r\n    justify-content: center;\r\n    gap: 1rem;\r\n    align-items: center;\r\n}\r\n\r\n\r\n.img-content {\r\n    width: 100px;\r\n    height: 100px;\r\n    border-radius: 50%;\r\n    overflow: hidden;\r\n\r\n\r\n}\r\n\r\n.img-content img {\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n\r\n.main-course {\r\n    width: 85%;\r\n\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    padding: 10px;\r\n\r\n    .content-course {\r\n        width: 85%;\r\n\r\n    }\r\n\r\n\r\n\r\n}\r\n\r\n.btn-course {\r\n    background: var(--gradient);\r\n    border-radius: 10px;\r\n    padding: 5px;\r\n    border: none;\r\n    color: white;\r\n}\r\n\r\n.collapse-text {\r\n    overflow: hidden;\r\n\r\n    width: 85%;\r\n    text-align: justify;\r\n\r\n    .description-course {\r\n        border: 1px solid rgb(0, 255, 13);\r\n    }\r\n\r\n}\r\n\r\n.collapse-one {\r\n    margin-top: 5px;\r\n    border: 1px solid red;\r\n    width: 30%;\r\n}\r\n\r\n.collpse-btn,\r\n.collapse-one {\r\n    width: 85%;\r\n\r\n}\r\n\r\n.fav-container {\r\n\r\n    margin-left: 10px;\r\n    display: inline;\r\n\r\n    .bi-heart {\r\n        font-size: xx-large;\r\n        cursor: pointer;     \r\n       \r\n\r\n    }\r\n\r\n\r\n\r\n\r\n    .favorite {\r\n        color:var(--favorite);     \r\n    \r\n    }\r\n\r\n}",
                     "styleUrl": "./header-course.component.scss"
                 }
             ],
@@ -6179,9 +6255,15 @@
                         "type": "UsersService",
                         "deprecated": false,
                         "deprecationMessage": ""
+                    },
+                    {
+                        "name": "alertMessage",
+                        "type": "AlertsService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
                     }
                 ],
-                "line": 16,
+                "line": 20,
                 "jsdoctags": [
                     {
                         "name": "route",
@@ -6200,6 +6282,15 @@
                         "tagName": {
                             "text": "param"
                         }
+                    },
+                    {
+                        "name": "alertMessage",
+                        "type": "AlertsService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
                     }
                 ]
             },
@@ -6207,7 +6298,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"header-container\">\r\n    <div class=\"d-block d-sm-none\">\r\n        <div class=\"header-course d-flex flex-wrap flex-row justify-content-center\">\r\n            <div class=\"img-content\">\r\n                <img src=\"{{course?.imageUrl}}\" alt=\"\">\r\n            </div>\r\n            <div class=\"main-course d-flex justify-content-center\">\r\n                <div class=\"content-course \">\r\n                    <div class=\"title-course\">\r\n                        <h1 class=\"text-center\">{{course?.name}}</h1>\r\n                    </div>\r\n                </div>\r\n                        </div>          \r\n        </div>\r\n\r\n        \r\n    </div>\r\n\r\n\r\n\r\n    <div class=\"d-none d-sm-block\">\r\n        <div\r\n            class=\"header-course d-flex flex-wrap flex-row justify-content-between justify-content-sm-center align-items-center\">\r\n            <div class=\"img-content\">\r\n                <img src=\"{{course?.imageUrl}}\" alt=\"\">\r\n            </div>\r\n            <div class=\"main-course d-flex flex-wrap flex-row justify-content-between justify-content-sm-center\">\r\n                <div class=\"content-course\">\r\n                    <div class=\"title-course \">\r\n                        <h1 class=\"\">{{course?.name}}</h1>\r\n                    </div>\r\n                    <div class=\"description-course\">\r\n                        <p>{{course?.description}}</p>\r\n                    </div>\r\n                </div>\r\n\r\n            </div>\r\n        </div>\r\n       \r\n    </div>\r\n\r\n</div>"
+            "templateData": "<div class=\"header-container\">\r\n    <div class=\"d-block d-sm-none\">\r\n        <div class=\"header-course d-flex flex-wrap flex-row justify-content-center\">\r\n            <div class=\"img-content\">\r\n                <img src=\"{{course?.imageUrl}}\" alt=\"\">\r\n            </div>\r\n            <div class=\"main-course d-flex justify-content-center\">\r\n                <div class=\"content-course \">\r\n                    <div class=\"title-course\">\r\n                        <h1 class=\"text-center\">{{course?.name}}</h1>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div class=\"fav-container\">\r\n                <i class=\"bi bi-heart  fav\"></i>\r\n            </div>\r\n        </div>\r\n\r\n\r\n    </div>\r\n\r\n\r\n\r\n    <div class=\"d-none d-sm-block\">\r\n        <div\r\n            class=\"header-course d-flex flex-wrap flex-row justify-content-between justify-content-sm-center align-items-center\">\r\n            <div class=\"img-content\">\r\n                <img src=\"{{course?.imageUrl}}\" alt=\"\">\r\n            </div>\r\n            <div class=\"main-course d-flex flex-wrap flex-row justify-content-between justify-content-sm-center\">\r\n                <div class=\"content-course\">\r\n                    <div class=\"title-course \">\r\n                        <h1 class=\"\">{{course?.name}}</h1>\r\n                    </div>\r\n                    <div class=\"description-course\">\r\n                        <p>{{course?.description}}</p>\r\n                    </div>\r\n                </div>\r\n\r\n            </div>\r\n            <div class=\"fav-container \">\r\n                <i class=\"bi bi-heart\"  [ngClass]=\"{'favorite': isFavorite}\" (click)=\"onFavoriteClick()\"></i>\r\n            </div>\r\n        </div>\r\n    \r\n    </div>\r\n\r\n</div>"
         },
         {
             "name": "HeroComponent",
@@ -6453,7 +6544,7 @@
         },
         {
             "name": "HomeFavoritesComponent",
-            "id": "component-HomeFavoritesComponent-887e80b0ebb7fae687c6b761e225bb0963d258501d01fa865aeb548a44c7f12c8969315505e37cf07e5cfb5ea449c2fbb89323357067887de81324929ddf0d93",
+            "id": "component-HomeFavoritesComponent-d12e8a800d2cc527632b0acb506781f7a9c53c7b97aca78b2bb6756824131e1a1b9d305d33e7f871e7ec8a108bf02115523888240c8b4fcb920400bb86f457fd",
             "file": "src/app/students/students-dashboard/pages/home/components/home-favorites/home-favorites.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -6496,6 +6587,19 @@
             ],
             "methodsClass": [
                 {
+                    "name": "getUserInfo",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "User",
+                    "typeParameters": [],
+                    "line": 25,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        125
+                    ]
+                },
+                {
                     "name": "ngOnInit",
                     "args": [],
                     "optional": false,
@@ -6515,7 +6619,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';\r\nimport { CoursesService } from 'src/app/admins/admins-dashboard/pages/courses/service/courses.service';\r\nimport { User } from 'src/app/login/types/user';\r\nimport { UsersService } from 'src/app/shared/services/users/users.service';\r\n\r\n@Component({\r\n  selector: 'app-home-favorites',\r\n  templateUrl: './home-favorites.component.html',\r\n  styleUrls: ['./home-favorites.component.scss']\r\n})\r\nexport class HomeFavoritesComponent implements OnInit {\r\n\r\n  userFavorites: string[] = [];\r\n  favouriteCourses: Course[] = [];\r\n\r\n  constructor( private userService: UsersService, private courseService: CoursesService ) {}\r\n\r\n  ngOnInit(): void {\r\n    const userInfo = this.userService.getUserFromStorage() as User\r\n    this.userFavorites = userInfo?.favorites ? userInfo?.favorites : []\r\n    this.courseService.getTopicCourses(this.userFavorites).then(courses => this.favouriteCourses = courses)\r\n  }\r\n\r\n}\r\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';\r\nimport { CoursesService } from 'src/app/admins/admins-dashboard/pages/courses/service/courses.service';\r\nimport { User } from 'src/app/login/types/user';\r\nimport { UsersService } from 'src/app/shared/services/users/users.service';\r\n\r\n@Component({\r\n  selector: 'app-home-favorites',\r\n  templateUrl: './home-favorites.component.html',\r\n  styleUrls: ['./home-favorites.component.scss']\r\n})\r\nexport class HomeFavoritesComponent implements OnInit {\r\n\r\n  userFavorites: string[] = [];\r\n  favouriteCourses: Course[] = [];\r\n\r\n  constructor( private userService: UsersService, private courseService: CoursesService ) {}\r\n\r\n  ngOnInit(): void {\r\n    const userInfo = this.getUserInfo();\r\n    this.userFavorites = userInfo?.favorites ? userInfo?.favorites : [];\r\n    this.courseService.getTopicCourses(this.userFavorites).then(courses => this.favouriteCourses = courses);\r\n  }\r\n\r\n  public getUserInfo(): User {\r\n    return this.userService.getUserFromStorage() as User;\r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -9196,7 +9300,7 @@
         },
         {
             "name": "SnackbarComponent",
-            "id": "component-SnackbarComponent-edb648c2e7d0938773131089e26cbd43a7d2fc98ccfb76199258aac9103c1e90178e39e54e0e8833a130c21251fefffc30638f3a6fa40da31aa8a5201fac22a0",
+            "id": "component-SnackbarComponent-145cbe4dbf22f1f784f3bd2c9fb649eb52305a28ec9ff275bb8fa6e2e982108b195129c95724c185403388d6ab30909c4a7a8919698be1bf004dabe5d7b4de6c",
             "file": "src/app/shared/storybook/components/snackbar/snackbar.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -9218,7 +9322,7 @@
             "propertiesClass": [
                 {
                     "name": "type",
-                    "defaultValue": "''",
+                    "defaultValue": "'success'",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "string",
@@ -9268,7 +9372,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\nimport { AlertsService } from 'src/app/shared/services/alerts/alerts.service';\n\n@Component({\n  selector: 'app-snackbar',\n  templateUrl: './snackbar.component.html',\n  styleUrls: ['./snackbar.component.scss']\n})\nexport class SnackbarComponent {\n  type: string = '';\n  \n  constructor( private alertsService: AlertsService ){}\n\n  openSuccessSnackBar(){\n    this.alertsService.successMessage('Example Success Message')\n  }\n\n  openErrorSnackBar(){\n    this.alertsService.errorMessage('Example Error Message')\n  }\n\n  openWarningSnackBar(){\n    this.alertsService.warningMessage('Example Warning Message')\n  }\n}\n",
+            "sourceCode": "import { Component } from '@angular/core';\r\nimport { AlertsService } from 'src/app/shared/services/alerts/alerts.service';\r\n\r\n@Component({\r\n  selector: 'app-snackbar',\r\n  templateUrl: './snackbar.component.html',\r\n  styleUrls: ['./snackbar.component.scss']\r\n})\r\nexport class SnackbarComponent {\r\n  type: string = 'success';\r\n\r\n  constructor( private alertsService: AlertsService ){}\r\n\r\n  openSuccessSnackBar(){\r\n    this.alertsService.successMessage('Example Success Message')\r\n  }\r\n\r\n  openErrorSnackBar(){\r\n    this.alertsService.errorMessage('Example Error Message')\r\n  }\r\n\r\n  openWarningSnackBar(){\r\n    this.alertsService.warningMessage('Example Warning Message')\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -9304,11 +9408,11 @@
                 ]
             },
             "extends": [],
-            "templateData": "<app-button [label]=\"'Success Message'\" [type]=\"'success'\" (click)=\"openSuccessSnackBar()\" *ngIf=\"type === 'success'\"></app-button>\n<app-button [label]=\"'Error Message'\" [type]=\"'danger'\" (click)=\"openErrorSnackBar()\" *ngIf=\"type === 'error'\">Error Message</app-button>\n<app-button [label]=\"'Warning Message'\" [type]=\"'warning'\" (click)=\"openWarningSnackBar()\" *ngIf=\"type === 'warning'\">Waring Message</app-button>\n"
+            "templateData": "<app-button [label]=\"'Success Message'\" [type]=\"'success'\" (click)=\"openSuccessSnackBar()\" *ngIf=\"type === 'success'\"></app-button>\r\n<app-button [label]=\"'Error Message'\" [type]=\"'danger'\" (click)=\"openErrorSnackBar()\" *ngIf=\"type === 'error'\">Error Message</app-button>\r\n<app-button [label]=\"'Warning Message'\" [type]=\"'warning'\" (click)=\"openWarningSnackBar()\" *ngIf=\"type === 'warning'\">Waring Message</app-button>\r\n"
         },
         {
             "name": "StarRatingComponent",
-            "id": "component-StarRatingComponent-8ee37472292e6a4b7c2f191e6bda51d3cce3640e7ef64a445580dbf68b7019c8976a8263390c0384dec05be1144dec051cc2dcb652b7e0bc4bbd23c013308fe4",
+            "id": "component-StarRatingComponent-5b2327df96a8ce67bc86fe65b176fa109f5b5559f48b6f6eab6e6b287bb5c84404ff43339b4ce6c544c3b403f12297185df7cc0c9abe1614b4392555ed4dac96",
             "file": "src/app/students/components/star-rating/star-rating.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -9357,7 +9461,7 @@
                     "line": 15
                 },
                 {
-                    "name": "rating",
+                    "name": "finalRating",
                     "defaultValue": "0",
                     "deprecated": false,
                     "deprecationMessage": "",
@@ -9520,7 +9624,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';\r\nimport { Rating } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';\r\nimport { AlertsService } from 'src/app/shared/services/alerts/alerts.service';\r\n\r\n@Component({\r\n  selector: 'app-star-rating',\r\n  templateUrl: './star-rating.component.html',\r\n  styleUrls: ['./star-rating.component.scss']\r\n})\r\nexport class StarRatingComponent implements OnInit, OnChanges {\r\n\r\n  @Input('rating') ratings: Rating[] | undefined;\r\n  rating: number = 0;\r\n  starCount: number = 5;\r\n  color: string = 'accent';\r\n  @Output() ratingUpdated = new EventEmitter();\r\n  ratingArr: number[] = [];\r\n\r\n  constructor(\r\n    private alertsService: AlertsService\r\n  ) {\r\n  }\r\n\r\n  ngOnChanges(changes: SimpleChanges) {\r\n    this.setRatingAverage(this.ratings ? this.ratings : [])\r\n  }\r\n\r\n  ngOnInit() {\r\n    for (let index = 0; index < this.starCount; index++) {\r\n      this.ratingArr.push(index);\r\n    }\r\n\r\n    this.setRatingAverage(this.ratings ? this.ratings : [])\r\n  }\r\n\r\n  onClick(rating:number) {   \r\n    this.alertsService.successMessage(rating > 1 ? `Rated with ${rating} stars.` : `Rated with ${rating} star.`)\r\n    this.ratingUpdated.emit(rating);\r\n    return false;\r\n  }\r\n\r\n  showIcon(index:number) {\r\n    if (this.rating >= index + 1) {\r\n      return 'star';\r\n    } else {\r\n      return 'star_border';\r\n    }\r\n\r\n  }\r\n\r\n  setRatingAverage(ratings: Rating[]): void {\r\n    const sum = ratings.reduce((total, item) => total + item.rating, 0);\r\n    const average = sum / ratings.length;\r\n    const roundedAverage = Math.round(average);\r\n\r\n    this.rating = roundedAverage;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';\r\nimport { Rating } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';\r\nimport { AlertsService } from 'src/app/shared/services/alerts/alerts.service';\r\n\r\n@Component({\r\n  selector: 'app-star-rating',\r\n  templateUrl: './star-rating.component.html',\r\n  styleUrls: ['./star-rating.component.scss']\r\n})\r\nexport class StarRatingComponent implements OnInit, OnChanges {\r\n\r\n  @Input('rating') rating: Rating[] | undefined;\r\n  finalRating: number = 0;\r\n  starCount: number = 5;\r\n  color: string = 'accent';\r\n  @Output() ratingUpdated = new EventEmitter();\r\n  ratingArr: number[] = [];\r\n\r\n  constructor(\r\n    private alertsService: AlertsService\r\n  ) {\r\n  }\r\n\r\n  ngOnChanges(changes: SimpleChanges) {\r\n    this.setRatingAverage(this.rating ? this.rating : [])\r\n  }\r\n\r\n  ngOnInit() {\r\n    for (let index = 0; index < this.starCount; index++) {\r\n      this.ratingArr.push(index);\r\n    }\r\n\r\n    this.setRatingAverage(this.rating ? this.rating : [])\r\n  }\r\n\r\n  onClick(rating:number) {   \r\n    this.alertsService.successMessage(rating > 1 ? `Rated with ${rating} stars.` : `Rated with ${rating} star.`)\r\n    this.ratingUpdated.emit(rating);\r\n    return false;\r\n  }\r\n\r\n  showIcon(index:number) {\r\n    if (this.finalRating >= index + 1) {\r\n      return 'star';\r\n    } else {\r\n      return 'star_border';\r\n    }\r\n\r\n  }\r\n\r\n  setRatingAverage(ratings: Rating[]): void {\r\n    const sum = ratings.reduce((total, item) => total + item.rating, 0);\r\n    const average = sum / ratings.length;\r\n    const roundedAverage = Math.round(average);\r\n\r\n    this.finalRating = roundedAverage;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -11858,13 +11962,13 @@
         },
         {
             "name": "SharedModule",
-            "id": "module-SharedModule-0c98e90306f070661e22007d8ec4ea591cba3d4b584fdee01a59351efc2827a4b1784c9fe8330cb601c3f8f1286c46bd80c5000beb1b5a49bd5acbd906c2173a",
+            "id": "module-SharedModule-e98678602f70320c2060fd41384696fedf360f2f2ed8f85ac3c6715f681fc64c7406ccfecc357148791f76b4459fd5551aa502865438e9a837eae3c230122e0e",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/shared/shared.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatFormFieldModule } from '@angular/material/form-field';\r\nimport { FormsModule, ReactiveFormsModule } from '@angular/forms';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { MatSnackBarModule } from '@angular/material/snack-bar';\r\nimport { WorkingInProgressComponent } from './components/default-pages/working-in-progress/working-in-progress.component';\r\nimport { ErrorPageComponent } from './components/default-pages/error-page/error-page.component';\r\nimport { ButtonComponent } from './components/button/button.component';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { UpdateModalComponent } from './components/modals/update-modal/update-modal.component';\r\nimport { DeleteModalComponent } from './components/modals/delete-modal/delete-modal.component';\r\nimport { DetailModalComponent } from './components/modals/detail-modal/detail-modal.component';\r\nimport { CourseCardComponent } from './components/course-card/course-card.component';\r\nimport { SubDetailModalComponent } from './components/modals/sub-modals/sub-detail-modal/sub-detail-modal.component';\r\nimport { SubModalCreateComponent } from './components/modals/sub-modals/sub-modal-create/sub-modal-create.component';\r\nimport { RouterModule } from '@angular/router';\r\nimport { MatOptionModule } from '@angular/material/core';\r\nimport { MatSelectModule } from '@angular/material/select';\r\nimport { InstructorCardComponent } from './components/instructor-card/instructor-card.component';\nimport { SnackbarComponent } from './storybook/components/snackbar/snackbar.component';\r\n\r\n\r\n@NgModule({\r\n  declarations: [ \r\n    WorkingInProgressComponent,\r\n    ErrorPageComponent,\r\n    ButtonComponent,\r\n    UpdateModalComponent,\r\n    DeleteModalComponent,\r\n    DetailModalComponent,\r\n    CourseCardComponent,\r\n    SubDetailModalComponent,\r\n    SubModalCreateComponent,\r\n    InstructorCardComponent,\r\n    SnackbarComponent,\r\n  ],\r\n  imports: [\r\n    CommonModule,\r\n    MatFormFieldModule,\r\n    FormsModule,\r\n    MatInputModule,\r\n    MatButtonModule,\r\n    MatSnackBarModule,\r\n    MatIconModule,\r\n    ReactiveFormsModule,\r\n    RouterModule,\r\n    MatOptionModule,\r\n    MatSelectModule,\r\n\r\n  ],\r\n  exports: [   \r\n    WorkingInProgressComponent,\r\n    ErrorPageComponent,\r\n    ButtonComponent,\r\n    CourseCardComponent,\r\n    InstructorCardComponent,\r\n  ]\r\n})\r\nexport class SharedModule { }\r\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatFormFieldModule } from '@angular/material/form-field';\r\nimport { FormsModule, ReactiveFormsModule } from '@angular/forms';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { MatSnackBarModule } from '@angular/material/snack-bar';\r\nimport { WorkingInProgressComponent } from './components/default-pages/working-in-progress/working-in-progress.component';\r\nimport { ErrorPageComponent } from './components/default-pages/error-page/error-page.component';\r\nimport { ButtonComponent } from './components/button/button.component';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { UpdateModalComponent } from './components/modals/update-modal/update-modal.component';\r\nimport { DeleteModalComponent } from './components/modals/delete-modal/delete-modal.component';\r\nimport { DetailModalComponent } from './components/modals/detail-modal/detail-modal.component';\r\nimport { CourseCardComponent } from './components/course-card/course-card.component';\r\nimport { SubDetailModalComponent } from './components/modals/sub-modals/sub-detail-modal/sub-detail-modal.component';\r\nimport { SubModalCreateComponent } from './components/modals/sub-modals/sub-modal-create/sub-modal-create.component';\r\nimport { RouterModule } from '@angular/router';\r\nimport { MatOptionModule } from '@angular/material/core';\r\nimport { MatSelectModule } from '@angular/material/select';\r\nimport { InstructorCardComponent } from './components/instructor-card/instructor-card.component';\r\nimport { SnackbarComponent } from './storybook/components/snackbar/snackbar.component';\r\n\r\n\r\n@NgModule({\r\n  declarations: [ \r\n    WorkingInProgressComponent,\r\n    ErrorPageComponent,\r\n    ButtonComponent,\r\n    UpdateModalComponent,\r\n    DeleteModalComponent,\r\n    DetailModalComponent,\r\n    CourseCardComponent,\r\n    SubDetailModalComponent,\r\n    SubModalCreateComponent,\r\n    InstructorCardComponent,\r\n    SnackbarComponent,\r\n  ],\r\n  imports: [\r\n    CommonModule,\r\n    MatFormFieldModule,\r\n    FormsModule,\r\n    MatInputModule,\r\n    MatButtonModule,\r\n    MatSnackBarModule,\r\n    MatIconModule,\r\n    ReactiveFormsModule,\r\n    RouterModule,\r\n    MatOptionModule,\r\n    MatSelectModule,\r\n\r\n  ],\r\n  exports: [   \r\n    WorkingInProgressComponent,\r\n    ErrorPageComponent,\r\n    ButtonComponent,\r\n    CourseCardComponent,\r\n    InstructorCardComponent,\r\n  ]\r\n})\r\nexport class SharedModule { }\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -12254,7 +12358,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\r\n    args: {\r\n        ratings: [ {userId : \"1\", rating: 5}, {userId : \"2\", rating: 4}, {userId : \"3\", rating: 3}],\r\n           \r\n\r\n       \r\n    }\r\n}"
+                "defaultValue": "{\r\n    args: {\r\n        finalRating: 3,\r\n        rating: [{ userId: \"1\", rating: 3 }, { userId: \"2\", rating: 4 }, { userId: \"3\", rating: 5 }],\r\n\r\n        onClick: (rating: number) => {\r\n          \r\n            return false;\r\n        }\r\n    }\r\n}"
             },
             {
                 "name": "Default",
@@ -12325,6 +12429,16 @@
                 "deprecationMessage": "",
                 "type": "any",
                 "defaultValue": "(args: SnackbarComponent) => ({\r\n    component: SnackbarComponent,\r\n    props: {\r\n      ...args,\r\n      type: 'error'\r\n    },\r\n  })"
+            },
+            {
+                "name": "FirstStory",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/students/students-dashboard/pages/settings/components/profile-base/profile-base.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n  },\r\n}"
             },
             {
                 "name": "getStyles",
@@ -12544,7 +12658,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<StarRatingComponent>",
-                "defaultValue": "{\r\n    title: \"Components/Students/StarRating\",\r\n    component: StarRatingComponent,\r\n    argTypes: { onClick: { action: 'clicked' } },\r\n\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n            providers: [\r\n                {\r\n                    provide: AlertsService, useValue: {}    \r\n                }\r\n\r\n            ],\r\n            imports: [\r\n                \r\n            ]\r\n\r\n        })\r\n    ]\r\n}"
+                "defaultValue": "{\r\n    title: \"Components/Students/StarRating\",\r\n    component: StarRatingComponent,\r\n\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n            providers: [\r\n                {\r\n                    provide: APP_INITIALIZER,\r\n                    useFactory: AlertsService,\r\n                    deps: [AlertsService, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBar],\r\n\r\n                },\r\n                {\r\n                    provide: AlertsService,\r\n                    useValue: {\r\n                        successMessage: (message: string) => {\r\n                            return of(message);\r\n                        }\r\n                    }\r\n                },\r\n                // {\r\n                //     provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,\r\n                //     useValue: {\r\n                //         duration: 5000,\r\n                //         horizontalPosition: \"right\",\r\n                //         verticalPosition: \"top\"\r\n                //     }\r\n                // }\r\n            ],\r\n            imports: [MatButtonModule, MatIconModule, MatSnackBarModule, MatTooltipModule\r\n\r\n            ]\r\n\r\n        })\r\n    ]\r\n}"
             },
             {
                 "name": "meta",
@@ -12554,7 +12668,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<SnackbarComponent>",
-                "defaultValue": "{\r\n  title: 'Components/Shared/Alerts',\r\n  component: SnackbarComponent,\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [MatSnackBarModule, BrowserAnimationsModule,],\r\n      providers: [\r\n        AlertsService,\r\n        { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 } }\r\n      ],\r\n      declarations: [ButtonComponent]\r\n    }),\r\n  ],\r\n}"
+                "defaultValue": "{\r\n  title: 'Components/Shared/Alerts',\r\n  component: SnackbarComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [MatSnackBarModule, BrowserAnimationsModule,],\r\n      providers: [\r\n        AlertsService,\r\n        { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 } }\r\n      ],\r\n      declarations: [ButtonComponent]\r\n    }),\r\n  ],\r\n}"
             },
             {
                 "name": "meta",
@@ -12585,6 +12699,16 @@
                 "deprecationMessage": "",
                 "type": "Meta<HeroComponent>",
                 "defaultValue": "{\r\n    title: 'Components/Students/Hero',\r\n    component: HeroComponent,\r\n    tags: ['autodocs'],\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/students/students-dashboard/pages/settings/components/profile-base/profile-base.components.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<ProfileBaseComponent>",
+                "defaultValue": "{\r\n    title: 'Components/Students/ProfileBase',\r\n    component: ProfileBaseComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations: [ButtonComponent],\r\n          imports: [\r\n            FirestoreModule,\r\n            MatDialogModule,\r\n            FormsModule,\r\n            ReactiveFormsModule, \r\n            StoreModule.forRoot({ user: userReducer }), \r\n          ],\r\n          providers:[\r\n            UsersService\r\n          ]\r\n        }),\r\n      ],\r\n}"
             },
             {
                 "name": "meta",
@@ -12824,7 +12948,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\r\n  args: {\r\n    data: [\r\n      {\r\n        id: '1',\r\n        name: 'Midudev',\r\n        rating: [{\r\n          rating: 4,\r\n          userId: \"HclEUHV8XslaqIYSMatG\"\r\n        }],\r\n        imagePath: 'https://yt3.googleusercontent.com/ytc/AIf8zZScNwk4VuB2XijvUaEz7Z8Wff_tvBzYaHgOXZZtFQ=s176-c-k-c0x00ffffff-no-rj',\r\n        courses: [],\r\n        socialMedia: [\r\n          {\r\n            linkedin: 'https://www.linkedin.com/in/midudev',\r\n            twitter: 'https://twitter.com/midudev',\r\n            web: 'https://www.youtube.com/c/midudev',\r\n            youtube: 'https://www.youtube.com/c/midudev',\r\n            \r\n            \r\n          },\r\n        ],\r\n      },\r\n    ],\r\n    displayedColumns: [\r\n      { prop: 'name', title: 'Name' },\r\n      { prop: 'imagePath', title: 'Image' },\r\n      { prop: 'courses', title: 'NºCourses' },\r\n      { prop: 'rating', title: 'Rating' },\r\n      { prop: 'socialMedia', title: 'SocialMedia' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'Name', prop: 'name' },\r\n      { label: 'Image', prop: 'imagePath' },\r\n      { label: 'Courses', prop: 'courses' },\r\n      { label: 'Rating', prop: 'rating' },\r\n      {\r\n        label: 'SocialMedia',\r\n        prop: 'socialMedia',\r\n        subFields: [\r\n          { label: 'Web', prop: 'web' },\r\n          { label: 'YouTube', prop: 'youtube' },\r\n          { label: 'Twitter', prop: 'twitter' },\r\n          { label: 'LinkedIn', prop: 'linkedin' },\r\n        ],\r\n      },\r\n    ],\r\n  },\r\n}"
+                "defaultValue": "{\r\n  args: {\r\n    data: [\r\n      {\r\n        id: '1',\r\n        name: 'Midudev',\r\n        rating: [\r\n          {\r\n            rating: 4,\r\n            userId: 'HclEUHV8XslaqIYSMatG',\r\n          },\r\n        ],\r\n        imagePath:\r\n          'https://yt3.googleusercontent.com/ytc/AIf8zZScNwk4VuB2XijvUaEz7Z8Wff_tvBzYaHgOXZZtFQ=s176-c-k-c0x00ffffff-no-rj',\r\n        courses: [],\r\n        socialMedia: {\r\n          linkedin: 'https://www.linkedin.com/in/midudev',\r\n          twitter: 'https://twitter.com/midudev',\r\n          web: 'https://www.youtube.com/c/midudev',\r\n          youtube: 'https://www.youtube.com/c/midudev',\r\n        },\r\n      },\r\n    ],\r\n    displayedColumns: [\r\n      { prop: 'name', title: 'Name' },\r\n      { prop: 'imagePath', title: 'Image' },\r\n      { prop: 'courses', title: 'NºCourses' },\r\n      { prop: 'rating', title: 'Rating' },\r\n      { prop: 'socialMedia', title: 'SocialMedia' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'Name', prop: 'name' },\r\n      { label: 'Image', prop: 'imagePath' },\r\n      { label: 'Courses', prop: 'courses' },\r\n      { label: 'Rating', prop: 'rating' },\r\n      {\r\n        label: 'SocialMedia',\r\n        prop: 'socialMedia',\r\n        subFields: [\r\n          { label: 'Web', prop: 'web' },\r\n          { label: 'YouTube', prop: 'youtube' },\r\n          { label: 'Twitter', prop: 'twitter' },\r\n          { label: 'LinkedIn', prop: 'linkedin' },\r\n        ],\r\n      },\r\n    ],\r\n  },\r\n}"
             },
             {
                 "name": "Trainers",
@@ -12864,7 +12988,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\r\n  args: {\r\n    data: [\r\n      {\r\n        id: '1',\r\n        displayName: 'Ismael Cervera',\r\n        email: \"isma@test.com\",\r\n        photoURL:\r\n          'https://th.bing.com/th/id/OIP.ZmXuryOWnCOmdKSGsS3RAwHaHa?rs=1&pid=ImgDetMain',\r\n        favorites: [],\r\n        providerId: \"password\",\r\n        phoneNumber: \"666888999\",\r\n        authUid: \"wefe34jhhxhjs\",\r\n        role: \"student\",\r\n        uid: \"isma@test.com\",\r\n        rememberMe: true\r\n      },\r\n    ],\r\n    displayedColumns: [\r\n      { prop: 'displayName', title: 'User' },\r\n      { prop: 'photoURL', title: 'Img' },\r\n      { prop: 'email', title: 'Email' },\r\n      { prop: 'phoneNumber', title: 'Phone' },\r\n      { prop: 'role', title: 'Role' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'User', prop: 'displayName' },\r\n      { label: 'Img', prop: 'photoURL' },\r\n      { label: 'Email', prop: 'email' },\r\n      { label: 'Phone', prop: 'phoneNumber' },\r\n      { label: 'role', prop: 'role' },\r\n    ],\r\n  },\r\n}"
+                "defaultValue": "{\r\n  args: {\r\n    data: [\r\n      {\r\n        id: '1',\r\n        displayName: 'Ismael Cervera',\r\n        email: 'isma@test.com',\r\n        photoURL:\r\n          'https://th.bing.com/th/id/OIP.ZmXuryOWnCOmdKSGsS3RAwHaHa?rs=1&pid=ImgDetMain',\r\n        favorites: [],\r\n        providerId: 'password',\r\n        phoneNumber: '666888999',\r\n        authUid: 'wefe34jhhxhjs',\r\n        role: 'student',\r\n        uid: 'isma@test.com',\r\n        rememberMe: true,\r\n      },\r\n    ],\r\n    displayedColumns: [\r\n      { prop: 'displayName', title: 'User' },\r\n      { prop: 'photoURL', title: 'Img' },\r\n      { prop: 'email', title: 'Email' },\r\n      { prop: 'phoneNumber', title: 'Phone' },\r\n      { prop: 'role', title: 'Role' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'User', prop: 'displayName' },\r\n      { label: 'Img', prop: 'photoURL' },\r\n      { label: 'Email', prop: 'email' },\r\n      { label: 'Phone', prop: 'phoneNumber' },\r\n      { label: 'role', prop: 'role' },\r\n    ],\r\n  },\r\n}"
             },
             {
                 "name": "UsersActions",
@@ -13025,6 +13149,17 @@
                 "subtype": "typealias",
                 "rawtype": "StoryObj<HeroComponent>",
                 "file": "src/app/students/students-dashboard/pages/home/components/hero/hero.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<ProfileBaseComponent>",
+                "file": "src/app/students/students-dashboard/pages/settings/components/profile-base/profile-base.components.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -13282,7 +13417,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\r\n  args: {\r\n    data: [\r\n      {\r\n        id: '1',\r\n        name: 'Midudev',\r\n        rating: [{\r\n          rating: 4,\r\n          userId: \"HclEUHV8XslaqIYSMatG\"\r\n        }],\r\n        imagePath: 'https://yt3.googleusercontent.com/ytc/AIf8zZScNwk4VuB2XijvUaEz7Z8Wff_tvBzYaHgOXZZtFQ=s176-c-k-c0x00ffffff-no-rj',\r\n        courses: [],\r\n        socialMedia: [\r\n          {\r\n            linkedin: 'https://www.linkedin.com/in/midudev',\r\n            twitter: 'https://twitter.com/midudev',\r\n            web: 'https://www.youtube.com/c/midudev',\r\n            youtube: 'https://www.youtube.com/c/midudev',\r\n            \r\n            \r\n          },\r\n        ],\r\n      },\r\n    ],\r\n    displayedColumns: [\r\n      { prop: 'name', title: 'Name' },\r\n      { prop: 'imagePath', title: 'Image' },\r\n      { prop: 'courses', title: 'NºCourses' },\r\n      { prop: 'rating', title: 'Rating' },\r\n      { prop: 'socialMedia', title: 'SocialMedia' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'Name', prop: 'name' },\r\n      { label: 'Image', prop: 'imagePath' },\r\n      { label: 'Courses', prop: 'courses' },\r\n      { label: 'Rating', prop: 'rating' },\r\n      {\r\n        label: 'SocialMedia',\r\n        prop: 'socialMedia',\r\n        subFields: [\r\n          { label: 'Web', prop: 'web' },\r\n          { label: 'YouTube', prop: 'youtube' },\r\n          { label: 'Twitter', prop: 'twitter' },\r\n          { label: 'LinkedIn', prop: 'linkedin' },\r\n        ],\r\n      },\r\n    ],\r\n  },\r\n}"
+                    "defaultValue": "{\r\n  args: {\r\n    data: [\r\n      {\r\n        id: '1',\r\n        name: 'Midudev',\r\n        rating: [\r\n          {\r\n            rating: 4,\r\n            userId: 'HclEUHV8XslaqIYSMatG',\r\n          },\r\n        ],\r\n        imagePath:\r\n          'https://yt3.googleusercontent.com/ytc/AIf8zZScNwk4VuB2XijvUaEz7Z8Wff_tvBzYaHgOXZZtFQ=s176-c-k-c0x00ffffff-no-rj',\r\n        courses: [],\r\n        socialMedia: {\r\n          linkedin: 'https://www.linkedin.com/in/midudev',\r\n          twitter: 'https://twitter.com/midudev',\r\n          web: 'https://www.youtube.com/c/midudev',\r\n          youtube: 'https://www.youtube.com/c/midudev',\r\n        },\r\n      },\r\n    ],\r\n    displayedColumns: [\r\n      { prop: 'name', title: 'Name' },\r\n      { prop: 'imagePath', title: 'Image' },\r\n      { prop: 'courses', title: 'NºCourses' },\r\n      { prop: 'rating', title: 'Rating' },\r\n      { prop: 'socialMedia', title: 'SocialMedia' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'Name', prop: 'name' },\r\n      { label: 'Image', prop: 'imagePath' },\r\n      { label: 'Courses', prop: 'courses' },\r\n      { label: 'Rating', prop: 'rating' },\r\n      {\r\n        label: 'SocialMedia',\r\n        prop: 'socialMedia',\r\n        subFields: [\r\n          { label: 'Web', prop: 'web' },\r\n          { label: 'YouTube', prop: 'youtube' },\r\n          { label: 'Twitter', prop: 'twitter' },\r\n          { label: 'LinkedIn', prop: 'linkedin' },\r\n        ],\r\n      },\r\n    ],\r\n  },\r\n}"
                 },
                 {
                     "name": "Users",
@@ -13292,7 +13427,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\r\n  args: {\r\n    data: [\r\n      {\r\n        id: '1',\r\n        displayName: 'Ismael Cervera',\r\n        email: \"isma@test.com\",\r\n        photoURL:\r\n          'https://th.bing.com/th/id/OIP.ZmXuryOWnCOmdKSGsS3RAwHaHa?rs=1&pid=ImgDetMain',\r\n        favorites: [],\r\n        providerId: \"password\",\r\n        phoneNumber: \"666888999\",\r\n        authUid: \"wefe34jhhxhjs\",\r\n        role: \"student\",\r\n        uid: \"isma@test.com\",\r\n        rememberMe: true\r\n      },\r\n    ],\r\n    displayedColumns: [\r\n      { prop: 'displayName', title: 'User' },\r\n      { prop: 'photoURL', title: 'Img' },\r\n      { prop: 'email', title: 'Email' },\r\n      { prop: 'phoneNumber', title: 'Phone' },\r\n      { prop: 'role', title: 'Role' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'User', prop: 'displayName' },\r\n      { label: 'Img', prop: 'photoURL' },\r\n      { label: 'Email', prop: 'email' },\r\n      { label: 'Phone', prop: 'phoneNumber' },\r\n      { label: 'role', prop: 'role' },\r\n    ],\r\n  },\r\n}"
+                    "defaultValue": "{\r\n  args: {\r\n    data: [\r\n      {\r\n        id: '1',\r\n        displayName: 'Ismael Cervera',\r\n        email: 'isma@test.com',\r\n        photoURL:\r\n          'https://th.bing.com/th/id/OIP.ZmXuryOWnCOmdKSGsS3RAwHaHa?rs=1&pid=ImgDetMain',\r\n        favorites: [],\r\n        providerId: 'password',\r\n        phoneNumber: '666888999',\r\n        authUid: 'wefe34jhhxhjs',\r\n        role: 'student',\r\n        uid: 'isma@test.com',\r\n        rememberMe: true,\r\n      },\r\n    ],\r\n    displayedColumns: [\r\n      { prop: 'displayName', title: 'User' },\r\n      { prop: 'photoURL', title: 'Img' },\r\n      { prop: 'email', title: 'Email' },\r\n      { prop: 'phoneNumber', title: 'Phone' },\r\n      { prop: 'role', title: 'Role' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'User', prop: 'displayName' },\r\n      { label: 'Img', prop: 'photoURL' },\r\n      { label: 'Email', prop: 'email' },\r\n      { label: 'Phone', prop: 'phoneNumber' },\r\n      { label: 'role', prop: 'role' },\r\n    ],\r\n  },\r\n}"
                 }
             ],
             "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts": [
@@ -13490,7 +13625,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\r\n    args: {\r\n        ratings: [ {userId : \"1\", rating: 5}, {userId : \"2\", rating: 4}, {userId : \"3\", rating: 3}],\r\n           \r\n\r\n       \r\n    }\r\n}"
+                    "defaultValue": "{\r\n    args: {\r\n        finalRating: 3,\r\n        rating: [{ userId: \"1\", rating: 3 }, { userId: \"2\", rating: 4 }, { userId: \"3\", rating: 5 }],\r\n\r\n        onClick: (rating: number) => {\r\n          \r\n            return false;\r\n        }\r\n    }\r\n}"
                 },
                 {
                     "name": "meta",
@@ -13500,7 +13635,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<StarRatingComponent>",
-                    "defaultValue": "{\r\n    title: \"Components/Students/StarRating\",\r\n    component: StarRatingComponent,\r\n    argTypes: { onClick: { action: 'clicked' } },\r\n\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n            providers: [\r\n                {\r\n                    provide: AlertsService, useValue: {}    \r\n                }\r\n\r\n            ],\r\n            imports: [\r\n                \r\n            ]\r\n\r\n        })\r\n    ]\r\n}"
+                    "defaultValue": "{\r\n    title: \"Components/Students/StarRating\",\r\n    component: StarRatingComponent,\r\n\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n            providers: [\r\n                {\r\n                    provide: APP_INITIALIZER,\r\n                    useFactory: AlertsService,\r\n                    deps: [AlertsService, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBar],\r\n\r\n                },\r\n                {\r\n                    provide: AlertsService,\r\n                    useValue: {\r\n                        successMessage: (message: string) => {\r\n                            return of(message);\r\n                        }\r\n                    }\r\n                },\r\n                // {\r\n                //     provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,\r\n                //     useValue: {\r\n                //         duration: 5000,\r\n                //         horizontalPosition: \"right\",\r\n                //         verticalPosition: \"top\"\r\n                //     }\r\n                // }\r\n            ],\r\n            imports: [MatButtonModule, MatIconModule, MatSnackBarModule, MatTooltipModule\r\n\r\n            ]\r\n\r\n        })\r\n    ]\r\n}"
                 }
             ],
             "src/app/students/students-dashboard/pages/courses/components/course-cards/course-card-second-component.stories.ts": [
@@ -13624,7 +13759,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<SnackbarComponent>",
-                    "defaultValue": "{\r\n  title: 'Components/Shared/Alerts',\r\n  component: SnackbarComponent,\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [MatSnackBarModule, BrowserAnimationsModule,],\r\n      providers: [\r\n        AlertsService,\r\n        { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 } }\r\n      ],\r\n      declarations: [ButtonComponent]\r\n    }),\r\n  ],\r\n}"
+                    "defaultValue": "{\r\n  title: 'Components/Shared/Alerts',\r\n  component: SnackbarComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [MatSnackBarModule, BrowserAnimationsModule,],\r\n      providers: [\r\n        AlertsService,\r\n        { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 } }\r\n      ],\r\n      declarations: [ButtonComponent]\r\n    }),\r\n  ],\r\n}"
                 },
                 {
                     "name": "successAlert",
@@ -13645,6 +13780,28 @@
                     "deprecationMessage": "",
                     "type": "any",
                     "defaultValue": "(args: SnackbarComponent) => ({\r\n    component: SnackbarComponent,\r\n    props: {\r\n      ...args,\r\n      type: 'warning'\r\n    },\r\n  })"
+                }
+            ],
+            "src/app/students/students-dashboard/pages/settings/components/profile-base/profile-base.components.stories.ts": [
+                {
+                    "name": "FirstStory",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/students/students-dashboard/pages/settings/components/profile-base/profile-base.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n  },\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/students/students-dashboard/pages/settings/components/profile-base/profile-base.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<ProfileBaseComponent>",
+                    "defaultValue": "{\r\n    title: 'Components/Students/ProfileBase',\r\n    component: ProfileBaseComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations: [ButtonComponent],\r\n          imports: [\r\n            FirestoreModule,\r\n            MatDialogModule,\r\n            FormsModule,\r\n            ReactiveFormsModule, \r\n            StoreModule.forRoot({ user: userReducer }), \r\n          ],\r\n          providers:[\r\n            UsersService\r\n          ]\r\n        }),\r\n      ],\r\n}"
                 }
             ],
             "src/app/shared/components/button/button.component.ts": [
@@ -14080,6 +14237,19 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<HeroComponent>",
                     "file": "src/app/students/students-dashboard/pages/home/components/hero/hero.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
+            "src/app/students/students-dashboard/pages/settings/components/profile-base/profile-base.components.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<ProfileBaseComponent>",
+                    "file": "src/app/students/students-dashboard/pages/settings/components/profile-base/profile-base.components.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -15174,7 +15344,7 @@
                 "linktype": "injectable",
                 "name": "UsersService",
                 "coveragePercent": 0,
-                "coverageCount": "0/7",
+                "coverageCount": "0/8",
                 "status": "low"
             },
             {
@@ -15563,7 +15733,7 @@
                 "linktype": "component",
                 "name": "HeaderCourseComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/5",
+                "coverageCount": "0/8",
                 "status": "low"
             },
             {
@@ -15696,7 +15866,7 @@
                 "linktype": "component",
                 "name": "HomeFavoritesComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/5",
+                "coverageCount": "0/6",
                 "status": "low"
             },
             {
@@ -15751,6 +15921,26 @@
                 "name": "ProfileBaseComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/9",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/students/students-dashboard/pages/settings/components/profile-base/profile-base.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "FirstStory",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/students/students-dashboard/pages/settings/components/profile-base/profile-base.components.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
