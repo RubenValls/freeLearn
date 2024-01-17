@@ -19,6 +19,7 @@ import { RouterModule } from '@angular/router';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { InstructorCardComponent } from './components/instructor-card/instructor-card.component';
+import { SnackbarComponent } from './storybook/components/snackbar/snackbar.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { InstructorCardComponent } from './components/instructor-card/instructor
     SubDetailModalComponent,
     SubModalCreateComponent,
     InstructorCardComponent,
+    SnackbarComponent,
   ],
   imports: [
     CommonModule,
