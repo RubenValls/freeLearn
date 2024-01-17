@@ -8,6 +8,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth'
 import { environment } from 'src/environments/environment';
 import { StudentsModule } from 'src/app/students/students.module';
+import { UsersService } from 'src/app/shared/services/users/users.service';
 
 describe('HeaderCourseComponent', () => {
   let component: HeaderCourseComponent;
@@ -30,7 +31,8 @@ describe('HeaderCourseComponent', () => {
             data: of({ data: { id: 'test' } })
             
           }
-        }
+        },
+        { provide: UsersService, useValue: { getUserFromStorage: () => { } } }
       ]
     });
     fixture = TestBed.createComponent(HeaderCourseComponent);

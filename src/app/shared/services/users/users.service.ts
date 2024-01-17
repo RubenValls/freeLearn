@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
+import { user } from '@angular/fire/auth';
 import { Firestore, collectionData } from '@angular/fire/firestore';
-import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
+import { Store } from '@ngrx/store';
+import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { Observable } from 'rxjs';
+import { UserActions } from 'src/app/login/store/user.actions';
 import { User } from 'src/app/login/types/user';
 
 
@@ -10,33 +13,58 @@ import { User } from 'src/app/login/types/user';
 })
 export class UsersService {
 
-  constructor(private firestore: Firestore) { }
+  constructor(
+    private firestore: Firestore,
+    private store: Store
 
-  addUser(user: any){
+  ) { }
+
+  addUser(user: any) {
     const usersRef = collection(this.firestore, 'users')
-    addDoc(usersRef, user).then((data) => { console.log("creado", data)}).catch((error) => {console.log("error", error)})
+    addDoc(usersRef, user).then((data) => { console.log("creado", data) }).catch((error) => { console.log("error", error) })
   }
 
-  getUsers(){
-    const userRef =  collection(this.firestore, 'users');
-    return collectionData(userRef, {idField: 'id'}) as Observable<User[]>;
+  getUsers() {
+    const userRef = collection(this.firestore, 'users');
+    return collectionData(userRef, { idField: 'id' }) as Observable<User[]>;
   }
 
-  saveUserInStorage(rememberMe: boolean, user: User){
-    if(rememberMe){
+  saveUserInStorage(rememberMe: boolean, user: User) {
+    if (rememberMe) {
       localStorage.setItem('userInfo', JSON.stringify(user))
-    }else{
+    } else {
       sessionStorage.setItem('userInfo', JSON.stringify(user))
     }
   }
 
-  getUserFromStorage(){
+  getUserFromStorage() {
     const userInfo = localStorage.getItem('userInfo') || sessionStorage.getItem('userInfo');
     return userInfo ? JSON.parse(userInfo) : null;
   }
 
-  async updateUser(userId: string, user: User){
+  async updateUser(userId: string, user: User) {
     const techRef = doc(this.firestore, 'users', userId);
-    await updateDoc(techRef, {...user})
+    await updateDoc(techRef, { ...user })
+  }
+
+  async updateFavoriteCourses(courseId: string) {
+    let message = '';
+    let favorites;
+    const userInfo = this.getUserFromStorage();
+    const userRef = doc(this.firestore, 'users', userInfo.id);
+    const userData = (await getDoc(userRef)).data() as User;
+    const courseIdExist = userData?.favorites?.find((course) => course === courseId);
+
+    if (courseIdExist) {
+      favorites = userData?.favorites?.filter((course) => course !== courseId);
+      message = 'Course removed from favorites'
+    } else {
+      favorites = userData?.favorites?.concat(courseId);
+      message = 'Course add to favorites'
+    }
+    const userUpdated = await updateDoc(userRef, { ...userData, favorites: favorites })
+    this.store.dispatch(UserActions.updateUser({ user: userUpdated }));
+    this.saveUserInStorage(userInfo.rememberMe, { ...userInfo, favorites: favorites });
+    return Promise.resolve({ message: message })
   }
 }

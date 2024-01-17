@@ -10,10 +10,13 @@
                         <h1 class="text-center">{{course?.name}}</h1>
                     </div>
                 </div>
-                        </div>          
+            </div>
+            <div class="fav-container">
+                <i class="bi bi-heart  fav"></i>
+            </div>
         </div>
 
-        
+
     </div>
 
 
@@ -35,8 +38,11 @@
                 </div>
 
             </div>
+            <div class="fav-container ">
+                <i class="bi bi-heart"  [ngClass]="{'favorite': isFavorite}" (click)="onFavoriteClick()"></i>
+            </div>
         </div>
-       
+    
     </div>
 
 </div>

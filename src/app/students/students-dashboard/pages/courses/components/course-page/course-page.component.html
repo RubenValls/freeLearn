@@ -1,9 +1,11 @@
 <div class="course">
     <div class="header-course">
-        <app-header-course></app-header-course>
+        <app-header-course></app-header-course>     
+
         <div class="rating d-flex justify-content-end">
             <app-star-rating [rating]="course?.rating" (ratingUpdated)="handleUpdate($event)"></app-star-rating>
         </div>
+      
     </div>
     <div class="main-course row col-12">
         <div class="instructors row col-12">           
