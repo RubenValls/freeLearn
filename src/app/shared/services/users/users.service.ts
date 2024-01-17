@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store';
 import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { Observable } from 'rxjs';
 import { UserActions } from 'src/app/login/store/user.actions';
-import { selectUser } from 'src/app/login/store/user.selectors';
 import { User } from 'src/app/login/types/user';
 
 
@@ -50,7 +49,6 @@ export class UsersService {
 
   async updateFavoriteCourses(courseId: string) {
 
-
     const userInfo = this.getUserFromStorage();
     const userId = this.getUserFromStorage()?.id;
     const userRef = doc(this.firestore, 'users', userId);
@@ -60,7 +58,7 @@ export class UsersService {
 
     if (courseIdExist) {
       const newFavorites = userData?.favorites?.filter((course) => course !== courseId);
-      const userUpdated = updateDoc(userRef, { ...userData, favorites: newFavorites }).then((console.log)).catch(() => {});
+      const userUpdated = updateDoc(userRef, { ...userData, favorites: newFavorites });
 
 
       this.store.dispatch(UserActions.updateUser({ user: userUpdated }));  

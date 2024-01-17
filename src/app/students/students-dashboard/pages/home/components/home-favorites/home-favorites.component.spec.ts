@@ -3,9 +3,10 @@ import { HomeFavoritesComponent } from "./home-favorites.component";
 import { StudentsModule } from "src/app/students/students.module";
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { getAuth, provideAuth } from '@angular/fire/auth';
+import { getAuth, provideAuth, user } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { User } from "src/app/login/types/user";
+import { UsersService } from "src/app/shared/services/users/users.service";
 
 describe('HomeFavoritesComponent', () => {
   let component: HomeFavoritesComponent;
@@ -19,7 +20,8 @@ describe('HomeFavoritesComponent', () => {
         provideFirestore(() => getFirestore()),
         provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
         provideAuth(() => getAuth()),
-      ]
+      ],
+      providers: [ {provide :UsersService, useValue:{ getUserFromStorage: () => {} }}]
     });
     fixture = TestBed.createComponent(HomeFavoritesComponent);
     component = fixture.componentInstance;
