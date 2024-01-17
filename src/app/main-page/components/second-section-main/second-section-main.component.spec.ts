@@ -38,6 +38,22 @@ describe('SecondSectionMainComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should have a defined technologies$ variable', () => {
+    expect(component.technologies$).toBeDefined();
+  });
+
+  it('should have a defined visibleTechnologies variable', () => {
+    expect(component.visibleTechnologies).toBeDefined();
+  });
+
+  it('should have a defined currentIndex variable', () => {
+    expect(component.currentIndex).toBeDefined();
+  });
+
+  it('should have a defined techSubscription variable', () => {
+    expect(component.techSubscription).toBeDefined();
+  });
+
   it('should initialize with first four technologies', () => {
     expect(component.visibleTechnologies.length).toEqual(4);
   });
