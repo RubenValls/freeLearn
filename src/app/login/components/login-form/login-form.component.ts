@@ -40,7 +40,7 @@ export class LoginFormComponent {
     this.isGoogleLoading = true;
     this.loginService.signInWithGoogle(this.loginForm, true);
     setTimeout(() => {
-      this.isLoading = false;
+      this.isGoogleLoading = false;
     }, 3000);
   }
 }
