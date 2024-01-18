@@ -6,7 +6,7 @@ import { SnackbarComponent } from './snackbar.component';
 import { ButtonComponent } from 'src/app/shared/components/button/button.component';
 
 const meta: Meta<SnackbarComponent> = {
-  title: 'Components/Shared/Alerts',
+  title: 'Components/atoms/Shared/Alerts',
   component: SnackbarComponent,
   tags: ['autodocs'],
   decorators: [

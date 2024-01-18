@@ -10,7 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 export default {
-  title: "Components/Students/StarRating",
+  title: "Components/atoms/Students/StarRating",
   component: StarRatingComponent,
   tags: ['autodocs'],
   decorators: [

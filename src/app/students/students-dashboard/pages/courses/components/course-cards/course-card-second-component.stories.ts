@@ -2,7 +2,7 @@ import { moduleMetadata,  type Meta, type StoryObj } from "@storybook/angular";
 import { CourseCardsComponent } from "./course-cards.component";
 
 const meta:Meta<CourseCardsComponent> = {
-    title: "Components/Students/CourseCards",
+    title: "Components/atoms/Students/CourseCards",
     component: CourseCardsComponent,
     tags: ['autodocs'],
     
