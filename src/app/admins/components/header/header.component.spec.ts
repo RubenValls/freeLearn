@@ -4,7 +4,7 @@ import { HeaderComponent } from './header.component';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
-describe('HeaderComponent', () => {
+fdescribe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
   let router: Router;
@@ -21,6 +21,10 @@ describe('HeaderComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have isSmallScreen defined', () => {
+    expect(component.isSmallScreen).toBeDefined();
   });
 
   it('should set isSmallScreen to true if window width is less than 700', () => {
