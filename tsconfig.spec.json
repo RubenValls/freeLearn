@@ -13,5 +13,9 @@
     "src/**/*.d.ts",
     "src/app/students/functions/functions.spec.ts",
     "src/app/login/store/userstore.spec.ts",
+    "src/app/store/courses/courses.spec.ts",
+    "src/app/store/instructors/instructors.spec.ts",
+    "src/app/store/technologies/technologies.spec.ts",
+    "src/app/store/users/users.spec.ts",
   ]
 }
