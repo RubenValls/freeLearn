@@ -11,6 +11,8 @@ import { FirebaseApp, FirebaseAppModule } from "@angular/fire/app";
 import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatInput, MatInputModule } from '@angular/material/input';
 
 
 
@@ -28,6 +30,8 @@ const meta: Meta<ProfileBaseComponent> = {
             FirestoreModule,
             FirebaseAppModule,
             MatDialogModule,
+            MatIconModule,
+            MatInputModule,
             FormsModule,
             ReactiveFormsModule, 
             StoreModule.forRoot({ user: userReducer }), 
