@@ -12324,6 +12324,16 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/main-page/components/main-page-footer/main-page-footer.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: {\r\n    },\r\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -12608,7 +12618,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<CustomTableComponent>",
-                "defaultValue": "{\r\n  title: 'Atoms/CustomTable',\r\n  component: CustomTableComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations: [],\r\n      imports: [MatTableModule, MatDialogModule, SharedModule],\r\n    }),\r\n  ],\r\n}"
+                "defaultValue": "{\r\n  title: 'Molecules/CustomTable',\r\n  component: CustomTableComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations: [],\r\n      imports: [MatTableModule, MatDialogModule, SharedModule],\r\n    }),\r\n  ],\r\n}"
             },
             {
                 "name": "meta",
@@ -12618,7 +12628,17 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<HeaderComponent>",
-                "defaultValue": "{\r\n    title: 'Atoms/HeaderAdminPage',\r\n    component: HeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[],\r\n          imports: [MatButtonModule] \r\n        })\r\n      ]\r\n}"
+                "defaultValue": "{\r\n    title: 'Molecules/HeaderAdminPage',\r\n    component: HeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[],\r\n          imports: [MatButtonModule] \r\n        })\r\n      ]\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/main-page/components/main-page-footer/main-page-footer.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<MainPageFooterComponent>",
+                "defaultValue": "{\r\n    title: 'Molecules/MainPageFooter',\r\n    component: MainPageFooterComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n        declarations: [],\r\n        imports: [],\r\n        providers: [],\r\n        }),\r\n    ],\r\n    \r\n}"
             },
             {
                 "name": "meta",
@@ -12628,7 +12648,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<MainPageHeaderComponent>",
-                "defaultValue": "{\r\n    title: 'Atoms/HeaderMainPage',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
+                "defaultValue": "{\r\n    title: 'Molecules/HeaderMainPage',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
             },
             {
                 "name": "meta",
@@ -12638,7 +12658,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<ButtonComponent>",
-                "defaultValue": "{\r\n    title: 'Particles/Button',\r\n    component: ButtonComponent,  \r\n    tags: ['autodocs'], \r\n    render: (args: ButtonComponent) => ({\r\n        props: {\r\n            backgroundColor: null,\r\n            ...args,\r\n        },\r\n    }),    \r\n}"
+                "defaultValue": "{\r\n    title: 'Atoms/Button',\r\n    component: ButtonComponent,  \r\n    tags: ['autodocs'], \r\n    render: (args: ButtonComponent) => ({\r\n        props: {\r\n            backgroundColor: null,\r\n            ...args,\r\n        },\r\n    }),    \r\n}"
             },
             {
                 "name": "meta",
@@ -12648,7 +12668,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<CourseCardComponent>",
-                "defaultValue": "{\r\n  title: 'Atoms/CourseCardMainPage',\r\n  component: CourseCardComponent,\r\n  tags: ['autodocs'], \r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations:[ButtonComponent]\r\n    })\r\n  ]\r\n}"
+                "defaultValue": "{\r\n  title: 'Molecules/CourseCardMainPage',\r\n  component: CourseCardComponent,\r\n  tags: ['autodocs'], \r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations:[ButtonComponent]\r\n    })\r\n  ]\r\n}"
             },
             {
                 "name": "meta",
@@ -12658,7 +12678,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<InstructorCardComponent>",
-                "defaultValue": "{\r\n    title: \"Atoms/InstructorCard\",\r\n  component: InstructorCardComponent,\r\n  tags: ['autodoc']\r\n}"
+                "defaultValue": "{\r\n    title: \"Molecules/InstructorCard\",\r\n  component: InstructorCardComponent,\r\n  tags: ['autodoc']\r\n}"
             },
             {
                 "name": "meta",
@@ -12678,7 +12698,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<CourseCardsComponent>",
-                "defaultValue": "{\r\n    title: \"Atoms/ourseCardsStudentPage\",\r\n    component: CourseCardsComponent,\r\n    tags: ['autodocs'],\r\n    \r\n}"
+                "defaultValue": "{\r\n    title: \"Molecules/CourseCardsStudentPage\",\r\n    component: CourseCardsComponent,\r\n    tags: ['autodocs'],\r\n    \r\n}"
             },
             {
                 "name": "meta",
@@ -12688,7 +12708,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<CustomCardComponent>",
-                "defaultValue": "{\r\n  title: 'Atoms/HomeCard',\r\n  component: CustomCardComponent,\r\n  tags: ['autodocs'],\r\n}"
+                "defaultValue": "{\r\n  title: 'Molecules/HomeCard',\r\n  component: CustomCardComponent,\r\n  tags: ['autodocs'],\r\n}"
             },
             {
                 "name": "meta",
@@ -12698,7 +12718,17 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<HeroComponent>",
-                "defaultValue": "{\r\n    title: 'Components/atoms/Students/Hero',\r\n    component: HeroComponent,\r\n    tags: ['autodocs'],\r\n}"
+                "defaultValue": "{\r\n    title: 'Molecules/Hero',\r\n    component: HeroComponent,\r\n    tags: ['autodocs'],\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/students/students-dashboard/pages/settings/components/password/password.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<PasswordComponent>",
+                "defaultValue": "{\r\n    title: \"Molecules/Password\",\r\n    component: PasswordComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations: [],\r\n          imports: [\r\n            BrowserAnimationsModule,\r\n            MatSnackBarModule,\r\n            MatInputModule,\r\n            ReactiveFormsModule,\r\n            MatIconModule,\r\n          ],\r\n          providers:[\r\n            AlertsService,\r\n          \r\n        ]\r\n        }),\r\n      ],\r\n\r\n}"
             },
             {
                 "name": "meta",
@@ -12708,7 +12738,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<ProfileBaseComponent>",
-                "defaultValue": "{\r\n    title: 'Atoms/ProfileBase',\r\n    component: ProfileBaseComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations: [ButtonComponent],\r\n          imports: [\r\n            BrowserAnimationsModule,\r\n            MatSnackBarModule,\r\n            FirestoreModule,\r\n            FirebaseAppModule,\r\n            MatDialogModule,\r\n            FormsModule,\r\n            ReactiveFormsModule, \r\n            StoreModule.forRoot({ user: userReducer }), \r\n          ],\r\n          providers:[\r\n            UsersService,\r\n            AlertsService,\r\n            { provide: Firestore, useValue: {} },\r\n            { provide: FirebaseApp, useValue: {} },\r\n           \r\n         \r\n          ]\r\n        }),\r\n      ],\r\n}"
+                "defaultValue": "{\r\n    title: 'Molecules/ProfileBase',\r\n    component: ProfileBaseComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations: [ButtonComponent],\r\n          imports: [\r\n            BrowserAnimationsModule,\r\n            MatSnackBarModule,\r\n            FirestoreModule,\r\n            FirebaseAppModule,\r\n            MatDialogModule,\r\n            MatIconModule,\r\n            MatInputModule,\r\n            FormsModule,\r\n            ReactiveFormsModule, \r\n            StoreModule.forRoot({ user: userReducer }), \r\n          ],\r\n          providers:[\r\n            UsersService,\r\n            AlertsService,\r\n            { provide: Firestore, useValue: {} },\r\n            { provide: FirebaseApp, useValue: {} },\r\n           \r\n         \r\n          ]\r\n        }),\r\n      ],\r\n}"
             },
             {
                 "name": "meta",
@@ -12718,7 +12748,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<CardTechComponent>",
-                "defaultValue": "{\r\n  title: 'Atoms/TechCard',\r\n  component: CardTechComponent,\r\n  tags: ['autodocs'],\r\n}"
+                "defaultValue": "{\r\n  title: 'Molecules/TechCard',\r\n  component: CardTechComponent,\r\n  tags: ['autodocs'],\r\n}"
             },
             {
                 "name": "mostRatedTopic",
@@ -13049,6 +13079,17 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
+                "rawtype": "StoryObj<MainPageFooterComponent>",
+                "file": "src/app/main-page/components/main-page-footer/main-page-footer.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
                 "rawtype": "StoryObj<MainPageHeaderComponent>",
                 "file": "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts",
                 "deprecated": false,
@@ -13248,7 +13289,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<ButtonComponent>",
-                    "defaultValue": "{\r\n    title: 'Particles/Button',\r\n    component: ButtonComponent,  \r\n    tags: ['autodocs'], \r\n    render: (args: ButtonComponent) => ({\r\n        props: {\r\n            backgroundColor: null,\r\n            ...args,\r\n        },\r\n    }),    \r\n}"
+                    "defaultValue": "{\r\n    title: 'Atoms/Button',\r\n    component: ButtonComponent,  \r\n    tags: ['autodocs'], \r\n    render: (args: ButtonComponent) => ({\r\n        props: {\r\n            backgroundColor: null,\r\n            ...args,\r\n        },\r\n    }),    \r\n}"
                 },
                 {
                     "name": "Primary",
@@ -13376,7 +13417,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<CustomTableComponent>",
-                    "defaultValue": "{\r\n  title: 'Atoms/CustomTable',\r\n  component: CustomTableComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations: [],\r\n      imports: [MatTableModule, MatDialogModule, SharedModule],\r\n    }),\r\n  ],\r\n}"
+                    "defaultValue": "{\r\n  title: 'Molecules/CustomTable',\r\n  component: CustomTableComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations: [],\r\n      imports: [MatTableModule, MatDialogModule, SharedModule],\r\n    }),\r\n  ],\r\n}"
                 },
                 {
                     "name": "Technologies",
@@ -13428,7 +13469,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<CustomCardComponent>",
-                    "defaultValue": "{\r\n  title: 'Atoms/HomeCard',\r\n  component: CustomCardComponent,\r\n  tags: ['autodocs'],\r\n}"
+                    "defaultValue": "{\r\n  title: 'Molecules/HomeCard',\r\n  component: CustomCardComponent,\r\n  tags: ['autodocs'],\r\n}"
                 },
                 {
                     "name": "Techs",
@@ -13470,7 +13511,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<HeroComponent>",
-                    "defaultValue": "{\r\n    title: 'Atoms/Hero',\r\n    component: HeroComponent,\r\n    tags: ['autodocs'],\r\n}"
+                    "defaultValue": "{\r\n    title: 'Molecules/Hero',\r\n    component: HeroComponent,\r\n    tags: ['autodocs'],\r\n}"
                 }
             ],
             "src/app/store/courses/courses.actions.ts": [
@@ -13526,7 +13567,29 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<HeaderComponent>",
-                    "defaultValue": "{\r\n    title: 'Atoms/HeaderAdminPage',\r\n    component: HeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[],\r\n          imports: [MatButtonModule] \r\n        })\r\n      ]\r\n}"
+                    "defaultValue": "{\r\n    title: 'Molecules/HeaderAdminPage',\r\n    component: HeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[],\r\n          imports: [MatButtonModule] \r\n        })\r\n      ]\r\n}"
+                }
+            ],
+            "src/app/main-page/components/main-page-footer/main-page-footer.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/main-page/components/main-page-footer/main-page-footer.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: {\r\n    },\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/main-page/components/main-page-footer/main-page-footer.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<MainPageFooterComponent>",
+                    "defaultValue": "{\r\n    title: 'Molecules/MainPageFooter',\r\n    component: MainPageFooterComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n        declarations: [],\r\n        imports: [],\r\n        providers: [],\r\n        }),\r\n    ],\r\n    \r\n}"
                 }
             ],
             "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts": [
@@ -13548,7 +13611,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<MainPageHeaderComponent>",
-                    "defaultValue": "{\r\n    title: 'Atoms/HeaderMainPage',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
+                    "defaultValue": "{\r\n    title: 'Molecules/HeaderMainPage',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
                 }
             ],
             "src/app/shared/components/course-card/course-card.components.stories.ts": [
@@ -13570,7 +13633,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<CourseCardComponent>",
-                    "defaultValue": "{\r\n  title: 'Atoms/CourseCardMainPage',\r\n  component: CourseCardComponent,\r\n  tags: ['autodocs'], \r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations:[ButtonComponent]\r\n    })\r\n  ]\r\n}"
+                    "defaultValue": "{\r\n  title: 'Molecules/CourseCardMainPage',\r\n  component: CourseCardComponent,\r\n  tags: ['autodocs'], \r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations:[ButtonComponent]\r\n    })\r\n  ]\r\n}"
                 }
             ],
             "src/app/shared/components/instructor-card/instructor-card.components.stories.ts": [
@@ -13592,7 +13655,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<InstructorCardComponent>",
-                    "defaultValue": "{\r\n    title: \"Atoms/InstructorCard\",\r\n  component: InstructorCardComponent,\r\n  tags: ['autodoc']\r\n}"
+                    "defaultValue": "{\r\n    title: \"Molecules/InstructorCard\",\r\n  component: InstructorCardComponent,\r\n  tags: ['autodoc']\r\n}"
                 }
             ],
             "src/app/students/components/star-rating/star-rating.component.stories.ts": [
@@ -13626,7 +13689,29 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<CourseCardsComponent>",
-                    "defaultValue": "{\r\n    title: \"Atoms/Students/CourseCards\",\r\n    component: CourseCardsComponent,\r\n    tags: ['autodocs'],\r\n    \r\n}"
+                    "defaultValue": "{\r\n    title: \"Molecules/CourseCardsStudentPage\",\r\n    component: CourseCardsComponent,\r\n    tags: ['autodocs'],\r\n    \r\n}"
+                }
+            ],
+            "src/app/students/students-dashboard/pages/settings/components/password/password.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/students/students-dashboard/pages/settings/components/password/password.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args:{\r\n    }\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/students/students-dashboard/pages/settings/components/password/password.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<PasswordComponent>",
+                    "defaultValue": "{\r\n    title: \"Molecules/Password\",\r\n    component: PasswordComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations: [],\r\n          imports: [\r\n            BrowserAnimationsModule,\r\n            MatSnackBarModule,\r\n            MatInputModule,\r\n            ReactiveFormsModule,\r\n            MatIconModule,\r\n          ],\r\n          providers:[\r\n            AlertsService,\r\n          \r\n        ]\r\n        }),\r\n      ],\r\n\r\n}"
                 }
             ],
             "src/app/students/students-dashboard/pages/technologies/components/card-tech/card-tech.components.stories.ts": [
@@ -13648,7 +13733,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<CardTechComponent>",
-                    "defaultValue": "{\r\n  title: 'Atoms/TechCard',\r\n  component: CardTechComponent,\r\n  tags: ['autodocs'],\r\n}"
+                    "defaultValue": "{\r\n  title: 'Molecules/TechCard',\r\n  component: CardTechComponent,\r\n  tags: ['autodocs'],\r\n}"
                 }
             ],
             "src/app/students/students-dashboard/pages/courses/components/course-page/header-course/header-course-students-component.stories.ts": [
@@ -13760,7 +13845,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<ProfileBaseComponent>",
-                    "defaultValue": "{\r\n    title: 'Atoms/ProfileBase',\r\n    component: ProfileBaseComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations: [ButtonComponent],\r\n          imports: [\r\n            BrowserAnimationsModule,\r\n            MatSnackBarModule,\r\n            FirestoreModule,\r\n            FirebaseAppModule,\r\n            MatDialogModule,\r\n            FormsModule,\r\n            ReactiveFormsModule, \r\n            StoreModule.forRoot({ user: userReducer }), \r\n          ],\r\n          providers:[\r\n            UsersService,\r\n            AlertsService,\r\n            { provide: Firestore, useValue: {} },\r\n            { provide: FirebaseApp, useValue: {} },\r\n           \r\n         \r\n          ]\r\n        }),\r\n      ],\r\n}"
+                    "defaultValue": "{\r\n    title: 'Molecules/ProfileBase',\r\n    component: ProfileBaseComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations: [ButtonComponent],\r\n          imports: [\r\n            BrowserAnimationsModule,\r\n            MatSnackBarModule,\r\n            FirestoreModule,\r\n            FirebaseAppModule,\r\n            MatDialogModule,\r\n            MatIconModule,\r\n            MatInputModule,\r\n            FormsModule,\r\n            ReactiveFormsModule, \r\n            StoreModule.forRoot({ user: userReducer }), \r\n          ],\r\n          providers:[\r\n            UsersService,\r\n            AlertsService,\r\n            { provide: Firestore, useValue: {} },\r\n            { provide: FirebaseApp, useValue: {} },\r\n           \r\n         \r\n          ]\r\n        }),\r\n      ],\r\n}"
                 }
             ],
             "src/app/shared/components/button/button.component.ts": [
@@ -14079,6 +14164,19 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<HeaderComponent>",
                     "file": "src/app/admins/components/header/header.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
+            "src/app/main-page/components/main-page-footer/main-page-footer.component.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<MainPageFooterComponent>",
+                    "file": "src/app/main-page/components/main-page-footer/main-page-footer.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -14909,6 +15007,26 @@
                 "name": "FourthSectionMainComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/9",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/main-page/components/main-page-footer/main-page-footer.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/main-page/components/main-page-footer/main-page-footer.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
