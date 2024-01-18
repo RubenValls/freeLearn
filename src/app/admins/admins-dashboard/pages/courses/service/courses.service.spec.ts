@@ -6,6 +6,8 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
+import { Course } from '../interface/course';
+import { throwError } from 'rxjs';
 
 describe('CoursesService', () => {
   let service: CoursesService;
@@ -51,6 +53,10 @@ describe('CoursesService', () => {
     expect(service).toBeTruthy();
   });
 
+  it('should currentCourse to be undefined', () => {
+    expect(service.currentCourse).toBeUndefined();
+  });
+
   it('should add a course', () => {
     spyOn(service, 'addCourse')
     service.addCourse(course);
@@ -69,6 +75,55 @@ describe('CoursesService', () => {
     expect(service.getCourseById).toHaveBeenCalled();
   });
 
+  it('should return courses when everything is ok', async () => {
+    const mockCourses = [{ id: '1', 
+    name: 'Course 1',
+    description:'Course 1',   
+    techs: [{name: 'Angular', id: '1234'}, {name: 'Typescript', id: '1234'}],
+    instructorId: [{name: 'Midudev', id: '1'}, {name: 'Mouredev', id: '2'}], 
+    imageUrl: 'https://www.google.com',
+    lessons: [{
+       id: '1',
+       name: 'Lesson 1',
+       videoUrl: 'https://www.google.com' 
+      }],
+    rating: [{
+      userId: '1',
+      rating: 4
+    }],
+      introductionURL: 'http://example.com/intro'
+    }, { id: '2', 
+    name: 'Course 1',
+    description:'Course 1',   
+    techs: [{name: 'Angular', id: '1234'}, {name: 'Typescript', id: '1234'}],
+    instructorId: [{name: 'Midudev', id: '1'}, {name: 'Mouredev', id: '2'}], 
+    imageUrl: 'https://www.google.com',
+    lessons: [{
+       id: '1',
+       name: 'Lesson 1',
+       videoUrl: 'https://www.google.com' 
+      }],
+    rating: [{
+      userId: '1',
+      rating: 4
+    }],
+      introductionURL: 'http://example.com/intro'
+    }]
+    spyOn(service, 'getTopicCourses').and.returnValue(Promise.resolve(mockCourses));
+    await service.getTopicCourses(['1', '2']).then(courses => {
+      expect(courses).toEqual(mockCourses);
+    });
+  });
+
+  it('should return error when everything is not ok', async () => {
+    const errorResponse = new Error('Error message');
+    spyOn(service, 'getTopicCourses').and.returnValue(Promise.reject(errorResponse));
+
+    await service.getTopicCourses(['1', '2']).catch(error => {
+           expect(error).toEqual(errorResponse);
+         });
+  });
+
   it('should obtain a collection of instructors', () =>{
     const courses = ['1', '2'];
     spyOn(service, 'getTopicCourses')
@@ -82,6 +137,36 @@ describe('CoursesService', () => {
     expect(service.updateCourse).toHaveBeenCalled();
   });
 
+  it('should reject promise when no changes were made to the course', async () => {
+    const course: Course = { id: '1', 
+    name: 'Course 1',
+    description:'Course 1',   
+    techs: [{name: 'Angular', id: '1234'}, {name: 'Typescript', id: '1234'}],
+    instructorId: [{name: 'Midudev', id: '1'}, {name: 'Mouredev', id: '2'}], 
+    imageUrl: 'https://www.google.com',
+    lessons: [{
+       id: '1',
+       name: 'Lesson 1',
+       videoUrl: 'https://www.google.com' 
+      }],
+    rating: [{
+      userId: '1',
+      rating: 4
+    }],
+      introductionURL: 'http://example.com/intro'
+    };
+
+    spyOn(service, 'getCourseById').and.returnValue(Promise.resolve(course));
+    spyOn(service, 'findIdsToEdit').and.returnValue({addedIds: [], deletedIds: []});
+
+    try {
+      await service.updateCourse('1', course);
+      fail('The promise should have been rejected');
+    } catch (e) {
+      expect(e).toEqual({ message: "No changes were made to the course" });
+    }
+  });
+
   it('should update course rating', () => {
     const rating = {userId: '1', rating: 4};
     spyOn(service, 'updateCourseRating')
@@ -93,5 +178,12 @@ describe('CoursesService', () => {
     spyOn(service, 'deleteCourse')
     service.deleteCourse(courseId);
     expect(service.deleteCourse).toHaveBeenCalled();    
-  });  
+  }); 
+  
+  it('should find added and deleted tech ids', () => {
+    const currentTechs = [{id: '1', name: 'Tech1'}, {id: '2', name: 'Tech2'}];
+    const updatedTechs = [{id: '2', name: 'Tech2'}, {id: '3', name: 'Tech3'}];
+    const result = service.findIdsToEdit(currentTechs, updatedTechs);
+    expect(result).toEqual({addedIds: ['3'], deletedIds: ['1']});
+  });
 });

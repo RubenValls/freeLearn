@@ -17,5 +17,6 @@
     "src/app/store/instructors/instructors.spec.ts",
     "src/app/store/technologies/technologies.spec.ts",
     "src/app/store/users/users.spec.ts",
+    "src/app/admins/admins-dashboard/pages/courses/store/course/course.spec.ts"
   ]
 }
