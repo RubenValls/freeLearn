@@ -4,7 +4,7 @@ import { CardTechComponent } from './card-tech.component';
 
 //👇 This default export determines where your story goes in the story list
 const meta: Meta<CardTechComponent> = {
-  title: 'Atoms/TechCard',
+  title: 'Molecules/TechCard',
   component: CardTechComponent,
   tags: ['autodocs'],
 };

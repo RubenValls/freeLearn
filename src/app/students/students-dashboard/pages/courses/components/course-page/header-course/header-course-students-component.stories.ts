@@ -12,7 +12,7 @@ import { StoreModule } from "@ngrx/store";
 import { userReducer } from "src/app/login/store/user.reducer";
 
 export default {
-    title: "Atoms/HeaderCourse",
+    title: "Molecules/HeaderCourse",
     component: HeaderCourseComponent,
     tags: ['autodocs'],
     decorators: [

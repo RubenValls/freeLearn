@@ -18,7 +18,7 @@ import { MatInput, MatInputModule } from '@angular/material/input';
 
 
 const meta: Meta<ProfileBaseComponent> = {
-    title: 'Atoms/ProfileBase',
+    title: 'Molecules/ProfileBase',
     component: ProfileBaseComponent,
     tags: ['autodocs'],
     decorators: [

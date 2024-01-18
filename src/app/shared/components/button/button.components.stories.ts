@@ -3,7 +3,7 @@ import { ButtonComponent } from './button.component';
 
 
 const meta: Meta<ButtonComponent> = {
-    title: 'Particles/Button',
+    title: 'Atoms/Button',
     component: ButtonComponent,  
     tags: ['autodocs'], 
     render: (args: ButtonComponent) => ({
