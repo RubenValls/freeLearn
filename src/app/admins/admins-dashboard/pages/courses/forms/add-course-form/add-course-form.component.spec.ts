@@ -51,6 +51,14 @@ describe('AddCourseFormComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have defined variables', () => {
+    expect(component.closeForm).toBeDefined();
+    expect(component.instructors$).toBeDefined();
+    expect(component.techs$).toBeDefined();
+    expect(component.instructors).toBeUndefined();
+    expect(component.techs).toBeUndefined();
+  });
   
   it('should initialize with technologies and instructors', () => {
     const techsSpy = spyOn(component.techs$, 'subscribe');
@@ -115,5 +123,27 @@ describe('AddCourseFormComponent', () => {
     });
   });
 
+  it('should not call addCourse when form is valid', () => {
+
+    component.courseForm.controls['name'].setValue(null);
+    component.courseForm.controls['description'].setValue('Test Description');
+    component.courseForm.controls['instructorId'].setValue([{name: 'Midudev', id: '1'}, {name: 'Mouredev', id: '2'}]);
+    component.courseForm.controls['techs'].setValue([{name: 'Angular', id: '1234'}, {name: 'Typescript', id: '1234'}]);
+    component.courseForm.controls['imageUrl'].setValue('test.jpg');
+    component.courseForm.controls['rating'].setValue([{
+      userId: '1',
+      rating: 4
+    }]);  
+    component.courseForm.controls['introductionURL'].setValue('http://example.com/intro');
+    component.courseForm.controls['lessons'].setValue([{
+      id: '1',
+      name: 'Lesson 1',
+      videoUrl: 'https://www.google.com' 
+     }]);
+
+    component.addCourse();
+
+    expect(component.coursesService.addCourse).not.toHaveBeenCalled()
+  });
 
 });
