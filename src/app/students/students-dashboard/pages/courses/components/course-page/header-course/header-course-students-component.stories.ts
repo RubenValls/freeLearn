@@ -39,6 +39,7 @@ export default {
 export const Default = () => ({
     component: HeaderCourseComponent,
     props: {
+    
         course: {
            
             name: "Curso Completo de REACT",
@@ -53,7 +54,8 @@ export const Default = () => ({
             ]
         },
         isFavorite: false,
-        courseId: "ggggygy"
+        courseId: "testId",
+        userId: "testId"
 
     }
 });

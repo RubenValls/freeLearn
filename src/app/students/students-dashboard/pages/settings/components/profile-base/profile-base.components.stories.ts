@@ -4,11 +4,13 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { userReducer } from 'src/app/login/store/user.reducer';
-import { StudentsModule } from 'src/app/students/students.module';
 import { ButtonComponent } from 'src/app/shared/components/button/button.component';
 import { UsersService } from 'src/app/shared/services/users/users.service';
-import { FirestoreModule } from '@angular/fire/firestore';
-
+import { Firestore, FirestoreModule } from "@angular/fire/firestore";
+import { FirebaseApp, FirebaseAppModule } from "@angular/fire/app";
+import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 
 
@@ -21,14 +23,22 @@ const meta: Meta<ProfileBaseComponent> = {
         moduleMetadata({
           declarations: [ButtonComponent],
           imports: [
+            BrowserAnimationsModule,
+            MatSnackBarModule,
             FirestoreModule,
+            FirebaseAppModule,
             MatDialogModule,
             FormsModule,
             ReactiveFormsModule, 
             StoreModule.forRoot({ user: userReducer }), 
           ],
           providers:[
-            UsersService
+            UsersService,
+            AlertsService,
+            { provide: Firestore, useValue: {} },
+            { provide: FirebaseApp, useValue: {} },
+           
+         
           ]
         }),
       ],
