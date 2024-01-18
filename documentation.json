@@ -12374,6 +12374,16 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/students/students-dashboard/pages/settings/components/password/password.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args:{\r\n    }\r\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/students/students-dashboard/pages/technologies/components/card-tech/card-tech.components.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -12689,6 +12699,16 @@
                 "deprecationMessage": "",
                 "type": "Meta<HeroComponent>",
                 "defaultValue": "{\r\n    title: 'Atoms/Hero',\r\n    component: HeroComponent,\r\n    tags: ['autodocs'],\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/students/students-dashboard/pages/settings/components/password/password.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<PasswordComponent>",
+                "defaultValue": "{\r\n    title: \"Atoms/Password\",\r\n    component: PasswordComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations: [],\r\n          imports: [\r\n            BrowserAnimationsModule,\r\n            MatSnackBarModule,\r\n          ],\r\n          providers:[\r\n            AlertsService,\r\n          \r\n        ]\r\n        }),\r\n      ],\r\n\r\n}"
             },
             {
                 "name": "meta",
@@ -13118,6 +13138,17 @@
                 "subtype": "typealias",
                 "rawtype": "StoryObj<HeroComponent>",
                 "file": "src/app/students/students-dashboard/pages/home/components/hero/hero.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<PasswordComponent>",
+                "file": "src/app/students/students-dashboard/pages/settings/components/password/password.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -13606,6 +13637,28 @@
                     "deprecationMessage": "",
                     "type": "Meta<CourseCardsComponent>",
                     "defaultValue": "{\r\n    title: \"Atoms/ourseCardsStudentPage\",\r\n    component: CourseCardsComponent,\r\n    tags: ['autodocs'],\r\n    \r\n}"
+                }
+            ],
+            "src/app/students/students-dashboard/pages/settings/components/password/password.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/students/students-dashboard/pages/settings/components/password/password.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args:{\r\n    }\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/students/students-dashboard/pages/settings/components/password/password.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<PasswordComponent>",
+                    "defaultValue": "{\r\n    title: \"Atoms/Password\",\r\n    component: PasswordComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations: [],\r\n          imports: [\r\n            BrowserAnimationsModule,\r\n            MatSnackBarModule,\r\n          ],\r\n          providers:[\r\n            AlertsService,\r\n          \r\n        ]\r\n        }),\r\n      ],\r\n\r\n}"
                 }
             ],
             "src/app/students/students-dashboard/pages/technologies/components/card-tech/card-tech.components.stories.ts": [
@@ -14162,6 +14215,19 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<HeroComponent>",
                     "file": "src/app/students/students-dashboard/pages/home/components/hero/hero.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
+            "src/app/students/students-dashboard/pages/settings/components/password/password.component.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<PasswordComponent>",
+                    "file": "src/app/students/students-dashboard/pages/settings/components/password/password.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -15795,6 +15861,26 @@
                 "name": "MenuSettingsComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/students/students-dashboard/pages/settings/components/password/password.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/students/students-dashboard/pages/settings/components/password/password.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
