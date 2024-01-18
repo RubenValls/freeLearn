@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { UserActions } from '../../store/user.actions';
 import { LoginService } from '../../login-service/login.service';
 import { SigninFormType } from '../../types/formTypes';
 
@@ -57,7 +55,7 @@ export class SignupFormComponent {
     this.isGoogleLoading = true;
     this.loginService.signInWithGoogle(this.signupForm, false)
     setTimeout(() => {
-      this.isLoading = false;
+      this.isGoogleLoading = false;
     }, 3000);
   }
 }

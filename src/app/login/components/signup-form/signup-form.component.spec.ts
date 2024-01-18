@@ -9,10 +9,13 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormGroup } from '@angular/forms';
+import { LoginService } from '../../login-service/login.service';
 
 describe('SignupFormComponent', () => {
   let component: SignupFormComponent;
   let fixture: ComponentFixture<SignupFormComponent>;
+  let loginService: LoginService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -29,11 +32,32 @@ describe('SignupFormComponent', () => {
     });
     fixture = TestBed.createComponent(SignupFormComponent);
     component = fixture.componentInstance;
+    loginService = TestBed.inject(LoginService);
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have a FormGroup instance', () => {
+    expect(component.signupForm instanceof FormGroup).toBe(true);
+  });
+
+  it('should have hidePassword property', () => {
+    expect(component.hidePassword).toBeDefined();
+  });
+
+  it('should have hideConfirmPassword property', () => {
+    expect(component.hideConfirmPassword).toBeDefined();
+  });
+
+  it('should have isLoading property', () => {
+    expect(component.isLoading).toBeDefined();
+  });
+
+  it('should have isGoogleLoading property', () => {
+    expect(component.isGoogleLoading).toBeDefined();
   });
 
   it('should have a signup form', () => {
@@ -76,5 +100,35 @@ describe('SignupFormComponent', () => {
     passwordControl?.setValue('123456');
     confirmPasswordControl?.setValue('1234567');
     expect(confirmPasswordControl?.valid).toBeFalsy();
+  });
+
+  it('should validate password and confirm password fields match', () => {
+    component.signupForm.setValue({email: 'test@test.com', password: 'password', confirmPassword: 'password'});
+    expect(component.signupForm.get('confirmPassword')?.errors).toBeNull();
+  });
+
+  it('should invalidate when password and confirm password fields do not match', () => {
+    component.signupForm.setValue({email: 'test@test.com', password: 'password', confirmPassword: 'different'});
+    expect(component.signupForm.get('confirmPassword')?.errors?.['notMatching']).toBeTrue();
+  });
+
+  it('should call signInWithEmail when onSubmit is called and form is valid', () => {
+    spyOn(loginService, 'signInWithEmail');
+    component.signupForm.setValue({email: 'test@test.com', password: 'password', confirmPassword: 'password'});
+    component.onSubmit();
+    expect(loginService.signInWithEmail).toHaveBeenCalledWith(component.signupForm);
+  });
+
+  it('should not call signInWithEmail when onSubmit is called and form is invalid', () => {
+    spyOn(loginService, 'signInWithEmail');
+    component.signupForm.setValue({email: '', password: '', confirmPassword: ''});
+    component.onSubmit();
+    expect(loginService.signInWithEmail).not.toHaveBeenCalled();
+  });
+
+  it('should call signInWithGoogle when onGoogleSubmit is called', () => {
+    spyOn(loginService, 'signInWithGoogle');
+    component.onGoogleSubmit();
+    expect(loginService.signInWithGoogle).toHaveBeenCalledWith(component.signupForm, false);
   });
 });
