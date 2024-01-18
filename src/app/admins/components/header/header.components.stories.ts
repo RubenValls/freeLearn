@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 //👇 This default export determines where your story goes in the story list
 const meta: Meta<HeaderComponent> = {
-    title: 'Components/atoms/Admin/Header',
+    title: 'Atoms/HeaderAdminPage',
     component: HeaderComponent,
     tags: ['autodocs'],
     decorators: [

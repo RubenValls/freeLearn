@@ -4,7 +4,7 @@ import { InstructorCardComponent } from './instructor-card.component';
 
 //👇 This default export determines where your story goes in the story list
 const meta: Meta<InstructorCardComponent> = {
-    title: "Components/atoms/Students/InstructorCard",
+    title: "Atoms/InstructorCard",
   component: InstructorCardComponent,
   tags: ['autodoc']
 };

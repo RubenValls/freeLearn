@@ -16,7 +16,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 
 const meta: Meta<ProfileBaseComponent> = {
-    title: 'Components/atoms/Students/ProfileBase',
+    title: 'Atoms/ProfileBase',
     component: ProfileBaseComponent,
     tags: ['autodocs'],
     decorators: [

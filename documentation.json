@@ -12264,21 +12264,21 @@
                 "name": "Courses",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/students/students-dashboard/pages/home/components/hero/hero.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\r\n    args: {\r\n      user: {\r\n        displayName: 'Test User',\r\n        email: 'testuser@example.com',\r\n        phoneNumber: '1234567890',\r\n        photoURL: 'https://th.bing.com/th/id/R.54e9ec5365eeb967838ffd2a35eda50b?rik=h%2bfY8HSuXACUPQ&riu=http%3a%2f%2fwww.hotavatars.com%2fwp-content%2fuploads%2f2019%2f01%2fI80W1Q0.png&ehk=NSQkB5B%2fUOzON7Gd8fGH9%2bEBxOki2BAu6FdDH0E1TGY%3d&risl=&pid=ImgRaw&r=0',\r\n        providerId: null,\r\n        rememberMe: true,\r\n        uid: '1',\r\n        authUid: '1',\r\n      },\r\n    },\r\n  }"
-            },
-            {
-                "name": "Courses",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\r\n  args: {\r\n    data: {\r\n      name: 'Curso de React',\r\n      imageUrl:\r\n        'https://miro.medium.com/v2/resize:fit:1200/1*XOSA6j_mJ3oz6g8MfoHDpg.jpeg',\r\n      description: 'React',\r\n      lessons: [],\r\n      techs: [{ id: '1', name: 'React' }],\r\n      rating: [],\r\n      introductionURL: 'https://example.com/introduction',\r\n      instructorId: [{ id: '1', name: 'Midudev' }],\r\n    },\r\n  },\r\n}"
+            },
+            {
+                "name": "Courses",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/students/students-dashboard/pages/home/components/hero/hero.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: {\r\n      user: {\r\n        displayName: 'Test User',\r\n        email: 'testuser@example.com',\r\n        phoneNumber: '1234567890',\r\n        photoURL: 'https://th.bing.com/th/id/R.54e9ec5365eeb967838ffd2a35eda50b?rik=h%2bfY8HSuXACUPQ&riu=http%3a%2f%2fwww.hotavatars.com%2fwp-content%2fuploads%2f2019%2f01%2fI80W1Q0.png&ehk=NSQkB5B%2fUOzON7Gd8fGH9%2bEBxOki2BAu6FdDH0E1TGY%3d&risl=&pid=ImgRaw&r=0',\r\n        providerId: null,\r\n        rememberMe: true,\r\n        uid: '1',\r\n        authUid: '1',\r\n      },\r\n    },\r\n  }"
             },
             {
                 "name": "CoursesActions",
@@ -12598,7 +12598,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<CustomTableComponent>",
-                "defaultValue": "{\r\n  title: 'Components/atoms/Admin/CustomTable',\r\n  component: CustomTableComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations: [],\r\n      imports: [MatTableModule, MatDialogModule, SharedModule],\r\n    }),\r\n  ],\r\n}"
+                "defaultValue": "{\r\n  title: 'Atoms/Admin/CustomTable',\r\n  component: CustomTableComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations: [],\r\n      imports: [MatTableModule, MatDialogModule, SharedModule],\r\n    }),\r\n  ],\r\n}"
             },
             {
                 "name": "meta",
@@ -12608,7 +12608,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<HeaderComponent>",
-                "defaultValue": "{\r\n    title: 'Components/atoms/Admin/Header',\r\n    component: HeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[],\r\n          imports: [MatButtonModule] \r\n        })\r\n      ]\r\n}"
+                "defaultValue": "{\r\n    title: 'Atoms/Admin/Header',\r\n    component: HeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[],\r\n          imports: [MatButtonModule] \r\n        })\r\n      ]\r\n}"
             },
             {
                 "name": "meta",
@@ -12618,7 +12618,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<MainPageHeaderComponent>",
-                "defaultValue": "{\r\n    title: 'Components/atoms/Main Page/Header',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
+                "defaultValue": "{\r\n    title: 'atoms/shared/Main Page/Header',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
             },
             {
                 "name": "meta",
@@ -12628,7 +12628,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<ButtonComponent>",
-                "defaultValue": "{\r\n    title: 'Components/particles/Shared/Button',\r\n    component: ButtonComponent,  \r\n    tags: ['autodocs'], \r\n    render: (args: ButtonComponent) => ({\r\n        props: {\r\n            backgroundColor: null,\r\n            ...args,\r\n        },\r\n    }),    \r\n}"
+                "defaultValue": "{\r\n    title: 'Particles/Shared/Button',\r\n    component: ButtonComponent,  \r\n    tags: ['autodocs'], \r\n    render: (args: ButtonComponent) => ({\r\n        props: {\r\n            backgroundColor: null,\r\n            ...args,\r\n        },\r\n    }),    \r\n}"
             },
             {
                 "name": "meta",
@@ -12638,7 +12638,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<CourseCardComponent>",
-                "defaultValue": "{\r\n  title: 'Components/atoms/Shared/CourseCard',\r\n  component: CourseCardComponent,\r\n  tags: ['autodocs'], \r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations:[ButtonComponent]\r\n    })\r\n  ]\r\n}"
+                "defaultValue": "{\r\n  title: 'Atoms/Shared/CourseCard',\r\n  component: CourseCardComponent,\r\n  tags: ['autodocs'], \r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations:[ButtonComponent]\r\n    })\r\n  ]\r\n}"
             },
             {
                 "name": "meta",
@@ -12648,7 +12648,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<InstructorCardComponent>",
-                "defaultValue": "{\r\n    title: \"Components/atoms/Students/InstructorCard\",\r\n  component: InstructorCardComponent,\r\n  tags: ['autodoc']\r\n}"
+                "defaultValue": "{\r\n    title: \"Atoms/Students/InstructorCard\",\r\n  component: InstructorCardComponent,\r\n  tags: ['autodoc']\r\n}"
             },
             {
                 "name": "meta",
@@ -12658,7 +12658,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<SnackbarComponent>",
-                "defaultValue": "{\r\n  title: 'Components/atoms/Shared/Alerts',\r\n  component: SnackbarComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [MatSnackBarModule, BrowserAnimationsModule,],\r\n      providers: [\r\n        AlertsService,\r\n        { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 } }\r\n      ],\r\n      declarations: [ButtonComponent]\r\n    }),\r\n  ],\r\n}"
+                "defaultValue": "{\r\n  title: 'Atoms/Shared/Alerts',\r\n  component: SnackbarComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [MatSnackBarModule, BrowserAnimationsModule,],\r\n      providers: [\r\n        AlertsService,\r\n        { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 } }\r\n      ],\r\n      declarations: [ButtonComponent]\r\n    }),\r\n  ],\r\n}"
             },
             {
                 "name": "meta",
@@ -12668,17 +12668,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<CourseCardsComponent>",
-                "defaultValue": "{\r\n    title: \"Components/atoms/Students/CourseCards\",\r\n    component: CourseCardsComponent,\r\n    tags: ['autodocs'],\r\n    \r\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/students/students-dashboard/pages/home/components/hero/hero.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<HeroComponent>",
-                "defaultValue": "{\r\n    title: 'Components/atoms/Students/Hero',\r\n    component: HeroComponent,\r\n    tags: ['autodocs'],\r\n}"
+                "defaultValue": "{\r\n    title: \"Atoms/Students/CourseCards\",\r\n    component: CourseCardsComponent,\r\n    tags: ['autodocs'],\r\n    \r\n}"
             },
             {
                 "name": "meta",
@@ -12694,11 +12684,21 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/students/students-dashboard/pages/home/components/hero/hero.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<HeroComponent>",
+                "defaultValue": "{\r\n    title: 'Components/atoms/Students/Hero',\r\n    component: HeroComponent,\r\n    tags: ['autodocs'],\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/students/students-dashboard/pages/settings/components/profile-base/profile-base.components.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<ProfileBaseComponent>",
-                "defaultValue": "{\r\n    title: 'Components/atoms/Students/ProfileBase',\r\n    component: ProfileBaseComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations: [ButtonComponent],\r\n          imports: [\r\n            BrowserAnimationsModule,\r\n            MatSnackBarModule,\r\n            FirestoreModule,\r\n            FirebaseAppModule,\r\n            MatDialogModule,\r\n            FormsModule,\r\n            ReactiveFormsModule, \r\n            StoreModule.forRoot({ user: userReducer }), \r\n          ],\r\n          providers:[\r\n            UsersService,\r\n            AlertsService,\r\n            { provide: Firestore, useValue: {} },\r\n            { provide: FirebaseApp, useValue: {} },\r\n           \r\n         \r\n          ]\r\n        }),\r\n      ],\r\n}"
+                "defaultValue": "{\r\n    title: 'Atoms/Students/ProfileBase',\r\n    component: ProfileBaseComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations: [ButtonComponent],\r\n          imports: [\r\n            BrowserAnimationsModule,\r\n            MatSnackBarModule,\r\n            FirestoreModule,\r\n            FirebaseAppModule,\r\n            MatDialogModule,\r\n            FormsModule,\r\n            ReactiveFormsModule, \r\n            StoreModule.forRoot({ user: userReducer }), \r\n          ],\r\n          providers:[\r\n            UsersService,\r\n            AlertsService,\r\n            { provide: Firestore, useValue: {} },\r\n            { provide: FirebaseApp, useValue: {} },\r\n           \r\n         \r\n          ]\r\n        }),\r\n      ],\r\n}"
             },
             {
                 "name": "meta",
@@ -12708,7 +12708,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<CardTechComponent>",
-                "defaultValue": "{\r\n  title: 'Components/atoms/Students/TechCard',\r\n  component: CardTechComponent,\r\n  tags: ['autodocs'],\r\n}"
+                "defaultValue": "{\r\n  title: 'Atoms/Students/TechCard',\r\n  component: CardTechComponent,\r\n  tags: ['autodocs'],\r\n}"
             },
             {
                 "name": "mostRatedTopic",
@@ -13105,8 +13105,8 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<HeroComponent>",
-                "file": "src/app/students/students-dashboard/pages/home/components/hero/hero.component.stories.ts",
+                "rawtype": "StoryObj<CustomCardComponent>",
+                "file": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -13116,8 +13116,8 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<CustomCardComponent>",
-                "file": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
+                "rawtype": "StoryObj<HeroComponent>",
+                "file": "src/app/students/students-dashboard/pages/home/components/hero/hero.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -13227,7 +13227,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<ButtonComponent>",
-                    "defaultValue": "{\r\n    title: 'Components/particles/Shared/Button',\r\n    component: ButtonComponent,  \r\n    tags: ['autodocs'], \r\n    render: (args: ButtonComponent) => ({\r\n        props: {\r\n            backgroundColor: null,\r\n            ...args,\r\n        },\r\n    }),    \r\n}"
+                    "defaultValue": "{\r\n    title: 'Particles/Shared/Button',\r\n    component: ButtonComponent,  \r\n    tags: ['autodocs'], \r\n    render: (args: ButtonComponent) => ({\r\n        props: {\r\n            backgroundColor: null,\r\n            ...args,\r\n        },\r\n    }),    \r\n}"
                 },
                 {
                     "name": "Primary",
@@ -13355,7 +13355,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<CustomTableComponent>",
-                    "defaultValue": "{\r\n  title: 'Components/atoms/Admin/CustomTable',\r\n  component: CustomTableComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations: [],\r\n      imports: [MatTableModule, MatDialogModule, SharedModule],\r\n    }),\r\n  ],\r\n}"
+                    "defaultValue": "{\r\n  title: 'Atoms/Admin/CustomTable',\r\n  component: CustomTableComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations: [],\r\n      imports: [MatTableModule, MatDialogModule, SharedModule],\r\n    }),\r\n  ],\r\n}"
                 },
                 {
                     "name": "Technologies",
@@ -13386,28 +13386,6 @@
                     "deprecationMessage": "",
                     "type": "Story",
                     "defaultValue": "{\r\n  args: {\r\n    data: [\r\n      {\r\n        id: '1',\r\n        displayName: 'Ismael Cervera',\r\n        email: 'isma@test.com',\r\n        photoURL:\r\n          'https://th.bing.com/th/id/OIP.ZmXuryOWnCOmdKSGsS3RAwHaHa?rs=1&pid=ImgDetMain',\r\n        favorites: [],\r\n        providerId: 'password',\r\n        phoneNumber: '666888999',\r\n        authUid: 'wefe34jhhxhjs',\r\n        role: 'student',\r\n        uid: 'isma@test.com',\r\n        rememberMe: true,\r\n      },\r\n    ],\r\n    displayedColumns: [\r\n      { prop: 'displayName', title: 'User' },\r\n      { prop: 'photoURL', title: 'Img' },\r\n      { prop: 'email', title: 'Email' },\r\n      { prop: 'phoneNumber', title: 'Phone' },\r\n      { prop: 'role', title: 'Role' },\r\n    ],\r\n    rows: [\r\n      { label: 'Id', prop: 'id' },\r\n      { label: 'User', prop: 'displayName' },\r\n      { label: 'Img', prop: 'photoURL' },\r\n      { label: 'Email', prop: 'email' },\r\n      { label: 'Phone', prop: 'phoneNumber' },\r\n      { label: 'role', prop: 'role' },\r\n    ],\r\n  },\r\n}"
-                }
-            ],
-            "src/app/students/students-dashboard/pages/home/components/hero/hero.component.stories.ts": [
-                {
-                    "name": "Courses",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/students/students-dashboard/pages/home/components/hero/hero.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\r\n    args: {\r\n      user: {\r\n        displayName: 'Test User',\r\n        email: 'testuser@example.com',\r\n        phoneNumber: '1234567890',\r\n        photoURL: 'https://th.bing.com/th/id/R.54e9ec5365eeb967838ffd2a35eda50b?rik=h%2bfY8HSuXACUPQ&riu=http%3a%2f%2fwww.hotavatars.com%2fwp-content%2fuploads%2f2019%2f01%2fI80W1Q0.png&ehk=NSQkB5B%2fUOzON7Gd8fGH9%2bEBxOki2BAu6FdDH0E1TGY%3d&risl=&pid=ImgRaw&r=0',\r\n        providerId: null,\r\n        rememberMe: true,\r\n        uid: '1',\r\n        authUid: '1',\r\n      },\r\n    },\r\n  }"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/students/students-dashboard/pages/home/components/hero/hero.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta<HeroComponent>",
-                    "defaultValue": "{\r\n    title: 'Components/atoms/Students/Hero',\r\n    component: HeroComponent,\r\n    tags: ['autodocs'],\r\n}"
                 }
             ],
             "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts": [
@@ -13450,6 +13428,28 @@
                     "deprecationMessage": "",
                     "type": "Story",
                     "defaultValue": "{\r\n  args: {\r\n    data: {\r\n      id: '1',\r\n      name: 'Midudev',\r\n      reating: [],\r\n      imagePath:\r\n        'https://yt3.googleusercontent.com/ytc/AIf8zZScNwk4VuB2XijvUaEz7Z8Wff_tvBzYaHgOXZZtFQ=s176-c-k-c0x00ffffff-no-rj',\r\n      courses: [],\r\n      socialMedia: [\r\n        {\r\n          linkedin: 'https://www.linkedin.com/in/midudev',\r\n          twitter: 'https://twitter.com/midudev',\r\n          web: 'https://www.youtube.com/c/midudev',\r\n          youtube: 'https://www.youtube.com/c/midudev',\r\n        },\r\n      ],\r\n    },\r\n  },\r\n}"
+                }
+            ],
+            "src/app/students/students-dashboard/pages/home/components/hero/hero.component.stories.ts": [
+                {
+                    "name": "Courses",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/students/students-dashboard/pages/home/components/hero/hero.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: {\r\n      user: {\r\n        displayName: 'Test User',\r\n        email: 'testuser@example.com',\r\n        phoneNumber: '1234567890',\r\n        photoURL: 'https://th.bing.com/th/id/R.54e9ec5365eeb967838ffd2a35eda50b?rik=h%2bfY8HSuXACUPQ&riu=http%3a%2f%2fwww.hotavatars.com%2fwp-content%2fuploads%2f2019%2f01%2fI80W1Q0.png&ehk=NSQkB5B%2fUOzON7Gd8fGH9%2bEBxOki2BAu6FdDH0E1TGY%3d&risl=&pid=ImgRaw&r=0',\r\n        providerId: null,\r\n        rememberMe: true,\r\n        uid: '1',\r\n        authUid: '1',\r\n      },\r\n    },\r\n  }"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/students/students-dashboard/pages/home/components/hero/hero.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<HeroComponent>",
+                    "defaultValue": "{\r\n    title: 'Components/atoms/Students/Hero',\r\n    component: HeroComponent,\r\n    tags: ['autodocs'],\r\n}"
                 }
             ],
             "src/app/store/courses/courses.actions.ts": [
@@ -13505,7 +13505,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<HeaderComponent>",
-                    "defaultValue": "{\r\n    title: 'Components/atoms/Admin/Header',\r\n    component: HeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[],\r\n          imports: [MatButtonModule] \r\n        })\r\n      ]\r\n}"
+                    "defaultValue": "{\r\n    title: 'Atoms/Admin/Header',\r\n    component: HeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[],\r\n          imports: [MatButtonModule] \r\n        })\r\n      ]\r\n}"
                 }
             ],
             "src/app/main-page/components/main-page-header/main-page-header.components.stories.ts": [
@@ -13527,7 +13527,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<MainPageHeaderComponent>",
-                    "defaultValue": "{\r\n    title: 'Components/atoms/Main Page/Header',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
+                    "defaultValue": "{\r\n    title: 'atoms/shared/Main Page/Header',\r\n    component: MainPageHeaderComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations:[ButtonComponent]\r\n        })\r\n      ]\r\n}"
                 }
             ],
             "src/app/shared/components/course-card/course-card.components.stories.ts": [
@@ -13549,7 +13549,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<CourseCardComponent>",
-                    "defaultValue": "{\r\n  title: 'Components/atoms/Shared/CourseCard',\r\n  component: CourseCardComponent,\r\n  tags: ['autodocs'], \r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations:[ButtonComponent]\r\n    })\r\n  ]\r\n}"
+                    "defaultValue": "{\r\n  title: 'Atoms/Shared/CourseCard',\r\n  component: CourseCardComponent,\r\n  tags: ['autodocs'], \r\n  decorators: [\r\n    moduleMetadata({\r\n      declarations:[ButtonComponent]\r\n    })\r\n  ]\r\n}"
                 }
             ],
             "src/app/shared/components/instructor-card/instructor-card.components.stories.ts": [
@@ -13571,7 +13571,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<InstructorCardComponent>",
-                    "defaultValue": "{\r\n    title: \"Components/atoms/Students/InstructorCard\",\r\n  component: InstructorCardComponent,\r\n  tags: ['autodoc']\r\n}"
+                    "defaultValue": "{\r\n    title: \"Atoms/Students/InstructorCard\",\r\n  component: InstructorCardComponent,\r\n  tags: ['autodoc']\r\n}"
                 }
             ],
             "src/app/students/components/star-rating/star-rating.component.stories.ts": [
@@ -13605,7 +13605,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<CourseCardsComponent>",
-                    "defaultValue": "{\r\n    title: \"Components/atoms/Students/CourseCards\",\r\n    component: CourseCardsComponent,\r\n    tags: ['autodocs'],\r\n    \r\n}"
+                    "defaultValue": "{\r\n    title: \"Atoms/Students/CourseCards\",\r\n    component: CourseCardsComponent,\r\n    tags: ['autodocs'],\r\n    \r\n}"
                 }
             ],
             "src/app/students/students-dashboard/pages/technologies/components/card-tech/card-tech.components.stories.ts": [
@@ -13627,7 +13627,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<CardTechComponent>",
-                    "defaultValue": "{\r\n  title: 'Components/atoms/Students/TechCard',\r\n  component: CardTechComponent,\r\n  tags: ['autodocs'],\r\n}"
+                    "defaultValue": "{\r\n  title: 'Atoms/Students/TechCard',\r\n  component: CardTechComponent,\r\n  tags: ['autodocs'],\r\n}"
                 }
             ],
             "src/app/students/students-dashboard/pages/courses/components/course-page/header-course/header-course-students-component.stories.ts": [
@@ -13697,7 +13697,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<SnackbarComponent>",
-                    "defaultValue": "{\r\n  title: 'Components/atoms/Shared/Alerts',\r\n  component: SnackbarComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [MatSnackBarModule, BrowserAnimationsModule,],\r\n      providers: [\r\n        AlertsService,\r\n        { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 } }\r\n      ],\r\n      declarations: [ButtonComponent]\r\n    }),\r\n  ],\r\n}"
+                    "defaultValue": "{\r\n  title: 'Atoms/Shared/Alerts',\r\n  component: SnackbarComponent,\r\n  tags: ['autodocs'],\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [MatSnackBarModule, BrowserAnimationsModule,],\r\n      providers: [\r\n        AlertsService,\r\n        { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 } }\r\n      ],\r\n      declarations: [ButtonComponent]\r\n    }),\r\n  ],\r\n}"
                 },
                 {
                     "name": "successAlert",
@@ -13739,7 +13739,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<ProfileBaseComponent>",
-                    "defaultValue": "{\r\n    title: 'Components/atoms/Students/ProfileBase',\r\n    component: ProfileBaseComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations: [ButtonComponent],\r\n          imports: [\r\n            BrowserAnimationsModule,\r\n            MatSnackBarModule,\r\n            FirestoreModule,\r\n            FirebaseAppModule,\r\n            MatDialogModule,\r\n            FormsModule,\r\n            ReactiveFormsModule, \r\n            StoreModule.forRoot({ user: userReducer }), \r\n          ],\r\n          providers:[\r\n            UsersService,\r\n            AlertsService,\r\n            { provide: Firestore, useValue: {} },\r\n            { provide: FirebaseApp, useValue: {} },\r\n           \r\n         \r\n          ]\r\n        }),\r\n      ],\r\n}"
+                    "defaultValue": "{\r\n    title: 'Atoms/Students/ProfileBase',\r\n    component: ProfileBaseComponent,\r\n    tags: ['autodocs'],\r\n    decorators: [\r\n        moduleMetadata({\r\n          declarations: [ButtonComponent],\r\n          imports: [\r\n            BrowserAnimationsModule,\r\n            MatSnackBarModule,\r\n            FirestoreModule,\r\n            FirebaseAppModule,\r\n            MatDialogModule,\r\n            FormsModule,\r\n            ReactiveFormsModule, \r\n            StoreModule.forRoot({ user: userReducer }), \r\n          ],\r\n          providers:[\r\n            UsersService,\r\n            AlertsService,\r\n            { provide: Firestore, useValue: {} },\r\n            { provide: FirebaseApp, useValue: {} },\r\n           \r\n         \r\n          ]\r\n        }),\r\n      ],\r\n}"
                 }
             ],
             "src/app/shared/components/button/button.component.ts": [
@@ -14142,19 +14142,6 @@
                     "kind": 183
                 }
             ],
-            "src/app/students/students-dashboard/pages/home/components/hero/hero.component.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<HeroComponent>",
-                    "file": "src/app/students/students-dashboard/pages/home/components/hero/hero.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 183
-                }
-            ],
             "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts": [
                 {
                     "name": "Story",
@@ -14162,6 +14149,19 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<CustomCardComponent>",
                     "file": "src/app/students/students-dashboard/pages/home/components/custom-card/custom-card.components.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
+            "src/app/students/students-dashboard/pages/home/components/hero/hero.component.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<HeroComponent>",
+                    "file": "src/app/students/students-dashboard/pages/home/components/hero/hero.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",

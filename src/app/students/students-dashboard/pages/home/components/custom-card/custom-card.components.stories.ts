@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { CustomCardComponent } from './custom-card.component';
 
 const meta: Meta<CustomCardComponent> = {
-  title: 'Components/atoms/Students/HomeCard',
+  title: 'Atoms/HomeCard',
   component: CustomCardComponent,
   tags: ['autodocs'],
 };
