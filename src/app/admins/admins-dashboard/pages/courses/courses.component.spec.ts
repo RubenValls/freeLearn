@@ -48,6 +48,20 @@ describe('CoursesComponent', () => {
     fixture.detectChanges();
   });
   
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should have all variables defined', () => {
+    expect(component.watchForm).toBeDefined();
+    expect(component.courses$).toBeDefined();
+    expect(component.modalWith).toBeDefined();
+    expect(component.modalHeight).toBeDefined();
+    expect(component.modalTitle).toBeDefined();
+    expect(component.tableColumns).toBeDefined();
+    expect(component.rows).toBeDefined();
+  });
+
   it('should toggle watchForm on addCourse', () => {
     component.watchForm = false;
     component.addCourse();
