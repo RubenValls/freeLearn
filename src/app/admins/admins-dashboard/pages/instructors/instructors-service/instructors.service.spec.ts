@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { InstructorsService } from './instructors.service';
 import {
-  Firestore,
   getFirestore,
   provideFirestore,
 } from '@angular/fire/firestore';
@@ -9,6 +8,7 @@ import { Instructor } from '../instructors';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
+import { Observable, of } from 'rxjs';
 
 describe('InstructorsService', () => {
   let service: InstructorsService;
@@ -23,7 +23,7 @@ describe('InstructorsService', () => {
       linkedin: 'https://www.linkedin.com/in/instructor1',
     },
     courses: [],
-    imagePath: 'path/to/image', // Add this property
+    imagePath: 'path/to/image', 
     rating: [{
       userId: '1',
       rating: 4
@@ -65,6 +65,12 @@ describe('InstructorsService', () => {
     spyOn(service, 'getInstructorById');
     service.getInstructorById(instructorId);
     expect(service.getInstructorById).toHaveBeenCalled();
+  });
+
+  it('returns an empty array when courseId is not provided', async () => {
+    (await service.getInstructorByCourseId('')).subscribe(result => {
+      expect(result).toEqual([]);
+    });
   });
 
   it('should update an instructor', async () => {
