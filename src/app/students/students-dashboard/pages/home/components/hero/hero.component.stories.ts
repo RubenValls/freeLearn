@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { HeroComponent } from "./hero.component";
 
 const meta: Meta<HeroComponent> = {
-    title: 'Atoms/Hero',
+    title: 'Molecules/Hero',
     component: HeroComponent,
     tags: ['autodocs'],
 };
