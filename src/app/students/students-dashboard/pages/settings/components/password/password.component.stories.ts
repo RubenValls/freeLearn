@@ -8,7 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 
 const meta : Meta<PasswordComponent> = {
-    title: "Atoms/Password",
+    title: "Molecules/Password",
     component: PasswordComponent,
     tags: ['autodocs'],
     decorators: [
