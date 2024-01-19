@@ -5,7 +5,7 @@ import { AdminsModule } from 'src/app/admins/admins.module';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { DocumentData, DocumentReference, getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { TechnologyType } from '../types/technologies';
 import { of } from 'rxjs';
 
@@ -36,7 +36,8 @@ describe('TechService', () => {
       description: 'A platform for building web applications.',
       courses: []
     };
-    spyOn(service, 'addTechnology').and.callThrough();
+    const mockDocRef: DocumentReference<DocumentData> = technology as unknown as DocumentReference<DocumentData>;
+    spyOn(service, 'addTechnology').and.returnValue(Promise.resolve(mockDocRef));
     
     const newTech = await service.addTechnology(technology);
     

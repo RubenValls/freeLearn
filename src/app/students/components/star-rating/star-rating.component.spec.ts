@@ -52,4 +52,22 @@ describe('StarRatingComponent', () => {
     expect(alertsService.successMessage).toHaveBeenCalledWith(`Rated with ${rating} stars.`);
     expect(component.ratingUpdated.emit).toHaveBeenCalledWith(rating);
   });
+
+  it('should show correct icon based on rating', () => {
+    component.finalRating = 3;
+    expect(component.showIcon(2)).toEqual('star');
+    expect(component.showIcon(3)).toEqual('star_border');
+  });
+  
+  it('should calculate average rating correctly', () => {
+    const ratings: Rating[] = [{ userId: '1', rating: 3 }, { userId: '2', rating: 4 }];
+    component.setRatingAverage(ratings);
+    expect(component.finalRating).toEqual(4);
+  });
+  
+  it('should initialize ratingArr correctly', () => {
+    component.ngOnInit();
+    expect(component.ratingArr).toEqual([0, 1, 2, 3, 4]);
+  });
+  
 });
