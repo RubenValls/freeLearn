@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UpdateModalComponent } from '../update-modal/update-modal.component';
 import { SubDetailModalComponent } from '../sub-modals/sub-detail-modal/sub-detail-modal.component';
 import { Store } from '@ngrx/store';
@@ -9,8 +9,6 @@ import { selectCourse } from 'src/app/admins/admins-dashboard/pages/courses/stor
 import { Observable, Subscription } from 'rxjs';
 import { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';
 import { CourseActions } from 'src/app/admins/admins-dashboard/pages/courses/store/course/course.actions';
-import { TechService } from 'src/app/admins/admins-dashboard/pages/technologies/service/tech.service';
-import { InstructorsService } from 'src/app/admins/admins-dashboard/pages/instructors/instructors-service/instructors.service';
 import { Instructor } from 'src/app/admins/admins-dashboard/pages/instructors/instructors';
 import { TechnologyType } from 'src/app/admins/admins-dashboard/pages/technologies/types/technologies';
 import { selectInstructor } from 'src/app/store/instructors/instructors.selectors';
