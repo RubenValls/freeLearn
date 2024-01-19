@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="fav-container">
-                <i class="bi bi-heart  fav"></i>
+                <i class="bi bi-heart"  [ngClass]="{'favorite': isFavorite}" (click)="onFavoriteClick()"></i>
             </div>
         </div>
 
