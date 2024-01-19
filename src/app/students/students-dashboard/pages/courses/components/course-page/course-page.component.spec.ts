@@ -47,6 +47,26 @@ describe('CoursePageComponent', () => {
     expect(component).toBeTruthy();
   });
 
- 
+  it('should initialize course ID correctly', () => {
+    expect(component.courseId).toEqual('test');
+  });
+
+  it('should initialize instructors ID correctly', () => {
+    expect(component.instructorsId).toBeUndefined();
+  });
+
+  it('should initialize techs ID correctly', () => {
+    expect(component.techsId).toBeUndefined();
+  });
+
+  it('should initialize lessons visibility correctly', () => {
+    expect(component.areLessonsVisible).toEqual(false);
+  });
+
+  it('should update course rating correctly', () => {
+    const spy = spyOn(component, 'handleUpdate');
+    component.handleUpdate(5);
+    expect(spy).toHaveBeenCalled();
+  });  
 
 });
