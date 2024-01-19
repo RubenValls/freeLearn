@@ -7,7 +7,7 @@ import { ButtonComponent } from 'src/app/shared/components/button/button.compone
 
 //👇 This default export determines where your story goes in the story list
 const meta: Meta<MainPageHeaderComponent> = {
-    title: 'Components/Main Page/Header',
+    title: 'Molecules/HeaderMainPage',
     component: MainPageHeaderComponent,
     tags: ['autodocs'],
     decorators: [

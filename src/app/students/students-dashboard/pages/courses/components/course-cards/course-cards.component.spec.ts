@@ -31,4 +31,10 @@ describe('CourseCardsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should calculate average rating correctly', () => {
+    const ratings = [{rating: 5}, {rating: 4}, {rating: 3}];
+    const average = component.getRatingAverage(ratings);
+    expect(average).toEqual(4);
+  });
 });
