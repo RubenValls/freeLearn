@@ -20,12 +20,27 @@ describe('HeroComponent', () => {
     fixture.detectChanges();
   });
 
+  afterEach(() => {
+    localStorage.clear()
+  })
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have no user at the beginning', () => {
-    expect(component.user).toBeUndefined();
+  it('should have user after OnInit', () => {
+    localStorage.setItem('userInfo', JSON.stringify({
+      displayName: 'Test User',
+      email: 'testuser@example.com',
+      phoneNumber: '1234567890',
+      photoURL: null,
+      providerId: null,
+      rememberMe: true,
+      uid: '1',
+      authUid: '1',
+    }))
+    component.ngOnInit();
+    expect(component.user).toBeTruthy();
   });
 
   it('should get user from local storage if available', () => {

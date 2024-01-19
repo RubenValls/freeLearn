@@ -5,7 +5,7 @@ import { AdminsModule } from 'src/app/admins/admins.module';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
-import { Firestore, getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { TechnologyType } from '../types/technologies';
 
 describe('TechService', () => {
@@ -42,5 +42,11 @@ describe('TechService', () => {
     expect(service.addTechnology).toHaveBeenCalledWith(technology);
     expect(newTech).toBeTruthy();
   });
+
+  it('should get technologies', async () => {
+    const collectionData = await service.getTechnologies();
+
+    expect(collectionData).toBeTruthy();
+  })
 
 });
