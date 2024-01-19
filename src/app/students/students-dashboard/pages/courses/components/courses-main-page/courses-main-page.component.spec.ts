@@ -11,25 +11,6 @@ describe('CoursesMainPageComponent', () => {
   let component: CoursesMainPageComponent;
   let fixture: ComponentFixture<CoursesMainPageComponent>;
 
-  const course = 
-  { id: '1', 
-  name: 'Course 1',
-  description:'Course 1',   
-  techs: [{name: 'Angular', id: '1234'}, {name: 'Typescript', id: '1234'}],
-  instructorId: [{name: 'Midudev', id: '1'}, {name: 'Mouredev', id: '2'}], 
-  imageUrl: 'https://www.google.com',
-  lessons: [{
-     id: '1',
-     name: 'Lesson 1',
-     videoUrl: 'https://www.google.com' 
-    }],
-  rating: [{
-    userId: '1',
-    rating: 4
-  }],
-    introductionURL: 'http://example.com/intro'
-  };
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [StudentsModule, BrowserAnimationsModule],
@@ -44,6 +25,113 @@ describe('CoursesMainPageComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have no courses on initialization', () => {
+    expect(component.courses.length).toEqual(0);
+  });
+
+  it('should filter courses by name', () => {
+    const mockCourses: Course[] = [
+      { 
+        id: '1',
+        name: 'Course1',
+        description: 'Description1',
+        instructorId: [{ id: '1', name: 'Instructor1' }],
+        imageUrl: 'url1',
+        techs: [{ id: '1', name: 'Tech1' }],
+        lessons: [{ id: '1', name: 'Lesson1', videoUrl: 'url1' }],
+        rating: [{ userId: '1', rating: 3 }],
+        introductionURL: 'url1'
+      },
+      { 
+        id: '1',
+        name: 'Course2',
+        description: 'Description1',
+        instructorId: [{ id: '1', name: 'Instructor1' }],
+        imageUrl: 'url1',
+        techs: [{ id: '1', name: 'Tech1' }],
+        lessons: [{ id: '1', name: 'Lesson1', videoUrl: 'url1' }],
+        rating: [{ userId: '1', rating: 3 }],
+        introductionURL: 'url1'
+      },
+    ];
+    component.courses = mockCourses;
+    component.name.setValue('Course1');
+    expect(component.filteredCourses.length).toEqual(1);
+    expect(component.filteredCourses[0].name).toEqual('Course1');
+  });
+
+  it('should return filtered courses if any', () => {
+    const mockCourses: Course[] = [
+      { 
+        id: '1',
+        name: 'Course1',
+        description: 'Description1',
+        instructorId: [{ id: '1', name: 'Instructor1' }],
+        imageUrl: 'url1',
+        techs: [{ id: '1', name: 'Tech1' }],
+        lessons: [{ id: '1', name: 'Lesson1', videoUrl: 'url1' }],
+        rating: [{ userId: '1', rating: 3 }],
+        introductionURL: 'url1'
+      },
+      { 
+        id: '1',
+        name: 'Course2',
+        description: 'Description1',
+        instructorId: [{ id: '1', name: 'Instructor1' }],
+        imageUrl: 'url1',
+        techs: [{ id: '1', name: 'Tech1' }],
+        lessons: [{ id: '1', name: 'Lesson1', videoUrl: 'url1' }],
+        rating: [{ userId: '1', rating: 3 }],
+        introductionURL: 'url1'
+      },
+    ];
+    component.courses = mockCourses;
+    component.name.setValue('Course1');
+    expect(component.getCourses().length).toEqual(1);
+    expect(component.getCourses()[0].name).toEqual('Course1');
+  });
+
+  it('should return all courses if no filter applied', () => {
+    const mockCourses: Course[] = [
+      { 
+        id: '1',
+        name: 'Course1',
+        description: 'Description1',
+        instructorId: [{ id: '1', name: 'Instructor1' }],
+        imageUrl: 'url1',
+        techs: [{ id: '1', name: 'Tech1' }],
+        lessons: [{ id: '1', name: 'Lesson1', videoUrl: 'url1' }],
+        rating: [{ userId: '1', rating: 3 }],
+        introductionURL: 'url1'
+      },
+      { 
+        id: '1',
+        name: 'Course1',
+        description: 'Description1',
+        instructorId: [{ id: '1', name: 'Instructor1' }],
+        imageUrl: 'url1',
+        techs: [{ id: '1', name: 'Tech1' }],
+        lessons: [{ id: '1', name: 'Lesson1', videoUrl: 'url1' }],
+        rating: [{ userId: '1', rating: 3 }],
+        introductionURL: 'url1'
+      },
+    ];
+    component.courses = mockCourses;
+    expect(component.getCourses().length).toEqual(2);
+  });
+
+  it('should unsubscribe on destroy', () => {
+    if (component.courseSubscription) {
+      spyOn(component.courseSubscription, 'unsubscribe');
+      component.ngOnDestroy();
+      expect(component.courseSubscription.unsubscribe).toHaveBeenCalled();
+    }
+    else{
+      expect(component.courseSubscription).toBeUndefined();
+    }
+  });
+  
 
   describe('mostRatedTopic', () => {
     it('should return the top three rated courses', () => {
