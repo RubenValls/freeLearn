@@ -52,6 +52,23 @@ describe('SidebarComponent', () => {
     expect(resizeService.checkScreenSize).toHaveBeenCalledWith(500);
   });
 
+  it('should show success message on handleLogOut', () => {
+    const userInfo = { email: 'test@example.com' };
+    spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify(userInfo));
+    spyOn(component, 'callAlertMessage');
+    component.handleLogOut();
+    expect(component.callAlertMessage).toHaveBeenCalledWith('See you soon: ' + userInfo.email);
+  });
+
+  it('should subscribe to isSmallScreen$ on ngOnInit', () => {
+    const isSmallScreen$ = of(true);
+    let result: boolean = false;
+    isSmallScreen$.subscribe(value => result = value);
+    component.ngOnInit();
+    expect(result).toBeTrue();
+  });
+  
+
   it('should unsubscribe from isSmallScreen$ on ngOnDestroy', () => {
     const subscription = component.smallScreenSubscription as Subscription;
     spyOn(subscription, 'unsubscribe');
