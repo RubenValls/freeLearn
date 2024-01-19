@@ -53,6 +53,32 @@ describe('mostRatedTopic', () => {
     expect(result[1].rating).toEqual([{ userId: 'user1', rating: 5 }, { userId: 'user2', rating: 4 }]);
     expect(result[2].rating).toEqual([{ userId: 'user3', rating: 3 }, { userId: 'user4', rating: 2 }]);
   });
+
+  it('should return an empty array when there are no instructors', () => {
+    const mockData: Instructor[] = [];
+    const result = mostRatedTopic(mockData);
+    expect(result.length).toEqual(0);
+  });
+
+  it('should handle instructors with no ratings', () => {
+    const mockData: Instructor[] = [
+      { 
+        id: '1',
+        name: 'Instructor 1',
+        socialMedia: {
+          web: 'www.example.com',
+          youtube: 'www.youtube.com',
+          twitter: 'www.twitter.com',
+          linkedin: 'www.linkedin.com',
+        },
+        courses: ['course1', 'course2'],
+        imagePath: 'path/to/image',
+        rating: []
+      },
+    ];
+    const result = mostRatedTopic(mockData);
+    expect(result.length).toEqual(1);
+  });
 });
 
 describe('randomArray', () => {
@@ -61,6 +87,21 @@ describe('randomArray', () => {
 
     const result = randomArray(mockData, 5);
 
+    expect(result.length).toEqual(5);
+    result.forEach((item) => {
+      expect(mockData.includes(item)).toBeTrue();
+    });
+  });
+
+  it('should return an empty array when n is 0', () => {
+    const mockData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const result = randomArray(mockData, 0);
+    expect(result.length).toEqual(0);
+  });
+
+  it('should return all elements when n is greater than array length', () => {
+    const mockData = [1, 2, 3, 4, 5];
+    const result = randomArray(mockData, 10);
     expect(result.length).toEqual(5);
     result.forEach((item) => {
       expect(mockData.includes(item)).toBeTrue();
