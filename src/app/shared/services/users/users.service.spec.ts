@@ -118,4 +118,25 @@ describe('UsersService', () => {
     await service.updateUser(user.id, user);
     expect(service.updateUser).toHaveBeenCalledWith(user.id, user);
   });
+
+  it('should update favorite courses and return message', async () => {
+    const courseId = 'testCourseId';
+
+    spyOn(service, 'updateFavoriteCourses').and.returnValue(Promise.resolve({message: 'Course add to favorites'}));
+
+    const result = await service.updateFavoriteCourses(courseId);
+    expect(result.message).toEqual('Course add to favorites');
+    expect(service.updateFavoriteCourses).toHaveBeenCalled();
+  });
+
+  it('should update favorite courses and return removed message', async () => {
+    const courseId = 'testCourseId';
+
+    spyOn(service, 'updateFavoriteCourses').and.returnValue(Promise.resolve({message: 'Course removed from favorites'}));
+
+    const result = await service.updateFavoriteCourses(courseId);
+    expect(result.message).toEqual('Course removed from favorites');
+    expect(service.updateFavoriteCourses).toHaveBeenCalled();
+  });
+  
 });

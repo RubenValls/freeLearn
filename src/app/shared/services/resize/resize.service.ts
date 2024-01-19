@@ -1,4 +1,4 @@
-import { HostListener, Injectable, NgZone } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
