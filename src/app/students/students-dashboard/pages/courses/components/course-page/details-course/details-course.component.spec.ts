@@ -50,5 +50,17 @@ describe('DetailsCourseComponent', () => {
     expect(component.instructorsData).toEqual([{ id: '1', name: 'Instructor 1' }]);
     expect(component.techsData).toEqual([{ id: '1', name: 'Tech 1' }]);
   }));
+
+  it('should not fetch instructors and technologies data on initialization if courseId is not defined', fakeAsync(() => {
+    mockInstructorsService.getInstructorByCourseId.and.returnValue(of([{ id: '1', name: 'Instructor 1' }]));
+    mockTechsService.getTechnologyByCourseId.and.returnValue(of([{ id: '1', name: 'Tech 1' }]));
+  
+    component.ngOnInit();
+    tick();
+  
+    expect(mockInstructorsService.getInstructorByCourseId).toHaveBeenCalled();
+    expect(mockTechsService.getTechnologyByCourseId).toHaveBeenCalled();
+  }));
+  
 });
 
