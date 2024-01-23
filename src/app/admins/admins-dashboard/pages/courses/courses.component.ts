@@ -11,9 +11,10 @@ import { FormControl } from '@angular/forms';
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.scss']
 })
-export class CoursesComponent  {
+export class CoursesComponent implements OnInit {
   watchForm: boolean = false;
   courses$ = this.store.select(selectCourses);
+  filteredCourses: any = []
   
   modalWith: string = '1034';
   modalHeight: string = '600px';
@@ -49,6 +50,31 @@ export class CoursesComponent  {
     private coursesService: CoursesService,
     private alertMessages: AlertsService,
   ) { } 
+
+  ngOnInit(): void {
+    this.courses$.subscribe((courses) => {
+      this.filteredCourses = this.filterByName(courses, this.searchCoursesControl.value || '');
+    });
+    this.searchCoursesControl.valueChanges.subscribe((input) => {
+      this.courses$.subscribe((courses) => {
+        this.filteredCourses = this.filterByName(courses, input || "");
+      });
+    });
+  }
+
+  filterByName(array: readonly Course[], input: string) {
+    return array.filter(item => item.name.toLowerCase().includes(input.toLowerCase()));
+  }
+
+  getCourses(){
+    if(this.filteredCourses.length > 0){
+      console.log(this.filteredCourses);
+      return this.filteredCourses
+    }else{
+      
+      return this.courses$
+    }
+  }
 
 
 

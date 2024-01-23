@@ -23,7 +23,7 @@
   </ng-container>
 
   <app-custom-table
-    [data]="courses$"
+    [data]="filteredCourses.length > 0 ? filteredCourses : courses$"
     [displayedColumns]="tableColumns"
     [rows]="rows"
     [modalWith]="modalWith"
