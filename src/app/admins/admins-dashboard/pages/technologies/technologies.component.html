@@ -1,22 +1,32 @@
 <div class="flex-container">
-  <app-button
-    [label]="'Add technology'"
-    [type]="'gradient'"
-    (onClick)="onToggleForm()"
-    [iconName]="'add'"
-  >
-  </app-button>
+  <div class="top">
+    <div class="input-container">
+      <mat-form-field class="input">
+        <mat-label><i class="bi bi-search"></i>Filtred courses</mat-label>
+        <input matInput [formControl]="searchTechsControl" type="text" />
+      </mat-form-field>
+    </div>
+    <div>
+      <app-button
+        [label]="'Add technology'"
+        [type]="'gradient'"
+        (onClick)="onToggleForm()"
+        [iconName]="'add'"
+      >
+      </app-button>
+    </div>
+  </div>
 
-    <app-new-tech-form *ngIf="isFormVisible"></app-new-tech-form>
-    <app-custom-table 
-    [data]="technologies$" 
-    [displayedColumns]="tableColumns" 
-    [rows]="rows" 
+  <app-new-tech-form *ngIf="isFormVisible"></app-new-tech-form>
+  <app-custom-table
+    [data]="getTechs()"
+    [displayedColumns]="tableColumns"
+    [rows]="rows"
     [modalWith]="modalWith"
     [modalHeight]="modalHeight"
     [modalTitle]="modalTitle"
-    (onEdit)="onEdit($event)" 
-    (onDelete)="onDelete($event)">
-
-</app-custom-table>
+    (onEdit)="onEdit($event)"
+    (onDelete)="onDelete($event)"
+  >
+  </app-custom-table>
 </div>

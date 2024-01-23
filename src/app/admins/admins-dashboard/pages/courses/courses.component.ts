@@ -52,19 +52,19 @@ export class CoursesComponent implements OnInit {
 
   ngOnInit(): void {
     this.courses$.subscribe((courses) => {
-      this.filteredCourses = this.filterByName(
+      this.filteredCourses = this.filterCourse(
         courses,
         this.searchCoursesControl.value || ''
       );
     });
     this.searchCoursesControl.valueChanges.subscribe((input) => {
       this.courses$.subscribe((courses) => {
-        this.filteredCourses = this.filterByName(courses, input || '');
+        this.filteredCourses = this.filterCourse(courses, input || '');
       });
     });
   }
 
-  filterByName(array: readonly Course[], input: string) {
+  filterCourse(array: readonly Course[], input: string) {
     return array.filter(
       (item) =>
         item.name.toLowerCase().includes(input.toLowerCase()) ||
