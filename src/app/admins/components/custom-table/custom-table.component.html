@@ -129,3 +129,10 @@
   <tr mat-header-row *matHeaderRowDef="columns"></tr>
   <tr mat-row *matRowDef="let row; columns: columns" class="cell"></tr>
 </table>
+<mat-paginator
+        [length]="totalItems"
+        [pageIndex]="currentPage"
+        (page)="onPageChange($event)"
+        [pageSizeOptions]="[5, 10, 20, 50]"
+        [pageSize]="pageSize"
+></mat-paginator>

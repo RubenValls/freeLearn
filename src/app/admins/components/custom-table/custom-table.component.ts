@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChange
 import { Subscription, of } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { DetailModalComponent } from 'src/app/shared/components/modals/detail-modal/detail-modal.component';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-custom-table',
@@ -17,6 +18,11 @@ export class CustomTableComponent implements OnInit, OnDestroy {
   @Input() modalWith: string = '';
   @Input() modalHeight: string = '';
   @Input() modalTitle: string = '';
+
+  @Input() totalItems: number | undefined;
+  @Input() currentPage: number | undefined;
+  @Input() pageSize: number | undefined;
+  @Output() pageChange = new EventEmitter<any>()
 
   dataSubscription: Subscription | undefined
   dataSource = []
@@ -37,6 +43,12 @@ export class CustomTableComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.dataSubscription?.unsubscribe();
+  }
+
+  onPageChange(event: PageEvent) {
+    this.currentPage = event.pageIndex;
+  this.pageSize = event.pageSize;
+  this.pageChange.emit(event);
   }
 
   handleModal(element: any) {

@@ -19,6 +19,10 @@ export class InstructorsComponent implements OnInit{
   modalTitle: string = 'Trainer';
   filteredInstructor: any = [];
 
+  pageSize: number = 10;
+  currentPage: number = 0;
+  totalItems: number = 100;
+
 
   tableColumns = [
     { prop: 'name', title: 'Name' },
@@ -107,5 +111,10 @@ export class InstructorsComponent implements OnInit{
     }   
   }
  
+  onPageChange(event: any) {
+    this.currentPage = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.getInstructors();
+  }
 
 }
