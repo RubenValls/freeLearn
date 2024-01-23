@@ -39,7 +39,7 @@
 }
 
 .img-content img {
-    width: 100%;
+    width: 150px;
     height: 100%;
 }
 
@@ -98,18 +98,16 @@
     margin-left: 10px;
     display: inline;
 
-    .bi-heart {
+    .bi-heart-fill, .bi-heart {
         font-size: xx-large;
-        cursor: pointer;     
-       
-
+        cursor: pointer;             
+    }
+    .bi-heart{
+        color:var(--favorite);
     }
 
-
-
-
     .favorite {
-        color:var(--favorite);     
+        color:var(--favorite);           
     
     }
 

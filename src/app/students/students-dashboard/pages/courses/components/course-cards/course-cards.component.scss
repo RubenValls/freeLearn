@@ -16,11 +16,13 @@
         justify-content: center;
         align-items: center;
         border-radius: 50%;
-        overflow: hidden;       
+        overflow: hidden;
+       
         img {
-            width:100px;
-            height:100px;
-            border-radius: 50%;
+            width:150px;
+            height:100%;
+            ;
+           
         }
     }
     .main{
