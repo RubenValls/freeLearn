@@ -38,8 +38,9 @@
                 </div>
 
             </div>
-            <div class="fav-container ">
-                <i class="bi bi-heart"  [ngClass]="{'favorite': isFavorite}" (click)="onFavoriteClick()"></i>
+            <div class="fav-container ">               
+                <i class="bi bi-heart-fill"  *ngIf="isFavorite" [ngClass]="{'favorite': isFavorite}" (click)="onFavoriteClick()"></i>
+                <i class="bi bi-heart"  *ngIf="!isFavorite" [ngClass]="{'favorite': isFavorite}" (click)="onFavoriteClick()"></i>
             </div>
         </div>
     
