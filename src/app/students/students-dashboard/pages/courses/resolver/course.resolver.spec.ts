@@ -19,7 +19,6 @@ describe('courseResolver', () => {
     });
     coursesService = TestBed.inject(CoursesService);
     route = new ActivatedRouteSnapshot();
-    route.paramMap.get = jasmine.createSpy('get').and.returnValue('test-id');
   });
 
   it('should be created', () => {
@@ -27,8 +26,16 @@ describe('courseResolver', () => {
   }); 
 
   it('should call getCourseById with correct id', () => {
+    route.paramMap.get = jasmine.createSpy('get').and.returnValue('test-id');
     coursesService.getCourseById = jasmine.createSpy().and.returnValue(Promise.resolve({}));
     executeResolver(route, {} as RouterStateSnapshot);
     expect(coursesService.getCourseById).toHaveBeenCalledWith('test-id');
+  });
+
+  it('should call getCourseById with correct id', () => {
+    route.paramMap.get = jasmine.createSpy('get').and.returnValue(null);
+    coursesService.getCourseById = jasmine.createSpy().and.returnValue(Promise.resolve({}));
+    executeResolver(route, {} as RouterStateSnapshot);
+    expect(coursesService.getCourseById).toHaveBeenCalledWith('');
   });
 });

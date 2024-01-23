@@ -20,7 +20,6 @@ describe('technologiesResolver', () => {
     });
     technologiesService = TestBed.inject(TechService);
     route = new ActivatedRouteSnapshot();
-    route.paramMap.get = jasmine.createSpy('get').and.returnValue('test-id');
   });
 
   it('should be created', () => {
@@ -28,8 +27,16 @@ describe('technologiesResolver', () => {
   }); 
 
   it('should call getCourseById with correct id', () => {
+    route.paramMap.get = jasmine.createSpy('get').and.returnValue('test-id');
     technologiesService.getTechnologyById = jasmine.createSpy().and.returnValue(Promise.resolve({}));
     executeResolver(route, {} as RouterStateSnapshot);
     expect(technologiesService.getTechnologyById).toHaveBeenCalledWith('test-id');
+  });
+
+  it('should call getCourseById with correct id', () => {
+    route.paramMap.get = jasmine.createSpy('get').and.returnValue(null);
+    technologiesService.getTechnologyById = jasmine.createSpy().and.returnValue(Promise.resolve({}));
+    executeResolver(route, {} as RouterStateSnapshot);
+    expect(technologiesService.getTechnologyById).toHaveBeenCalledWith('');
   });
 });
