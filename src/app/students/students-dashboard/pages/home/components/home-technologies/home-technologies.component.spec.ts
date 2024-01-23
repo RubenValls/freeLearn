@@ -60,6 +60,16 @@ describe('HomeTechnologiesComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should define tech$ on creation', () => {
+    expect(component.tech$).toBeDefined();
+  });
+
+  it('should define techs and techsSubscription on ngOnInit', () => {
+    component.ngOnInit();
+    expect(component.techs).toBeDefined();
+    expect(component.techsSubscription).toBeDefined();
+  });
+
   it('should call select from store on init', () => {
     expect(storeMock.select).toHaveBeenCalled();
   });

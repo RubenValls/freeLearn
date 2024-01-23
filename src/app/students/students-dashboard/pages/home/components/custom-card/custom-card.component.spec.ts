@@ -28,6 +28,10 @@ describe('CustomCardComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should be undefined by default', () => {
+    expect(component.data).toBeUndefined();
+  });
+
   it('should display imagePath if provided', () => {
     component.data = {
       imagePath: 'testImagePath',

@@ -45,6 +45,38 @@ describe('HomeTrainersComponent', () => {
           { userId: '3', rating: 4 },
           { userId: '4', rating: 5 }
         ]
+      },
+      {
+        id: '1',
+        name: 'John Doe',
+        socialMedia: {
+          web: 'www.johndoe.com',
+          youtube: 'www.youtube.com/johndoe',
+          twitter: 'www.twitter.com/johndoe',
+          linkedin: 'www.linkedin.com/in/johndoe',
+        },
+        courses: ['Introduction to Angular', 'Mastering React'],
+        imagePath: '/path/to/johndoe.png',
+        rating: [
+          { userId: '1', rating: 5 },
+          { userId: '2', rating: 4 }
+        ]
+      },
+      {
+        id: '2',
+        name: 'Jane Doe',
+        socialMedia: {
+          web: 'www.janedoe.com',
+          youtube: null,
+          twitter: 'www.twitter.com/janedoe',
+          linkedin: 'www.linkedin.com/in/janedoe',
+        },
+        courses: ['React Hooks', 'Angular Components'],
+        imagePath: '/path/to/janedoe.png',
+        rating: [
+          { userId: '3', rating: 4 },
+          { userId: '4', rating: 5 }
+        ]
       }
     ];
   
@@ -83,5 +115,49 @@ describe('HomeTrainersComponent', () => {
   it('should unsubscribe from coursesSubscription on destroy', () => {
     component.ngOnDestroy();
     expect(component.trainersSubscription?.closed).toBeTrue();
+  });
+
+  it('should have 4 trainers after ngOnInit', () => {
+    expect(component.trainers?.length).toEqual(4);
+  });
+  
+  it('should have random trainers after ngOnInit', () => {
+    const trainersMock: Instructor[] = [
+      {
+        id: '1',
+        name: 'John Doe',
+        socialMedia: {
+          web: 'www.johndoe.com',
+          youtube: 'www.youtube.com/johndoe',
+          twitter: 'www.twitter.com/johndoe',
+          linkedin: 'www.linkedin.com/in/johndoe',
+        },
+        courses: ['Introduction to Angular', 'Mastering React'],
+        imagePath: '/path/to/johndoe.png',
+        rating: [
+          { userId: '1', rating: 5 },
+          { userId: '2', rating: 4 }
+        ]
+      },
+      {
+        id: '2',
+        name: 'Jane Doe',
+        socialMedia: {
+          web: 'www.janedoe.com',
+          youtube: null,
+          twitter: 'www.twitter.com/janedoe',
+          linkedin: 'www.linkedin.com/in/janedoe',
+        },
+        courses: ['React Hooks', 'Angular Components'],
+        imagePath: '/path/to/janedoe.png',
+        rating: [
+          { userId: '3', rating: 4 },
+          { userId: '4', rating: 5 }
+        ]
+      }
+    ];
+    storeMock.select.and.returnValue(of(trainersMock));
+    component.ngOnInit();
+    expect(component.trainers).not.toEqual(trainersMock);
   });
 });
