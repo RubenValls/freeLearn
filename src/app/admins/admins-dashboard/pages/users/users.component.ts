@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { User } from 'src/app/login/types/user';
 import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
@@ -11,11 +12,13 @@ import { selectUsers } from 'src/app/store/users/users.selectors';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
-export class UsersComponent{
+export class UsersComponent implements OnInit{
   users$ = this.store.select(selectUsers);
   modalWith: string = '800px';
   modalHeight: string = '500px';
   modalTitle: string = 'User';
+  filteredUsers: any = [];
+
 
 
   tableColumns = [
@@ -34,12 +37,48 @@ export class UsersComponent{
     { label: 'Phone', prop: 'phoneNumber' },
     { label: 'role', prop: 'role' },
   ];
+  
+  searchUsersControl = new FormControl('');
+
 
   constructor(
     private store: Store,
     private alertMessages: AlertsService,
     private userService: UsersService
   ) {} 
+
+  ngOnInit(): void {
+    this.users$.subscribe((user) => {
+      this.filteredUsers = this.filterUser(
+        user,
+        this.searchUsersControl.value || ''
+      );
+    });
+    this.searchUsersControl.valueChanges.subscribe((input) => {
+      this.users$.subscribe((courses) => {
+        this.filteredUsers = this.filterUser(courses, input || '');
+      });
+    });
+  }
+
+  filterUser(array: readonly User[], input: string) {
+    return array.filter((item) =>
+      (item.displayName && item.displayName.toLowerCase().includes(input.toLowerCase())) ||
+      (item.email && item.email.toLowerCase().includes(input.toLowerCase())) ||
+      (item.phoneNumber && item.phoneNumber.toLowerCase().includes(input.toLowerCase())) ||
+      (item.role && item.role.toLowerCase().includes(input.toLowerCase()))
+    );
+  }
+  
+
+  getUsers() {
+    if (this.filteredUsers.length > 0) {
+      return this.filteredUsers;
+    } else {
+      return this.users$;
+    }
+    
+  }
 
   onEdit(element: User) {
     this.userService.updateUser(element.id!, element).then((data) => {

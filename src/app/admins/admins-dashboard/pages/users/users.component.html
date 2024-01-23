@@ -1,6 +1,17 @@
 <div class="flex-container">
+
+    <div class="top">
+        <div class="input-container">
+          <mat-form-field class="input">
+            <mat-label><i class="bi bi-search"></i>Filter users</mat-label>
+            <input matInput  [formControl]="searchUsersControl" type="text" />
+          </mat-form-field>
+        </div>
+    
+    </div>
+
     <app-custom-table 
-    [data]="users$"
+    [data]="getUsers()"
     [displayedColumns]="tableColumns" 
     [rows]="rows"
     [modalWith]="modalWith"
