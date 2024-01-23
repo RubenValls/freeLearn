@@ -76,4 +76,28 @@ describe('SecondSectionMainComponent', () => {
     component.updateVisibleTechnologies();
     expect(component.visibleTechnologies.length).toEqual(4);
   });
+
+  it('should handle going to next after reaching the end', () => {
+    component.currentIndex = 5; // Assuming there are 6 technologies in the array
+    component.next();
+    expect(component.currentIndex).toEqual(0);
+  });
+
+  it('should handle going to previous after reaching the beginning', () => {
+    component.currentIndex = 0;
+    component.prev();
+    expect(component.currentIndex).toEqual(2); // Assuming there are 6 technologies in the array
+  });
+
+  it('should handle going to previous when currentIndex is 0', () => {
+    component.currentIndex = 0;
+    component.prev();
+    expect(component.currentIndex).toEqual(2); // Assuming there are 6 technologies in the array
+  });
+
+  it('should unsubscribe on ngOnDestroy', () => {
+    spyOn(component.techSubscription!, 'unsubscribe');
+    component.ngOnDestroy();
+    expect(component.techSubscription!.unsubscribe).toHaveBeenCalled();
+  });
 });

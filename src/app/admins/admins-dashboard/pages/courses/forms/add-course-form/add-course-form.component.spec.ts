@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { AddCourseFormComponent } from './add-course-form.component';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { DocumentData, DocumentReference, getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
@@ -146,4 +146,60 @@ describe('AddCourseFormComponent', () => {
     expect(component.coursesService.addCourse).not.toHaveBeenCalled()
   });
 
+  it('should handle success when adding a course', () => {
+
+    component.courseForm.controls['name'].setValue('Test Course');
+    component.courseForm.controls['description'].setValue('Test Description');
+    component.courseForm.controls['instructorId'].setValue([{name: 'Midudev', id: '1'}, {name: 'Mouredev', id: '2'}]);
+    component.courseForm.controls['techs'].setValue([{name: 'Angular', id: '1234'}, {name: 'Typescript', id: '1234'}]);
+    component.courseForm.controls['imageUrl'].setValue('test.jpg');
+    component.courseForm.controls['rating'].setValue([{
+      userId: '1',
+      rating: 4
+    }]);  
+    component.courseForm.controls['introductionURL'].setValue('http://example.com/intro');
+    component.courseForm.controls['lessons'].setValue([{
+      id: '1',
+      name: 'Lesson 1',
+      videoUrl: 'https://www.google.com' 
+     }]);
+
+    component.addCourse();
+
+    expect(alertsService.successMessage).toHaveBeenCalledWith('Course created successfully');
+  });
+
+  it('should not call addCourse when form is invalid', () => {
+    // Set up form with invalid data (e.g., missing required fields)
+    component.courseForm.setValue({
+      name: null,
+      description: 'Test Description',
+      techs: [{ name: 'Angular', id: '1234' }, { name: 'Typescript', id: '1234' }],
+      instructorId: [{ name: 'Midudev', id: '1' }, { name: 'Mouredev', id: '2' }],
+      imageUrl: 'test.jpg',
+      lessons: [{
+        id: '1',
+        name: 'Lesson 1',
+        videoUrl: 'https://www.google.com'
+      }],
+      rating: [{
+        userId: '1',
+        rating: 4
+      }],
+      introductionURL: 'http://example.com/intro'
+    });
+  
+    // Spy on the reset method of the form
+    const resetSpy = spyOn(component.courseForm, 'reset');
+    const closeFormSpy = spyOn(component.closeForm, 'emit');
+  
+    // Trigger the addCourse function
+    component.addCourse();
+  
+    // Expectations
+    expect(resetSpy).not.toHaveBeenCalled();
+    expect(closeFormSpy).not.toHaveBeenCalled();
+  });
+  
+  
 });

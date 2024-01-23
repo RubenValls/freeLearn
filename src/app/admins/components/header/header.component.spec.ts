@@ -39,6 +39,18 @@ describe('HeaderComponent', () => {
     expect(component.isSmallScreen).toBeFalse();
   });
 
+  it('should set isSmallScreen to true if window width is less than 700 on ngOnInit', () => {
+    spyOnProperty(window, 'innerWidth').and.returnValue(600);
+    component.ngOnInit();
+    expect(component.isSmallScreen).toBeTrue();
+  });
+
+  it('should set isSmallScreen to false if window width is greater than or equal to 700 on ngOnInit', () => {
+    spyOnProperty(window, 'innerWidth').and.returnValue(700);
+    component.ngOnInit();
+    expect(component.isSmallScreen).toBeFalse();
+  });
+
   it('should navigate to login on logout', () => {
     const spy = spyOn(router, 'navigate');
     component.handleLogOut();
@@ -62,5 +74,17 @@ describe('HeaderComponent', () => {
   it('should render logout button', () => {
     const logoutButton = fixture.debugElement.query(By.css('#log-out-btn'));
     expect(logoutButton).toBeTruthy();
+  });
+
+  it('should handle log out and navigate to login', () => {
+    spyOn(localStorage, 'removeItem');
+    spyOn(sessionStorage, 'removeItem');
+    const navigateSpy = spyOn(router, 'navigate');
+    
+    component.handleLogOut();
+
+    expect(localStorage.removeItem).toHaveBeenCalledWith('userInfo');
+    expect(sessionStorage.removeItem).toHaveBeenCalledWith('userInfo');
+    expect(navigateSpy).toHaveBeenCalledWith(['/login']);
   });
 });

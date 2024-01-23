@@ -128,5 +128,83 @@ describe('CoursesSectionComponent', () => {
     expect(console.error).toHaveBeenCalledWith(mockError);
     expect(component.instructorCourses).toEqual([]);
   });
+
+  it('should set instructorCourses to an empty array on ngOnInit if courses are undefined', async () => {
+    spyOn(coursesService, 'getTopicCourses');
+    component.courses = undefined;
+    await component.ngOnInit();
+    expect(coursesService.getTopicCourses).not.toHaveBeenCalled();
+    expect(component.instructorCourses).toEqual([]);
+  });
+  
+  it('should set instructorCourses to an empty array on ngOnInit if courses are an empty array', async () => {
+    spyOn(coursesService, 'getTopicCourses');
+    component.courses = [];
+    await component.ngOnInit();
+    expect(coursesService.getTopicCourses).not.toHaveBeenCalled();
+    expect(component.instructorCourses).toEqual([]);
+  });
+  
+  it('should log an error and set instructorCourses to an empty array on failed API call', async () => {
+    const courses = ['course1', 'course2'];
+    const mockError = new Error('API Error');
+  
+    spyOn(coursesService, 'getTopicCourses').and.returnValue(Promise.reject(mockError));
+    spyOn(console, 'error');
+  
+    component.courses = courses;
+    await component.ngOnInit();
+  
+    expect(coursesService.getTopicCourses).toHaveBeenCalledWith(courses);
+    expect(console.error).toHaveBeenCalledWith(mockError);
+    expect(component.instructorCourses).toEqual([]);
+  });
+  
+  it('should set instructorCourses to an empty array on successful API call with empty result', async () => {
+    const courses = ['course1', 'course2'];
+  
+    spyOn(coursesService, 'getTopicCourses').and.returnValue(Promise.resolve([]));
+    component.courses = courses;
+    await component.ngOnInit();
+  
+    expect(coursesService.getTopicCourses).toHaveBeenCalledWith(courses);
+    expect(component.instructorCourses).toEqual([]);
+  });
+  
+  it('should set instructorCourses to the result of getTopicCourses on successful API call with non-empty result', async () => {
+    const courses = ['course1', 'course2'];
+    const mockCourseData: Course[] = [
+      { 
+        id: '1',
+        name: 'Course1',
+        description: 'Description1',
+        instructorId: [{ id: '1', name: 'Instructor1' }],
+        imageUrl: 'url1',
+        techs: [{ id: '1', name: 'Tech1' }],
+        lessons: [{ id: '1', name: 'Lesson1', videoUrl: 'url1' }],
+        rating: [{ userId: '1', rating: 3 }],
+        introductionURL: 'url1'
+      },
+      { 
+        id: '2',
+        name: 'Course2',
+        description: 'Description2',
+        instructorId: [{ id: '2', name: 'Instructor2' }],
+        imageUrl: 'url2',
+        techs: [{ id: '2', name: 'Tech2' }],
+        lessons: [{ id: '2', name: 'Lesson2', videoUrl: 'url2' }],
+        rating: [{ userId: '2', rating: 4 }],
+        introductionURL: 'url2'
+      },
+    ];
+  
+    spyOn(coursesService, 'getTopicCourses').and.returnValue(Promise.resolve(mockCourseData));
+    component.courses = courses;
+    await component.ngOnInit();
+  
+    expect(coursesService.getTopicCourses).toHaveBeenCalledWith(courses);
+    expect(component.instructorCourses).toEqual(mockCourseData);
+  });
+  
   
 });

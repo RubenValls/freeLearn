@@ -14,7 +14,7 @@ export class NewTechFormComponent {
 
   constructor(
     private techService: TechService,
-    private alertMessages: AlertsService
+    public alertMessages: AlertsService
   ) {}
 
   newTechForm = new FormGroup({

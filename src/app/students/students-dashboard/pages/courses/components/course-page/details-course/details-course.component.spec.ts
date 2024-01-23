@@ -62,5 +62,17 @@ describe('DetailsCourseComponent', () => {
     expect(mockTechsService.getTechnologyByCourseId).toHaveBeenCalled();
   }));
   
+  it('should handle undefined instructors and techs data', fakeAsync(() => {
+    mockInstructorsService.getInstructorByCourseId.and.returnValue(of(undefined));
+    mockTechsService.getTechnologyByCourseId.and.returnValue(of(undefined));
+
+    component.courseId = 'course1';
+    component.ngOnInit();
+    tick();
+
+    expect(component.instructorsData).toEqual([]);
+    expect(component.techsData).toEqual([]);
+  }));
+
 });
 

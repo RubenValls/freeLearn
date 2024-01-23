@@ -73,5 +73,10 @@ describe('TechPageComponent', () => {
     expect(component.techSubscription!.unsubscribe).toHaveBeenCalled();
     expect(component.techIdSubscription!.unsubscribe).toHaveBeenCalled();
   });
-  
+
+  it('should handle undefined techId in paramMap', () => {
+    mockActivatedRoute.paramMap = of({ get: () => undefined });
+    component.ngOnInit();
+    expect(component.techId).toEqual('');
+  });
 });

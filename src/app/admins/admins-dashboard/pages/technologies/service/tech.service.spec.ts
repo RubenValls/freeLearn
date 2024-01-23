@@ -167,4 +167,6 @@ describe('TechService', () => {
     expect(service.deleteTechDoc).toHaveBeenCalledWith(id);
     expect(functionresult).toBeUndefined();
   })
+
+  
 });

@@ -78,4 +78,16 @@ describe('HeaderComponent', () => {
     expect(component.handleUpdate.emit).toHaveBeenCalledWith(mockRating2);
   });
   
+  it('should emit handleUpdate event with correct rating when onRatingChanged is called with valid rating', () => {
+    const mockRating = 4;
+    spyOn(component.handleUpdate, 'emit');
+    component.onRatingChanged(mockRating);
+    expect(component.handleUpdate.emit).toHaveBeenCalledWith(mockRating);
+  });
+  
+  it('should emit handleUpdate event with 0 rating when onRatingChanged is called with 0', () => {
+    spyOn(component.handleUpdate, 'emit');
+    component.onRatingChanged(0);
+    expect(component.handleUpdate.emit).toHaveBeenCalledWith(0);
+  });
 });

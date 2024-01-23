@@ -5,6 +5,8 @@ import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 import { PasswordComponent } from './password.component';
 import { StudentsModule } from 'src/app/students/students.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { User } from 'src/app/login/types/user';
+import { getAuth } from 'firebase/auth';
 
 describe('PasswordComponent', () => {
   let component: PasswordComponent;

@@ -1,5 +1,5 @@
 import { MatIconModule } from '@angular/material/icon';
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { CoursesComponent } from './courses.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { coursesReducer } from 'src/app/store/courses/courses.reducer';
@@ -71,8 +71,11 @@ describe('CoursesComponent', () => {
   });
 
   it('should add a course', () => {
+    component.watchForm = false;
     component.addCourse();
-    expect(component.watchForm).toBeTrue();
+    expect(component.watchForm).toBe(true);
+    component.addCourse();
+    expect(component.watchForm).toBe(false);
   });
 
   it('should edit a course', () => {
@@ -187,5 +190,7 @@ describe('CoursesComponent', () => {
     expect(coursesService.updateCourse).toHaveBeenCalledWith(testCourse.id, testCourse);
     
   });
+
+
 });
 

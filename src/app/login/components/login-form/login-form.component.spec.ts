@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 
 import { LoginFormComponent } from './login-form.component';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -112,4 +112,11 @@ describe('LoginFormComponent', () => {
     component.onGoogleSubmit();
     expect(loginService.signInWithGoogle).toHaveBeenCalledWith(component.loginForm, true);
   });
+
+  it('should change isGoogleLoading to false after a delay when onGoogleSubmit is called', fakeAsync(() => {
+    spyOn(component, 'onGoogleSubmit').and.returnValue(); 
+    component.onGoogleSubmit();
+    tick(3000); 
+    expect(component.isGoogleLoading).toBeFalse();
+  }));
 });

@@ -54,5 +54,10 @@ describe('LessonsCourseComponent', () => {
     expect(component.panels[0].name).toEqual('Test Lesson 1');
     expect(component.panels[1].name).toEqual('Test Lesson 2');
   });
+
+  it('should handle undefined lessons', () => {
+    component.ngOnInit();
+    expect(component.panels).toBeUndefined();
+  });
 });
 

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
+import { Subscription, of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { InstructorsMainPageComponent } from './instructors-main-page.component';
@@ -282,6 +282,13 @@ describe('InstructorsMainPageComponent', () => {
   
     const result = component.getInstructors();
     expect(result).toEqual([instructors[0]]);
+  });
+  
+  it('should unsubscribe from instructors$ on ngOnDestroy', () => {
+    const subscription = component.instructorsSubscription as Subscription;
+    spyOn(subscription, 'unsubscribe');
+    component.ngOnDestroy();
+    expect(subscription.unsubscribe).toHaveBeenCalled();
   });
   
 });

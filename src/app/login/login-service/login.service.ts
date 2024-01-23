@@ -24,11 +24,11 @@ import { Subscription } from 'rxjs';
 })
 export class LoginService {
   constructor(
-    private store: Store,
+    public store: Store,
     private firestore: Firestore,
     private alertsService: AlertsService,
     private usersService: UsersService,
-    private router: Router
+    public router: Router
   ) {}
 
   signInWithEmail(formValue: FormGroup<SigninFormType>) {

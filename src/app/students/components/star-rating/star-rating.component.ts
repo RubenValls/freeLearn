@@ -51,10 +51,12 @@ export class StarRatingComponent implements OnInit, OnChanges {
   }
 
   setRatingAverage(ratings: Rating[]): void {
-    const sum = ratings.reduce((total, item) => total + item.rating, 0);
-    const average = sum / ratings.length;
-    const roundedAverage = Math.round(average);
+    if(ratings.length > 0){
+      const sum = ratings.reduce((total, item) => total + item.rating, 0);
+      const average = sum / ratings.length;
+      const roundedAverage = Math.round(average);
 
-    this.finalRating = roundedAverage;
+      this.finalRating = roundedAverage;
+    }
   }
 }

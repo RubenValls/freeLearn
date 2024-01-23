@@ -9,6 +9,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { Observable, of } from 'rxjs';
+import { Rating } from '../../courses/interface/course';
 
 describe('InstructorsService', () => {
   let service: InstructorsService;
@@ -86,9 +87,26 @@ describe('InstructorsService', () => {
     expect(service.updateInstructorsCourses).toHaveBeenCalled();
   });
 
+  it("should update an instructor's rating", async () => {
+    const rating: Rating = {
+      userId: '2',
+      rating: 5
+    };
+    spyOn(service, 'updateInstructorsRating');
+    await service.updateInstructorsRating(instructorId, rating);
+    expect(service.updateInstructorsRating).toHaveBeenCalled();
+  });
+
   it('should delete an instructor', async () => {
     spyOn(service, 'deleteInstructor');
     service.deleteInstructor(instructorId);
     expect(service.deleteInstructor).toHaveBeenCalled();
+  });
+
+  it('should delete an instructor\'s courses', async () => {
+    const courseId = '1';
+    spyOn(service, 'deleteInstructorsCourses');
+    await service.deleteInstructorsCourses(instructorId, courseId);
+    expect(service.deleteInstructorsCourses).toHaveBeenCalled();
   });
 });

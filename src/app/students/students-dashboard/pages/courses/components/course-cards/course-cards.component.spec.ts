@@ -37,4 +37,16 @@ describe('CourseCardsComponent', () => {
     const average = component.getRatingAverage(ratings);
     expect(average).toEqual(4);
   });
+
+  it('should calculate average rating as 0 for an empty set of ratings', () => {
+    const ratings: any[] = [];
+    const average = component.getRatingAverage(ratings);
+    expect(average).toEqual(0);
+  });
+
+  it('should calculate average rating as 0 for undefined ratings', () => {
+    const ratings: any[] | undefined = undefined;
+    const average = component.getRatingAverage(ratings);
+    expect(average).toEqual(0);
+  });
 });

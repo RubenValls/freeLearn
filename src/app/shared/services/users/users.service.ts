@@ -15,7 +15,7 @@ export class UsersService {
 
   constructor(
     private firestore: Firestore,
-    private store: Store
+    public store: Store
 
   ) { }
 

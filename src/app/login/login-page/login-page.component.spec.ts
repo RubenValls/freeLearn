@@ -74,4 +74,10 @@ describe('LoginPageComponent', () => {
   it('should have isLogIn set to true by default', () => {
     expect(component.isLogIn).toBeTrue();
   });
+
+  it('should change isLogIn to false when onChange is called with register', () => {
+    const changeEvent: MatButtonToggleChange = { source: null as any, value: 'register' };
+    component.onChange(changeEvent);
+    expect(component.isLogIn).toBeFalse();
+  });
 });

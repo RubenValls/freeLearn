@@ -18,7 +18,7 @@ export class CoursePageComponent implements OnInit {
   areLessonsVisible: boolean = false;
 
   constructor(
-    private courseService: CoursesService,
+    public courseService: CoursesService,
     private route: ActivatedRoute,
     private userService: UsersService,
   ) {

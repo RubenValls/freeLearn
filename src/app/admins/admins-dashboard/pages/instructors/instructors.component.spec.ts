@@ -137,4 +137,17 @@ describe('InstructorsComponent', () => {
     expect(mockInstructorsService.deleteInstructor).not.toHaveBeenCalled();
     expect(mockAlertMessages.errorMessage).toHaveBeenCalledWith("You can't delete it, contains courses");
   });
+
+  it('should reset form on onSubmit success', async () => {
+    const instructorId = '1';
+    mockInstructorsService.getInstructorById.and.returnValue(Promise.resolve({ courses: [] }));
+    mockInstructorsService.deleteInstructor.and.returnValue(Promise.resolve());
+
+
+    await component.onDelete(instructorId);
+
+    expect(mockInstructorsService.getInstructorById).toHaveBeenCalledWith(instructorId);
+    expect(mockInstructorsService.deleteInstructor).toHaveBeenCalledWith(instructorId);
+    expect(mockAlertMessages.successMessage).toHaveBeenCalledWith('Trainer delete successfully');
+  });
 });

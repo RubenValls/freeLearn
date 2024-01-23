@@ -21,10 +21,10 @@ export class DetailsCourseComponent implements OnInit {
   ) { }
   async ngOnInit(): Promise<void> {
     (await this.trainersService.getInstructorByCourseId(this.courseId)).subscribe((data) => {
-      this.instructorsData = data;
+      this.instructorsData = data ? data : [];
     });
     (await this.techsService.getTechnologyByCourseId(this.courseId)).subscribe((data) => {
-      this.techsData = data;
+      this.techsData = data ? data : [];
     });
   
   }

@@ -5,6 +5,7 @@ import { StudentsModule } from "src/app/students/students.module";
 import { Store } from "@ngrx/store";
 import { Course } from "src/app/admins/admins-dashboard/pages/courses/interface/course";
 import { of } from "rxjs";
+import { randomArray } from 'src/app/students/functions/random-array';
 
 describe('HomeCoursesComponent', () => {
   let component: HomeCoursesComponent;

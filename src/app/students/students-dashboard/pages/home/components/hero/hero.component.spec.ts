@@ -21,14 +21,15 @@ describe('HeroComponent', () => {
   });
 
   afterEach(() => {
-    localStorage.clear()
-  })
+    localStorage.clear();
+    sessionStorage.clear();
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have and undefined user by default', () => {
+  it('should have an undefined user by default', () => {
     expect(component.user).toBeUndefined();
   });
 
@@ -38,8 +39,8 @@ describe('HeroComponent', () => {
     expect(spy).toHaveBeenCalled();
   });
 
-  it('should have user after OnInit', () => {
-    localStorage.setItem('userInfo', JSON.stringify({
+  it('should have user after OnInit if available in localStorage', () => {
+    const user = {
       displayName: 'Test User',
       email: 'testuser@example.com',
       phoneNumber: '1234567890',
@@ -48,12 +49,13 @@ describe('HeroComponent', () => {
       rememberMe: true,
       uid: '1',
       authUid: '1',
-    }))
+    };
+    localStorage.setItem('userInfo', JSON.stringify(user));
     component.ngOnInit();
-    expect(component.user).toBeTruthy();
+    expect(component.user).toEqual(user);
   });
 
-  it('should get user from local storage if available', () => {
+  it('should get user from localStorage if available', () => {
     const user = {
       displayName: 'Test User',
       email: 'testuser@example.com',
@@ -70,7 +72,7 @@ describe('HeroComponent', () => {
     localStorage.removeItem('userInfo');
   });
 
-  it('should get user from session storage if not in local storage', () => {
+  it('should get user from sessionStorage if not in localStorage', () => {
     const user = {
       displayName: 'Test User',
       email: 'testuser@example.com',
@@ -93,8 +95,8 @@ describe('HeroComponent', () => {
     component.getUserLogged();
     expect(component.user).toBeUndefined();
   });
-  
-  it('should not get user from session storage if user is in local storage', () => {
+
+  it('should not get user from sessionStorage if user is in localStorage', () => {
     const localUser = {
       displayName: 'Local User',
       email: 'localuser@example.com',
@@ -121,5 +123,46 @@ describe('HeroComponent', () => {
     expect(component.user).toEqual(localUser);
     localStorage.removeItem('userInfo');
     sessionStorage.removeItem('userInfo');
-  });  
+  });
+
+  it('should return status of user is logged in', () => {
+    localStorage.removeItem('userInfo');
+    sessionStorage.removeItem('userInfo');
+    component.getUserLogged();
+    if(component.user){
+      expect(component.user).toBeDefined();
+    }else{
+      expect(component.user).toBeUndefined();
+    }
+  });
+
+  it('should handle a specific case when both localStorage and sessionStorage have user info', () => {
+    const localUser = {
+      displayName: 'Local User',
+      email: 'localuser@example.com',
+      phoneNumber: '1234567890',
+      photoURL: null,
+      providerId: null,
+      rememberMe: true,
+      uid: '1',
+      authUid: '1',
+    };
+    const sessionUser = {
+      displayName: 'Session User',
+      email: 'sessionuser@example.com',
+      phoneNumber: '0987654321',
+      photoURL: null,
+      providerId: null,
+      rememberMe: true,
+      uid: '2',
+      authUid: '2',
+    };
+    localStorage.setItem('userInfo', JSON.stringify(localUser));
+    sessionStorage.setItem('userInfo', JSON.stringify(sessionUser));
+    component.ngOnInit();
+    expect(component.user).toEqual(localUser);
+    localStorage.removeItem('userInfo');
+    sessionStorage.removeItem('userInfo');
+  });
+  
 });

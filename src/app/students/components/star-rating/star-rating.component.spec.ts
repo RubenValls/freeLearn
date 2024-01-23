@@ -30,29 +30,6 @@ describe('StarRatingComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should calculate average rating on ngOnInit', () => {
-    spyOn(component, 'setRatingAverage').and.callThrough();
-    component.rating = [{ userId: '1', rating: 3 }, { userId: '2', rating: 4 }];
-    component.ngOnInit();
-    expect(component.setRatingAverage).toHaveBeenCalledWith(component.rating);
-  });
-
-  it('should calculate average rating on ngOnChanges', () => {
-    spyOn(component, 'setRatingAverage').and.callThrough();
-    component.rating = [{ userId: '1', rating: 3 }, { userId: '2', rating: 4 }];
-    component.ngOnChanges({});
-    expect(component.setRatingAverage).toHaveBeenCalledWith(component.rating);
-  });
-
-  it('should emit ratingUpdated event and show success message on click', () => {
-    spyOn(alertsService, 'successMessage').and.callThrough();
-    spyOn(component.ratingUpdated, 'emit').and.callThrough();
-    const rating = 5;
-    component.onClick(rating);
-    expect(alertsService.successMessage).toHaveBeenCalledWith(`Rated with ${rating} stars.`);
-    expect(component.ratingUpdated.emit).toHaveBeenCalledWith(rating);
-  });
-
   it('should show correct icon based on rating', () => {
     component.finalRating = 3;
     expect(component.showIcon(2)).toEqual('star');
@@ -69,5 +46,53 @@ describe('StarRatingComponent', () => {
     component.ngOnInit();
     expect(component.ratingArr).toEqual([0, 1, 2, 3, 4]);
   });
-  
+
+  it('should call successMessage and emit ratingUpdated on onClick', () => {
+    spyOn(alertsService, 'successMessage').and.callThrough();
+    spyOn(component.ratingUpdated, 'emit').and.callThrough();
+    const rating = 5;
+    component.onClick(rating);
+    expect(alertsService.successMessage).toHaveBeenCalledWith(`Rated with ${rating} stars.`);
+    expect(component.ratingUpdated.emit).toHaveBeenCalledWith(rating);
+  });
+
+  it('should not call successMessage and emit ratingUpdated on onClick when rating is 1', () => {
+    spyOn(alertsService, 'successMessage');
+    spyOn(component.ratingUpdated, 'emit');
+    const rating = 1;
+    component.onClick(rating);
+    expect(alertsService.successMessage).toHaveBeenCalledWith(`Rated with ${rating} star.`);
+    expect(component.ratingUpdated.emit).toHaveBeenCalledWith(rating);
+  });
+
+  it('should not call successMessage and emit ratingUpdated on onClick when rating is 0', () => {
+    spyOn(alertsService, 'successMessage');
+    spyOn(component.ratingUpdated, 'emit');
+    const rating = 0;
+    component.onClick(rating);
+    expect(alertsService.successMessage).toHaveBeenCalled();
+    expect(component.ratingUpdated.emit).toHaveBeenCalledWith(rating);
+  });
+
+  it('should call setRatingAverage on ngOnChanges', () => {
+    spyOn(component, 'setRatingAverage');
+    component.rating = [{ userId: '1', rating: 3 }, { userId: '2', rating: 4 }];
+    component.ngOnChanges({});
+    expect(component.setRatingAverage).toHaveBeenCalledWith(component.rating);
+  });
+
+  it('should call setRatingAverage on ngOnInit', () => {
+    spyOn(component, 'setRatingAverage');
+    component.rating = [{ userId: '1', rating: 3 }, { userId: '2', rating: 4 }];
+    component.ngOnInit();
+    expect(component.setRatingAverage).toHaveBeenCalledWith(component.rating);
+  });
+
+  it('should set finalRating to 0 if rating is an empty array on ngOnInit', () => {
+    spyOn(component, 'setRatingAverage');
+    component.rating = [];
+    component.ngOnInit();
+    expect(component.setRatingAverage).toHaveBeenCalledWith([]);
+    expect(component.finalRating).toEqual(0);
+  });
 });

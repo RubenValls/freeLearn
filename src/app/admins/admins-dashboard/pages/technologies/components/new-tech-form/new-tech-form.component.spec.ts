@@ -46,6 +46,13 @@ describe('NewTechFormComponent', () => {
       description: 'A platform for building web applications.',
       courses: []
     });
+
+    expect(component.newTechForm.value).toEqual({
+      name: 'Angular',
+      imagePath: 'path/to/image',
+      description: 'A platform for building web applications.',
+      courses: [],
+    });
   });
 
   it('should not call addTechnology when onSubmit is called with invalid form', () => {
@@ -57,7 +64,11 @@ describe('NewTechFormComponent', () => {
     });
 
     component.onSubmit();
+    const alertSpy = spyOn(component.alertMessages, 'successMessage').and.returnValue();
+    const emitSpy = spyOn(component.closeForm, 'emit').and.returnValue();
 
     expect(techService.addTechnology).not.toHaveBeenCalled();
+    expect(alertSpy).not.toHaveBeenCalled();
+    expect(emitSpy).not.toHaveBeenCalled();
   });
 });

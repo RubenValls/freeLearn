@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ButtonComponent } from './button.component';
+import { By } from '@angular/platform-browser';
 
 describe('ButtonComponent', () => {
   let component: ButtonComponent;
@@ -53,5 +54,25 @@ describe('ButtonComponent', () => {
     expect(classes).toContain('button');
     expect(classes).toContain('primary');
     expect(classes).toContain('small');
+  });
+
+  it('should emit onClick event when the button is clicked', () => {
+    spyOn(component.onClick, 'emit');
+    const buttonElement: HTMLButtonElement = fixture.nativeElement.querySelector('button');
+    buttonElement.click();
+
+    expect(component.onClick.emit).toHaveBeenCalled();
+  });
+
+  it('should handle different combinations of primary and type', () => {
+    component.primary = true;
+    component.type = 'secondary';
+    fixture.detectChanges();
+
+    const classes = component.classes;
+
+    expect(classes).toContain('button');
+    expect(classes).toContain('secondary');
+    expect(classes).not.toContain('primary');
   });
 });

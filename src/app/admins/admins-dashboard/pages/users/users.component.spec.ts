@@ -6,6 +6,7 @@ import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 import { UsersService } from 'src/app/shared/services/users/users.service';
 import { AdminsModule } from 'src/app/admins/admins.module';
 import { User } from 'src/app/login/types/user';
+import { selectUsers } from 'src/app/store/users/users.selectors';
 
 describe('UsersComponent', () => {
   let component: UsersComponent;
@@ -123,4 +124,104 @@ describe('UsersComponent', () => {
     });
   });
 
+  it('should have users$', () => {
+    expect(component.users$).toBeDefined();
+  });
+
+  it('should have modalWith, modalHeight, modalTitle defined', () => {
+    expect(component.modalWith).toBeDefined();
+    expect(component.modalHeight).toBeDefined();
+    expect(component.modalTitle).toBeDefined();
+  });
+
+  it('should have tableColumns and rows defined', () => {
+    expect(component.tableColumns).toBeDefined();
+    expect(component.rows).toBeDefined();
+  });
+
+  it('should select users from store on init', () => {
+    expect(storeMock.select).toHaveBeenCalledWith(selectUsers);
+  });
+
+  it('should call onEdit method onEdit event', () => {
+    const user: User = {
+      id: '1',
+      displayName: 'John Doe',
+      email: 'john.doe@example.com',
+      phoneNumber: '+1234567890',
+      photoURL: 'http://example.com/john_doe.jpg',
+      providerId: 'provider123',
+      rememberMe: true,
+      role: 'admin',
+      favorites: ['item1', 'item2'],
+      uid: 'user123',
+      authUid: 'auth123'
+    };
+
+    spyOn(component, 'onEdit');
+    component.onEdit(user);
+    expect(component.onEdit).toHaveBeenCalledWith(user);
+  });
+
+  it('should call updateUser method of userService on onEdit', async () => {
+    const user: User = {
+      id: '1',
+      displayName: 'John Doe',
+      email: 'john.doe@example.com',
+      phoneNumber: '+1234567890',
+      photoURL: 'http://example.com/john_doe.jpg',
+      providerId: 'provider123',
+      rememberMe: true,
+      role: 'admin',
+      favorites: ['item1', 'item2'],
+      uid: 'user123',
+      authUid: 'auth123'
+    };
+
+    await component.onEdit(user);
+    expect(userServiceMock.updateUser).toHaveBeenCalledWith(user.id!, user);
+  });
+
+  it('should show success message on successful update', async () => {
+    const user: User = {
+      id: '1',
+      displayName: 'John Doe',
+      email: 'john.doe@example.com',
+      phoneNumber: '+1234567890',
+      photoURL: 'http://example.com/john_doe.jpg',
+      providerId: 'provider123',
+      rememberMe: true,
+      role: 'admin',
+      favorites: ['item1', 'item2'],
+      uid: 'user123',
+      authUid: 'auth123'
+    };
+
+    await component.onEdit(user);
+    expect(alertMessagesMock.successMessage).toHaveBeenCalledWith('User update successfully');
+  });
+
+  it('should show error message on failed update', async () => {
+    const user: User = {
+      id: '1',
+      displayName: 'John Doe',
+      email: 'john.doe@example.com',
+      phoneNumber: '+1234567890',
+      photoURL: 'http://example.com/john_doe.jpg',
+      providerId: 'provider123',
+      rememberMe: true,
+      role: 'admin',
+      favorites: ['item1', 'item2'],
+      uid: 'user123',
+      authUid: 'auth123'
+    };
+
+    userServiceMock.updateUser.and.returnValue(Promise.reject({ message: 'Error' }));
+
+    await component.onEdit(user);
+
+    fixture.whenStable().then(() => {
+      expect(alertMessagesMock.errorMessage).toHaveBeenCalledWith('Error updating user', 'Error');
+    });
+  });
 });

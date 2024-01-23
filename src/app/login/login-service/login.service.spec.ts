@@ -309,4 +309,34 @@ describe('LoginService', () => {
 
     expect(service.signInWithGoogle).toHaveBeenCalled();
   });
+
+  it('should dispatch an action, save user, navigate, and show alert when call saveUserDataAndNavigate', () => {
+    const user = { 
+      authUid: 'test',
+      displayName: 'test',
+      email: 'test@test.com',
+      phoneNumber: '878347374',
+      photoURL: 'jdahfkhfjadhf',
+      providerId: 'kasdjfkj',
+      rememberMe: true,
+      role: 'admin',
+      uid: 'ruben@test.com',
+      userUid: '9hiG0Tlp63YWKsSChaP049e3mwh2',
+      favorites: [],
+    };
+
+    const subscription = new Subscription();
+
+    spyOn(service.store, 'dispatch');
+    spyOn(usersService, 'saveUserInStorage');
+    spyOn(service.router, 'navigate');
+    spyOn(alertsService, 'successMessage');
+
+    service.saveUserDataAndNavigate(user, subscription);
+
+    expect(service.store.dispatch).toHaveBeenCalled();
+    expect(usersService.saveUserInStorage).toHaveBeenCalledWith(user.rememberMe, user);
+    expect(service.router.navigate).toHaveBeenCalledWith(['/students']);
+    expect(alertsService.successMessage).toHaveBeenCalledWith('Welcome to FreeLearn.');
+  });  
 });

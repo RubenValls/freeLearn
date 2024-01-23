@@ -83,4 +83,37 @@ describe('AlertsService', () => {
 
     expect(snackBarSpy.open).toHaveBeenCalledWith(message, action, { duration, panelClass: 'warning-snackbar' });
   });
+
+  it('should display a custom message using the errorMessage method', () => {
+    const message = 'Custom message';
+    const action = 'Custom action';
+    const duration = 5000;
+    const customPanelClass = 'error-snackbar';
+
+    service.errorMessage(message, action, duration);
+
+    expect(snackBarSpy.open).toHaveBeenCalledWith(message, action, { duration, panelClass: customPanelClass });
+  });
+
+  it('should display a custom message using the successMessage method', () => {
+    const message = 'Custom message';
+    const action = 'Custom action';
+    const duration = 5000;
+    const customPanelClass = 'success-snackbar';
+
+    service.successMessage(message, action, duration);
+
+    expect(snackBarSpy.open).toHaveBeenCalledWith(message, action, { duration, panelClass: customPanelClass });
+  });
+
+  it('should display a custom message using the warningMessage method', () => {
+    const message = 'Custom message';
+    const action = 'Custom action';
+    const duration = 5000;
+    const customPanelClass = 'warning-snackbar';
+
+    service.warningMessage(message, action, duration);
+
+    expect(snackBarSpy.open).toHaveBeenCalledWith(message, action, { duration, panelClass: customPanelClass });
+  });
 });

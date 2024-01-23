@@ -85,4 +85,17 @@ describe('SidebarComponent', () => {
     expect(sessionStorage.removeItem).toHaveBeenCalledWith('userInfo');
     expect(router.navigate).toHaveBeenCalledWith(['/login']);
   });
+
+  it('should call alertMessage on ngOnInit', () => {
+    spyOn(component, 'callAlertMessage');
+    component.ngOnInit();
+    expect(component.callAlertMessage).not.toHaveBeenCalledWith('See you soon: undefined');
+  });
+
+  it('should call alertMessage on handleLogOut when userInfo is null', () => {
+    spyOn(localStorage, 'getItem').and.returnValue(null);
+    spyOn(component, 'callAlertMessage');
+    component.handleLogOut();
+    expect(component.callAlertMessage).toHaveBeenCalledWith('See you soon: undefined');
+  });
 });

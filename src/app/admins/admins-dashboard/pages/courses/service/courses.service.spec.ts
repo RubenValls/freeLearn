@@ -6,8 +6,7 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
-import { Course } from '../interface/course';
-import { throwError } from 'rxjs';
+import { Course, Rating } from '../interface/course';
 
 describe('CoursesService', () => {
   let service: CoursesService;
@@ -57,21 +56,21 @@ describe('CoursesService', () => {
     expect(service.currentCourse).toBeUndefined();
   });
 
-  it('should add a course', () => {
-    spyOn(service, 'addCourse')
-    service.addCourse(course);
+  it('should add a course', async () => {
+    spyOn(service, 'addCourse');
+    await service.addCourse(course);
     expect(service.addCourse).toHaveBeenCalled();    
   });
-  
-  it('should get courses', () => {
-    spyOn(service, 'getCourses')
-    service.getCourses();
+
+  it('should get courses', async () => {
+    spyOn(service, 'getCourses');
+    await service.getCourses();
     expect(service.getCourses).toHaveBeenCalled();    
   });
 
- it('should get a course by id', () =>{   
-    spyOn(service, 'getCourseById')
-    service.getCourseById(courseId);
+  it('should get a course by id', async () => {
+    spyOn(service, 'getCourseById');
+    await service.getCourseById(courseId);
     expect(service.getCourseById).toHaveBeenCalled();
   });
 
@@ -131,9 +130,9 @@ describe('CoursesService', () => {
     expect(service.getTopicCourses).toHaveBeenCalled();
   });
 
-  it('should update a course', () => {   
-    spyOn(service, 'updateCourse')
-    service.updateCourse(courseId, course);
+  it('should update a course', async () => {
+    spyOn(service, 'updateCourse');
+    await service.updateCourse(courseId, course);
     expect(service.updateCourse).toHaveBeenCalled();
   });
 
@@ -167,23 +166,35 @@ describe('CoursesService', () => {
     }
   });
 
-  it('should update course rating', () => {
-    const rating = {userId: '1', rating: 4};
-    spyOn(service, 'updateCourseRating')
-    service.updateCourseRating(courseId, rating);
+  it('should update course rating', async () => {
+    const rating: Rating = { userId: '1', rating: 4 };
+    spyOn(service, 'updateCourseRating');
+    await service.updateCourseRating(courseId, rating);
     expect(service.updateCourseRating).toHaveBeenCalled();
   });
 
-  it('should delete a course', () => { 
-    spyOn(service, 'deleteCourse')
-    service.deleteCourse(courseId);
+  it('should delete a course', async () => {
+    spyOn(service, 'deleteCourse');
+    await service.deleteCourse(courseId);
     expect(service.deleteCourse).toHaveBeenCalled();    
-  }); 
+  });  
   
   it('should find added and deleted tech ids', () => {
     const currentTechs = [{id: '1', name: 'Tech1'}, {id: '2', name: 'Tech2'}];
     const updatedTechs = [{id: '2', name: 'Tech2'}, {id: '3', name: 'Tech3'}];
     const result = service.findIdsToEdit(currentTechs, updatedTechs);
     expect(result).toEqual({addedIds: ['3'], deletedIds: ['1']});
+  });
+
+  it('should handle an error when adding a course', async () => {
+    const errorMessage = 'Error adding course';
+    spyOn(service, 'addCourse').and.throwError(errorMessage);
+    
+    try {
+      await service.addCourse(course);
+      fail('The promise should have been rejected');
+    } catch (e) {
+      expect(e).toBeDefined();
+    }
   });
 });

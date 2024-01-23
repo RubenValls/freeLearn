@@ -3,6 +3,7 @@ import { StoreModule, Store } from '@ngrx/store';
 import { TechsMainPageComponent } from './techs-main-page.component';
 import { TechnologyType } from 'src/app/admins/admins-dashboard/pages/technologies/types/technologies';
 import { Subject, of } from 'rxjs';
+import { FormControl } from '@angular/forms';
 
 describe('TechsMainPageComponent', () => {
   let component: TechsMainPageComponent;
@@ -137,4 +138,35 @@ describe('TechsMainPageComponent', () => {
     const techs = component.getTech();
     expect(techs.length).toBe(2);
   });
+
+  it('should update filteredTechs when name FormControl value changes', () => {
+    const mockTechs: TechnologyType[] = [
+      {
+        id: '1',
+        name: 'Angular',
+        description: 'A platform for building web applications.',
+        imagePath: '/path/to/angular.png',
+        courses: [
+          { id: '1', name: 'Introduction to Angular', duration: '3 hours' },
+          { id: '2', name: 'Angular Advanced Concepts', duration: '5 hours' },
+        ],
+      },
+      {
+        id: '2',
+        name: 'React',
+        description: 'A JavaScript library for building user interfaces.',
+        imagePath: '/path/to/react.png',
+        courses: [
+          { id: '3', name: 'React Fundamentals', duration: '4 hours' },
+          { id: '4', name: 'React Hooks', duration: '2 hours' },
+        ],
+      },
+    ];
+    component.techs = mockTechs;
+    component.name.setValue('React');
+    component.filteredTechs = component.filterByName(component.techs, component.name.value ? component.name.value : '')
+    expect(component.filteredTechs.length).toBe(1);
+    expect(component.filteredTechs[0].name).toBe('React');
+  });
+  
 });

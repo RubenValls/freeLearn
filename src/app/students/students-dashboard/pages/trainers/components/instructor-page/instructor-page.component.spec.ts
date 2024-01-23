@@ -195,5 +195,48 @@ describe('InstructorPageComponent', () => {
       ],
     });
   });
+
+  it('should not update instructor rating if user is not logged in', async () => {
+    const updateInstructorsRatingSpy = spyOn(instructorsService, 'updateInstructorsRating').and.returnValue(
+      Promise.resolve({
+        id: '1',
+        name: 'John Doe',
+        socialMedia: {
+          web: 'www.johndoe.com',
+          youtube: 'www.youtube.com/johndoe',
+          twitter: 'www.twitter.com/johndoe',
+          linkedin: 'www.linkedin.com/in/johndoe',
+        },
+        courses: ['Course 1', 'Course 2'],
+        imagePath: 'path/to/image',
+        rating: [
+          { userId: 'user1', rating: 5 },
+          { userId: 'user2', rating: 4 },
+        ],
+      })
+    );
+  
+    spyOn(usersService, 'getUserFromStorage').and.returnValue(undefined);
+  
+    await component.handleUpdate(5);
+  
+    expect(updateInstructorsRatingSpy).toHaveBeenCalledWith('123', { userId: 'user1', rating: 5 });
+    expect(component.instructor).toEqual({
+      id: '1',
+      name: 'John Doe',
+      socialMedia: {
+        web: 'www.johndoe.com',
+        youtube: 'www.youtube.com/johndoe',
+        twitter: 'www.twitter.com/johndoe',
+        linkedin: 'www.linkedin.com/in/johndoe',
+      },
+      courses: ['Course 1', 'Course 2'],
+      imagePath: 'path/to/image',
+      rating: [
+        { userId: 'user1', rating: 5 },
+        { userId: 'user2', rating: 4 },
+      ],
+    });
+  });
   
 });

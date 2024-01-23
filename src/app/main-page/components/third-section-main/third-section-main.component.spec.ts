@@ -205,4 +205,9 @@ describe('ThirdSectionMainComponent', () => {
         expect(component.trainerSubscription.unsubscribe).toHaveBeenCalled();
     });
 
+    it('should set animation properties in ngOnInit', () => {
+        const setTimeoutSpy = spyOn(window, 'setTimeout');
+        component.ngOnInit();
+        expect(setTimeoutSpy).toHaveBeenCalled();
+    });
 });

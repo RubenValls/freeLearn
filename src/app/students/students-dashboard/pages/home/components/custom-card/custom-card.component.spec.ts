@@ -24,7 +24,7 @@ describe('CustomCardComponent', () => {
       imagePath: 'test',
       imageUrl: 'test',
       name: 'test',
-    }
+    };
     expect(component).toBeTruthy();
   });
 
@@ -37,7 +37,7 @@ describe('CustomCardComponent', () => {
       imagePath: 'testImagePath',
       imageUrl: '',
       name: 'test',
-    }
+    };
     fixture.detectChanges();
     const imgElement = fixture.debugElement.query(By.css('.card img'));
     expect(imgElement.nativeElement.src).toContain('testImagePath');
@@ -48,7 +48,7 @@ describe('CustomCardComponent', () => {
       imagePath: '',
       imageUrl: 'testImageUrl',
       name: 'test',
-    }
+    };
     fixture.detectChanges();
     const imgElement = fixture.debugElement.query(By.css('.card img.course'));
     expect(imgElement.nativeElement.src).toContain('testImageUrl');
@@ -59,9 +59,20 @@ describe('CustomCardComponent', () => {
       imagePath: '',
       imageUrl: '',
       name: 'testName',
-    }
+    };
     fixture.detectChanges();
     const pElement = fixture.debugElement.query(By.css('.card p'));
     expect(pElement.nativeElement.textContent).toContain('testName');
+  });
+
+  it('should not display image if imagePath and imageUrl are not provided', () => {
+    component.data = {
+      imagePath: '',
+      imageUrl: '',
+      name: 'testName',
+    };
+    fixture.detectChanges();
+    const imgElement = fixture.debugElement.query(By.css('.card img'));
+    expect(imgElement).toBeNull();
   });
 });
