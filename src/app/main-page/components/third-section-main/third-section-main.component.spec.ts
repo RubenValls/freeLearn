@@ -79,6 +79,22 @@ describe('ThirdSectionMainComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should have a defined trainers$ variable', () => {
+    expect(component.trainers$).toBeDefined();
+  });
+
+  it('should have a defined trainers variable', () => {
+    expect(component.trainers).toBeDefined();
+  });
+
+  it('should have a defined trainerSubscription variable', () => {
+    expect(component.trainerSubscription).toBeDefined();
+  });
+
+  it('should have a defined carousel variable', () => {
+    expect(component.carousel).toBeDefined();
+  });
+
   it('should initialize with trainers', () => {
     const trainers = [
       {
@@ -131,6 +147,62 @@ describe('ThirdSectionMainComponent', () => {
     expect(selectSpy).toHaveBeenCalled();
     expect(window.setTimeout).toHaveBeenCalled();
     expect(component.trainers).toEqual(trainers);
-});
+    });
+
+    it('should subscribe to trainers$ in ngOnInit', () => {
+        spyOn(component.trainers$, 'subscribe');
+        component.ngOnInit();
+        expect(component.trainers$.subscribe).toHaveBeenCalled();
+    });
+
+    it('should unsubscribe from trainerSubscription on destroy', () => {
+        component.trainerSubscription = of([
+            {
+                name: 'John Doe',
+                socialMedia: {
+                    web: 'www.johndoe.com',
+                    youtube: 'www.youtube.com/johndoe',
+                    twitter: 'www.twitter.com/johndoe',
+                    linkedin: 'www.linkedin.com/in/johndoe',
+                },
+                courses: ['Course 1', 'Course 2', 'Course 3'],
+                imagePath: '/path/to/image.jpg',
+                rating: [
+                    {
+                        userId: 'user1',
+                        rating: 5,
+                    },
+                    {
+                        userId: 'user2',
+                        rating: 4,
+                    },
+                ],
+            },
+            {
+                name: 'Jane Smith',
+                socialMedia: {
+                    web: 'www.janesmith.com',
+                    youtube: 'www.youtube.com/janesmith',
+                    twitter: 'www.twitter.com/janesmith',
+                    linkedin: 'www.linkedin.com/in/janesmith',
+                },
+                courses: ['Course 4', 'Course 5', 'Course 6'],
+                imagePath: '/path/to/image2.jpg',
+                rating: [
+                    {
+                        userId: 'user3',
+                        rating: 5,
+                    },
+                    {
+                        userId: 'user4',
+                        rating: 3,
+                    },
+                ],
+            },
+          ]).subscribe();
+        spyOn(component.trainerSubscription, 'unsubscribe');
+        component.ngOnDestroy();
+        expect(component.trainerSubscription.unsubscribe).toHaveBeenCalled();
+    });
 
 });

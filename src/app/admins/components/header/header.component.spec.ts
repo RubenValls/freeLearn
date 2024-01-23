@@ -23,6 +23,10 @@ describe('HeaderComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should have isSmallScreen defined', () => {
+    expect(component.isSmallScreen).toBeDefined();
+  });
+
   it('should set isSmallScreen to true if window width is less than 700', () => {
     spyOnProperty(window, 'innerWidth').and.returnValue(600);
     component.onResize();

@@ -1,0 +1,3 @@
+<app-button [label]="'Success Message'" [type]="'success'" (click)="openSuccessSnackBar()" *ngIf="type === 'success'"></app-button>
+<app-button [label]="'Error Message'" [type]="'danger'" (click)="openErrorSnackBar()" *ngIf="type === 'error'">Error Message</app-button>
+<app-button [label]="'Warning Message'" [type]="'warning'" (click)="openWarningSnackBar()" *ngIf="type === 'warning'">Waring Message</app-button>

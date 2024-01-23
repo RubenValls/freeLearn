@@ -22,10 +22,13 @@ import { usersReducer } from './store/users/users.reducer';
 import { UsersEffects } from './store/users/users.effects';
 import { courseReducer } from './admins/admins-dashboard/pages/courses/store/course/course.reducer';
 
+
  
 @NgModule({
   declarations: [
     AppComponent,
+    
+    
   
   ],
   imports: [

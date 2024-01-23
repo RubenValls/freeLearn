@@ -28,7 +28,7 @@ const routes: Routes = [
     data: { expectedRole: 'student' },
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: WorkingInProgressComponent },
+      { path: 'home', component: HomeComponent },
       {
         path: 'courses',
         component: CoursesComponent,

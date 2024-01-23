@@ -24,7 +24,6 @@ export class CustomTableComponent implements OnInit, OnDestroy {
 
   constructor(
     public dialog: MatDialog,
-
   ) { }
 
   ngOnInit(): void {

@@ -26,6 +26,20 @@ describe('CustomTableComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should have all variables defined', () => {
+    expect(component.displayedColumns).toBeDefined();
+    expect(component.data).toBeDefined();
+    expect(component.rows).toBeDefined();
+    expect(component.onEdit).toBeDefined();
+    expect(component.onDelete).toBeDefined();
+    expect(component.modalWith).toBeDefined();
+    expect(component.modalHeight).toBeDefined();
+    expect(component.modalTitle).toBeDefined();
+    expect(component.dataSubscription).toBeDefined();
+    expect(component.dataSource).toBeDefined();
+    expect(component.columns).toBeDefined();
+  });
+
   it('should initialize dataSubscription on ngOnInit', () => {
     const data = of([1, 2, 3]);
     component.data = data;
@@ -58,5 +72,6 @@ describe('CustomTableComponent', () => {
     const ratings = [{ rating: 1 }, { rating: 2 }, { rating: 3 }];
     const average = component.getRatingAverage(ratings);
     expect(average).toEqual(2);
+    expect(average).not.toEqual(1);
   });
 });

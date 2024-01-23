@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-
 import { UsersService } from './users.service';
 import { SharedModule } from '../../shared.module';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('UsersService', () => {
   let service: UsersService;
@@ -18,7 +18,8 @@ describe('UsersService', () => {
         provideFirestore(() => getFirestore()),
         provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
         provideAuth(() => getAuth()),
-      ]
+      ],
+      providers: [provideMockStore({ initialState: {} })],
     });
     service = TestBed.inject(UsersService);
   });
@@ -117,4 +118,25 @@ describe('UsersService', () => {
     await service.updateUser(user.id, user);
     expect(service.updateUser).toHaveBeenCalledWith(user.id, user);
   });
+
+  it('should update favorite courses and return message', async () => {
+    const courseId = 'testCourseId';
+
+    spyOn(service, 'updateFavoriteCourses').and.returnValue(Promise.resolve({message: 'Course add to favorites'}));
+
+    const result = await service.updateFavoriteCourses(courseId);
+    expect(result.message).toEqual('Course add to favorites');
+    expect(service.updateFavoriteCourses).toHaveBeenCalled();
+  });
+
+  it('should update favorite courses and return removed message', async () => {
+    const courseId = 'testCourseId';
+
+    spyOn(service, 'updateFavoriteCourses').and.returnValue(Promise.resolve({message: 'Course removed from favorites'}));
+
+    const result = await service.updateFavoriteCourses(courseId);
+    expect(result.message).toEqual('Course removed from favorites');
+    expect(service.updateFavoriteCourses).toHaveBeenCalled();
+  });
+  
 });

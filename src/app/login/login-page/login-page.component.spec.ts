@@ -67,6 +67,10 @@ describe('LoginPageComponent', () => {
     expect(component.isLogIn).toBeFalse();
   });
 
+  it('should have isLogIn defined', () => {
+    expect(component.isLogIn).toBeDefined();
+  });
+
   it('should have isLogIn set to true by default', () => {
     expect(component.isLogIn).toBeTrue();
   });

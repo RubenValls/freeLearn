@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 
 import { TechnologiesComponent } from './technologies.component';
 import { AdminsModule } from 'src/app/admins/admins.module';
@@ -48,6 +48,16 @@ describe('TechnologiesComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should have defined variables', () => {
+    expect(component.isFormVisible).toBeDefined();
+    expect(component.technologies$).toBeUndefined();
+    expect(component.modalWith).toBeDefined();
+    expect(component.modalHeight).toBeDefined();
+    expect(component.modalTitle).toBeDefined();
+    expect(component.tableColumns).toBeDefined();
+    expect(component.rows).toBeDefined();
+  });
+
   it('should toggle form visibility', () => {
     component.isFormVisible = false;
     component.onToggleForm();
@@ -68,6 +78,20 @@ describe('TechnologiesComponent', () => {
     expect(alertsService.successMessage).toHaveBeenCalledWith('Technology update successfully');
   });
 
+  it('should throw an error onEdit if promise rejected', fakeAsync(() => {
+    const technology = {
+      id: '1',
+      name: 'Angular',
+      imagePath: 'path/to/image',
+      description: 'A platform for building web applications.',
+      courses: []
+    };
+    techsService.updateTechnology.and.returnValue(Promise.reject({message: 'Error'}));
+    component.onEdit(technology);
+    tick();
+    expect(alertsService.errorMessage).toHaveBeenCalledWith('Error updating technology', 'Error');
+  }));
+
   it('should delete a technology', async () => {
     const technologyId = '1';
     techsService.getTechnologyById.and.returnValue(Promise.resolve({
@@ -82,5 +106,20 @@ describe('TechnologiesComponent', () => {
     expect(techsService.deleteTechDoc).toHaveBeenCalledWith(technologyId);
     expect(alertsService.successMessage).toHaveBeenCalledWith('Technology delete successfully');
   });
+
+  it('should throw an error onDelete if technology has courses', fakeAsync(() => {
+    const technologyId = '1';
+    const technologyWithCourses = {
+      id: '1',
+      name: 'Angular',
+      imagePath: 'path/to/image',
+      description: 'A platform for building web applications.',
+      courses: ["1", "2"]
+    };
+    techsService.getTechnologyById.and.returnValue(Promise.resolve(technologyWithCourses));
+    component.onDelete(technologyId);
+    tick();
+    expect(alertsService.errorMessage).toHaveBeenCalledWith("You can't delete it, contains courses");
+  }));
 
 });

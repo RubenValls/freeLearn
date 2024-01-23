@@ -44,6 +44,40 @@ describe('InstructorsComponent', () => {
     fixture.detectChanges();
   });
 
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should have correct initial variable values', () => {
+    expect(component.showForm).toBe(false);
+    expect(component.modalWith).toBe('1034');
+    expect(component.modalHeight).toBe('600px');
+    expect(component.modalTitle).toBe('Trainer');
+    expect(component.tableColumns).toEqual([
+      { prop: 'name', title: 'Name' },
+      { prop: 'imagePath', title: 'Image' },
+      { prop: 'courses', title: 'NºCourses' },
+      { prop: 'rating', title: 'Rating' },
+      { prop: 'socialMedia', title: 'SocialMedia' }
+    ]);
+    expect(component.rows).toEqual([
+      { label: 'Id', prop: 'id' },
+      { label: 'Name', prop: 'name' },
+      { label: 'Image', prop: 'imagePath' },
+      { label: 'Courses', prop: 'courses' },
+      { label: 'Rating', prop: 'rating' },
+      {
+        label: 'SocialMedia', prop: 'socialMedia',
+        subFields: [
+          { label: 'Web', prop: 'web' },
+          { label: 'YouTube', prop: 'youtube' },
+          { label: 'Twitter', prop: 'twitter' },
+          { label: 'LinkedIn', prop: 'linkedin' },
+        ],
+      },
+    ]);
+  });
+
   it('should toggle showForm on toggleForm', () => {
     component.showForm = false;
     component.toggleForm();

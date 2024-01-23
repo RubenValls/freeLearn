@@ -12,6 +12,7 @@
     margin-top: 1rem;
     margin-bottom: 2rem;
    
+   
 
     h3{
         margin-bottom: 1rem;
@@ -23,8 +24,9 @@
     padding-bottom: 1rem;
     .techs{
         display: flex;
+        justify-content: center;
         flex-wrap: wrap;
-        gap: 1.5rem;
+        gap: 2rem;
     }
 }
 

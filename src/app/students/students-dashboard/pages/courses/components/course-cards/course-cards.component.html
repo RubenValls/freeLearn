@@ -1,6 +1,10 @@
 <div class="card "  [routerLink]=" '/students/courses/' + course?.id">
-    <div class="card-img"> <img [src]="course?.imageUrl" alt="">
+ <div class="d-none  d-md-block">
+    <div class="card-img "> <img [src]="course?.imageUrl" alt="" class="">
+
     </div>
+ </div>
+ 
     <div class="main">
         <div class="card-content">
             <div class="card-title">
@@ -15,10 +19,10 @@
                         *ngFor="let tech of course?.techs">{{tech.name}}</span> </div>
             </div>
         </div>
-                <div class="card-rating">
+                <div class="card-rating d-none d-sm-block">
             <div class="rating-stars" *ngIf="course?.rating">
                 <ng-container *ngFor="let i of [].constructor(5); let j = index">
-                     <i class="bi stars" [ngClass]="{'bi-star-fill': j < getRatingAverage(course?.rating), 'bi-star': j >= getRatingAverage(course?.rating)}"></i>
+                     <i class="bi stars" [ngClass]="{'bi-star-fill ': j < getRatingAverage(course?.rating), 'bi-star': j >= getRatingAverage(course?.rating)}"></i>
                 </ng-container>
             </div>
         </div>

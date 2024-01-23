@@ -1,0 +1,17 @@
+<div class="main-container">
+    <h4>Trainer</h4>
+    <div class="data">
+        <div class="array">
+            <div  *ngFor="let trainer of trainers">
+                <app-custom-card [data]="trainer" [routerLink]="'/students/trainers/' + trainer?.id"></app-custom-card>
+            </div>
+        </div>
+        <div class="more">
+            <p routerLink="/students/trainers">See more ...</p>
+        </div>
+
+
+    </div>
+    
+</div>
+

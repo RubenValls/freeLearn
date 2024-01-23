@@ -136,6 +136,20 @@ describe('RoleGuard', () => {
 
     expect(dispatchSpy).not.toHaveBeenCalled();
   });
+
+  it('should return false if the user role does not match the expected role', () => {
+    const mockRoute = { data: { expectedRole: 'admin' } } as unknown as ActivatedRouteSnapshot;
+    const mockState = {} as unknown as RouterStateSnapshot;
+    spyOn(usersService, 'getUserFromStorage').and.returnValue({ role: 'student' });
+    const router = TestBed.inject(Router);
+    const navigateSpy = spyOn(router, 'navigate');
+  
+    const result = executeGuard(mockRoute, mockState);
+  
+    expect(result).toBe(false);
+    expect(navigateSpy).toHaveBeenCalledWith(['/students']);
+  });
+  
 });
 
 @Component({template: ''})

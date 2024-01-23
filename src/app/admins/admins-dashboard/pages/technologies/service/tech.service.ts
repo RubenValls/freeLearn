@@ -3,8 +3,6 @@ import { Firestore, collectionData } from '@angular/fire/firestore';
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import { TechnologyType } from '../types/technologies';
 import { Observable, of } from 'rxjs';
-import { Course } from '../../courses/interface/course';
-import { Instructor } from '../../instructors/instructors';
 
 
 @Injectable({

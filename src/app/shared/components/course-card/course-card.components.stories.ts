@@ -4,7 +4,7 @@ import { CourseCardComponent } from './course-card.component';
 import { ButtonComponent } from '../button/button.component';
 
 const meta: Meta<CourseCardComponent> = {
-  title: 'Components/Shared/CourseCard',
+  title: 'Molecules/CourseCardMainPage',
   component: CourseCardComponent,
   tags: ['autodocs'], 
   decorators: [
@@ -20,14 +20,15 @@ type Story = StoryObj<CourseCardComponent>;
 export const Default: Story = {
   args: {
     course: {
-      name: 'Example Course',
-      imageUrl: 'example.jpg',
-      description: 'This is an example course description.',
-      lessons: [], 
-      techs: [{ id:"1", name: 'Angular' }],
+      name: 'React',
+      imageUrl:
+        'https://miro.medium.com/v2/resize:fit:1200/1*XOSA6j_mJ3oz6g8MfoHDpg.jpeg',
+      description: 'Curso de React desde cero. ¿Qué es? ¿Por qué deberías aprenderlo? ',
+      lessons: [],
+      techs: [{ id: '1', name: 'React' }],
       rating: [],
-      introductionURL: "https://example.com/introduction",
-      instructorId:[]
+      introductionURL: 'https://example.com/introduction',
+      instructorId: [{ id: '1', name: 'Midudev' }],
     },
   },
   

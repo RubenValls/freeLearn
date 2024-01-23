@@ -5,8 +5,6 @@ import { addDoc, collection, deleteDoc, doc, getDoc, updateDoc } from '@angular/
 import { Observable, first } from 'rxjs';
 import { TechService } from '../../technologies/service/tech.service';
 import { InstructorsService } from '../../instructors/instructors-service/instructors.service';
-import { Store } from '@ngrx/store';
-import { CoursesEffects } from 'src/app/store/courses/courses.effects';
 
 @Injectable({
   providedIn: 'root'

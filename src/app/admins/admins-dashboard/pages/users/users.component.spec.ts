@@ -67,6 +67,15 @@ describe('UsersComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should have defined variables', () => {
+    expect(component.users$).toBeDefined();
+    expect(component.modalWith).toBeDefined();
+    expect(component.modalHeight).toBeDefined();
+    expect(component.modalTitle).toBeDefined();
+    expect(component.tableColumns).toBeDefined();
+    expect(component.rows).toBeDefined();
+  });
+
   it('should select users from store on init', () => {
     expect(storeMock.select).toHaveBeenCalled();
   });

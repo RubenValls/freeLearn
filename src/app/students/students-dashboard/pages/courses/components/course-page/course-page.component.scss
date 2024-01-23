@@ -27,6 +27,7 @@
   
   .course::-webkit-scrollbar-track {
     height: 10px;    
+    margin: 40px;
   }
   
   .course::-webkit-scrollbar-thumb { 
@@ -38,3 +39,5 @@
   .course {   
     scrollbar-color:var(--gradient);
   }
+
+

@@ -1,0 +1,20 @@
+.lessons{   
+    margin: 20px 10px;    
+    padding: 10px;
+    border: 1px solid green;
+    border-radius: 10px;
+
+    h5{
+        margin: 10px;
+        font-weight: bold;
+
+    }
+}
+iframe{
+    max-width: 100%;
+}
+
+button:active {
+    background: var(--gradient) ;
+    color: #fff;
+  }

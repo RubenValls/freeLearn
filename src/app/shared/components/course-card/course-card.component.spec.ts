@@ -35,6 +35,25 @@ describe('CourseCardComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should have a course undefined by default', () => {
+    expect(component.course).toBeUndefined();
+  });
+
+  it('should have a course if input', () => {
+    component.course = {
+      id: '2',
+      name: 'React Basics',
+      description: 'Learn the basics of React, a popular JavaScript library for building user interfaces.',
+      instructorId: [{ id: '2', name: 'Jane Doe' }],
+      imageUrl: 'path/to/react/image',
+      techs: [{ id: '2', name: 'React' }],
+      lessons: [{ id: '2', name: 'Introduction to React', videoUrl: 'https://example.com/intro-to-react' }],
+      rating: [{ userId: '2', rating: 4 }],
+      introductionURL: 'https://example.com/react-basics-intro',
+    }
+    expect(component.course).toBeDefined();
+  });
+
   it('should handle short description correctly', () => {
     const shortDescription = 'short description';
     expect(component.handleDescription(shortDescription)).toEqual(shortDescription);
