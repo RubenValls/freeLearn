@@ -1,22 +1,36 @@
 <div class="flex-container">
-  
-  <app-button
-    [label]="'Add instructor'"
-    [type]="'gradient'"
-    (onClick)="toggleForm()"
-    [iconName]="'add'"
-  >
-  </app-button>
-  <app-create-instructors-form *ngIf="showForm" (closeForm)="toggleForm()"></app-create-instructors-form>
+  <div class="top">
+    <div class="input-container">
+      <mat-form-field class="input">
+        <mat-label><i class="bi bi-search"></i>Filter intructors</mat-label>
+        <input matInput [formControl]="searchInstructorControl" type="text" />
+      </mat-form-field>
+    </div>
+    <div>
+      <app-button
+        [label]="'Add instructor'"
+        [type]="'gradient'"
+        (onClick)="toggleForm()"
+        [iconName]="'add'"
+      >
+      </app-button>
+    </div>
+  </div>
 
-  <app-custom-table 
-  [data]="instructors$"
-  [displayedColumns]="tableColumns"  
-  [rows]="rows"
-  [modalWith]="modalWith"
-  [modalHeight]="modalHeight"
-  [modalTitle]="modalTitle"
-  (onEdit)="onEdit($event)"
-  (onDelete)="onDelete($event)">
+  <app-create-instructors-form
+    *ngIf="showForm"
+    (closeForm)="toggleForm()"
+  ></app-create-instructors-form>
+
+  <app-custom-table
+    [data]="getInstructors()"
+    [displayedColumns]="tableColumns"
+    [rows]="rows"
+    [modalWith]="modalWith"
+    [modalHeight]="modalHeight"
+    [modalTitle]="modalTitle"
+    (onEdit)="onEdit($event)"
+    (onDelete)="onDelete($event)"
+  >
   </app-custom-table>
 </div>
