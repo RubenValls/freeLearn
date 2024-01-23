@@ -20,11 +20,11 @@ export class ProfileBaseComponent implements OnInit {
   profileForm: FormGroup;
 
   constructor(
-    private store: Store,
+    public store: Store,
     private fb: FormBuilder,
     public dialog: MatDialog,
-    private userService: UsersService,
-    private alertMessage: AlertsService
+    public userService: UsersService,
+    public alertMessage: AlertsService
   ) {
     this.profileForm = this.fb.group({
       email: ['', Validators.required],
@@ -53,7 +53,7 @@ export class ProfileBaseComponent implements OnInit {
         this.store.dispatch(UserActions.updateUser({ user: userUpdated }));
         this.userService.saveUserInStorage(userUpdated.rememberMe, userUpdated);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => this.alertMessage.errorMessage(error?.message));
   }
 
   onSubmit() {

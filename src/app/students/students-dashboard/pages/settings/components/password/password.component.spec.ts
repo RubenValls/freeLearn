@@ -42,4 +42,12 @@ describe('PasswordComponent', () => {
     expect(component.resetPassForm.controls['confirmPassword']).toBeDefined();
   });
 
+  it('should call cambiarContrasena on form submit', () => {
+    const cambiarContrasenaSpy = spyOn(component, 'cambiarContrasena');
+    component.resetPassForm.controls['password'].setValue('password123');
+    component.resetPassForm.controls['confirmPassword'].setValue('password123');
+    component.cambiarContrasena();
+    expect(cambiarContrasenaSpy).toHaveBeenCalled();
+  });
 });
+

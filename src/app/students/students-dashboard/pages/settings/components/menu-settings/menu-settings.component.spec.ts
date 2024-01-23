@@ -75,4 +75,10 @@ describe('MenuSettingsComponent', () => {
     expect(localStorage.removeItem).toHaveBeenCalledWith('userInfo');
     expect(sessionStorage.removeItem).toHaveBeenCalledWith('userInfo');
   });
+
+  it('should not initialize user if no user in local storage', () => {
+    spyOn(localStorage, 'getItem').and.returnValue(null);
+    component.ngOnInit();
+    expect(component.user).toBeUndefined();
+  });
 });
