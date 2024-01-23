@@ -61,6 +61,26 @@ describe('InstructorPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should have undefined instructor on creation', () => {
+    expect(component.instructor).toBeDefined();
+  });
+
+  it('should have empty userId on creation', () => {
+    expect(component.userId).toBe('user1');
+  });
+
+  it('should have empty instructorId on creation', () => {
+    expect(component.instructorId).toBe('123');
+  });
+
+  it('should have undefined instructorSubscription on creation', () => {
+    expect(component.instructorSubscription).toBeDefined();
+  });
+
+  it('should have undefined instructorIdSubscription on creation', () => {
+    expect(component.instructorIdSubscription).toBeDefined();
+  });
+
   it('should subscribe to instructor data and id', () => {
     expect(component.instructor).toEqual({
       id: '1',
@@ -106,4 +126,74 @@ describe('InstructorPageComponent', () => {
     component.handleUpdate(5);
     expect(updateInstructorsRatingSpy).toHaveBeenCalledWith('123', { userId: 'user1', rating: 5 });
   });
+
+  it('should unsubscribe from instructor data and id on ngOnDestroy', () => {
+    component.ngOnDestroy();
+    expect(component.instructorSubscription?.closed).toBeTrue();
+    expect(component.instructorIdSubscription?.closed).toBeTrue();
+  });
+  
+  it('should not update instructor rating if userId or instructorId is empty', async () => {
+    component.userId = '';
+    component.instructorId = '';
+    const updateInstructorsRatingSpy = spyOn(instructorsService, 'updateInstructorsRating');
+    await component.handleUpdate(5);
+    expect(updateInstructorsRatingSpy).not.toHaveBeenCalled();
+  });
+  
+  it('should not update instructor rating if userId is empty', async () => {
+    component.userId = '';
+    const updateInstructorsRatingSpy = spyOn(instructorsService, 'updateInstructorsRating');
+    await component.handleUpdate(5);
+    expect(updateInstructorsRatingSpy).not.toHaveBeenCalled();
+  });
+  
+  it('should not update instructor rating if instructorId is empty', async () => {
+    component.instructorId = '';
+    const updateInstructorsRatingSpy = spyOn(instructorsService, 'updateInstructorsRating');
+    await component.handleUpdate(5);
+    expect(updateInstructorsRatingSpy).not.toHaveBeenCalled();
+  });
+  
+  it('should handle update with valid rating', async () => {
+    const updateInstructorsRatingSpy = spyOn(instructorsService, 'updateInstructorsRating').and.returnValue(
+      Promise.resolve({
+        id: '1',
+        name: 'John Doe',
+        socialMedia: {
+          web: 'www.johndoe.com',
+          youtube: 'www.youtube.com/johndoe',
+          twitter: 'www.twitter.com/johndoe',
+          linkedin: 'www.linkedin.com/in/johndoe',
+        },
+        courses: ['Course 1', 'Course 2'],
+        imagePath: 'path/to/image',
+        rating: [
+          { userId: 'user1', rating: 5 },
+          { userId: 'user2', rating: 4 },
+        ],
+      })
+    );
+    component.userId = 'user1';
+    component.instructorId = '123';
+    await component.handleUpdate(5);
+    expect(updateInstructorsRatingSpy).toHaveBeenCalledWith('123', { userId: 'user1', rating: 5 });
+    expect(component.instructor).toEqual({
+      id: '1',
+      name: 'John Doe',
+      socialMedia: {
+        web: 'www.johndoe.com',
+        youtube: 'www.youtube.com/johndoe',
+        twitter: 'www.twitter.com/johndoe',
+        linkedin: 'www.linkedin.com/in/johndoe',
+      },
+      courses: ['Course 1', 'Course 2'],
+      imagePath: 'path/to/image',
+      rating: [
+        { userId: 'user1', rating: 5 },
+        { userId: 'user2', rating: 4 },
+      ],
+    });
+  });
+  
 });

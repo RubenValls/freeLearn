@@ -194,4 +194,94 @@ describe('InstructorsMainPageComponent', () => {
     component.filteredInstructors = [];
     expect(component.getInstructors()).toEqual(instructors);
   });
+
+  it('should have an empty array of instructors on creation', () => {
+    expect(component.instructors).toEqual([]);
+  });
+  
+  it('should have an empty array of topInstructors on creation', () => {
+    expect(component.topInstructors).toEqual([]);
+  });
+  
+  it('should initialize name FormControl', () => {
+    expect(component.name).toBeTruthy();
+  });
+  
+  it('should subscribe to name FormControl changes', () => {
+    spyOn(component.name.valueChanges, 'subscribe');
+    component.ngOnInit();
+    expect(component.name.valueChanges.subscribe).toHaveBeenCalled();
+  });
+  
+  it('should filter instructors by name when name FormControl changes', () => {
+    const instructors: Instructor[] = [
+      { id: '1', name: 'John Doe', courses: [], imagePath: '', socialMedia: {
+        web: 'https://www.instructor1.com',
+        youtube: 'https://www.youtube.com/instructor1',
+        twitter: 'https://twitter.com/instructor1',
+        linkedin: 'https://www.linkedin.com/in/instructor1',
+      }, rating: [] },
+      { id: '2', name: 'Jane Smith', courses: [], imagePath: '', socialMedia: {
+        web: 'https://www.instructor1.com',
+        youtube: 'https://www.youtube.com/instructor1',
+        twitter: 'https://twitter.com/instructor1',
+        linkedin: 'https://www.linkedin.com/in/instructor1',
+      }, rating: [] },
+    ];
+    component.instructors = instructors;
+  
+    component.name.setValue('John');
+    expect(component.filteredInstructors).toEqual([instructors[0]]);
+  
+    component.name.setValue('Jane');
+    expect(component.filteredInstructors).toEqual([instructors[1]]);
+  
+    component.name.setValue('Not Existing Name');
+    expect(component.filteredInstructors).toEqual([]);
+  });
+  
+  it('should return all instructors when filteredInstructors is empty', () => {
+    const instructors: Instructor[] = [
+      { id: '1', name: 'John Doe', courses: [], imagePath: '', socialMedia: {
+        web: 'https://www.instructor1.com',
+        youtube: 'https://www.youtube.com/instructor1',
+        twitter: 'https://twitter.com/instructor1',
+        linkedin: 'https://www.linkedin.com/in/instructor1',
+      }, rating: [] },
+      { id: '2', name: 'Jane Smith', courses: [], imagePath: '', socialMedia: {
+        web: 'https://www.instructor1.com',
+        youtube: 'https://www.youtube.com/instructor1',
+        twitter: 'https://twitter.com/instructor1',
+        linkedin: 'https://www.linkedin.com/in/instructor1',
+      }, rating: [] },
+    ];
+    component.instructors = instructors;
+    component.filteredInstructors = [];
+  
+    const result = component.getInstructors();
+    expect(result).toEqual(instructors);
+  });
+  
+  it('should return filtered instructors when filteredInstructors is not empty', () => {
+    const instructors: Instructor[] = [
+      { id: '1', name: 'John Doe', courses: [], imagePath: '', socialMedia: {
+        web: 'https://www.instructor1.com',
+        youtube: 'https://www.youtube.com/instructor1',
+        twitter: 'https://twitter.com/instructor1',
+        linkedin: 'https://www.linkedin.com/in/instructor1',
+      }, rating: [] },
+      { id: '2', name: 'Jane Smith', courses: [], imagePath: '', socialMedia: {
+        web: 'https://www.instructor1.com',
+        youtube: 'https://www.youtube.com/instructor1',
+        twitter: 'https://twitter.com/instructor1',
+        linkedin: 'https://www.linkedin.com/in/instructor1',
+      }, rating: [] },
+    ];
+    component.instructors = instructors;
+    component.filteredInstructors = [instructors[0]];
+  
+    const result = component.getInstructors();
+    expect(result).toEqual([instructors[0]]);
+  });
+  
 });
