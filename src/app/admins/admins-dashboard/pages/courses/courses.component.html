@@ -3,7 +3,7 @@
     <div class="input-container">
       <mat-form-field class="input">
         <mat-label>Filtred courses</mat-label>
-        <input matInput  type="text" />
+        <input matInput  [formControl]="searchCoursesControl" type="text" />
       </mat-form-field>
     </div>
 

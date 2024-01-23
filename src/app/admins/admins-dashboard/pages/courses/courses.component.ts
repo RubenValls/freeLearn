@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { selectCourses } from 'src/app/store/courses/courses.selectors';
 import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 import { Course } from './interface/course';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-courses',
@@ -40,11 +41,15 @@ export class CoursesComponent  {
     { prop: 'rating', title: 'Rating'},
   ]  
 
+  searchCoursesControl = new FormControl('');
+
+
   constructor(
     private store: Store,
     private coursesService: CoursesService,
     private alertMessages: AlertsService,
   ) { } 
+
 
 
   addCourse() {
