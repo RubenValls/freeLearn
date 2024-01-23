@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';
@@ -12,7 +12,7 @@ import { TechnologyType } from 'src/app/admins/admins-dashboard/pages/technologi
   templateUrl: './tech-page.component.html',
   styleUrls: ['./tech-page.component.scss']
 })
-export class TechPageComponent implements OnInit{
+export class TechPageComponent implements OnInit, OnDestroy{
 
   tech: TechnologyType | undefined;
   
@@ -23,8 +23,8 @@ export class TechPageComponent implements OnInit{
   techCoursesId: string[] = []
   
   constructor(
-    private route: ActivatedRoute,
-    private courseService: CoursesService
+    public route: ActivatedRoute,
+    public courseService: CoursesService
     ) {
     
     
@@ -34,8 +34,6 @@ export class TechPageComponent implements OnInit{
     this.techSubscription = this.route.data.subscribe(data => {
       this.tech = data['data']
       this.techCoursesId = data['data'].courses
-      
-      console.log(this.techCourses);
     });
     this.techIdSubscription = this.route?.paramMap?.subscribe((params) => {
       const idParam = params.get('id');
@@ -46,5 +44,9 @@ export class TechPageComponent implements OnInit{
   
   }
 
+  ngOnDestroy(): void {
+    this.techSubscription?.unsubscribe();
+    this.techIdSubscription?.unsubscribe();
+  }
 
 }

@@ -31,4 +31,21 @@ describe('CardTechComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have tech input', () => {
+    component.tech = {
+      id: '1',
+      name: 'Angular',
+      imagePath: 'path/to/image',
+      description: 'A platform for building web applications.',
+      courses: []
+    };
+    fixture.detectChanges();
+    expect(component.tech).toBeDefined();
+    expect(component.tech.id).toEqual('1');
+    expect(component.tech.name).toEqual('Angular');
+    expect(component.tech.imagePath).toEqual('path/to/image');
+    expect(component.tech.description).toEqual('A platform for building web applications.');
+  });
+  
 });
