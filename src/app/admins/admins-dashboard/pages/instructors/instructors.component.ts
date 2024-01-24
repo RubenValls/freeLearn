@@ -60,16 +60,16 @@ export class InstructorsComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.instructors$.subscribe((courses) => {
-      this.totalItems = courses.length
+    this.instructors$.subscribe((instructor) => {
+      this.totalItems = instructor.length
       this.filteredInstructor = this.filterInstructor(
-        courses,
+        instructor,
         this.searchInstructorControl.value || ''
       );
     });
     this.searchInstructorControl.valueChanges.subscribe((input) => {
-      this.instructors$.subscribe((courses) => {
-        this.filteredInstructor = this.filterInstructor(courses, input || '');
+      this.instructors$.subscribe((instructor) => {
+        this.filteredInstructor = this.filterInstructor(instructor, input || '');
       });
     });
   }

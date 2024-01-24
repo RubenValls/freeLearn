@@ -5,6 +5,7 @@ import { selectCourses } from 'src/app/store/courses/courses.selectors';
 import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 import { Course } from './interface/course';
 import { FormControl } from '@angular/forms';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-courses',
@@ -19,6 +20,10 @@ export class CoursesComponent implements OnInit {
   modalWith: string = '1034';
   modalHeight: string = '600px';
   modalTitle: string = 'Courses';
+
+  pageSize: number = 10;
+  currentPage: number = 0;
+  totalItems: number = 100;
 
   tableColumns = [
     { prop: 'name', title: 'Name' },
@@ -52,6 +57,8 @@ export class CoursesComponent implements OnInit {
 
   ngOnInit(): void {
     this.courses$.subscribe((courses) => {
+      this.totalItems = courses.length
+
       this.filteredCourses = this.filterCourse(
         courses,
         this.searchCoursesControl.value || ''
@@ -78,13 +85,17 @@ export class CoursesComponent implements OnInit {
   }
 
   getCourses() {
-    if (this.filteredCourses.length > 0) {
-      console.log(this.filteredCourses);
-      return this.filteredCourses;
-    } else {
-      return this.courses$;
-    }
+    let startIndex = this.currentPage * this.pageSize;
+    let endIndex = startIndex + this.pageSize;
     
+    if (this.filteredCourses.length > 0) {
+      console.log(this.filteredCourses.slice(startIndex, endIndex));
+      return this.filteredCourses.slice(startIndex, endIndex);
+    } else {
+      return this.courses$.pipe(
+        map(courses => courses.slice(startIndex, endIndex))
+      );
+    }
   }
 
   addCourse() {
@@ -114,5 +125,10 @@ export class CoursesComponent implements OnInit {
       .catch((error) => {
         this.alertMessages.errorMessage('Error deleting Course', error.message);
       });
+  }
+  onPageChange(event: any) {
+    this.currentPage = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.getCourses();
   }
 }
