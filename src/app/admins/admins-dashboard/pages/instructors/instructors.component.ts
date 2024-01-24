@@ -88,7 +88,6 @@ export class InstructorsComponent implements OnInit{
     let endIndex = startIndex + this.pageSize;
     
     if (this.filteredInstructor.length > 0) {
-      console.log(this.filteredInstructor.slice(startIndex, endIndex));
       return this.filteredInstructor.slice(startIndex, endIndex);
     } else {
       return this.instructors$.pipe(

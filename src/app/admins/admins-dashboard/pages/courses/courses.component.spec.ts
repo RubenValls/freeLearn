@@ -1,4 +1,3 @@
-import { MatIconModule } from '@angular/material/icon';
 import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { CoursesComponent } from './courses.component';
 import { Store, StoreModule } from '@ngrx/store';
@@ -11,6 +10,8 @@ import { AdminsModule } from 'src/app/admins/admins.module';
 import { CoursesService } from './service/courses.service';
 import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Course } from './interface/course';
+import { of } from 'rxjs';
 
 describe('CoursesComponent', () => {
   let component: CoursesComponent;
@@ -20,11 +21,12 @@ describe('CoursesComponent', () => {
   let alertsService: jasmine.SpyObj<AlertsService>;
 
   beforeEach(async () => {
-    const coursesServiceSpy = jasmine.createSpyObj('CoursesService', ['updateCourse', 'deleteCourse', 'getCourseById']);
+    const coursesServiceSpy = jasmine.createSpyObj('CoursesService', ['updateCourse', 'deleteCourse', 'getCourseById', 'getCourses']);
     const alertsServiceSpy = jasmine.createSpyObj('AlertsService', ['successMessage', 'errorMessage']);
-
+  
     coursesServiceSpy.updateCourse.and.returnValue(Promise.resolve());
-
+    coursesServiceSpy.getCourses.and.returnValue(of([])); // You can customize the return value as needed
+  
     await TestBed.configureTestingModule({
       declarations: [ CoursesComponent ],
       imports: [ 
@@ -193,6 +195,292 @@ describe('CoursesComponent', () => {
     
   });
 
+  it('should filter courses based on input', () => {
+    const testCourses: Course[] = [
+      { id: '1', 
+    name: 'Course 1',
+    description:'Course 1',   
+    techs: [{name: 'React', id: '1234'}, {name: 'Typescript', id: '1234'}],
+    instructorId: [{name: 'Midudev', id: '1'}, {name: 'Mouredev', id: '2'}], 
+    imageUrl: 'https://www.google.com',
+    lessons: [{
+       id: '1',
+       name: 'Lesson 1',
+       videoUrl: 'https://www.google.com' 
+      }],
+    rating: [{
+      userId: '1',
+      rating: 4
+    }],
+      introductionURL: 'http://example.com/intro'
+    },
+    { id: '2', 
+    name: 'Angular',
+    description:'Course 1',   
+    techs: [{name: 'Angular', id: '1234'}, {name: 'Typescript', id: '1234'}],
+    instructorId: [{name: 'Midudev', id: '1'}, {name: 'Mouredev', id: '2'}], 
+    imageUrl: 'https://www.google.com',
+    lessons: [{
+       id: '1',
+       name: 'Lesson 1',
+       videoUrl: 'https://www.google.com' 
+      }],
+    rating: [{
+      userId: '1',
+      rating: 4
+    }],
+      introductionURL: 'http://example.com/intro'
+    },
+    ];
 
+    const filteredCourses = component.filterCourse(testCourses, 'Angular');
+
+    expect(filteredCourses.length).toBe(1);
+
+    expect(filteredCourses[0]).toEqual(
+      { id: '2', 
+    name: 'Angular',
+    description:'Course 1',   
+    techs: [{name: 'Angular', id: '1234'}, {name: 'Typescript', id: '1234'}],
+    instructorId: [{name: 'Midudev', id: '1'}, {name: 'Mouredev', id: '2'}], 
+    imageUrl: 'https://www.google.com',
+    lessons: [{
+       id: '1',
+       name: 'Lesson 1',
+       videoUrl: 'https://www.google.com' 
+      }],
+    rating: [{
+      userId: '1',
+      rating: 4
+    }],
+      introductionURL: 'http://example.com/intro'
+    },
+    );
+
+    const noMatchFilteredCourses = component.filterCourse(testCourses, 'JavaScript');
+
+    expect(noMatchFilteredCourses).toEqual([]);
+  });
+
+  it('should update currentPage and pageSize on page change', fakeAsync(() => {
+    component.currentPage = 0;
+    component.pageSize = 10;
+  
+    const event = { pageIndex: 1, pageSize: 20 };
+  
+    component.onPageChange(event);
+  
+    tick();
+  
+    
+    expect(component.currentPage).toBe(event.pageIndex);
+    expect(component.pageSize).toBe(event.pageSize);
+
+  }));
+
+  it('should update currentPage and pageSize on page change', fakeAsync(() => {
+    const mockCourses$ = of([]);
+
+    spyOn(component, 'getCourses').and.callThrough();
+    spyOn(component.courses$, 'pipe').and.returnValue(mockCourses$);
+
+    component.currentPage = 0;
+    component.pageSize = 10;
+
+    const event = { pageIndex: 1, pageSize: 20 };
+
+    component.onPageChange(event);
+
+    tick();
+
+    expect(component.currentPage).toBe(event.pageIndex);
+    expect(component.pageSize).toBe(event.pageSize);
+
+    expect(component.getCourses).toHaveBeenCalled();
+    expect(component.courses$.pipe).toHaveBeenCalled();
+  }));
+
+  it('should update currentPage and pageSize on page change', fakeAsync(() => {
+    const mockCourses$ = of([]);
+  
+    spyOn(component, 'getCourses').and.callThrough();
+    spyOn(component.courses$, 'pipe').and.returnValue(mockCourses$);
+  
+    component.currentPage = 0;
+    component.pageSize = 10;
+  
+    const event = { pageIndex: 1, pageSize: 20 };
+  
+    component.onPageChange(event);
+  
+    tick();
+  
+    expect(component.currentPage).toBe(event.pageIndex);
+    expect(component.pageSize).toBe(event.pageSize);
+  
+    expect(component.getCourses).toHaveBeenCalled();
+    expect(component.courses$.pipe).toHaveBeenCalled();
+  }));
+  
+  it('should return filteredCourses when filteredCourses is not empty', () => {
+    // Arrange
+    component.filteredCourses = [{ id: '1', 
+    name: 'Angular',
+    description:'Course 1',   
+    techs: [{name: 'Angular', id: '1234'}, {name: 'Typescript', id: '1234'}],
+    instructorId: [{name: 'Midudev', id: '1'}, {name: 'Mouredev', id: '2'}], 
+    imageUrl: 'https://www.google.com',
+    lessons: [{
+       id: '1',
+       name: 'Lesson 1',
+       videoUrl: 'https://www.google.com' 
+      }],
+    rating: [{
+      userId: '1',
+      rating: 4
+    }],
+      introductionURL: 'http://example.com/intro'
+    }, { id: '2', 
+    name: 'React',
+    description:'Course 2',   
+    techs: [{name: 'React', id: '1234'}, {name: 'Typescript', id: '1234'}],
+    instructorId: [{name: 'Midudev', id: '1'}, {name: 'Mouredev', id: '2'}], 
+    imageUrl: 'https://www.google.com',
+    lessons: [{
+       id: '1',
+       name: 'Lesson 1',
+       videoUrl: 'https://www.google.com' 
+      }],
+    rating: [{
+      userId: '1',
+      rating: 4
+    }],
+      introductionURL: 'http://example.com/intro'
+    }];
+    component.currentPage = 0;
+    component.pageSize = 10;
+
+    // Act
+    const result = component.getCourses();
+
+    // Assert
+    expect(result).toEqual([{ id: '1', 
+    name: 'Angular',
+    description:'Course 1',   
+    techs: [{name: 'Angular', id: '1234'}, {name: 'Typescript', id: '1234'}],
+    instructorId: [{name: 'Midudev', id: '1'}, {name: 'Mouredev', id: '2'}], 
+    imageUrl: 'https://www.google.com',
+    lessons: [{
+       id: '1',
+       name: 'Lesson 1',
+       videoUrl: 'https://www.google.com' 
+      }],
+    rating: [{
+      userId: '1',
+      rating: 4
+    }],
+      introductionURL: 'http://example.com/intro'
+    },
+    { id: '2', 
+    name: 'React',
+    description:'Course 2',   
+    techs: [{name: 'React', id: '1234'}, {name: 'Typescript', id: '1234'}],
+    instructorId: [{name: 'Midudev', id: '1'}, {name: 'Mouredev', id: '2'}], 
+    imageUrl: 'https://www.google.com',
+    lessons: [{
+       id: '1',
+       name: 'Lesson 1',
+       videoUrl: 'https://www.google.com' 
+      }],
+    rating: [{
+      userId: '1',
+      rating: 4
+    }],
+      introductionURL: 'http://example.com/intro'
+    }]);
+  });
+
+  it('should return courses$ when filteredCourses is empty', fakeAsync(() => {
+    // Arrange
+    const courses = [
+      {
+        id: '1',
+        name: 'Angular',
+        description: 'Course 1',
+        techs: [{ name: 'Angular', id: '1234' }, { name: 'Typescript', id: '1234' }],
+        instructorId: [{ name: 'Midudev', id: '1' }, { name: 'Mouredev', id: '2' }],
+        imageUrl: 'https://www.google.com',
+        lessons: [{ id: '1', name: 'Lesson 1', videoUrl: 'https://www.google.com' }],
+        rating: [{ userId: '1', rating: 4 }],
+        introductionURL: 'http://example.com/intro'
+      },
+      {
+        id: '2',
+        name: 'React',
+        description: 'Course 2',
+        techs: [{ name: 'React', id: '1234' }, { name: 'Typescript', id: '1234' }],
+        instructorId: [{ name: 'Midudev', id: '1' }, { name: 'Mouredev', id: '2' }],
+        imageUrl: 'https://www.google.com',
+        lessons: [{ id: '1', name: 'Lesson 1', videoUrl: 'https://www.google.com' }],
+        rating: [{ userId: '1', rating: 4 }],
+        introductionURL: 'http://example.com/intro'
+      }
+    ];
+  
+    coursesService.getCourses.and.returnValue(of(courses));
+    component.currentPage = 0;
+    component.pageSize = 10;
+  
+    // Act
+    let result: any;
+    component.getCourses().subscribe((data: any) => {
+      result = data;
+    });
+    tick();
+  
+    // Assert
+    expect(component.filteredCourses).toEqual([]);
+  }));
+  
+  it('should call deleteCourse and display error message on delete failure', fakeAsync(() => {
+    // Arrange
+    const courseId = '1';
+    const error = new Error('Delete error');
+  
+    coursesService.deleteCourse.and.returnValue(Promise.reject(error));
+  
+    // Act
+    component.onDelete(courseId);
+    tick();
+  
+    // Assert
+    expect(coursesService.deleteCourse).toHaveBeenCalledWith(courseId);
+    expect(alertsService.errorMessage).toHaveBeenCalledWith('Error deleting Course', error.message);
+  }));
+
+  it('should call updateCourse and display error message on update failure', fakeAsync(() => {
+    const course: Course = {
+      id: '1',
+      name: 'Angular',
+      description: 'Course 1',
+      techs: [{ name: 'Angular', id: '1234' }],
+      instructorId: [{ name: 'Midudev', id: '1' }],
+      imageUrl: 'https://www.google.com',
+      lessons: [{ id: '1', name: 'Lesson 1', videoUrl: 'https://www.google.com' }],
+      rating: [{ userId: '1', rating: 4 }],
+      introductionURL: 'http://example.com/intro'
+    };
+  
+    coursesService.updateCourse.and.returnValue(Promise.reject(new Error('Update failed')));
+  
+    // Act
+    component.onEdit(course);
+    tick();
+  
+    // Assert
+    expect(coursesService.updateCourse).toHaveBeenCalledWith('1', course);
+    expect(alertsService.errorMessage).toHaveBeenCalledWith('Error updating Course: ', 'Update failed');
+  }));
+  
 });
 

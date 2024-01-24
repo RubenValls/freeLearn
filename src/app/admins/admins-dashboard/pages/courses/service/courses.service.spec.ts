@@ -136,6 +136,35 @@ describe('CoursesService', () => {
     expect(service.updateCourse).toHaveBeenCalled();
   });
 
+  it('should update course rating', async () => {
+    const course: Course = { id: '1', 
+    name: 'Course 1',
+    description:'Course 1',   
+    techs: [{name: 'Angular', id: '1234'}, {name: 'Typescript', id: '1234'}],
+    instructorId: [{name: 'Midudev', id: '1'}, {name: 'Mouredev', id: '2'}], 
+    imageUrl: 'https://www.google.com',
+    lessons: [{
+       id: '1',
+       name: 'Lesson 1',
+       videoUrl: 'https://www.google.com' 
+      }],
+    rating: [],
+      introductionURL: 'http://example.com/intro'
+    };
+  
+    const getCourseSpy = spyOn(service, 'getCourseById').and.returnValue(Promise.resolve(course));
+  
+    const rating: Rating = { userId: 'testing', rating: 4 };
+  
+    // Act
+    await service.updateCourseRating('xClUlZ1Y6nH8g9BvoLQX', rating);
+  
+    // Assert
+    expect(getCourseSpy).toHaveBeenCalledWith('xClUlZ1Y6nH8g9BvoLQX');
+    expect(service.currentCourse).toBeDefined();
+  });
+  
+
   it('should reject promise when no changes were made to the course', async () => {
     const course: Course = { id: '1', 
     name: 'Course 1',

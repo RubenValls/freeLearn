@@ -4,7 +4,6 @@ import { Store, StoreModule } from '@ngrx/store';
 import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 import { TechService } from './service/tech.service';
 import { of } from 'rxjs';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { AdminsModule } from 'src/app/admins/admins.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 

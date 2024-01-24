@@ -88,6 +88,5 @@ describe('Courses Store', () => {
       expect(state).toEqual(courses);
     });
   });
-});
 
-  
+});

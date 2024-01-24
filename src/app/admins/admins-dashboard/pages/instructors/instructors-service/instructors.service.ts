@@ -9,7 +9,7 @@ import { Rating } from '../../courses/interface/course';
   providedIn: 'root',
 })
 export class InstructorsService {
-  constructor(private firestore: Firestore) { }
+  constructor(public firestore: Firestore) { }
 
   async addInstructor(instructor: Instructor) {
     const instructorsRef = collection(this.firestore, 'instructors');

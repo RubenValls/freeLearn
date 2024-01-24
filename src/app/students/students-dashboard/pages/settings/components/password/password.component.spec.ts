@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
@@ -12,7 +12,7 @@ describe('PasswordComponent', () => {
   let alertService: AlertsService;
   let router: Router;
 
-  beforeEach(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [PasswordComponent],
       imports: [
@@ -24,7 +24,10 @@ describe('PasswordComponent', () => {
         { provide: AlertsService, useValue: { successMessage: () => {}, errorMessage: () => {} } },
         { provide: Router, useValue: { navigate: () => {} } }
       ]
-    });
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
     fixture = TestBed.createComponent(PasswordComponent);
     component = fixture.componentInstance;
     alertService = TestBed.inject(AlertsService);
@@ -42,12 +45,12 @@ describe('PasswordComponent', () => {
     expect(component.resetPassForm.controls['confirmPassword']).toBeDefined();
   });
 
-  it('should call cambiarContrasena on form submit', () => {
+  it('should call cambiarContrasena on form submit with valid form', () => {
     const cambiarContrasenaSpy = spyOn(component, 'cambiarContrasena');
     component.resetPassForm.controls['password'].setValue('password123');
     component.resetPassForm.controls['confirmPassword'].setValue('password123');
     component.cambiarContrasena();
     expect(cambiarContrasenaSpy).toHaveBeenCalled();
   });
+  
 });
-

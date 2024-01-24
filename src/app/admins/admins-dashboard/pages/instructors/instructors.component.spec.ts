@@ -10,6 +10,7 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { InstructorsService } from './instructors-service/instructors.service';
 import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormControl } from '@angular/forms';
 
 describe('InstructorsComponent', () => {
   let component: InstructorsComponent;
@@ -104,7 +105,7 @@ describe('InstructorsComponent', () => {
           { userId: 'user1', rating: 5 },
           { userId: 'user2', rating: 4 }
       ]
-  };
+    };
     mockInstructorsService.updateInstructor.and.returnValue(Promise.resolve());
 
     try {
@@ -151,5 +152,60 @@ describe('InstructorsComponent', () => {
     expect(mockInstructorsService.getInstructorById).toHaveBeenCalledWith(instructorId);
     expect(mockInstructorsService.deleteInstructor).toHaveBeenCalledWith(instructorId);
     expect(mockAlertMessages.successMessage).toHaveBeenCalledWith('Trainer delete successfully');
+  });
+
+  it('should handle page change', () => {
+    const event = { pageIndex: 1, pageSize: 10 };
+    spyOn(component, 'getInstructors');
+
+    component.onPageChange(event);
+
+    expect(component.currentPage).toEqual(event.pageIndex);
+    expect(component.pageSize).toEqual(event.pageSize);
+    expect(component.getInstructors).toHaveBeenCalled();
+  });
+
+  it('should filter instructors based on input', () => {
+    // Arrange
+    const instructors = [
+      {
+        id: '1',
+        name: 'John Doe',
+        socialMedia: {
+            web: 'www.johndoe.com',
+            youtube: 'www.youtube.com/johndoe',
+            twitter: 'www.twitter.com/johndoe',
+            linkedin: 'www.linkedin.com/in/johndoe',
+        },
+        courses: ['Course 1', 'Course 2'],
+        imagePath: '/path/to/image.jpg',
+        rating: [
+            { userId: 'user1', rating: 5 },
+            { userId: 'user2', rating: 4 }
+        ]
+    },
+    {
+      id: '1',
+      name: 'Jane Doe',
+      socialMedia: {
+          web: 'www.janedoe.com',
+          youtube: 'www.youtube.com/janedoe',
+          twitter: 'www.twitter.com/janedoe',
+          linkedin: 'www.linkedin.com/in/janedoe',
+      },
+      courses: ['Course 1', 'Course 2'],
+      imagePath: '/path/to/image.jpg',
+      rating: [
+          { userId: 'user1', rating: 5 },
+          { userId: 'user2', rating: 4 }
+      ]
+  },
+    ];
+    const input = 'john';
+
+    const filteredInstructors = component.filterInstructor(instructors, input);
+
+    expect(filteredInstructors.length).toBe(1);
+    expect(filteredInstructors[0].name).toBe('John Doe');
   });
 });

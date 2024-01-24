@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
 
 import { LoginFormComponent } from './login-form.component';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -118,5 +118,16 @@ describe('LoginFormComponent', () => {
     component.onGoogleSubmit();
     tick(3000); 
     expect(component.isGoogleLoading).toBeFalse();
+  }));
+
+  it('should not change isLoading if form not valid', fakeAsync(() => {
+    component.onSubmit();
+    expect(component.isLoading).toBe(false);
+  
+    // Advance time by 3 seconds
+    tick(3000);
+  
+    // Assert
+    expect(component.isLoading).toBe(false);
   }));
 });

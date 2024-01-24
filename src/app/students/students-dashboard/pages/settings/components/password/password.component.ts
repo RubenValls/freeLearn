@@ -34,8 +34,6 @@ export class PasswordComponent {
 
       if (user) {
         if (newPassword == confirmPassword){
-
-        
           updatePassword(user, newPassword)
             .then(() => {
               this.alertMessage.successMessage('Password changed succesfully');

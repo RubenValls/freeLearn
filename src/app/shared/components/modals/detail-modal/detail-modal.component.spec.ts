@@ -265,4 +265,38 @@ describe('DetailModalComponent', () => {
     });
   });
 
+  it('should create sub form group from object', () => {
+    const subFields = [
+      { prop: 'subField1', subFields: [] },
+      { prop: 'subField2', subFields: [] },
+      { prop: 'subField3', subFields: [] },
+    ];
+  
+    const result = component.createSubFormGroupFromObject(subFields);
+  
+    expect(result instanceof FormGroup).toBe(true);
+    expect(result.controls['subField1']).toBeDefined();
+    expect(result.controls['subField2']).toBeDefined();
+    expect(result.controls['subField3']).toBeDefined();
+  });
+
+  it('should create sub form group with builderForm.control when subFields are not present', () => {
+    const subFields = [
+      { prop: 'subField1' },
+      { prop: 'subField2' },
+      { prop: 'subField3' },
+    ];
+  
+    const result = component.createSubFormGroupFromObject(subFields);
+  
+    expect(result instanceof FormGroup).toBe(true);
+    expect(result.controls['subField1']).toBeDefined();
+    expect(result.controls['subField2']).toBeDefined();
+    expect(result.controls['subField3']).toBeDefined();
+    expect(result.controls['subField1'] instanceof FormControl).toBe(true);
+    expect(result.controls['subField2'] instanceof FormControl).toBe(true);
+    expect(result.controls['subField3'] instanceof FormControl).toBe(true);
+  });
+  
+  
 });

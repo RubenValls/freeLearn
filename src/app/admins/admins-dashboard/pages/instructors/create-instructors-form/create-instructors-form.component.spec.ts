@@ -8,7 +8,6 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { InstructorsService } from '../instructors-service/instructors.service';
 import { AdminsModule } from 'src/app/admins/admins.module';
 import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
-import { Instructor } from '../instructors';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 describe('InstructorsFormComponent', () => {
@@ -16,24 +15,6 @@ describe('InstructorsFormComponent', () => {
   let fixture: ComponentFixture<CreateInstructorsFormComponent>;
   let service: InstructorsService;
   let alerts: AlertsService;
-  let fb: FormBuilder;
-
-  const instructorData: Instructor = {
-    id: '1',
-    name: 'Instructor 1',
-    socialMedia: {
-      web: 'https://www.instructor1.com',
-      youtube: 'https://www.youtube.com/instructor1',
-      twitter: 'https://twitter.com/instructor1',
-      linkedin: 'https://www.linkedin.com/in/instructor1',
-    },
-    courses: [],
-    imagePath: 'path/to/image',
-    rating: [{
-      userId: '1',
-      rating: 4
-    }], 
-  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -53,7 +34,6 @@ describe('InstructorsFormComponent', () => {
 
     service = TestBed.inject(InstructorsService);  
     alerts = TestBed.inject(AlertsService);
-    fb = TestBed.inject(FormBuilder);
   });
 
   it('should create', () => {
@@ -122,4 +102,65 @@ describe('InstructorsFormComponent', () => {
     expect(resetSpy).toHaveBeenCalled();
   });
   
+  it('should call addInstructor on form submission if form is valid', () => {
+    const mockDocumentReference: DocumentReference<DocumentData, DocumentData> = {
+      id: 'mockId',
+      parent: null as any,
+      firestore: null as any,
+      withConverter: null as any,
+      converter: null as any,
+      type: null as any,
+      path: null as any,
+    };
+    
+    const addInstructorSpy = spyOn(service, 'addInstructor').and.returnValue(Promise.resolve(mockDocumentReference));
+
+    component.instructorForm.setValue({
+      name: 'Instructor 1',
+      imagePath: 'path/to/image',
+      socialMedia: {
+        web: 'https://www.instructor1.com',
+        youtube: 'https://www.youtube.com/instructor1',
+        twitter: 'https://twitter.com/instructor1',
+        linkedin: 'https://www.linkedin.com/in/instructor1',
+      },
+      courses: [],
+      rating: [],
+    });
+
+    component.onSubmit();
+
+    expect(addInstructorSpy).toHaveBeenCalled();
+  });
+
+  it('should not call addInstructor on form submission if form is invalid', () => {
+    const mockDocumentReference: DocumentReference<DocumentData, DocumentData> = {
+      id: 'mockId',
+      parent: null as any,
+      firestore: null as any,
+      withConverter: null as any,
+      converter: null as any,
+      type: null as any,
+      path: null as any,
+    };
+    
+    const addInstructorSpy = spyOn(service, 'addInstructor').and.returnValue(Promise.resolve(mockDocumentReference));
+
+    component.instructorForm.setValue({
+      name: '',
+      imagePath: '',
+      socialMedia: {
+        web: 'https://www.instructor1.com',
+        youtube: 'https://www.youtube.com/instructor1',
+        twitter: 'https://twitter.com/instructor1',
+        linkedin: 'https://www.linkedin.com/in/instructor1',
+      },
+      courses: [],
+      rating: [],
+    });
+
+    component.onSubmit();
+
+    expect(addInstructorSpy).not.toHaveBeenCalled();
+  });
 });

@@ -228,4 +228,72 @@ describe('UsersComponent', () => {
       expect(alertMessagesMock.errorMessage).toHaveBeenCalledWith('Error updating user', 'Error');
     });
   });
+
+  it('should handle page change', () => {
+    const event = { pageIndex: 1, pageSize: 10 };
+    spyOn(component, 'getUsers');
+
+    component.onPageChange(event);
+
+    expect(component.currentPage).toEqual(event.pageIndex);
+    expect(component.pageSize).toEqual(event.pageSize);
+    expect(component.getUsers).toHaveBeenCalled();
+  });
+
+  describe('filterUser', () => {
+    it('should filter users based on displayName', () => {
+      const users: User[] = [
+        { id: '1', displayName: 'John Doe', email: 'john.doe@example.com', phoneNumber: '+1234567890', photoURL: '', providerId: '', rememberMe: true, role: 'admin', uid: 'user1', authUid: 'auth123' },
+        { id: '2', displayName: 'Jane Smith', email: 'jane.smith@example.com', phoneNumber: '+9876543210', photoURL: '', providerId: '', rememberMe: true, role: 'user', uid: 'user2', authUid: 'auth456' },
+      ];
+
+      const result = component.filterUser(users, 'John');
+
+      expect(result).toEqual([users[0]]);
+    });
+
+    it('should filter users based on email', () => {
+      const users: User[] = [
+        { id: '1', displayName: 'John Doe', email: 'john.doe@example.com', phoneNumber: '+1234567890', photoURL: '', providerId: '', rememberMe: true, role: 'admin', uid: 'user1', authUid: 'auth123' },
+        { id: '2', displayName: 'Jane Smith', email: 'jane.smith@example.com', phoneNumber: '+9876543210', photoURL: '', providerId: '', rememberMe: true, role: 'user', uid: 'user2', authUid: 'auth456' },
+      ];
+
+      const result = component.filterUser(users, 'jane.smith');
+
+      expect(result).toEqual([users[1]]);
+    });
+
+    it('should filter users based on phoneNumber', () => {
+      const users: User[] = [
+        { id: '1', displayName: 'John Doe', email: 'john.doe@example.com', phoneNumber: '+1234567890', photoURL: '', providerId: '', rememberMe: true, role: 'admin', uid: 'user1', authUid: 'auth123' },
+        { id: '2', displayName: 'Jane Smith', email: 'jane.smith@example.com', phoneNumber: '+9876543210', photoURL: '', providerId: '', rememberMe: true, role: 'user', uid: 'user2', authUid: 'auth456' },
+      ];
+
+      const result = component.filterUser(users, '9876543210');
+
+      expect(result).toEqual([users[1]]);
+    });
+
+    it('should filter users based on role', () => {
+      const users: User[] = [
+        { id: '1', displayName: 'John Doe', email: 'john.doe@example.com', phoneNumber: '+1234567890', photoURL: '', providerId: '', rememberMe: true, role: 'admin', uid: 'user1', authUid: 'auth123' },
+        { id: '2', displayName: 'Jane Smith', email: 'jane.smith@example.com', phoneNumber: '+9876543210', photoURL: '', providerId: '', rememberMe: true, role: 'user', uid: 'user2', authUid: 'auth456' },
+      ];
+
+      const result = component.filterUser(users, 'admin');
+
+      expect(result).toEqual([users[0]]);
+    });
+
+    it('should return an empty array if no matches are found', () => {
+      const users: User[] = [
+        { id: '1', displayName: 'John Doe', email: 'john.doe@example.com', phoneNumber: '+1234567890', photoURL: '', providerId: '', rememberMe: true, role: 'admin', uid: 'user1', authUid: 'auth123' },
+        { id: '2', displayName: 'Jane Smith', email: 'jane.smith@example.com', phoneNumber: '+9876543210', photoURL: '', providerId: '', rememberMe: true, role: 'user', uid: 'user2', authUid: 'auth456' },
+      ];
+
+      const result = component.filterUser(users, 'Nonexistent');
+
+      expect(result).toEqual([]);
+    });
+  });
 });

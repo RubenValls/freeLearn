@@ -1,10 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CustomTableComponent } from './custom-table.component';
-import { Subscription, of } from 'rxjs';
+import { of } from 'rxjs';
 import { AdminsModule } from '../../admins.module';
 import { provideMockStore } from '@ngrx/store/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PageEvent } from '@angular/material/paginator';
 
 describe('CustomTableComponent', () => {
   let component: CustomTableComponent;
@@ -75,5 +76,24 @@ describe('CustomTableComponent', () => {
     const average = component.getRatingAverage(ratings);
     expect(average).toEqual(2);
     expect(average).not.toEqual(1);
+  });
+
+  it('should emit pageChange event with correct data on onPageChange', () => {
+    // Arrange
+    const pageEvent: PageEvent = {
+      pageIndex: 2,
+      pageSize: 10,
+      length: 30,
+    };
+
+    const pageChangeSpy = spyOn(component.pageChange, 'emit');
+
+    // Act
+    component.onPageChange(pageEvent);
+
+    // Assert
+    expect(component.currentPage).toEqual(pageEvent.pageIndex);
+    expect(component.pageSize).toEqual(pageEvent.pageSize);
+    expect(pageChangeSpy).toHaveBeenCalledWith(pageEvent);
   });
 });

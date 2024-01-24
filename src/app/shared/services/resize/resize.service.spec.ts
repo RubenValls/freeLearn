@@ -43,4 +43,18 @@ describe('ResizeService', () => {
     });
   });
   
+  it('should update isSmallScreen$ inside NgZone after window resize', fakeAsync(() => {
+    let isSmallScreenValue: boolean | undefined;
+
+    service.isSmallScreen$.subscribe(isSmallScreen => {
+      isSmallScreenValue = isSmallScreen;
+    });
+
+    spyOnProperty(window, 'innerWidth').and.returnValue(600);
+    window.dispatchEvent(new Event('resize'));
+
+    flush();
+
+    expect(isSmallScreenValue).toBe(false);
+  }));
 });
