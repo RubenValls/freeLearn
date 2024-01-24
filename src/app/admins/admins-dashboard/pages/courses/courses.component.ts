@@ -89,7 +89,6 @@ export class CoursesComponent implements OnInit {
     let endIndex = startIndex + this.pageSize;
     
     if (this.filteredCourses.length > 0) {
-      console.log(this.filteredCourses.slice(startIndex, endIndex));
       return this.filteredCourses.slice(startIndex, endIndex);
     } else {
       return this.courses$.pipe(
