@@ -1,10 +1,10 @@
-<div class="flex-container">
-  
+<div class="flex-container">  
   <app-button
     [label]="'Add instructor'"
     [type]="'gradient'"
     (onClick)="toggleForm()"
     [iconName]="'add'"
+    id="add-instructor-button"
   >
   </app-button>
   <app-create-instructors-form *ngIf="showForm" (closeForm)="toggleForm()"></app-create-instructors-form>
