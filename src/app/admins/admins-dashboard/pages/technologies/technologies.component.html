@@ -27,6 +27,11 @@
     [modalTitle]="modalTitle"
     (onEdit)="onEdit($event)"
     (onDelete)="onDelete($event)"
+
+    [totalItems]="totalItems"
+    [currentPage]="currentPage"
+    [pageSize]="pageSize"
+    (pageChange)="onPageChange($event)"
   >
   </app-custom-table>
 </div>

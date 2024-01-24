@@ -5,6 +5,7 @@ import { TechnologyType } from './types/technologies';
 import { TechService } from './service/tech.service';
 import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 import { FormControl } from '@angular/forms';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-technologies',
@@ -18,6 +19,10 @@ export class TechnologiesComponent implements OnInit {
   modalHeight: string = '600px';
   modalTitle: string = 'Technology';
   filteredTechs: any = [];
+
+  pageSize: number = 10;
+  currentPage: number = 0;
+  totalItems: number = 100;
 
   constructor(
     private store: Store,
@@ -44,6 +49,8 @@ export class TechnologiesComponent implements OnInit {
 
   ngOnInit(): void {
     this.technologies$.subscribe((tech) => {
+      this.totalItems = tech.length
+
       this.filteredTechs = this.filterTech(
         tech,
         this.searchTechsControl.value || ''
@@ -63,11 +70,16 @@ export class TechnologiesComponent implements OnInit {
   }
 
   getTechs() {
+    let startIndex = this.currentPage * this.pageSize;
+    let endIndex = startIndex + this.pageSize;
+    
     if (this.filteredTechs.length > 0) {
-      console.log(this.filteredTechs);
-      return this.filteredTechs;
+      console.log(this.filteredTechs.slice(startIndex, endIndex));
+      return this.filteredTechs.slice(startIndex, endIndex);
     } else {
-      return this.technologies$;
+      return this.technologies$.pipe(
+        map(tech => tech.slice(startIndex, endIndex))
+      );
     }
   }
 
@@ -97,5 +109,11 @@ export class TechnologiesComponent implements OnInit {
     } else {
       this.alertMessages.errorMessage("You can't delete it, contains courses");
     }
+  }
+
+  onPageChange(event: any) {
+    this.currentPage = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.getTechs();
   }
 }
