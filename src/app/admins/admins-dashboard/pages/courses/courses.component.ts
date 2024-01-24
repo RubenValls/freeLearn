@@ -67,21 +67,18 @@ export class CoursesComponent implements OnInit {
     this.searchCoursesControl.valueChanges.subscribe((input) => {
       this.courses$.subscribe((courses) => {
         this.filteredCourses = this.filterCourse(courses, input || '');
+        this.totalItems = this.filteredCourses.length;
+
       });
     });
   }
 
-  filterCourse(array: readonly Course[], input: string) {
-    return array.filter(
-      (item) =>
-        item.name.toLowerCase().includes(input.toLowerCase()) ||
-        item.techs.some((tech) =>
-          tech.name.toLowerCase().includes(input.toLowerCase())
-        ) ||
-        item.instructorId.some((instructorId) =>
-          instructorId.name.toLowerCase().includes(input.toLowerCase())
-        )
+  filterCourse(array: readonly any[], input: string) {
+    const filteredArray = array.filter((item) =>
+      item.name.toLowerCase().includes(input.toLowerCase())
     );
+    this.totalItems = filteredArray.length;
+    return filteredArray;
   }
 
   getCourses() {
