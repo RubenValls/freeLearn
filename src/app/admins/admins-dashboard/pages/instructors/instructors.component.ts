@@ -70,6 +70,8 @@ export class InstructorsComponent implements OnInit{
     this.searchInstructorControl.valueChanges.subscribe((input) => {
       this.instructors$.subscribe((instructor) => {
         this.filteredInstructor = this.filterInstructor(instructor, input || '');
+        this.totalItems = this.filteredInstructor.length;
+
       });
     });
   }
