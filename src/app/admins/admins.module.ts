@@ -21,6 +21,8 @@ import { SharedModule } from '../shared/shared.module';
 import { CustomTableComponent } from './components/custom-table/custom-table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 
 
 
@@ -52,6 +54,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     SharedModule,
     MatTableModule,
     MatDialogModule,
+    MatPaginatorModule
 
   ]
 })

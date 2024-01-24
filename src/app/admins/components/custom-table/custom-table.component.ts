@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges, } from '@angular/core';
 import { Subscription, of } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { DetailModalComponent } from 'src/app/shared/components/modals/detail-modal/detail-modal.component';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-custom-table',
@@ -18,6 +19,11 @@ export class CustomTableComponent implements OnInit, OnDestroy {
   @Input() modalHeight: string = '';
   @Input() modalTitle: string = '';
 
+  @Input() totalItems: number | undefined;
+  @Input() currentPage: number | undefined;
+  @Input() pageSize: number | undefined;
+  @Output() pageChange = new EventEmitter<any>()
+
   dataSubscription: Subscription | undefined
   dataSource = []
   columns = this.displayedColumns.map(column => column.prop);
@@ -31,9 +37,18 @@ export class CustomTableComponent implements OnInit, OnDestroy {
     this.dataSubscription = this.data?.subscribe((data: any) => { this.dataSource = data })
     this.columns = this.displayedColumns.map(column => column.prop);
   }
+  ngOnChanges(changes: SimpleChanges): void {
+   this.dataSource = changes['data']['currentValue']
+  }
 
   ngOnDestroy(): void {
     this.dataSubscription?.unsubscribe();
+  }
+
+  onPageChange(event: PageEvent) {
+    this.currentPage = event.pageIndex;
+  this.pageSize = event.pageSize;
+  this.pageChange.emit(event);
   }
 
   handleModal(element: any) {
