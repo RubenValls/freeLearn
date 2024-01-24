@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { InstructorsService } from './instructors-service/instructors.service';
 import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('InstructorsComponent', () => {
   let component: InstructorsComponent;
@@ -25,6 +26,7 @@ describe('InstructorsComponent', () => {
       imports: [
         AdminsModule, 
         MatIconModule,
+        BrowserAnimationsModule,
         provideFirestore(() => getFirestore()),
         provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
         provideAuth(() => getAuth()),

@@ -7,6 +7,7 @@ import { UsersService } from 'src/app/shared/services/users/users.service';
 import { AdminsModule } from 'src/app/admins/admins.module';
 import { User } from 'src/app/login/types/user';
 import { selectUsers } from 'src/app/store/users/users.selectors';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('UsersComponent', () => {
   let component: UsersComponent;
@@ -53,7 +54,10 @@ describe('UsersComponent', () => {
         { provide: AlertsService, useValue: alertMessagesMock },
         { provide: UsersService, useValue: userServiceMock }
       ],
-      imports: [AdminsModule]
+      imports: [
+        AdminsModule,
+        BrowserAnimationsModule,
+      ]
     }).compileComponents();
   });
 

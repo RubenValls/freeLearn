@@ -4,6 +4,7 @@ import { CustomTableComponent } from './custom-table.component';
 import { Subscription, of } from 'rxjs';
 import { AdminsModule } from '../../admins.module';
 import { provideMockStore } from '@ngrx/store/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('CustomTableComponent', () => {
   let component: CustomTableComponent;
@@ -13,7 +14,8 @@ describe('CustomTableComponent', () => {
     TestBed.configureTestingModule({
       declarations: [CustomTableComponent],
       imports: [
-        AdminsModule
+        AdminsModule,
+        BrowserAnimationsModule,
       ],
       providers: [provideMockStore()]
     });

@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { AdminsModule } from 'src/app/admins/admins.module';
 import { CoursesService } from './service/courses.service';
 import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('CoursesComponent', () => {
   let component: CoursesComponent;
@@ -28,6 +29,7 @@ describe('CoursesComponent', () => {
       declarations: [ CoursesComponent ],
       imports: [ 
         AdminsModule,
+        BrowserAnimationsModule,
         StoreModule.forRoot({ courses: coursesReducer }),
         provideFirestore(() => getFirestore()),
         provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
