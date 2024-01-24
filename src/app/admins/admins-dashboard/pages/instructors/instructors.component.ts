@@ -5,6 +5,7 @@ import { InstructorsService } from './instructors-service/instructors.service';
 import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 import { Instructor } from './instructors';
 import { FormControl } from '@angular/forms';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-instructors',
@@ -60,6 +61,7 @@ export class InstructorsComponent implements OnInit{
 
   ngOnInit(): void {
     this.instructors$.subscribe((courses) => {
+      this.totalItems = courses.length
       this.filteredInstructor = this.filterInstructor(
         courses,
         this.searchInstructorControl.value || ''
@@ -80,14 +82,19 @@ export class InstructorsComponent implements OnInit{
     );
   }
 
+  
   getInstructors() {
-    if (this.filteredInstructor.length > 0) {
-      console.log(this.filteredInstructor);
-      return this.filteredInstructor;
-    } else {
-      return this.instructors$;
-    }
+    let startIndex = this.currentPage * this.pageSize;
+    let endIndex = startIndex + this.pageSize;
     
+    if (this.filteredInstructor.length > 0) {
+      console.log(this.filteredInstructor.slice(startIndex, endIndex));
+      return this.filteredInstructor.slice(startIndex, endIndex);
+    } else {
+      return this.instructors$.pipe(
+        map(courses => courses.slice(startIndex, endIndex))
+      );
+    }
   }
 
   toggleForm() {
