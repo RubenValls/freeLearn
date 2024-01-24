@@ -75,11 +75,11 @@ export class InstructorsComponent implements OnInit{
   }
 
   filterInstructor(array: readonly any[], input: string) {
-    return array.filter(
-      (item) =>
-        item.name.toLowerCase().includes(input.toLowerCase())
-        
+    const filteredArray = array.filter((item) =>
+      item.name.toLowerCase().includes(input.toLowerCase())
     );
+    this.totalItems = filteredArray.length;
+    return filteredArray;
   }
 
   
