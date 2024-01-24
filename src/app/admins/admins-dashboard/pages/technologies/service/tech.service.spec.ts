@@ -7,7 +7,7 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { DocumentData, DocumentReference, getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { TechnologyType } from '../types/technologies';
-import { of } from 'rxjs';
+import { Observable, of, take } from 'rxjs';
 
 describe('TechService', () => {
   let service: TechService;
@@ -49,6 +49,7 @@ describe('TechService', () => {
     const collectionData = await service.getTechnologies();
 
     expect(collectionData).toBeTruthy();
+    expect(collectionData).toEqual(jasmine.any(Observable<TechnologyType[]>));
   })
 
   it('should get technologies by Id', async () => {
@@ -168,5 +169,163 @@ describe('TechService', () => {
     expect(functionresult).toBeUndefined();
   })
 
-  
+  it('should return observable empty array when no courseId provided', async () => {
+    const courseId = '';
+
+    spyOn(service, 'getTechnologyByCourseId').and.returnValue(Promise.resolve(of([])));
+
+    const functionresult = await service.getTechnologyByCourseId(courseId);
+
+    expect(service.getTechnologyByCourseId).toHaveBeenCalledWith(courseId);
+    expect(functionresult).toEqual(jasmine.any(Observable));
+  });
+
+  it('should return observable of technologyType when courseId provided', async () => {
+    const courseId = 'TEST';
+
+    spyOn(service, 'getTechnologyByCourseId').and.returnValue(Promise.resolve(of([])));
+
+    const functionresult = await service.getTechnologyByCourseId(courseId);
+
+    expect(service.getTechnologyByCourseId).toHaveBeenCalledWith(courseId);
+    expect(functionresult).toEqual(jasmine.any(Observable<TechnologyType[]>));
+  });
+
+  it('should handle errors when adding a technology', async () => {
+    const technology: TechnologyType = {
+      id: '1',
+      name: 'Angular',
+      imagePath: 'path/to/image',
+      description: 'A platform for building web applications.',
+      courses: []
+    };
+
+    spyOn(service, 'addTechnology').and.throwError('Error adding technology');
+
+    try {
+      await service.addTechnology(technology);
+      fail('Expected an error to be thrown');
+    } catch (error) {
+      expect(error).toBeTruthy();
+    }
+  });
+
+  // Additonal test case: should handle errors when getting technologies
+  it('should handle errors when getting technologies', async () => {
+    spyOn(service, 'getTechnologies').and.throwError('Error getting technologies');
+
+    try {
+      await service.getTechnologies().pipe(take(1)).toPromise();
+      fail('Expected an error to be thrown');
+    } catch (error) {
+      expect(error).toBeTruthy();
+    }
+  });
+
+  // Additional test case: should handle errors when getting technology by Id
+  it('should handle errors when getting technology by Id', async () => {
+    const id = '1';
+
+    spyOn(service, 'getTechnologyById').and.throwError('Error getting technology by Id');
+
+    try {
+      await service.getTechnologyById(id);
+      fail('Expected an error to be thrown');
+    } catch (error) {
+      expect(error).toBeTruthy();
+    }
+  });
+
+  // Additional test case: should handle errors when getting technology by CourseId
+  it('should handle errors when getting technology by CourseId', async () => {
+    const id = '1';
+
+    spyOn(service, 'getTechnologyByCourseId').and.throwError('Error getting technology by CourseId');
+
+    try {
+      await service.getTechnologyByCourseId(id).then(observable => observable.pipe(take(1)).toPromise());
+      fail('Expected an error to be thrown');
+    } catch (error) {
+      expect(error).toBeTruthy();
+    }
+  });
+
+  // Additional test case: should handle errors when checking if technology is in Database
+  it('should handle errors when checking if technology is in Database', async () => {
+    const id = '1';
+
+    spyOn(service, 'isTechnologyInDatabase').and.throwError('Error checking if technology is in Database');
+
+    try {
+      await service.isTechnologyInDatabase(id);
+      fail('Expected an error to be thrown');
+    } catch (error) {
+      expect(error).toBeTruthy();
+    }
+  });
+
+  // Additional test case: should handle errors when updating a technology
+  it('should handle errors when updating a technology', async () => {
+    const id = '1';
+    const fakeTechnology: TechnologyType = {
+      id: '1',
+      name: 'Angular',
+      imagePath: 'path/to/image',
+      description: 'A platform for building web applications.',
+      courses: []
+    };
+
+    spyOn(service, 'updateTechnology').and.throwError('Error updating technology');
+
+    try {
+      await service.updateTechnology(id, fakeTechnology);
+      fail('Expected an error to be thrown');
+    } catch (error) {
+      expect(error).toBeTruthy();
+    }
+  });
+
+  // Additional test case: should handle errors when updating technology courses
+  it('should handle errors when updating technology courses', async () => {
+    const id = '1';
+    const newCourseId = '1';
+
+    spyOn(service, 'updateTechnologyCourses').and.throwError('Error updating technology courses');
+
+    try {
+      await service.updateTechnologyCourses(id, newCourseId);
+      fail('Expected an error to be thrown');
+    } catch (error) {
+      expect(error).toBeTruthy();
+    }
+  });
+
+  // Additional test case: should handle errors when deleting technology courses
+  it('should handle errors when deleting technology courses', async () => {
+    const id = '1';
+    const newCourseId = '1';
+
+    spyOn(service, 'deleteTechnologyCourses').and.throwError('Error deleting technology courses');
+
+    try {
+      await service.deleteTechnologyCourses(id, newCourseId);
+      fail('Expected an error to be thrown');
+    } catch (error) {
+      expect(error).toBeTruthy();
+    }
+  });
+
+  // Additional test case: should handle errors when deleting a technology
+  it('should handle errors when deleting a technology', async () => {
+    const id = '1';
+
+    spyOn(service, 'deleteTechDoc').and.throwError('Error deleting technology');
+
+    try {
+      await service.deleteTechDoc(id);
+      fail('Expected an error to be thrown');
+    } catch (error) {
+      expect(error).toBeTruthy();
+    }
+  });
 });

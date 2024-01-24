@@ -17,6 +17,16 @@ describe('ResizeService', () => {
     expect(service).toBeTruthy();
   });
 
+  it('should have isSmallScreen$ observable', () => {
+    expect(service.isSmallScreen$).toBeDefined();
+  });
+
+  it('should initialize isSmallScreen$ based on window width', () => {
+    service.isSmallScreen$.subscribe(isSmallScreen => {
+      expect(isSmallScreen).toBe(window.innerWidth < 700);
+    });
+  });
+
   it('should update isSmallScreen$ when window size is less than width', () => {
     spyOnProperty(window, 'innerWidth').and.returnValue(500);
     service.checkScreenSize(700);
@@ -32,4 +42,5 @@ describe('ResizeService', () => {
       expect(isSmallScreen).toBe(false);
     });
   });
+  
 });

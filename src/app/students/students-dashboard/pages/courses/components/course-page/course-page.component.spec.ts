@@ -118,4 +118,5 @@ describe('CoursePageComponent', () => {
     expect(component.course).toBeDefined();
   });  
 
+  
 });

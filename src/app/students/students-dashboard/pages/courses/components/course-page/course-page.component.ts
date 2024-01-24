@@ -19,8 +19,8 @@ export class CoursePageComponent implements OnInit {
 
   constructor(
     public courseService: CoursesService,
-    private route: ActivatedRoute,
-    private userService: UsersService,
+    public route: ActivatedRoute,
+    public userService: UsersService,
   ) {
     this.route.data.subscribe(data => {
       this.course = data['data'];

@@ -224,5 +224,45 @@ describe('DetailModalComponent', () => {
       expect(component.form.get('techs')?.value).toEqual([]);
       expect(dialog.open).toHaveBeenCalled();
     });
-  })
+  });
+
+  describe('onSelectionChange', () => {
+    it('should call onSelectionChange', () => {
+      const event = { value: ['value1', 'value2'] };
+      component.onSelectionChange(event);
+      expect(component.newValues).toEqual(['value1', 'value2']);
+    });
+  });
+
+  describe('onAddReferences', () => {
+    it('should call onAddReferences', () => {
+      component.form = new FormBuilder().group({ techs: [] });
+      component.techs = [{ id: '1' }];
+      component.newValues = [{ id: '2' }];
+      component.onAddReferences('techs');
+      expect(component.form.get('techs')?.value).toEqual([{ id: '1' }, { id: '2' }]);
+      expect(component.newValues).toEqual([]);
+    });
+  });
+
+  describe('onDeleteReferences', () => {
+    it('should call onDeleteReferences for instructors', () => {
+      spyOn(dialog, 'open').and.callThrough();
+      component.form = new FormBuilder().group({ instructorId: [] });
+      component.instructors = [{ id: '1' }];
+      component.onDeleteReferences('1', 'instructors');
+      expect(component.form.get('instructorId')?.value).toEqual([]);
+      expect(dialog.open).toHaveBeenCalled();
+    });
+  
+    it('should call onDeleteReferences for techs', () => {
+      spyOn(dialog, 'open').and.callThrough();
+      component.form = new FormBuilder().group({ techs: [] });
+      component.techs = [{ id: '1' }];
+      component.onDeleteReferences('1', 'techs');
+      expect(component.form.get('techs')?.value).toEqual([]);
+      expect(dialog.open).toHaveBeenCalled();
+    });
+  });
+
 });
