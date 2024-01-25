@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { AddCourseFormComponent } from './add-course-form.component';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
@@ -11,6 +11,9 @@ import { TechService } from '../../../technologies/service/tech.service';
 import { InstructorsService } from '../../../instructors/instructors-service/instructors.service';
 import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 import { provideMockStore } from '@ngrx/store/testing';
+import { TechnologyType } from '../../../technologies/types/technologies';
+import { Instructor } from '../../../instructors/instructors';
+import { of } from 'rxjs';
 
 
 
@@ -26,7 +29,7 @@ describe('AddCourseFormComponent', () => {
     coursesService = jasmine.createSpyObj('CoursesService', ['addCourse']);
     techsService = jasmine.createSpyObj('TechService', ['getTechnologies']);
     instructorsService = jasmine.createSpyObj('InstructorsService', ['getInstructors']);
-    alertsService = jasmine.createSpyObj('AlertsService', ['successMessage']);
+    alertsService = jasmine.createSpyObj('AlertsService', ['successMessage']);;
 
     TestBed.configureTestingModule({
       imports: [
@@ -46,6 +49,7 @@ describe('AddCourseFormComponent', () => {
     });
     fixture = TestBed.createComponent(AddCourseFormComponent);
     component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -69,6 +73,43 @@ describe('AddCourseFormComponent', () => {
     expect(techsSpy).toHaveBeenCalled();
     expect(instructorsSpy).toHaveBeenCalled();
   });
+
+  it('should set instructors and techs on ngOnInit', fakeAsync (() => {
+    const mockInstructors: Instructor[] = [{
+      id: '1',
+      name: 'John Doe',
+      socialMedia: {
+        web: 'www.example.com',
+        youtube: 'www.youtube.com',
+        twitter: 'www.twitter.com',
+        linkedin: 'www.linkedin.com',
+      },
+      courses: ['course1', 'course2'],
+      imagePath: 'path/to/image',
+      rating: [{
+        userId: 'user1',
+        rating: 5
+      }]
+    }];
+  
+    const mockTechs: TechnologyType[] = [{
+      id: '1',
+      name: 'Tech1',
+      description: 'This is a technology',
+      imagePath: 'path/to/image',
+      courses: ['course1', 'course2']
+    }];
+
+    component.instructors$ = of(mockInstructors);
+    component.techs$ = of(mockTechs);
+
+    component.ngOnInit();
+
+    tick();
+    
+    expect(component.instructors).toEqual(mockInstructors);
+    expect(component.techs).toEqual(mockTechs);
+  }));
 
   it('should update techs selection', () => {
     const selectedTechs = [{ name: 'Angular', id: '1234' }, { name: 'Typescript', id: '1234' }];
