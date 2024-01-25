@@ -21,3 +21,28 @@ mat-label{
     display: flex;
     gap: 1rem;
 }
+.find-container{
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    align-items: center;
+    margin-top: 2rem;
+    .noSearch{
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+        font-size: 50px;
+        justify-content: center;
+    }
+    .result{
+        font-size: 30px;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        h3{
+            color: transparent;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+        }
+    }
+    }

@@ -25,6 +25,9 @@ export class CoursesComponent implements OnInit {
   currentPage: number = 0;
   totalItems: number = 100;
 
+  noSearch: boolean = false
+
+
   tableColumns = [
     { prop: 'name', title: 'Name' },
     { prop: 'imageUrl', title: 'Image' },
@@ -84,6 +87,11 @@ export class CoursesComponent implements OnInit {
         ))
     );
     this.totalItems = filteredArray.length;
+    if (filteredArray.length === 0) {
+      this.noSearch = true;
+    } else {
+      this.noSearch = false;
+    }    
     return filteredArray;
   }
 
