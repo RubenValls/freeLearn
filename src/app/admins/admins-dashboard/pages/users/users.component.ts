@@ -19,6 +19,8 @@ export class UsersComponent implements OnInit{
   modalHeight: string = '500px';
   modalTitle: string = 'User';
   filteredUsers: any = [];
+  noSearch: boolean = false
+
 
   pageSize: number = 10;
   currentPage: number = 0;
@@ -75,6 +77,11 @@ export class UsersComponent implements OnInit{
       (item.role && item.role.toLowerCase().includes(input.toLowerCase()))
     );
     this.totalItems = filteredArray.length;
+    if (filteredArray.length === 0) {
+      this.noSearch = true;
+    } else {
+      this.noSearch = false;
+    }    
   return filteredArray;
   }
   

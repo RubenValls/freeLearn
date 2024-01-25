@@ -19,6 +19,7 @@ export class TechnologiesComponent implements OnInit {
   modalHeight: string = '600px';
   modalTitle: string = 'Technology';
   filteredTechs: any = [];
+  noSearch: boolean = false
 
   pageSize: number = 10;
   currentPage: number = 0;
@@ -68,7 +69,13 @@ export class TechnologiesComponent implements OnInit {
     const filteredArray = array.filter((item) =>
       item.name.toLowerCase().includes(input.toLowerCase())
     );
+    
     this.totalItems = filteredArray.length;
+    if (filteredArray.length === 0) {
+      this.noSearch = true;
+    } else {
+      this.noSearch = false;
+    }    
     return filteredArray;
   }
 

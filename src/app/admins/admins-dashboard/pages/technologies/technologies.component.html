@@ -19,7 +19,19 @@
   <ng-container *ngIf="isFormVisible">
     <app-new-tech-form (closeForm)="addTech()"></app-new-tech-form>
   </ng-container>
+  <div *ngIf="noSearch" class="find-container">
+    <div class="noSearch">
+      <i class="bi bi-search"></i>
+     
+    </div>
+    <div class="result">
+       <h2>No results </h2>
+      <h3>{{searchTechsControl.value}}</h3>
+    </div>
+    
+  </div>
   <app-custom-table
+  *ngIf="!noSearch"
     [data]="getTechs()"
     [displayedColumns]="tableColumns"
     [rows]="rows"
