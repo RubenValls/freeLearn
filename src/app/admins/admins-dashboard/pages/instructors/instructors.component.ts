@@ -24,6 +24,9 @@ export class InstructorsComponent implements OnInit{
   currentPage: number = 0;
   totalItems: number = 100;
 
+  noSearch: boolean = false
+
+
 
   tableColumns = [
     { prop: 'name', title: 'Name' },
@@ -81,6 +84,11 @@ export class InstructorsComponent implements OnInit{
       item.name.toLowerCase().includes(input.toLowerCase())
     );
     this.totalItems = filteredArray.length;
+    if (filteredArray.length === 0) {
+      this.noSearch = true;
+    } else {
+      this.noSearch = false;
+    }  
     return filteredArray;
   }
 
