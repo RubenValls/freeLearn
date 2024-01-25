@@ -40,4 +40,9 @@
     scrollbar-color:var(--gradient);
   }
 
+  @media screen and (max-width: 600px) {
+    .rating{
+      justify-content: center !important;
+    }
+  }
 

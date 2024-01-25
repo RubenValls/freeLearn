@@ -41,7 +41,6 @@ export class CoursePageComponent implements OnInit {
   }
 
   handleUpdate(rating: number) {
-    debugger
     if (this.userId && this.courseId) {
       const newRating = {
         userId: this.userId,
