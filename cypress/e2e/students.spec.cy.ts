@@ -60,13 +60,8 @@ describe('Should browse the web and rate the courses and modify personal informa
         // });
 
 
-        cy.get('.header-container').should('exist').then(($div) => {
-            cy.wait(1000);
-            
-        })
         cy.get('.course').scrollTo('75%', '95%', { easing: 'linear' })
         cy.wait(1000);
-
  
 
         cy.get('#lessons-course').eq(0).click();

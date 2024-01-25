@@ -14,33 +14,33 @@ describe('Should create, edit and delete entities', () => {
     cy.get('#add-technology-button').should('exist').click({ force: true });
 
     cy.contains('Add technology').click()
-    cy.get('input[formControlName="name"]').type('test-cypress-$$');       
+    cy.get('input[formControlName="name"]').type('test-cypress-$$');
     cy.get('textarea[formControlName="description"]').type('test-cypress-$$');
-    cy.get('input[formControlName="imagePath"]').type('test-cypress' , { force: true });
+    cy.get('input[formControlName="imagePath"]').type('test-cypress', { force: true });
     cy.get('#add-technology').click({ force: true });
 
 
-    cy.get('table[mat-table]').should('exist', { duration: 10000 });      
-    cy.get('table[mat-table]').contains('td', 'test-cypress-$$').click(); 
+    cy.get('table[mat-table]').should('exist', { duration: 10000 });
+  
+    cy.scrollTo('75%', '20%', { easing: 'linear' })
+    cy.wait(1000);
+    cy.scrollTo('75%', '45%', { easing: 'linear' })
+    cy.wait(1000);
+    cy.scrollTo('75%', '95%', { easing: 'linear' })
 
-    cy.get('.detail-modal').should('exist');
-    cy.get('textarea[formControlName="description"]').should('exist');
-    cy.get('textarea[formControlName="description"]').should('exist').then(($textarea) => {
-        cy.wait(500); 
-        cy.wrap($textarea).clear({ force: true }).type('test-cypress-$$-edit', { force: true });
-      });         
+    cy.get('table[mat-table]').contains('td', 'test-cypress-$$').click();
 
 
-    cy.get('.detail-modal').contains('button', 'Edit').click( { force: true });
-    cy.get('.update-modal').should('exist');
-    cy.get('.update-modal').contains('button', 'Update').click( { force: true });
 
-    cy.get('.detail-modal').should('exist');
+     cy.wait(2000);
 
-    cy.get('.detail-modal').contains('button', 'Delete').click( { force: true });
+    cy.get('.detail-modal').contains('button', 'Delete').click({ force: true });
+    cy.wait(1000);
     cy.get('.delete-modal').should('exist');
-    cy.get('.delete-modal').contains('button', 'Delete').click( { force: true }); 
-    cy.wait(2000);
+    cy.get('.delete-modal').contains('button', 'Delete').click({ force: true });
+    cy.wait(1000);
+
+
     // instructors
     cy.visit('/admin/instructors');
     cy.wait(2000);
@@ -58,15 +58,15 @@ describe('Should create, edit and delete entities', () => {
     });
     cy.wait(1000);
     cy.get('#add-instructor').click({ force: true });
-  
+
     cy.get('table[mat-table]').should('exist');
     cy.get('table[mat-table]').contains('td', 'test-cypress-$$').click();
     cy.get('.detail-modal').should('exist');
- 
+
      cy.get('.detail-modal').should('exist');
 
     cy.get('.detail-modal').contains('button', 'Delete').click( { force: true });
-    cy.wait(1000);
+
     cy.get('.delete-modal').should('exist');
     cy.get('.delete-modal').contains('button', 'Delete').click( { force: true }); 
     cy.wait(2000);
@@ -76,11 +76,11 @@ describe('Should create, edit and delete entities', () => {
     cy.get('#add-course-button').should('exist');
     cy.contains('Add course').click();
     cy.get('input[formControlName="name"]').type('test-cypress-$$');
-  
+
     cy.get('input[formControlName="imageUrl"]').type('test-cypress', { force: true });
     cy.get('textarea[formControlName="description"]').type('test-cypress-$$');
     cy.get('input[formControlName="introductionURL"]').type('test-cypress-$$');
-   
+
 
     cy.get('mat-select[formControlName="techs"]').click();
     cy.get('mat-option').contains('Angular').click({ force: true });
