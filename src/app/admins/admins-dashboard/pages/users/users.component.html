@@ -10,7 +10,20 @@
     
     </div>
 
+    <div *ngIf="noSearch" class="find-container">
+      <div class="noSearch">
+        <i class="bi bi-search"></i>
+       
+      </div>
+      <div class="result">
+         <h2>No results </h2>
+        <h3>{{searchUsersControl.value}}</h3>
+      </div>
+      
+    </div>
+
     <app-custom-table 
+    *ngIf="!noSearch"
     [data]="getUsers()"
     [displayedColumns]="tableColumns" 
     [rows]="rows"
