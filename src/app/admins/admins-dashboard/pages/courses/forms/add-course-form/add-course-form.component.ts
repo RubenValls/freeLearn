@@ -58,6 +58,7 @@ export class AddCourseFormComponent implements OnInit  {
     this.alertMessages.successMessage("Course created successfully")
     this.courseForm.reset();
     this.closeForm.emit(false);
+    
   }
 
 }

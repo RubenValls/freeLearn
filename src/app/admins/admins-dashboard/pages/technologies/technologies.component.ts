@@ -72,6 +72,10 @@ export class TechnologiesComponent implements OnInit {
     return filteredArray;
   }
 
+  addTech(){
+    this.isFormVisible = !this.isFormVisible;
+  }
+
   getTechs() {
     let startIndex = this.currentPage * this.pageSize;
     let endIndex = startIndex + this.pageSize;
