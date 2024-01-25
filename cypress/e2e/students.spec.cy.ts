@@ -60,7 +60,10 @@ describe('Should browse the web and rate the courses and modify personal informa
         // });
 
 
-        
+        cy.get('.header-container').should('exist').then(($div) => {
+            cy.wait(1000);
+            
+        })
         cy.get('.course').scrollTo('75%', '95%', { easing: 'linear' })
         cy.wait(1000);
 
@@ -70,6 +73,37 @@ describe('Should browse the web and rate the courses and modify personal informa
         cy.wait(1000);
         cy.get('.course').scrollTo('75%', '95%', { easing: 'linear' })
         // pendiente clickar en el video
+
+        cy.wait(1000);
+        cy.visit('/students/trainers');
+        cy.get('.instructors-page').scrollTo('75%', '95%', { easing: 'linear' })
+        cy.wait(1000);
+        cy.get('#instructor-card').eq(0).click();
+
+        cy.wait(1000);
+        cy.visit('/students/technologies');
+        cy.wait(1000);
+        cy.get('.scroll').scrollTo('75%', '95%', { easing: 'linear' })
+        cy.wait(1000);
+        cy.get('#technology-card').eq(0).click();
+
+        cy.wait(1000);
+        cy.visit('/students/settings/profile');
+        cy.wait(1000);
+        cy.get('input[formControlName="displayName"]').click().clear().type('Alejandra $$cypres test');
+        cy.get('#update-profile-btn').click({ force: true });
+        cy.wait(2000);
+        cy.get('input[formControlName="displayName"]').click().clear().type('Mayra');
+        cy.get('#update-profile-btn').click({ force: true });  
+        cy.wait(1000);
+
+        cy.visit('/students/settings/password');
+        cy.wait(1000);
+
+        cy.get('.logout').click({ force: true});
+        
+        
+
 
 
 

@@ -2,7 +2,7 @@
     <div class="row">
         <h3>Trainers</h3>
         <h5>Most rated trainers</h5>
-        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mt-2" *ngFor="let instructor of topInstructors">
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mt-2" id="instructor-card" *ngFor="let instructor of topInstructors">
             <app-instructor-card [instructor]="instructor"></app-instructor-card>
         </div>
     </div>
