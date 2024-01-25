@@ -75,7 +75,13 @@ export class CoursesComponent implements OnInit {
 
   filterCourse(array: readonly any[], input: string) {
     const filteredArray = array.filter((item) =>
-      item.name.toLowerCase().includes(input.toLowerCase())
+        item.name.toLowerCase().includes(input.toLowerCase()) ||
+        (item.instructorId && item.instructorId.some((instructor: any) =>
+            instructor.name.toLowerCase().includes(input.toLowerCase())
+        )) ||
+        (item.techs && item.techs.some((tech: any) =>
+            tech.name.toLowerCase().includes(input.toLowerCase())
+        ))
     );
     this.totalItems = filteredArray.length;
     return filteredArray;
