@@ -50,8 +50,6 @@ export class CoursePageComponent implements OnInit {
 
       this.courseService.updateCourseRating(this.courseId, newRating).then((courseUpdate) => {
         this.course = courseUpdate
-        console.log('courseUpdate', courseUpdate?.rating)
-        console.log('this.course', this.course?.rating)
       })
     }
   }

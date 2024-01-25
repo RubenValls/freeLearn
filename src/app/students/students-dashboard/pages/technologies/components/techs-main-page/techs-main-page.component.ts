@@ -30,7 +30,6 @@ export class TechsMainPageComponent {
   }
 
   filterByName(array: TechnologyType[], input: string) {
-    console.log(array);
     return array.filter(item => item.name.toLowerCase().includes(input.toLowerCase()));
   }
 

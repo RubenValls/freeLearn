@@ -77,7 +77,6 @@ export class TechnologiesComponent implements OnInit {
     let endIndex = startIndex + this.pageSize;
     
     if (this.filteredTechs.length > 0) {
-      console.log(this.filteredTechs.slice(startIndex, endIndex));
       return this.filteredTechs.slice(startIndex, endIndex);
     } else {
       return this.technologies$.pipe(
