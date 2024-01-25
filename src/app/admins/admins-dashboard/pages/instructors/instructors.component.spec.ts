@@ -142,7 +142,13 @@ describe('InstructorsComponent', () => {
           { userId: 'user1', rating: 5 },
           { userId: 'user2', rating: 4 }
       ]
-  }]);
+    }]);
+
+    component.searchInstructorControl.setValue('');
+
+    tick();
+
+    expect(component.filteredInstructor).toEqual(instructor);
   }));
 
   it('should toggle showForm on toggleForm', () => {

@@ -179,7 +179,8 @@
       </div>
     </div>
     <div class="modal-buttons">
-      <div class="btn-left">
+      <div class="btn-left " *ngIf="!isUser">
+       
         <app-button
           [label]="'Delete'"
           [type]="'danger'"
