@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, fakeAsync, flush } from '@angular/core/testing';
 
 import { ResizeService } from './resize.service';
 import { NgZone } from '@angular/core';
@@ -46,7 +46,7 @@ describe('ResizeService', () => {
   it('should update isSmallScreen$ inside NgZone after window resize', fakeAsync(() => {
     let isSmallScreenValue: boolean | undefined;
 
-    service.isSmallScreen$.subscribe(isSmallScreen => {
+    const subscription = service.isSmallScreen$.subscribe(isSmallScreen => {
       isSmallScreenValue = isSmallScreen;
     });
 
@@ -56,5 +56,7 @@ describe('ResizeService', () => {
     flush();
 
     expect(isSmallScreenValue).toBe(false);
+
+    subscription.unsubscribe();
   }));
 });
