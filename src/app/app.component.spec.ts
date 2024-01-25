@@ -7,6 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginPageComponent } from './login/login-page/login-page.component';
 import { AdminsDashboardComponent } from './admins/admins-dashboard/admins-dashboard.component';
+import { ErrorPageComponent } from './shared/components/default-pages/error-page/error-page.component';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -16,7 +17,10 @@ describe('AppComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [AppComponent, LoginPageComponent, AdminsDashboardComponent],
-      imports: [RouterModule, RouterTestingModule, AppRoutingModule],
+      imports: [
+        RouterModule, 
+        RouterTestingModule.withRoutes([]), 
+        AppRoutingModule],
     }).compileComponents();
 
     router = TestBed.inject(Router);

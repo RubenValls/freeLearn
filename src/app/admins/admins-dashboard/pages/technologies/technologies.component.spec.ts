@@ -84,6 +84,24 @@ describe('TechnologiesComponent', () => {
     const result = component.getTechs();
     expect(result).toEqual(mockFilteredTechs);
   });
+
+  it('should filter techs', fakeAsync(() => {
+    const technologies = [
+      { id: '1', name: 'Angular', imagePath: '', description: '', courses: [] },
+      { id: '2', name: 'React', imagePath: '', description: '', courses: [] }
+    ];
+    component.technologies$ = of(technologies);
+
+    component.ngOnInit();
+
+    tick();
+
+    expect(component.totalItems).toBe(2);
+    component.searchTechsControl.setValue('React');
+
+    tick();
+    expect(component.filteredTechs).toEqual([{ id: '2', name: 'React', imagePath: '', description: '', courses: [] }]);
+  }));
   
   it('should call getTechs and return sliced array from technologies$ when filteredTechs is empty', (done) => {
     const mockTechnologies = [

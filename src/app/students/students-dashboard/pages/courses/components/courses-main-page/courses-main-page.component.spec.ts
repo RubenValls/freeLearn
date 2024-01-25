@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 
 import { CoursesMainPageComponent } from './courses-main-page.component';
@@ -6,6 +6,7 @@ import { StudentsModule } from 'src/app/students/students.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';
 import { mostRatedTopic } from 'src/app/students/functions/most-rated';
+import { of } from 'rxjs';
 
 describe('CoursesMainPageComponent', () => {
   let component: CoursesMainPageComponent;
@@ -56,10 +57,48 @@ describe('CoursesMainPageComponent', () => {
       },
     ];
     component.courses = mockCourses;
-    component.name.setValue('Course1');
+    component.name.setValue('Course2');
     expect(component.filteredCourses.length).toEqual(1);
+    expect(component.filteredCourses[0].name).toEqual('Course2');
+    component.name.setValue('');
+    expect(component.filteredCourses.length).toEqual(2);
     expect(component.filteredCourses[0].name).toEqual('Course1');
   });
+
+  it('should set topCourses', fakeAsync(() => {
+    const data = [
+      { 
+        id: '1',
+        name: 'Course1',
+        description: 'Description1',
+        instructorId: [{ id: '1', name: 'Instructor1' }],
+        imageUrl: 'url1',
+        techs: [{ id: '1', name: 'Tech1' }],
+        lessons: [{ id: '1', name: 'Lesson1', videoUrl: 'url1' }],
+        rating: [{ userId: '1', rating: 3 }],
+        introductionURL: 'url1'
+      },
+      { 
+        id: '1',
+        name: 'Course2',
+        description: 'Description1',
+        instructorId: [{ id: '1', name: 'Instructor1' }],
+        imageUrl: 'url1',
+        techs: [{ id: '1', name: 'Tech1' }],
+        lessons: [{ id: '1', name: 'Lesson1', videoUrl: 'url1' }],
+        rating: [{ userId: '1', rating: 3 }],
+        introductionURL: 'url1'
+      },
+    ];
+    component.courses$ = of(data);
+
+    component.ngOnInit();
+
+    tick();
+
+    expect(component.courses).toEqual(data);
+    expect(component.topCourses).toEqual(mostRatedTopic([...data]) as Course[]);
+  }));
 
   it('should return filtered courses if any', () => {
     const mockCourses: Course[] = [

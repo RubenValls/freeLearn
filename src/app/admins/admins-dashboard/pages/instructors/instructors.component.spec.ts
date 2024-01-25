@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { InstructorsComponent } from './instructors.component';
 import { MatIconModule } from '@angular/material/icon';
 import { AdminsModule } from 'src/app/admins/admins.module';
@@ -11,6 +11,7 @@ import { InstructorsService } from './instructors-service/instructors.service';
 import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormControl } from '@angular/forms';
+import { of } from 'rxjs';
 
 describe('InstructorsComponent', () => {
   let component: InstructorsComponent;
@@ -80,6 +81,69 @@ describe('InstructorsComponent', () => {
       },
     ]);
   });
+
+  it('should filter instructors', fakeAsync(() => {
+    const instructor = [
+      {
+        id: '1',
+        name: 'John Doe',
+        socialMedia: {
+            web: 'www.johndoe.com',
+            youtube: 'www.youtube.com/johndoe',
+            twitter: 'www.twitter.com/johndoe',
+            linkedin: 'www.linkedin.com/in/johndoe',
+        },
+        courses: ['Course 1', 'Course 2'],
+        imagePath: '/path/to/image.jpg',
+        rating: [
+            { userId: 'user1', rating: 5 },
+            { userId: 'user2', rating: 4 }
+        ]
+    },
+    {
+      id: '1',
+      name: 'Jane Doe',
+      socialMedia: {
+          web: 'www.janedoe.com',
+          youtube: 'www.youtube.com/janedoe',
+          twitter: 'www.twitter.com/janedoe',
+          linkedin: 'www.linkedin.com/in/janedoe',
+      },
+      courses: ['Course 1', 'Course 2'],
+      imagePath: '/path/to/image.jpg',
+      rating: [
+          { userId: 'user1', rating: 5 },
+          { userId: 'user2', rating: 4 }
+      ]
+  },
+    ];
+    component.instructors$ = of(instructor);
+
+    component.ngOnInit();
+
+    tick();
+
+    expect(component.totalItems).toBe(2);
+    component.searchInstructorControl.setValue('Jane');
+
+    tick();
+    expect(component.filteredInstructor).toEqual([{
+      id: '1',
+      name: 'Jane Doe',
+      socialMedia: {
+          web: 'www.janedoe.com',
+          youtube: 'www.youtube.com/janedoe',
+          twitter: 'www.twitter.com/janedoe',
+          linkedin: 'www.linkedin.com/in/janedoe',
+      },
+      courses: ['Course 1', 'Course 2'],
+      imagePath: '/path/to/image.jpg',
+      rating: [
+          { userId: 'user1', rating: 5 },
+          { userId: 'user2', rating: 4 }
+      ]
+  }]);
+  }));
 
   it('should toggle showForm on toggleForm', () => {
     component.showForm = false;
@@ -166,7 +230,6 @@ describe('InstructorsComponent', () => {
   });
 
   it('should filter instructors based on input', () => {
-    // Arrange
     const instructors = [
       {
         id: '1',

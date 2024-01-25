@@ -401,7 +401,6 @@ describe('CoursesComponent', () => {
   });
 
   it('should return courses$ when filteredCourses is empty', fakeAsync(() => {
-    // Arrange
     const courses = [
       {
         id: '1',
@@ -431,29 +430,24 @@ describe('CoursesComponent', () => {
     component.currentPage = 0;
     component.pageSize = 10;
   
-    // Act
     let result: any;
     component.getCourses().subscribe((data: any) => {
       result = data;
     });
     tick();
   
-    // Assert
     expect(component.filteredCourses).toEqual([]);
   }));
   
   it('should call deleteCourse and display error message on delete failure', fakeAsync(() => {
-    // Arrange
     const courseId = '1';
     const error = new Error('Delete error');
   
     coursesService.deleteCourse.and.returnValue(Promise.reject(error));
   
-    // Act
     component.onDelete(courseId);
     tick();
   
-    // Assert
     expect(coursesService.deleteCourse).toHaveBeenCalledWith(courseId);
     expect(alertsService.errorMessage).toHaveBeenCalledWith('Error deleting Course', error.message);
   }));
@@ -473,13 +467,63 @@ describe('CoursesComponent', () => {
   
     coursesService.updateCourse.and.returnValue(Promise.reject(new Error('Update failed')));
   
-    // Act
     component.onEdit(course);
     tick();
   
-    // Assert
     expect(coursesService.updateCourse).toHaveBeenCalledWith('1', course);
     expect(alertsService.errorMessage).toHaveBeenCalledWith('Error updating Course: ', 'Update failed');
+  }));
+
+  it('should filter courses', fakeAsync(() => {
+    const courses = [
+      {
+        id: '1',
+        name: 'Angular',
+        description: 'Course 1',
+        techs: [{ name: 'Angular', id: '1234' }, { name: 'Typescript', id: '1234' }],
+        instructorId: [{ name: 'Midudev', id: '1' }, { name: 'Mouredev', id: '2' }],
+        imageUrl: 'https://www.google.com',
+        lessons: [{ id: '1', name: 'Lesson 1', videoUrl: 'https://www.google.com' }],
+        rating: [{ userId: '1', rating: 4 }],
+        introductionURL: 'http://example.com/intro'
+      },
+      {
+        id: '2',
+        name: 'React',
+        description: 'Course 2',
+        techs: [{ name: 'React', id: '1234' }, { name: 'Typescript', id: '1234' }],
+        instructorId: [{ name: 'Midudev', id: '1' }, { name: 'Mouredev', id: '2' }],
+        imageUrl: 'https://www.google.com',
+        lessons: [{ id: '1', name: 'Lesson 1', videoUrl: 'https://www.google.com' }],
+        rating: [{ userId: '1', rating: 4 }],
+        introductionURL: 'http://example.com/intro'
+      }
+    ];
+    component.courses$ = of(courses);
+
+    component.ngOnInit();
+
+    tick();
+
+    expect(component.totalItems).toBe(2);
+    component.searchCoursesControl.setValue('React');
+
+    tick();
+    expect(component.filteredCourses).toEqual([{
+      id: '2',
+      name: 'React',
+      description: 'Course 2',
+      techs: [{ name: 'React', id: '1234' }, { name: 'Typescript', id: '1234' }],
+      instructorId: [{ name: 'Midudev', id: '1' }, { name: 'Mouredev', id: '2' }],
+      imageUrl: 'https://www.google.com',
+      lessons: [{ id: '1', name: 'Lesson 1', videoUrl: 'https://www.google.com' }],
+      rating: [{ userId: '1', rating: 4 }],
+      introductionURL: 'http://example.com/intro'
+    }]);
+
+    component.searchCoursesControl.setValue('');
+    tick();
+    expect(component.filteredCourses).toEqual(courses)
   }));
   
 });

@@ -6,10 +6,13 @@ import { AdminsModule } from '../../admins.module';
 import { provideMockStore } from '@ngrx/store/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PageEvent } from '@angular/material/paginator';
+import { DetailModalComponent } from 'src/app/shared/components/modals/detail-modal/detail-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 describe('CustomTableComponent', () => {
   let component: CustomTableComponent;
   let fixture: ComponentFixture<CustomTableComponent>;
+  let dialog: MatDialog;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -23,6 +26,7 @@ describe('CustomTableComponent', () => {
     fixture = TestBed.createComponent(CustomTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    dialog = TestBed.inject(MatDialog);
   });
 
   it('should create', () => {
@@ -79,7 +83,6 @@ describe('CustomTableComponent', () => {
   });
 
   it('should emit pageChange event with correct data on onPageChange', () => {
-    // Arrange
     const pageEvent: PageEvent = {
       pageIndex: 2,
       pageSize: 10,
@@ -88,12 +91,34 @@ describe('CustomTableComponent', () => {
 
     const pageChangeSpy = spyOn(component.pageChange, 'emit');
 
-    // Act
     component.onPageChange(pageEvent);
 
-    // Assert
     expect(component.currentPage).toEqual(pageEvent.pageIndex);
     expect(component.pageSize).toEqual(pageEvent.pageSize);
     expect(pageChangeSpy).toHaveBeenCalledWith(pageEvent);
+  });
+
+  it('should open dialog with totalCourses and rating', () => {
+    const element = {
+      courses: [1, 2, 3],
+      rating: [4, 5]
+    };
+    const dialogSpy = spyOn(dialog, 'open');
+
+    component.handleModal(element);
+
+    expect(dialogSpy).toHaveBeenCalledWith(DetailModalComponent, {
+      width: component.modalWith,
+      height: component.modalHeight,
+      data: {
+        data: element,
+        title: component.modalTitle,
+        rows: component.rows,
+        totalCourses: element.courses.length,
+        rating: element.rating.length,
+        onEdit: jasmine.any(Function),
+        onDelete: jasmine.any(Function),
+      }
+    });
   });
 });

@@ -238,6 +238,9 @@ describe('InstructorsMainPageComponent', () => {
   
     component.name.setValue('Not Existing Name');
     expect(component.filteredInstructors).toEqual([]);
+
+    component.name.setValue('');
+    expect(component.filteredInstructors).toEqual(instructors);
   });
   
   it('should return all instructors when filteredInstructors is empty', () => {

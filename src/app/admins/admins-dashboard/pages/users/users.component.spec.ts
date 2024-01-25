@@ -1,4 +1,5 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { user } from '@angular/fire/auth';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { UsersComponent } from './users.component';
@@ -284,6 +285,24 @@ describe('UsersComponent', () => {
 
       expect(result).toEqual([users[0]]);
     });
+
+    it('should filter users', fakeAsync(() => {
+      const users = [
+        { id: '1', displayName: 'John Doe', email: 'john.doe@example.com', phoneNumber: '+1234567890', photoURL: '', providerId: '', rememberMe: true, role: 'admin', uid: 'user1', authUid: 'auth123' },
+        { id: '2', displayName: 'Jane Smith', email: 'jane.smith@example.com', phoneNumber: '+9876543210', photoURL: '', providerId: '', rememberMe: true, role: 'user', uid: 'user2', authUid: 'auth456' },
+      ];
+      component.users$ = of(users);
+  
+      component.ngOnInit();
+  
+      tick();
+  
+      expect(component.totalItems).toBe(2);
+      component.searchUsersControl.setValue('Jane');
+  
+      tick();
+      expect(component.filteredUsers).toEqual([{ id: '2', displayName: 'Jane Smith', email: 'jane.smith@example.com', phoneNumber: '+9876543210', photoURL: '', providerId: '', rememberMe: true, role: 'user', uid: 'user2', authUid: 'auth456' }]);
+    }));
 
     it('should return an empty array if no matches are found', () => {
       const users: User[] = [
