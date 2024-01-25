@@ -62,17 +62,20 @@ export class UsersComponent implements OnInit{
     this.searchUsersControl.valueChanges.subscribe((input) => {
       this.users$.subscribe((courses) => {
         this.filteredUsers = this.filterUser(courses, input || '');
+        this.totalItems = this.filteredUsers.length;
       });
     });
   }
 
   filterUser(array: readonly User[], input: string) {
-    return array.filter((item) =>
+    const filteredArray =  array.filter((item) =>
       (item.displayName && item.displayName.toLowerCase().includes(input.toLowerCase())) ||
       (item.email && item.email.toLowerCase().includes(input.toLowerCase())) ||
       (item.phoneNumber && item.phoneNumber.toLowerCase().includes(input.toLowerCase())) ||
       (item.role && item.role.toLowerCase().includes(input.toLowerCase()))
     );
+    this.totalItems = filteredArray.length;
+  return filteredArray;
   }
   
 

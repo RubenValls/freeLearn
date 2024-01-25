@@ -59,14 +59,17 @@ export class TechnologiesComponent implements OnInit {
     this.searchTechsControl.valueChanges.subscribe((input) => {
       this.technologies$.subscribe((courses) => {
         this.filteredTechs = this.filterTech(courses, input || '');
+        this.totalItems = this.filteredTechs.length;
       });
     });
   }
 
   filterTech(array: readonly TechnologyType[], input: string) {
-    return array.filter((item) =>
+    const filteredArray = array.filter((item) =>
       item.name.toLowerCase().includes(input.toLowerCase())
     );
+    this.totalItems = filteredArray.length;
+    return filteredArray;
   }
 
   getTechs() {

@@ -70,16 +70,18 @@ export class InstructorsComponent implements OnInit{
     this.searchInstructorControl.valueChanges.subscribe((input) => {
       this.instructors$.subscribe((instructor) => {
         this.filteredInstructor = this.filterInstructor(instructor, input || '');
+        this.totalItems = this.filteredInstructor.length;
+
       });
     });
   }
 
   filterInstructor(array: readonly any[], input: string) {
-    return array.filter(
-      (item) =>
-        item.name.toLowerCase().includes(input.toLowerCase())
-        
+    const filteredArray = array.filter((item) =>
+      item.name.toLowerCase().includes(input.toLowerCase())
     );
+    this.totalItems = filteredArray.length;
+    return filteredArray;
   }
 
   
