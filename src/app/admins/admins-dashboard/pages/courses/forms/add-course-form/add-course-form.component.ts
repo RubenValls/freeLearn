@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CoursesService } from '../../service/courses.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TechnologyType } from '../../../technologies/types/technologies';

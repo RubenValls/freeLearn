@@ -11,7 +11,8 @@
     "build-storybook": "ng run freeLearn:build-storybook",
     "e2e": "ng e2e",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
@@ -40,6 +41,11 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^16.2.10",
+    "@angular-eslint/builder": "16.3.1",
+    "@angular-eslint/eslint-plugin": "16.3.1",
+    "@angular-eslint/eslint-plugin-template": "16.3.1",
+    "@angular-eslint/schematics": "16.3.1",
+    "@angular-eslint/template-parser": "16.3.1",
     "@angular/cli": "^16.2.10",
     "@angular/compiler-cli": "^16.2.0",
     "@angular/localize": "^16.2.0",
@@ -53,7 +59,10 @@
     "@storybook/blocks": "^7.6.6",
     "@storybook/test": "^7.6.6",
     "@types/jasmine": "^5.1.4",
+    "@typescript-eslint/eslint-plugin": "5.62.0",
+    "@typescript-eslint/parser": "5.62.0",
     "cypress": "latest",
+    "eslint": "^8.51.0",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",

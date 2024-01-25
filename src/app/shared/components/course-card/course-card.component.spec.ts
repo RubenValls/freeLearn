@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed} from '@angular/core/testing';
 import { CourseCardComponent } from './course-card.component';
 import { SharedModule } from '../../shared.module';
 import { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';

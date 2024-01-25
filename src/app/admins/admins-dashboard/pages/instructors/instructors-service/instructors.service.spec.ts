@@ -8,7 +8,6 @@ import { Instructor } from '../instructors';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
-import { Observable, of } from 'rxjs';
 import { Rating } from '../../courses/interface/course';
 
 describe('InstructorsService', () => {

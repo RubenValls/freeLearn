@@ -4,8 +4,6 @@ import { SidebarComponent } from './sidebar.component';
 import { ResizeService } from 'src/app/shared/services/resize/resize.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, of } from 'rxjs';
-import { StudentsModule } from '../../students.module';
-import { RouterTestingModule } from '@angular/router/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 

@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Instructor } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';
 import { InstructorsService } from 'src/app/admins/admins-dashboard/pages/instructors/instructors-service/instructors.service';
 import { TechService } from 'src/app/admins/admins-dashboard/pages/technologies/service/tech.service';
 

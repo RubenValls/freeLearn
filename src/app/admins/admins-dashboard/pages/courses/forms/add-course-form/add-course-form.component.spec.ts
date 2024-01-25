@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AddCourseFormComponent } from './add-course-form.component';
-import { DocumentData, DocumentReference, getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';

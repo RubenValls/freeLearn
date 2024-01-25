@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { GoogleAuthProvider, getAuth, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { UserActions } from '../../store/user.actions';
 import { LoginFormType } from '../../types/formTypes';
 import { LoginService } from '../../login-service/login.service';
 
