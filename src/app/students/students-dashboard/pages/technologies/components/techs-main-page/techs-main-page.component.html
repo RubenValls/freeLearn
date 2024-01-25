@@ -8,7 +8,7 @@
 </mat-form-field>
   <div class="main-tech">
     <div class="techs">
-      <div *ngFor="let tech of getTech()">
+      <div id="technology-card" *ngFor="let tech of getTech()">
         <app-card-tech [tech]="tech"></app-card-tech>
       </div>
     </div>
