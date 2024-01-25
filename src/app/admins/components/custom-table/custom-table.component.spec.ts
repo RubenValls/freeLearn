@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CustomTableComponent } from './custom-table.component';
-import { Subscription, of } from 'rxjs';
+import { of } from 'rxjs';
 import { AdminsModule } from '../../admins.module';
 import { provideMockStore } from '@ngrx/store/testing';
 

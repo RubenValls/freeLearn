@@ -12,7 +12,6 @@ import { UsersEffects } from './users.effects';
 import { UsersService } from 'src/app/shared/services/users/users.service';
 import { usersReducer } from './users.reducer';
 import { User } from 'src/app/login/types/user';
-import { UserActions } from 'src/app/login/store/user.actions';
 import { UsersActions } from './users.actions';
 import { selectUsers } from './users.selectors';
 

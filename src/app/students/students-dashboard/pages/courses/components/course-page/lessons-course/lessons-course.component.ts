@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Course, Lesson } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';
+import { Lesson } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';
 
 @Component({
   selector: 'app-lessons-course',

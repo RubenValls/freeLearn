@@ -1,4 +1,4 @@
-import { TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { ResizeService } from './resize.service';
 import { NgZone } from '@angular/core';

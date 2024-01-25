@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from "@angular/core/testing";
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { HomeTechnologiesComponent } from "./home-technologies.component";
 import { StudentsModule } from "src/app/students/students.module";
 import { RouterTestingModule } from "@angular/router/testing";

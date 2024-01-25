@@ -1,5 +1,4 @@
-import { MatIconModule } from '@angular/material/icon';
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
+import { TestBed, ComponentFixture} from '@angular/core/testing';
 import { CoursesComponent } from './courses.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { coursesReducer } from 'src/app/store/courses/courses.reducer';
