@@ -34,9 +34,10 @@ export class NewTechFormComponent {
       };
 
       this.techService.addTechnology(newTech).then(() => {
+        this.closeForm.emit(false)
         this.alertMessages.successMessage('Technology created successfully');
         this.newTechForm.reset();
-        this.closeForm.emit(false);
+        ;
       });
     }
   }

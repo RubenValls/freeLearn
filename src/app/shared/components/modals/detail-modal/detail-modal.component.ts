@@ -39,6 +39,7 @@ export class DetailModalComponent implements OnInit, OnDestroy {
   course$: Observable<Course> | undefined;
   course: any;
   newValues: any[] = [];
+  isUser: boolean = false;
 
   courseSubscription: Subscription | undefined
 
@@ -86,6 +87,7 @@ export class DetailModalComponent implements OnInit, OnDestroy {
     this.isCourse = this.data?.title == "Courses" ? true : false
     this.totalCourses = this.data?.totalCourses > 0 ? `It has ${this.data.totalCourses} associated courses` : "It has 0 associated courses";
     this.totalLessons = this.course?.lessons.length > 0 ? `this course has ${this.course.lessons.length} lessons` : "This course has 0 lessons";
+    this.isUser = this.data?.title == "User" ? true : false
 
   }
 

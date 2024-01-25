@@ -16,8 +16,9 @@
       </app-button>
     </div>
   </div>
-
-  <app-new-tech-form *ngIf="isFormVisible"></app-new-tech-form>
+  <ng-container *ngIf="isFormVisible">
+    <app-new-tech-form (closeForm)="addTech()"></app-new-tech-form>
+  </ng-container>
   <app-custom-table
     [data]="getTechs()"
     [displayedColumns]="tableColumns"
@@ -27,7 +28,6 @@
     [modalTitle]="modalTitle"
     (onEdit)="onEdit($event)"
     (onDelete)="onDelete($event)"
-
     [totalItems]="totalItems"
     [currentPage]="currentPage"
     [pageSize]="pageSize"
