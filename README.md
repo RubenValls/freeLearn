@@ -1,8 +1,12 @@
-# FreeLearn
-
 <h1 align="center">FreeLearn</h1>
 
 ## Overview
+####  Admin Area
+![screenshot](https://user-images.githubusercontent.com/16707738/92399059-5716eb00-f132-11ea-8b14-bcacdc8ec97b.png)
+
+####  Studen Area
+![screenshot](https://user-images.githubusercontent.com/16707738/92399059-5716eb00-f132-11ea-8b14-bcacdc8ec97b.png)
+
 
 
 
@@ -23,7 +27,9 @@
 
 
 ## Feature
-This repository contains the source code of FreeLearn, a web application built with modern technologies such as Angular 16, Angular Material, NgRx, etc. Freelearn is a learning platform designed to simplify the search and access to the best free technology courses available on YouTube. 
+This repository contains the source code of FreeLearn, a web application built with modern technologies such as Angular 16, Angular Material, NgRx, etc.
+
+Freelearn is a learning platform designed to simplify the search and access to the best free technology courses available on YouTube. 
 Our goal is to make it easy for users to discover relevant educational content without having to navigate through thousands of options.
 
 Key Features:
