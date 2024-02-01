@@ -1,6 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Instructor } from '../instructors';
 import { InstructorsService } from '../instructors-service/instructors.service';
 import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 @Component({

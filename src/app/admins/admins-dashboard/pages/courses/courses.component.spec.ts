@@ -323,7 +323,6 @@ describe('CoursesComponent', () => {
   }));
   
   it('should return filteredCourses when filteredCourses is not empty', () => {
-    // Arrange
     component.filteredCourses = [{ id: '1', 
     name: 'Angular',
     description:'Course 1',   
@@ -360,10 +359,10 @@ describe('CoursesComponent', () => {
     component.currentPage = 0;
     component.pageSize = 10;
 
-    // Act
+    
     const result = component.getCourses();
 
-    // Assert
+    
     expect(result).toEqual([{ id: '1', 
     name: 'Angular',
     description:'Course 1',   

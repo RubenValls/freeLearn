@@ -156,10 +156,8 @@ describe('CoursesService', () => {
   
     const rating: Rating = { userId: 'testing', rating: 4 };
   
-    // Act
     await service.updateCourseRating('xClUlZ1Y6nH8g9BvoLQX', rating);
   
-    // Assert
     expect(getCourseSpy).toHaveBeenCalledWith('xClUlZ1Y6nH8g9BvoLQX');
     expect(service.currentCourse).toBeDefined();
   });

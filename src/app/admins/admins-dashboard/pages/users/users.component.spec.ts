@@ -1,4 +1,3 @@
-import { user } from '@angular/fire/auth';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';

@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';
 import { CoursesService } from 'src/app/admins/admins-dashboard/pages/courses/service/courses.service';
-import { TechService } from 'src/app/admins/admins-dashboard/pages/technologies/service/tech.service';
 import { TechnologyType } from 'src/app/admins/admins-dashboard/pages/technologies/types/technologies';
 
 

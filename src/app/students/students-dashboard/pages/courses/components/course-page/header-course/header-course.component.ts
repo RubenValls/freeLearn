@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { Course } from 'src/app/admins/admins-dashboard/pages/courses/interface/course';
-import { CoursesService } from 'src/app/admins/admins-dashboard/pages/courses/service/courses.service';
 import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 import { UsersService } from 'src/app/shared/services/users/users.service';
 
@@ -15,7 +13,7 @@ import { UsersService } from 'src/app/shared/services/users/users.service';
 export class HeaderCourseComponent implements OnInit {
   
   userId: string = '';
-  course:any;
+  course: Course | undefined;
   courseId: string = '';
   isFavorite: boolean = false;
 

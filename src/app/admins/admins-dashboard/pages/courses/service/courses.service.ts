@@ -33,18 +33,19 @@ export class CoursesService {
     });
 
     return docRef;
-  };
+  }
+
   getCourses() {
     const coursesRef = collection(this.firestore, 'courses')
     return collectionData(coursesRef, { idField: 'id' }) as Observable<Course[]>;
-  };
+  }
 
   async getCourseById(id: string) {
     const coursesRef = doc(this.firestore, `courses/${id}`);
     const snapshot = await getDoc(coursesRef);
     const data = snapshot.data();
     return data as Course;
-  };
+  }
 
   async getTopicCourses (courses: string[]){
     const coursesRef = collection(this.firestore, 'courses')
@@ -94,7 +95,7 @@ export class CoursesService {
 
     const courseUpdate = updateDoc(coursesRef, { ...course })
     return courseUpdate;
-  };
+  }
 
   findIdsToEdit(currentTechs: Tech[], updatedTechs: Tech[]): { deletedIds: string[], addedIds: string[] } {
     const currentIds = currentTechs.map(tech => tech.id);
@@ -102,7 +103,7 @@ export class CoursesService {
     const addedIds = updatedIds.filter(techId => !currentIds.includes(techId));
     const deletedIds = currentIds.filter(techId => !updatedIds.includes(techId));
     return { addedIds, deletedIds };
-  };
+  }
 
   async updateCourseRating(courseId: string, rating: Rating) {     
     await this.getCourseById(courseId).then((currentCourse) => this.currentCourse = currentCourse);
@@ -135,7 +136,7 @@ export class CoursesService {
       });
     }
     return deleteDoc(coursesRef);
-  };
+  }
 
 
 }

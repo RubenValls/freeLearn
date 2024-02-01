@@ -65,15 +65,13 @@ export class UsersService {
       favorites = userData?.favorites?.concat(courseId);
       message = 'Course add to favorites';
     }
-    const userUpdated = await updateDoc(userRef, {
+    const userUpdated = {
       ...userData,
       favorites: favorites,
-    });
+    }
+    await updateDoc(userRef, userUpdated);
     this.store.dispatch(UserActions.updateUser({ user: userUpdated }));
-    this.saveUserInStorage(userInfo.rememberMe, {
-      ...userInfo,
-      favorites: favorites,
-    });
+    this.saveUserInStorage(userInfo.rememberMe, userUpdated);
     return Promise.resolve({ message: message });
   }
 }

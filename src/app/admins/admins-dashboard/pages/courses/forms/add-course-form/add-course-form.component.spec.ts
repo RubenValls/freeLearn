@@ -211,7 +211,6 @@ describe('AddCourseFormComponent', () => {
   });
 
   it('should not call addCourse when form is invalid', () => {
-    // Set up form with invalid data (e.g., missing required fields)
     component.courseForm.setValue({
       name: null,
       description: 'Test Description',
@@ -230,14 +229,11 @@ describe('AddCourseFormComponent', () => {
       introductionURL: 'http://example.com/intro'
     });
   
-    // Spy on the reset method of the form
     const resetSpy = spyOn(component.courseForm, 'reset');
     const closeFormSpy = spyOn(component.closeForm, 'emit');
   
-    // Trigger the addCourse function
     component.addCourse();
   
-    // Expectations
     expect(resetSpy).not.toHaveBeenCalled();
     expect(closeFormSpy).not.toHaveBeenCalled();
   });
