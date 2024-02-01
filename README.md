@@ -35,10 +35,10 @@ Freelearn is a learning platform designed to simplify the search and access to t
 Our goal is to make it easy for users to discover relevant educational content without having to navigate through thousands of options.
 
 Key Features:
-- Content: We carefully select YouTube courses that provide quality information on various technologies. This ensures that users find relevant and up-to-date courses.
-- Detailed Information: We provide details about the instructors, allowing users to learn more about the voices behind the courses. Additionally, we offer links to their social media or personal websites, giving users the option to access them directly.
-- Administration Area: Administrators have an easy-to-use interface to manage and keep the course catalog updated. They can add new courses, update information, and ensure the quality of the presented content.
-- Student Area: Users have access to an intuitive, straightforward, and personalized space where they can modify their user data, review instructor profiles, explore available technologies and courses, watch lessons directly on the platform, and mark their favorite courses.
+- __Content:__ We carefully select YouTube courses that provide quality information on various technologies. This ensures that users find relevant and up-to-date courses.
+- __Detailed Information:__ We provide details about the instructors, allowing users to learn more about the voices behind the courses. Additionally, we offer links to their social media or personal websites, giving users the option to access them directly.
+- __Administration Area:__ Administrators have an easy-to-use interface to manage and keep the course catalog updated. They can add new courses, update information, and ensure the quality of the presented content.
+- __Student Area:__ Users have access to an intuitive, straightforward, and personalized space where they can modify their user data, review instructor profiles, explore available technologies and courses, watch lessons directly on the platform, and mark their favorite courses.
 
 
 ## 🚀 Development server
