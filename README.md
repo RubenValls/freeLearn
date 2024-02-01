@@ -1,10 +1,41 @@
 # FreeLearn
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.10.
+<h1 align="center">FreeLearn</h1>
+
+## Overview
+
+
+
+### Built With
+
+- [Angular 16](https://angular.io)
+- [Firebase](https://firebase.google.com/?gad_source=1&gclid=Cj0KCQiAn-2tBhDVARIsAGmStVmMYgAr__GPGgeXgULyV4WMea_1PCr50mCbDr7pEPzS-NRJ_Pc0vrYaAmU3EALw_wcB&gclsrc=aw.ds)
+- [NGRX](https://ngrx.io/)
+- [Angular Material](https://material.angular.io/)
+- [Boostrap](https://getbootstrap.com/)
+- [Storybook](https://storybook.js.org/)
+- [Sass](https://sass-lang.com/)
+
+##  Testing
+
+- [Jasmine](https://jasmine.github.io/index.html)
+- [Cypress](https://www.cypress.io/)
+
+
+## Feature
+This repository contains the source code of FreeLearn, a web application built with modern technologies such as Angular 16, Angular Material, NgRx, etc. Freelearn is a learning platform designed to simplify the search and access to the best free technology courses available on YouTube. 
+Our goal is to make it easy for users to discover relevant educational content without having to navigate through thousands of options.
+
+Key Features:
+- Content: We carefully select YouTube courses that provide quality information on various technologies. This ensures that users find relevant and up-to-date courses.
+- Detailed Information: We provide details about the instructors, allowing users to learn more about the voices behind the courses. Additionally, we offer links to their social media or personal websites, giving users the option to access them directly.
+- Administration Area: Administrators have an easy-to-use interface to manage and keep the course catalog updated. They can add new courses, update information, and ensure the quality of the presented content.
+- Student Area: Users have access to an intuitive, straightforward, and personalized space where they can modify their user data, review instructor profiles, explore available technologies and courses, watch lessons directly on the platform, and mark their favorite courses.
+
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Run `ng serve -o` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
