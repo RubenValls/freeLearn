@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Firestore, collectionData } from '@angular/fire/firestore';
 import { addDoc, collection, deleteDoc, doc, getDoc, query, updateDoc, where } from 'firebase/firestore';
 import { Instructor } from '../instructors';
-import { Observable, of, retry } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Rating } from '../../courses/interface/course';
 
 @Injectable({

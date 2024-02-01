@@ -210,7 +210,6 @@ describe('TechService', () => {
     }
   });
 
-  // Additonal test case: should handle errors when getting technologies
   it('should handle errors when getting technologies', async () => {
     spyOn(service, 'getTechnologies').and.throwError('Error getting technologies');
 
@@ -222,7 +221,6 @@ describe('TechService', () => {
     }
   });
 
-  // Additional test case: should handle errors when getting technology by Id
   it('should handle errors when getting technology by Id', async () => {
     const id = '1';
 
@@ -236,7 +234,6 @@ describe('TechService', () => {
     }
   });
 
-  // Additional test case: should handle errors when getting technology by CourseId
   it('should handle errors when getting technology by CourseId', async () => {
     const id = '1';
 
@@ -250,7 +247,6 @@ describe('TechService', () => {
     }
   });
 
-  // Additional test case: should handle errors when checking if technology is in Database
   it('should handle errors when checking if technology is in Database', async () => {
     const id = '1';
 
@@ -264,7 +260,6 @@ describe('TechService', () => {
     }
   });
 
-  // Additional test case: should handle errors when updating a technology
   it('should handle errors when updating a technology', async () => {
     const id = '1';
     const fakeTechnology: TechnologyType = {
@@ -285,7 +280,6 @@ describe('TechService', () => {
     }
   });
 
-  // Additional test case: should handle errors when updating technology courses
   it('should handle errors when updating technology courses', async () => {
     const id = '1';
     const newCourseId = '1';
@@ -300,7 +294,6 @@ describe('TechService', () => {
     }
   });
 
-  // Additional test case: should handle errors when deleting technology courses
   it('should handle errors when deleting technology courses', async () => {
     const id = '1';
     const newCourseId = '1';
@@ -315,7 +308,6 @@ describe('TechService', () => {
     }
   });
 
-  // Additional test case: should handle errors when deleting a technology
   it('should handle errors when deleting a technology', async () => {
     const id = '1';
 

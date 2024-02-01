@@ -124,10 +124,8 @@ describe('LoginFormComponent', () => {
     component.onSubmit();
     expect(component.isLoading).toBe(false);
   
-    // Advance time by 3 seconds
     tick(3000);
   
-    // Assert
     expect(component.isLoading).toBe(false);
   }));
 });

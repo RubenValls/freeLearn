@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription, map } from 'rxjs';
-import { TechService } from 'src/app/admins/admins-dashboard/pages/technologies/service/tech.service';
 import { selectTechnologies } from 'src/app/store/technologies/tecnologies.selectors';
 
 @Component({

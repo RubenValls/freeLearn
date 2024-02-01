@@ -6,13 +6,11 @@ import { TechnologiesComponent } from './admins-dashboard/pages/technologies/tec
 import { CoursesComponent } from './admins-dashboard/pages/courses/courses.component';
 import { InstructorsComponent } from './admins-dashboard/pages/instructors/instructors.component';
 import { ErrorPageComponent } from '../shared/components/default-pages/error-page/error-page.component';
-import { WorkingInProgressComponent } from '../shared/components/default-pages/working-in-progress/working-in-progress.component';
 import { RoleGuard } from '../shared/guards/role/role.guard';
 
 const routes: Routes = [
     { path: '', component: AdminsDashboardComponent, canActivate:[RoleGuard], data: {expectedRole: 'admin'}, children: [
       { path: '', redirectTo: 'users', pathMatch: 'full' },
-      // { path: 'users', component: UsersComponent },
       { path: 'users', component: UsersComponent },
       { path: 'technologies', component: TechnologiesComponent },
       { path: 'courses', component: CoursesComponent },

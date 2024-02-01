@@ -10,7 +10,6 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { InstructorsService } from './instructors-service/instructors.service';
 import { AlertsService } from 'src/app/shared/services/alerts/alerts.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormControl } from '@angular/forms';
 import { of } from 'rxjs';
 
 describe('InstructorsComponent', () => {
